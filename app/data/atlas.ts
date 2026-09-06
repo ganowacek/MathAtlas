@@ -1820,11 +1820,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
     keyIdeas: ['completeness', 'soundness', 'privacy', 'interactive proofs'],
   },
-  'probability:central-limit-theorem': {
-    formal:
-      'Under broad hypotheses, normalized sums of independent random variables converge in distribution to a normal law.',
-    keyIdeas: ['normal approximation', 'convergence in distribution', 'scaling', 'universality'],
-  },
   'topology:homology': {
     formal:
       'Homology assigns algebraic invariants to spaces by taking cycles modulo boundaries in a chain complex.',
@@ -2664,6 +2659,423 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: Group representation', url: 'https://en.wikipedia.org/wiki/Group_representation', kind: 'encyclopedia' },
     ],
   },
+  'probability:sample-spaces': {
+    overview:
+      'A sample space is the set of all possible outcomes of a random experiment, and an event is a subset of it. Probability theory begins by assigning a number between 0 and 1 to each event, consistently with a few natural axioms, and everything else in the subject is built on top of that single starting point.',
+    formal:
+      "A probability space is a triple $(\\Omega,\\mathcal{F},\\mathbb{P})$ where $\\Omega$ is the sample space, $\\mathcal{F}$ is a $\\sigma$-algebra of subsets of $\\Omega$ (the events), and $\\mathbb{P}:\\mathcal{F}\\to[0,1]$ satisfies Kolmogorov's axioms: $\\mathbb{P}(\\Omega)=1$, and for pairwise disjoint $A_1,A_2,\\ldots\\in\\mathcal{F}$, $\\mathbb{P}\\!\\left(\\bigcup_i A_i\\right)=\\sum_i \\mathbb{P}(A_i)$. Conditional probability is $\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$ when $\\mathbb{P}(B)>0$, and events $A,B$ are independent if $\\mathbb{P}(A\\cap B)=\\mathbb{P}(A)\\mathbb{P}(B)$.",
+    keyIdeas: [
+      'sample spaces, events, and the $\\sigma$-algebra of measurable events',
+      "Kolmogorov's axioms as the rigorous foundation of probability",
+      "conditional probability and Bayes' theorem",
+      'independence of events versus mere uncorrelation',
+      'discrete versus continuous probability spaces',
+    ],
+    whyItMatters:
+      'Before Kolmogorov, "probability" meant different, ad hoc things in gambling, statistics, and physics; recasting it as measure theory in disguise — a probability is just a measure with total mass 1 — let a single rigorous framework unify discrete card games, continuous measurement error, and infinite sequences of coin flips.',
+    prerequisites: [],
+    related: ['probability:random-variables', 'analysis:measure-theory', 'statistics:estimation'],
+    historicalContext:
+      "Gerolamo Cardano's Liber de ludo aleae (written c. 1564, published 1663) made the first systematic attempt to compute odds in games of chance. The subject is conventionally dated to the 1654 correspondence between Blaise Pascal and Pierre de Fermat on how to fairly divide the stakes of an interrupted game, which effectively invented the idea of averaging an outcome across equally likely cases. Christiaan Huygens's De ratiociniis in ludo aleae (1657) was the first published probability text, systematizing the Pascal-Fermat correspondence, but the field lacked rigorous foundations for nearly three centuries until Andrey Kolmogorov's Grundbegriffe der Wahrscheinlichkeitsrechnung (1933) built probability entirely on the measure theory of Borel and Lebesgue.",
+    contributorIds: ['person:blaise-pascal', 'person:christiaan-huygens', 'person:andrey-kolmogorov'],
+    workIds: ['work:de-ratiociniis-in-ludo-aleae'],
+    exampleProblems: [
+      'Two fair dice are rolled; define the sample space, and compute the probability the sum is 7 given that at least one die shows a 4.',
+      'Use Bayes\' theorem to solve the classic "false positive" problem: given a rare disease and an imperfect test, find the probability of actually having the disease given a positive test result.',
+      'Show that pairwise independence of three events does not imply their mutual independence.',
+    ],
+    applications: [
+      'risk assessment and actuarial science',
+      'medical testing and diagnostic reasoning via Bayes\' theorem',
+      'quality control and statistical sampling',
+      'the foundations of statistical inference and machine learning',
+    ],
+    researchDirections: [
+      'foundations of probability beyond Kolmogorov (imprecise probability, free probability)',
+      'quantum probability spaces for quantum information theory',
+      'computational and algorithmic approaches to probability (sampling and simulation for intractable probability spaces)',
+    ],
+    textbooks: [
+      {
+        title: 'A First Course in Probability',
+        authors: ['Sheldon Ross'],
+        edition: '10th',
+        year: 2019,
+        why: 'The most widely used undergraduate probability textbook, known for its large collection of concrete, worked combinatorial examples.',
+      },
+      {
+        title: 'An Introduction to Probability Theory and Its Applications, Vol. 1',
+        authors: ['William Feller'],
+        edition: '3rd',
+        year: 1968,
+        why: 'A classic, still highly regarded text combining rigor with deep intuition, long a standard reference at MIT and beyond.',
+      },
+      {
+        title: 'Probability and Random Processes',
+        authors: ['Geoffrey Grimmett', 'David Stirzaker'],
+        edition: '3rd',
+        year: 2001,
+        why: "The standard text for Cambridge's probability courses, covering the axiomatic foundations through random processes.",
+      },
+    ],
+    keyFormulas: [
+      { label: "Kolmogorov's axioms", latex: '\\mathbb{P}(\\Omega)=1,\\qquad \\mathbb{P}\\!\\left(\\bigcup_i A_i\\right)=\\sum_i \\mathbb{P}(A_i)\\ \\text{(disjoint } A_i\\text{)}' },
+      { label: 'Conditional probability', latex: '\\mathbb{P}(A\\mid B)=\\frac{\\mathbb{P}(A\\cap B)}{\\mathbb{P}(B)}' },
+      { label: "Bayes' theorem", latex: '\\mathbb{P}(A\\mid B)=\\frac{\\mathbb{P}(B\\mid A)\\,\\mathbb{P}(A)}{\\mathbb{P}(B)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Probability space', url: 'https://encyclopediaofmath.org/wiki/Probability_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Blaise Pascal', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Pascal/', kind: 'reference' },
+      { label: 'MacTutor: Christiaan Huygens', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Huygens/', kind: 'reference' },
+    ],
+  },
+  'probability:random-variables': {
+    overview:
+      'A random variable turns the outcomes of a random experiment into numbers, letting the tools of algebra and calculus be applied to randomness. Formally, it is nothing more than a measurable function from the sample space to the real numbers.',
+    formal:
+      'A random variable $X$ on a probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measurable function $X:\\Omega\\to\\mathbb{R}$, i.e. $X^{-1}((-\\infty,x])\\in\\mathcal{F}$ for every $x$. Its cumulative distribution function is $F_X(x)=\\mathbb{P}(X\\le x)$; $X$ is discrete if it takes countably many values with probability mass function $p(x)=\\mathbb{P}(X=x)$, and continuous if $F_X(x)=\\int_{-\\infty}^x f(t)\\,dt$ for a density $f$. Random variables $X_1,\\ldots,X_n$ are independent if their joint CDF factors as $F(x_1,\\ldots,x_n)=\\prod_i F_{X_i}(x_i)$.',
+    keyIdeas: [
+      'a random variable as a measurable function on a probability space',
+      'the cumulative distribution function as a complete description of a random variable',
+      'discrete (probability mass function) versus continuous (density) random variables',
+      'joint distributions and independence',
+      'transformations of random variables and the change-of-variables formula for densities',
+    ],
+    whyItMatters:
+      'Casting a random quantity as a function rather than a table of outcomes lets probability theory borrow the full machinery of calculus and measure theory: expectations become integrals, and questions about sums of random effects become questions about convolutions of distributions.',
+    prerequisites: ['probability:sample-spaces'],
+    related: ['probability:expectation', 'statistics:estimation', 'analysis:measure-theory'],
+    historicalContext:
+      "Pafnuty Chebyshev's 1867 paper on mean values was, in Kolmogorov's later assessment, the first place the role of a random variable and its expectation was made explicit and used systematically, even though the modern name and definition came later. The realization that a random variable is simply a special case of a measurable function became clear only once Kolmogorov's 1933 Grundbegriffe recast the entire theory in measure-theoretic language, unifying what had been separate discrete and continuous treatments — with separate sums and integrals — into a single Lebesgue-integral-based framework.",
+    contributorIds: ['person:pafnuty-chebyshev', 'person:andrey-kolmogorov'],
+    workIds: [],
+    exampleProblems: [
+      'Let $X$ be the number of heads in 3 fair coin flips; write down its probability mass function and CDF.',
+      'If $X$ is uniform on $[0,1]$, find the density of $Y=X^2$ using the change-of-variables formula.',
+      'Show that if $X$ and $Y$ are independent, then $\\mathbb{E}[XY]=\\mathbb{E}[X]\\mathbb{E}[Y]$, and give an example where the converse fails.',
+    ],
+    applications: [
+      'modeling measurement error and noise in engineering and physics',
+      'simulation and Monte Carlo methods in computational science',
+      'quantitative finance, modeling asset prices as random variables',
+      'statistical modeling of data-generating processes',
+    ],
+    researchDirections: [
+      'heavy-tailed and extreme-value distributions in risk modeling',
+      'high-dimensional and functional random variables (random processes, random fields)',
+      'computational and algorithmic sampling of complex random variables',
+    ],
+    textbooks: [
+      {
+        title: 'A First Course in Probability',
+        authors: ['Sheldon Ross'],
+        edition: '10th',
+        year: 2019,
+        why: 'Builds discrete and continuous random variables side by side with extensive worked examples before unifying them.',
+      },
+      {
+        title: 'An Introduction to Probability Theory and Its Applications, Vol. 1',
+        authors: ['William Feller'],
+        edition: '3rd',
+        year: 1968,
+        why: 'Gives deep intuition for discrete random variables and distributions alongside rigorous derivations.',
+      },
+      {
+        title: 'Probability and Measure',
+        authors: ['Patrick Billingsley'],
+        edition: '3rd',
+        year: 1995,
+        why: 'The standard graduate reference presenting random variables in their fully general measure-theoretic form.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cumulative distribution function', latex: 'F_X(x) = \\mathbb{P}(X \\le x)' },
+      { label: 'Discrete normalization', latex: '\\sum_x p(x) = 1' },
+      { label: 'Change of variables for densities', latex: 'f_Y(y) = f_X(g^{-1}(y))\\,\\left|\\frac{d}{dy}g^{-1}(y)\\right|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Random variable', url: 'https://encyclopediaofmath.org/wiki/Random_variable', kind: 'encyclopedia' },
+      { label: 'MacTutor: Pafnuty Chebyshev', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Chebyshev/', kind: 'reference' },
+      { label: 'Wikipedia: Random variable', url: 'https://en.wikipedia.org/wiki/Random_variable', kind: 'encyclopedia' },
+    ],
+  },
+  'probability:expectation': {
+    overview:
+      "The expectation of a random variable is its probability-weighted average — the long-run average value you'd see if you repeated the underlying random experiment indefinitely. It is the single most useful summary of a distribution, and its algebraic properties, especially linearity, make it far easier to compute with than the full distribution itself.",
+    formal:
+      "For discrete $X$, $\\mathbb{E}[X]=\\sum_x x\\,\\mathbb{P}(X=x)$; for continuous $X$ with density $f$, $\\mathbb{E}[X]=\\int_{-\\infty}^{\\infty} x f(x)\\,dx$; in general $\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$. Expectation is linear regardless of dependence: $\\mathbb{E}[aX+bY]=a\\mathbb{E}[X]+b\\mathbb{E}[Y]$. The variance is $\\text{Var}(X)=\\mathbb{E}[(X-\\mathbb{E}X)^2]=\\mathbb{E}[X^2]-(\\mathbb{E}X)^2$, and Chebyshev's inequality gives a quantitative tail bound: $\\mathbb{P}(|X-\\mathbb{E}X|\\ge k)\\le \\text{Var}(X)/k^2$.",
+    keyIdeas: [
+      'expectation as a probability-weighted average, unified via the Lebesgue integral',
+      'linearity of expectation, which holds regardless of independence',
+      "variance, covariance, and Chebyshev's inequality",
+      'conditional expectation as the best predictor given partial information',
+      'moment generating and characteristic functions built from expectations of powers',
+    ],
+    whyItMatters:
+      'Linearity of expectation is one of the most quietly powerful tools in mathematics: it lets you compute the average of a complicated sum of dependent random variables — such as the expected number of fixed points of a random permutation, or the expected number of collisions in a hashing scheme — without ever needing to know the full joint distribution.',
+    prerequisites: ['probability:random-variables'],
+    related: ['probability:law-of-large-numbers', 'statistics:estimation', 'analysis:integration'],
+    historicalContext:
+      "The idea of a 'fair price' for a gamble — essentially expectation — emerged from the 1654 Pascal-Fermat correspondence and was formalized by Christiaan Huygens in De ratiociniis in ludo aleae (1657), the earliest systematic treatment of expected value. Pafnuty Chebyshev's 1867 paper established the general deviation inequality now bearing his name, providing the first general tool for bounding how far a random variable can stray from its expectation using only its variance.",
+    contributorIds: ['person:christiaan-huygens', 'person:pafnuty-chebyshev'],
+    workIds: ['work:de-ratiociniis-in-ludo-aleae'],
+    exampleProblems: [
+      'Compute the expected number of fixed points of a uniformly random permutation of $\\{1,\\ldots,n\\}$ using linearity of expectation.',
+      "Use Chebyshev's inequality to bound the probability that the average of 100 independent fair die rolls differs from 3.5 by more than 0.5.",
+      'Compute $\\text{Var}(X+Y)$ for independent $X,Y$ and explain why the cross term vanishes.',
+    ],
+    applications: [
+      'expected value calculations in insurance and actuarial pricing',
+      'variance-based portfolio theory and risk management in finance',
+      'analysis-of-algorithms techniques for computing expected running time',
+      'statistical estimation, where sample means estimate a population expectation',
+    ],
+    researchDirections: [
+      'concentration of measure and modern tail-bound techniques beyond Chebyshev (Chernoff, Hoeffding)',
+      'conditional expectation and martingale theory',
+      'expectation in non-classical probability frameworks (quantum probability, imprecise probability)',
+    ],
+    textbooks: [
+      {
+        title: 'A First Course in Probability',
+        authors: ['Sheldon Ross'],
+        edition: '10th',
+        year: 2019,
+        why: 'Gives a thorough, example-driven treatment of expectation, variance, and covariance at the undergraduate level.',
+      },
+      {
+        title: 'Probability and Random Processes',
+        authors: ['Geoffrey Grimmett', 'David Stirzaker'],
+        edition: '3rd',
+        year: 2001,
+        why: 'Develops expectation and conditional expectation carefully en route to martingales and random processes.',
+      },
+      {
+        title: 'Probability: Theory and Examples',
+        authors: ['Rick Durrett'],
+        edition: '5th',
+        year: 2019,
+        why: 'The standard graduate text, treating expectation as a Lebesgue integral from the outset.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Expectation (discrete/continuous)', latex: '\\mathbb{E}[X]=\\sum_x x\\,\\mathbb{P}(X=x) \\quad\\text{or}\\quad \\int x f(x)\\,dx' },
+      { label: 'Linearity of expectation', latex: '\\mathbb{E}[aX+bY]=a\\mathbb{E}[X]+b\\mathbb{E}[Y]' },
+      { label: "Chebyshev's inequality", latex: '\\mathbb{P}(|X-\\mathbb{E}X|\\ge k) \\le \\frac{\\text{Var}(X)}{k^2}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Mathematical expectation', url: 'https://encyclopediaofmath.org/wiki/Mathematical_expectation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Christiaan Huygens', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Huygens/', kind: 'reference' },
+      { label: 'MacTutor: Pafnuty Chebyshev', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Chebyshev/', kind: 'reference' },
+    ],
+  },
+  'probability:law-of-large-numbers': {
+    overview:
+      'The law of large numbers says that the average of many independent, identically distributed random quantities settles down close to their common expected value as the number of trials grows — the mathematical justification for why long-run frequencies and averages are predictable even though individual outcomes are not.',
+    formal:
+      'If $X_1,X_2,\\ldots$ are i.i.d. with $\\mathbb{E}|X_1|<\\infty$ and $\\mathbb{E}[X_1]=\\mu$, the Strong Law of Large Numbers states $\\bar X_n=\\frac{1}{n}\\sum_{i=1}^n X_i \\to \\mu$ almost surely as $n\\to\\infty$. The weaker Weak Law of Large Numbers asserts only convergence in probability, $\\forall\\varepsilon>0,\\ \\mathbb{P}(|\\bar X_n-\\mu|>\\varepsilon)\\to 0$, which follows quickly from Chebyshev\'s inequality when $X_1$ has finite variance.',
+    keyIdeas: [
+      'the weak law: convergence in probability of the sample mean to the true mean',
+      'the strong law: almost-sure convergence, a fundamentally stronger statement',
+      'the role of independence and finite expectation as hypotheses',
+      'the law of large numbers as the mathematical justification for frequentist probability',
+      "Kolmogorov's 0-1 law and the theory of almost-sure convergence underlying the strong law",
+    ],
+    whyItMatters:
+      'The law of large numbers is the theorem that makes "probability" meaningful in the frequentist sense at all: it explains why casinos, insurance companies, and pollsters can make confident predictions about aggregates even while individual outcomes remain totally unpredictable, and it justifies using a sample average as an estimate of a true population mean.',
+    prerequisites: ['probability:expectation'],
+    related: ['probability:central-limit-theorem', 'statistics:estimation', 'dynamical-systems:ergodic-theory'],
+    historicalContext:
+      'Jacob Bernoulli proved the first version, now called the weak law of large numbers, in his posthumously published Ars Conjectandi (1713), for the proportion of successes in repeated independent trials — what would now be called Bernoulli trials — and called the result his "golden theorem." Siméon Denis Poisson coined the phrase "law of large numbers" in 1835 while extending Bernoulli\'s result. The strong law, a substantially deeper almost-sure statement, was proved by Francesco Cantelli (1917) and put into definitive, general form by Andrey Kolmogorov in the 1930s using the measure-theoretic foundations he had just established.',
+    contributorIds: ['person:jacob-bernoulli', 'person:andrey-kolmogorov'],
+    workIds: ['work:ars-conjectandi'],
+    exampleProblems: [
+      'Explain why the proportion of heads in repeated fair coin flips converges to $1/2$, distinguishing the weak and strong law statements.',
+      "Use Chebyshev's inequality to prove the weak law of large numbers for i.i.d. random variables with finite variance.",
+      'Give an example of a sequence of random variables that converges in probability but not almost surely, illustrating why the strong law is genuinely stronger.',
+    ],
+    applications: [
+      'justifying Monte Carlo simulation, where sample averages estimate true expectations',
+      'statistical estimation and the consistency of the sample mean as an estimator',
+      'insurance and actuarial risk pooling, which relies on averages stabilizing over many policies',
+      'polling and survey sampling',
+    ],
+    researchDirections: [
+      'rates of convergence and large-deviations theory quantifying how rarely the sample mean deviates from the true mean',
+      'laws of large numbers for dependent and weakly dependent sequences (ergodic theorems)',
+      'laws of large numbers for random variables in Banach spaces and other infinite-dimensional settings',
+    ],
+    textbooks: [
+      {
+        title: 'Probability: Theory and Examples',
+        authors: ['Rick Durrett'],
+        edition: '5th',
+        year: 2019,
+        why: 'The standard modern graduate text, with a careful, complete treatment of both the weak and strong laws.',
+      },
+      {
+        title: 'An Introduction to Probability Theory and Its Applications, Vol. 1',
+        authors: ['William Feller'],
+        edition: '3rd',
+        year: 1968,
+        why: 'Gives an unusually intuitive discussion of why the law of large numbers holds and where naive intuition about randomness goes wrong.',
+      },
+      {
+        title: 'Probability and Measure',
+        authors: ['Patrick Billingsley'],
+        edition: '3rd',
+        year: 1995,
+        why: 'The classic rigorous graduate reference for almost-sure convergence and the strong law.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Weak law of large numbers', latex: '\\forall\\varepsilon>0,\\ \\mathbb{P}(|\\bar X_n - \\mu| > \\varepsilon) \\to 0' },
+      { label: 'Strong law of large numbers', latex: '\\bar X_n \\to \\mu \\ \\text{almost surely}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Strong law of large numbers', url: 'https://encyclopediaofmath.org/wiki/Strong_law_of_large_numbers', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jacob Bernoulli', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bernoulli_Jacob/', kind: 'reference' },
+      { label: 'MacTutor: Andrey Kolmogorov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kolmogorov/', kind: 'reference' },
+    ],
+  },
+  'probability:central-limit-theorem': {
+    overview:
+      'The central limit theorem explains why the normal ("bell curve") distribution appears so often in nature and statistics: no matter what distribution individual random effects follow, as long as they have finite variance, the properly rescaled sum of many independent copies of them converges to a normal distribution.',
+    formal:
+      'If $X_1,X_2,\\ldots$ are i.i.d. with mean $\\mu$ and finite variance $\\sigma^2>0$, then $\\dfrac{\\sum_{i=1}^n X_i - n\\mu}{\\sigma\\sqrt n} \\xrightarrow{d} N(0,1)$ as $n\\to\\infty$. The Berry-Esseen theorem quantifies the rate of this convergence: $\\sup_x |F_n(x)-\\Phi(x)| \\le \\dfrac{C\\,\\mathbb{E}|X_1-\\mu|^3}{\\sigma^3\\sqrt n}$ for an absolute constant $C$.',
+    keyIdeas: [
+      'convergence in distribution of a standardized sum to the normal distribution',
+      "universality: the limiting distribution doesn't depend on the shape of the original distribution, only its mean and variance",
+      'the De Moivre-Laplace theorem as the special (binomial) case that started the theory',
+      'the Berry-Esseen theorem, quantifying the speed of convergence to normality',
+      'the role of characteristic functions in proving the central limit theorem',
+    ],
+    whyItMatters:
+      'The central limit theorem is the reason the normal distribution is ubiquitous in statistics and the sciences: measurement errors, biological traits, and sample means all tend toward bell-curve behavior because they arise as sums or averages of many small, roughly independent effects, regardless of each individual effect\'s own distribution.',
+    prerequisites: ['probability:law-of-large-numbers'],
+    related: ['statistics:hypothesis-testing', 'probability:random-variables', 'harmonic-analysis:fourier-transform'],
+    historicalContext:
+      'Abraham de Moivre proved the first special case in 1733, approximating the binomial distribution by the normal curve as the number of trials grows. Pierre-Simon Laplace rediscovered, substantially generalized, and popularized the result in Théorie analytique des probabilités (1812) — together their result is now called the De Moivre-Laplace theorem. The general theorem for arbitrary finite-variance distributions was proved rigorously in the early 20th century by Aleksandr Lyapunov (1901) using characteristic functions, and Jarl Waldemar Lindeberg (1922) relaxed Lyapunov\'s moment conditions to essentially the minimal hypothesis used today.',
+    contributorIds: ['person:abraham-de-moivre', 'person:pierre-simon-laplace'],
+    workIds: [],
+    exampleProblems: [
+      'Use the De Moivre-Laplace theorem to approximate the probability of getting between 45 and 55 heads in 100 fair coin flips.',
+      'Explain, using characteristic functions, why the central limit theorem holds regardless of the shape of the underlying distribution, as long as its variance is finite.',
+      'Give an example of a distribution with infinite variance for which the classical central limit theorem fails, and describe qualitatively what replaces the normal limit.',
+    ],
+    applications: [
+      'justifying the normal approximation used throughout classical statistics (confidence intervals, hypothesis tests)',
+      'statistical physics, where the theorem explains Gaussian fluctuations in systems of many particles',
+      'signal processing, where noise is often modeled as Gaussian because it aggregates many small independent effects',
+      'quality control and Six Sigma methodology in manufacturing',
+    ],
+    researchDirections: [
+      "rates of convergence and Stein's method for proving and quantifying central limit theorems",
+      'central limit theorems for dependent and weakly dependent sequences (martingale central limit theorems)',
+      'generalized central limit theorems for heavy-tailed distributions with infinite variance (stable distributions)',
+    ],
+    textbooks: [
+      {
+        title: 'Probability: Theory and Examples',
+        authors: ['Rick Durrett'],
+        edition: '5th',
+        year: 2019,
+        why: 'Gives a complete, modern proof of the central limit theorem via characteristic functions, alongside its many refinements.',
+      },
+      {
+        title: 'An Introduction to Probability Theory and Its Applications, Vol. 2',
+        authors: ['William Feller'],
+        edition: '2nd',
+        year: 1971,
+        why: 'Covers the central limit theorem and its generalizations (stable laws, infinitely divisible distributions) in unusual depth.',
+      },
+      {
+        title: 'Probability and Measure',
+        authors: ['Patrick Billingsley'],
+        edition: '3rd',
+        year: 1995,
+        why: 'The standard rigorous graduate treatment of weak convergence and the central limit theorem.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Central limit theorem', latex: '\\frac{\\sum_{i=1}^n X_i - n\\mu}{\\sigma\\sqrt{n}} \\xrightarrow{d} N(0,1)' },
+      { label: 'Berry-Esseen bound', latex: '\\sup_x |F_n(x)-\\Phi(x)| \\le \\frac{C\\,\\mathbb{E}|X_1-\\mu|^3}{\\sigma^3\\sqrt{n}}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Central limit theorem', url: 'https://encyclopediaofmath.org/wiki/Central_limit_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Abraham de Moivre', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/De_Moivre/', kind: 'reference' },
+      { label: 'MacTutor: Pierre-Simon Laplace', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Laplace/', kind: 'reference' },
+    ],
+  },
+  'probability:markov-chains': {
+    overview:
+      'A Markov chain is a random process that moves between states such that the probability of the next state depends only on the current state, not on the full history that led there. This simple "memorylessness" assumption is nonetheless rich enough to model an enormous range of real systems.',
+    formal:
+      'A discrete-time Markov chain is a sequence of random variables $X_0,X_1,\\ldots$ taking values in a state space $S$ satisfying the Markov property $\\mathbb{P}(X_{n+1}=j\\mid X_0,\\ldots,X_n=i)=\\mathbb{P}(X_{n+1}=j\\mid X_n=i)=P_{ij}$, where $P=(P_{ij})$ is the transition matrix. A distribution $\\pi$ is stationary if $\\pi P=\\pi$; for an irreducible, aperiodic (ergodic) finite chain, $\\lim_{n\\to\\infty} P^n_{ij}=\\pi_j$ regardless of the starting state.',
+    keyIdeas: [
+      'the Markov property: the future depends on the past only through the present state',
+      'the transition matrix and n-step transition probabilities as its matrix powers',
+      'stationary distributions and long-run behavior',
+      'irreducibility, periodicity, and the ergodic theorem for Markov chains',
+      'Markov chain Monte Carlo as a computational technique for sampling from complex distributions',
+    ],
+    whyItMatters:
+      "The Markov property is a minimal, checkable assumption strong enough to make a random process fully computable via linear algebra (transition matrices), which is why Markov chains model everything from board games and queues to Google's PageRank algorithm and the Markov chain Monte Carlo methods that power modern Bayesian statistics.",
+    prerequisites: ['probability:central-limit-theorem'],
+    related: ['linear-algebra:eigenvalues', 'dynamical-systems:ergodic-theory', 'operations-research:queueing-theory'],
+    historicalContext:
+      "Andrei Andreyevich Markov introduced what are now called Markov chains in a 1906 paper analyzing the statistical dependence between consecutive letters in Pushkin's poem Eugene Onegin, specifically to show that the law of large numbers can hold even for dependent, not just independent, sequences of trials — contradicting an assertion by Pavel Nekrasov that independence was essential for it. Andrey Kolmogorov extended the theory to continuous time and general state spaces in the 1930s, and the Metropolis algorithm (1953), later generalized by W. Keith Hastings (1970), turned Markov chains into a practical computational tool — Markov chain Monte Carlo — for sampling from complicated probability distributions, now central to computational statistics and Bayesian inference.",
+    contributorIds: ['person:andrei-markov', 'person:andrey-kolmogorov'],
+    workIds: [],
+    exampleProblems: [
+      'Set up the transition matrix for a simple two-state weather model (sunny/rainy) and compute its 2-step transition probabilities.',
+      'Find the stationary distribution of a 3-state Markov chain and verify it satisfies $\\pi P = \\pi$.',
+      'Explain the basic idea of the Metropolis-Hastings algorithm as constructing a Markov chain whose stationary distribution is a desired target distribution.',
+    ],
+    applications: [
+      "Google's PageRank algorithm, modeling a web surfer as a Markov chain on hyperlinks",
+      'Markov chain Monte Carlo (MCMC) methods in Bayesian statistics and computational physics',
+      'queueing theory and inventory models in operations research',
+      'hidden Markov models in genetics, speech recognition, and natural language processing',
+    ],
+    researchDirections: [
+      'mixing times and spectral gap methods for bounding Markov chain convergence speed',
+      'Markov chain Monte Carlo algorithm design for high-dimensional Bayesian inference and statistical physics',
+      'Markov decision processes and reinforcement learning, extending Markov chains with actions and rewards',
+    ],
+    textbooks: [
+      {
+        title: 'Markov Chains',
+        authors: ['James R. Norris'],
+        year: 1997,
+        why: 'The standard dedicated Cambridge text on Markov chains, covering discrete and continuous time cases with a clean, rigorous style.',
+      },
+      {
+        title: 'Probability and Random Processes',
+        authors: ['Geoffrey Grimmett', 'David Stirzaker'],
+        edition: '3rd',
+        year: 2001,
+        why: 'Places Markov chains within the broader theory of random processes, widely used in Cambridge Part II/III courses.',
+      },
+      {
+        title: 'Introduction to Probability Models',
+        authors: ['Sheldon Ross'],
+        edition: '12th',
+        year: 2019,
+        why: 'A widely used, applications-oriented text with an extensive and accessible treatment of Markov chains.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Markov property', latex: '\\mathbb{P}(X_{n+1}=j \\mid X_0,\\ldots,X_n=i) = P_{ij}' },
+      { label: 'Stationary distribution', latex: '\\pi P = \\pi' },
+      { label: 'Ergodic theorem for Markov chains', latex: '\\lim_{n\\to\\infty} P^n_{ij} = \\pi_j' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Markov chain', url: 'https://encyclopediaofmath.org/wiki/Markov_chain', kind: 'encyclopedia' },
+      { label: 'MacTutor: Andrei Markov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Markov/', kind: 'reference' },
+      { label: 'Wikipedia: Markov chain', url: 'https://en.wikipedia.org/wiki/Markov_chain', kind: 'encyclopedia' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -2895,6 +3307,9 @@ const personRows = [
   ['Henri Lebesgue', '1875-1941', 'France', 'analysis', 'the Lebesgue integral and modern measure theory'],
   ['Ernst Steinitz', '1871-1928', 'Germany', 'algebra', 'the abstract axiomatic theory of fields'],
   ['Ferdinand Georg Frobenius', '1849-1917', 'Germany', 'algebra', 'representation theory and character theory of finite groups'],
+  ['Pafnuty Chebyshev', '1821-1894', 'Russia', 'probability', "Chebyshev's inequality and the explicit treatment of expectation"],
+  ['Abraham de Moivre', '1667-1754', 'France/England', 'probability', 'the first central limit theorem for the binomial distribution'],
+  ['Andrei Markov', '1856-1922', 'Russia', 'probability', 'Markov chains and dependent sequences of trials'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -2940,13 +3355,26 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity'],
   'person:emile-borel': ['analysis:measure-theory'],
   'person:henri-lebesgue': ['analysis:measure-theory'],
-  'person:andrey-kolmogorov': ['probability:sample-spaces', 'analysis:measure-theory'],
+  'person:andrey-kolmogorov': [
+    'probability:sample-spaces',
+    'analysis:measure-theory',
+    'probability:random-variables',
+    'probability:law-of-large-numbers',
+    'probability:markov-chains',
+  ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
   'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules'],
   'person:richard-dedekind': ['set-theory:naive-set-theory', 'algebra:rings', 'algebra:modules'],
   'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
   'person:ernst-steinitz': ['algebra:fields'],
   'person:ferdinand-georg-frobenius': ['algebra:representations'],
+  'person:blaise-pascal': ['probability:sample-spaces'],
+  'person:christiaan-huygens': ['probability:sample-spaces', 'probability:expectation'],
+  'person:jacob-bernoulli': ['probability:law-of-large-numbers'],
+  'person:pierre-simon-laplace': ['probability:central-limit-theorem'],
+  'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
+  'person:abraham-de-moivre': ['probability:central-limit-theorem'],
+  'person:andrei-markov': ['probability:markov-chains'],
 };
 
 export const people: Person[] = personRows.map(
@@ -3076,6 +3504,8 @@ const workTopicOverrides: Record<string, string[]> = {
     'algebra:fields',
     'algebra:groups',
   ],
+  'work:de-ratiociniis-in-ludo-aleae': ['probability:sample-spaces', 'probability:expectation'],
+  'work:ars-conjectandi': ['probability:law-of-large-numbers'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
