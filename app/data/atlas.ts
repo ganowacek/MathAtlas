@@ -5057,6 +5057,403 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
     ],
   },
+  'category-theory:categories-and-functors': {
+    overview:
+      'A category consists of objects and structure-preserving "arrows" (morphisms) between them, together with a way to compose arrows; a functor is a structure-preserving map from one category to another. Together they give mathematics a language for describing not just individual structures but the relationships and translations between entire fields of mathematics.',
+    formal:
+      'A category $\\mathcal{C}$ consists of a class of objects, and for each pair of objects $A,B$ a set of morphisms $\\text{Hom}(A,B)$, together with an associative composition operation and an identity morphism $1_A$ for each object $A$. A functor $F:\\mathcal{C}\\to\\mathcal{D}$ assigns to each object $A$ an object $F(A)$ and to each morphism $f:A\\to B$ a morphism $F(f):F(A)\\to F(B)$, preserving composition and identities: $F(g\\circ f)=F(g)\\circ F(f)$ and $F(1_A)=1_{F(A)}$.',
+    keyIdeas: [
+      'objects and morphisms as the two basic ingredients, with composition and identity',
+      'functors as structure-preserving maps between entire categories',
+      'covariant versus contravariant functors',
+      'categories as a way of organizing mathematics by its structure-preserving maps rather than by internal structure alone',
+      'isomorphism, monomorphism, and epimorphism defined purely in terms of morphisms, without reference to elements',
+    ],
+    whyItMatters:
+      "Category theory's insight — that a mathematical object is best understood through its relationships (morphisms) to other objects of the same kind, not by looking inside it — turned out to unify an enormous amount of previously disconnected mathematics, since the same categorical patterns (products, quotients, universal properties) recur nearly verbatim across groups, rings, vector spaces, topological spaces, and beyond.",
+    prerequisites: [],
+    related: ['category-theory:natural-transformations', 'abstract-algebra:homological-algebra', 'topology:homology'],
+    historicalContext:
+      'Samuel Eilenberg and Saunders Mac Lane introduced categories, functors, and natural transformations in their 1945 paper "General Theory of Natural Equivalences," motivated by the need to state precisely what it means for two constructions in algebraic topology to be "naturally" isomorphic, as opposed to merely isomorphic via an arbitrary, unnatural choice. What began as a convenient technical language for organizing algebraic topology gradually became a subject in its own right through the 1950s-60s, particularly through the work of Alexander Grothendieck in algebraic geometry, who used categorical methods on a previously unimaginable scale.',
+    contributorIds: ['person:saunders-mac-lane', 'person:samuel-eilenberg'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Verify that the collection of sets and functions forms a category, checking associativity of composition and the identity axiom.',
+      'Define the opposite category $\\mathcal{C}^{op}$ of a category $\\mathcal{C}$ and show that a contravariant functor $\\mathcal{C}\\to\\mathcal{D}$ is the same as a covariant functor $\\mathcal{C}^{op}\\to\\mathcal{D}$.',
+      'Show that a morphism with a two-sided inverse is automatically both a monomorphism and an epimorphism, and give an example of a morphism that is mono and epi but not an isomorphism.',
+    ],
+    applications: [
+      'providing a common language across algebra, topology, and geometry for stating and transporting theorems',
+      'functional programming languages, where functors, monads, and related categorical structures organize how computations compose',
+      'databases and data migration, using functorial data models to formally track schema translations',
+    ],
+    researchDirections: [
+      'higher category theory (2-categories, infinity-categories) formalizing categories of categories and homotopical structures',
+      'applied category theory, using categorical methods to model systems in physics, chemistry, and computer science',
+      'categorical logic and topos theory linking category theory back to foundations',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The canonical graduate text, written by one of the field\'s founders, that gives the subject its name.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'A modern, freely available, widely praised introduction connecting categorical ideas to concrete examples across mathematics.',
+      },
+      {
+        title: 'Category Theory',
+        authors: ['Steve Awodey'],
+        edition: '2nd',
+        year: 2010,
+        why: 'A widely used, accessible introduction popular in both mathematics and philosophy of mathematics courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Category axioms (composition and identity)', latex: 'h\\circ(g\\circ f) = (h\\circ g)\\circ f,\\qquad 1_B\\circ f = f = f\\circ 1_A' },
+      { label: 'Functoriality', latex: 'F(g\\circ f) = F(g)\\circ F(f),\\qquad F(1_A) = 1_{F(A)}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Category (mathematics)', url: 'https://en.wikipedia.org/wiki/Category_(mathematics)', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'category-theory:natural-transformations': {
+    overview:
+      'A natural transformation is a systematic, coherent way of turning one functor into another: a family of morphisms, one for each object, that fit together compatibly with all the structure-preserving maps in sight. Category theory was invented specifically to make this idea, "naturality," mathematically precise.',
+    formal:
+      'Given functors $F,G:\\mathcal{C}\\to\\mathcal{D}$, a natural transformation $\\eta:F\\Rightarrow G$ assigns to each object $A$ a morphism $\\eta_A:F(A)\\to G(A)$ such that for every morphism $f:A\\to B$, the naturality square commutes: $G(f)\\circ \\eta_A = \\eta_B \\circ F(f)$. If every $\\eta_A$ is an isomorphism, $\\eta$ is a natural isomorphism, expressing that $F$ and $G$ are "the same" in a canonical, choice-free way.',
+    keyIdeas: [
+      'a natural transformation as a coherent family of morphisms between the outputs of two functors',
+      'the naturality square, whose commutativity is the precise content of "naturality"',
+      'natural isomorphisms as a canonical, non-arbitrary notion of "the same" construction',
+      'functor categories, whose objects are functors and whose morphisms are natural transformations',
+      'the distinction between a construction being merely possible versus being natural (functorial)',
+    ],
+    whyItMatters:
+      'Natural transformations were, historically, category theory\'s original motivation: Eilenberg and Mac Lane needed to explain precisely why a vector space is naturally isomorphic to its double dual, using no arbitrary choice of basis, while it is only non-naturally isomorphic to its single dual, which does require a choice of basis — a distinction that turns out to matter throughout mathematics.',
+    prerequisites: ['category-theory:categories-and-functors'],
+    related: ['category-theory:adjunctions', 'category-theory:limits-and-colimits', 'algebraic-geometry:sheaves'],
+    historicalContext:
+      'Samuel Eilenberg and Saunders Mac Lane\'s foundational 1945 paper "General Theory of Natural Equivalences" introduced categories and functors specifically as the necessary scaffolding to define natural transformations rigorously, having found that earlier informal uses of "natural" in algebraic topology needed a precise mathematical meaning. The concept became central to the subject, culminating in the Yoneda lemma, due to Nobuo Yoneda and popularized by Mac Lane, which shows that an object is completely determined, up to natural isomorphism, by the network of natural transformations into or out of it.',
+    contributorIds: ['person:saunders-mac-lane', 'person:samuel-eilenberg'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the double-dual map $V\\to V^{**}$ for a finite-dimensional vector space is a natural transformation from the identity functor, while the single-dual isomorphism $V\\to V^*$ is not natural.',
+      'Verify the naturality square for the determinant transformation from $GL_n$ to the units functor, viewed on the category of commutative rings.',
+      'State the Yoneda lemma and explain, informally, why it says an object is "known by the company it keeps."',
+    ],
+    applications: [
+      'functional programming, where natural transformations formalize polymorphic functions behaving uniformly across all type instances',
+      'the precise formulation of "canonical" isomorphisms throughout algebra and topology',
+      'the Yoneda lemma\'s use in algebraic geometry (representable functors, moduli problems) and beyond',
+    ],
+    researchDirections: [
+      'higher-categorical generalizations of natural transformations (modifications, higher coherence data) in n-category theory',
+      'applications of the Yoneda philosophy in condensed and derived algebraic geometry',
+      'the use of natural transformations in formalized mathematics and dependently typed programming',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Gives the original, definitive treatment of natural transformations and the Yoneda lemma.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Builds up to the Yoneda lemma with unusually clear motivation and worked examples.',
+      },
+      {
+        title: 'Basic Category Theory',
+        authors: ['Tom Leinster'],
+        year: 2014,
+        why: 'A concise, well-regarded alternative that reaches natural transformations and Yoneda quickly and cleanly.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Naturality square', latex: 'G(f)\\circ \\eta_A = \\eta_B \\circ F(f)' },
+      { label: 'Yoneda lemma (informal)', latex: '\\text{Nat}(\\text{Hom}(A,-), F) \\cong F(A)' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Natural transformation', url: 'https://en.wikipedia.org/wiki/Natural_transformation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'category-theory:adjunctions': {
+    overview:
+      'An adjunction is a precise way of saying that two functors going in opposite directions between two categories are "approximately inverse," related by a natural correspondence of morphisms that captures an enormous number of "free" and "forgetful" constructions throughout mathematics as a single pattern.',
+    formal:
+      'Functors $F:\\mathcal{C}\\to\\mathcal{D}$ and $G:\\mathcal{D}\\to\\mathcal{C}$ form an adjunction, $F\\dashv G$, if there is a natural bijection $\\text{Hom}_{\\mathcal{D}}(F(A),B) \\cong \\text{Hom}_{\\mathcal{C}}(A,G(B))$ for all $A,B$. Equivalently, an adjunction can be given by a unit $\\eta:1_{\\mathcal{C}}\\Rightarrow GF$ and counit $\\varepsilon:FG\\Rightarrow 1_{\\mathcal{D}}$ satisfying the triangle identities.',
+    keyIdeas: [
+      'adjoint functors as an "approximate inverse" pair related by a natural bijection of morphisms',
+      'free-forgetful adjunctions as the paradigmatic example (free group, free vector space)',
+      'the unit and counit natural transformations, and the triangle identities they satisfy',
+      'left adjoints preserve colimits, right adjoints preserve limits',
+      'adjunctions as a uniform explanation for why so many "optimal" constructions exist across mathematics',
+    ],
+    whyItMatters:
+      'An enormous fraction of standard mathematical constructions — the free group on a set, the abelianization of a group, the Stone-Čech compactification of a space, polynomial rings as free commutative rings — are all instances of exactly one categorical pattern, the adjoint functor, which explains why all these "universal" constructions share the same formal properties without needing a separate proof each time.',
+    prerequisites: ['category-theory:natural-transformations'],
+    related: ['category-theory:limits-and-colimits', 'category-theory:topos-theory', 'algebra:modules'],
+    historicalContext:
+      'Daniel Kan introduced adjoint functors explicitly in a 1958 paper in the context of simplicial sets and algebraic topology, formalizing a pattern that had been used implicitly, for instance in free-group and Stone-Čech constructions, for decades beforehand. Saunders Mac Lane quickly recognized adjunctions as one of the central organizing concepts of category theory, summarizing the point of the whole subject with the slogan "adjoint functors arise everywhere," a claim borne out repeatedly as more classical constructions across algebra, topology, and logic were recognized as adjunctions in disguise.',
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the free group functor, from sets to groups, is left adjoint to the forgetful functor from groups to sets.',
+      'Verify the triangle identities for the free-forgetful adjunction between vector spaces and sets.',
+      'Explain why left adjoints preserve colimits, using the defining natural bijection of the adjunction.',
+    ],
+    applications: [
+      'the free-forgetful pattern underlying essentially every "free" algebraic construction (free groups, rings, modules, tensor algebras)',
+      'Galois connections in order theory and lattice theory as a special (poset-enriched) case of adjunctions',
+      'compilers and programming language semantics, where adjunctions model the relationship between syntax and semantics',
+    ],
+    researchDirections: [
+      'monads, arising from adjunctions, as a unifying framework for notions of computation in programming language theory',
+      'enriched and higher-categorical generalizations of adjunctions',
+      'the use of adjunctions in categorical logic to relate syntax (theories) and semantics (models)',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Contains the classic, thorough treatment of adjoint functors from one of the concept\'s earliest champions.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Motivates adjunctions through many concrete free-forgetful examples before formalizing the general pattern.',
+      },
+      {
+        title: 'Category Theory',
+        authors: ['Steve Awodey'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Gives a clean, accessible development of adjunctions building on universal properties.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Adjunction hom-set bijection', latex: '\\text{Hom}_{\\mathcal{D}}(F(A),B) \\cong \\text{Hom}_{\\mathcal{C}}(A,G(B))' },
+      { label: 'Triangle identities', latex: '(\\varepsilon F)\\circ(F\\eta) = 1_F,\\qquad (G\\varepsilon)\\circ(\\eta G) = 1_G' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Adjoint functor', url: 'https://encyclopediaofmath.org/wiki/Adjoint_functor', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'Wikipedia: Adjoint functors', url: 'https://en.wikipedia.org/wiki/Adjoint_functors', kind: 'encyclopedia' },
+    ],
+  },
+  'category-theory:limits-and-colimits': {
+    overview:
+      'Limits and colimits are the categorical generalization of familiar constructions like products, intersections, unions, and gluing: each is defined not by describing its elements directly, but by a universal property specifying exactly how it relates to everything else in the category.',
+    formal:
+      'The limit of a diagram $D:\\mathcal{J}\\to\\mathcal{C}$ is an object $\\lim D$ with morphisms to each $D(j)$, universal among all such cones. The colimit is the dual notion, universal among cocones out of the diagram. Products, equalizers, and pullbacks are all limits over specific small diagrams; coproducts, coequalizers, and pushouts are the corresponding colimits.',
+    keyIdeas: [
+      'a universal property as a definition by relationship rather than by internal construction',
+      'limits (products, equalizers, pullbacks) as the "largest compatible" gluing of a diagram',
+      'colimits (coproducts, coequalizers, pushouts) as the dual, "smallest sufficient" gluing',
+      'completeness and cocompleteness: a category having all small limits or colimits',
+      'limits and colimits as simultaneously generalizing constructions from set theory, algebra, and topology',
+    ],
+    whyItMatters:
+      'Defining a construction by a universal property, rather than by an explicit formula, is what lets the same definition of "product" work uniformly for sets, groups, topological spaces, and vector spaces at once, and this uniformity is precisely what lets theorems about limits and colimits (e.g. that right adjoints preserve limits) apply across all of these settings simultaneously without needing separate proofs.',
+    prerequisites: ['category-theory:adjunctions'],
+    related: ['category-theory:monoidal-categories', 'algebraic-geometry:sheaves', 'topology:point-set-topology'],
+    historicalContext:
+      "The universal-property style of definition emerged gradually through Emmy Noether's structural approach to algebra in the 1920s and Bourbaki's structuralist program from the 1930s onward, before category theory gave it a fully general formulation. Once Eilenberg and Mac Lane's categorical framework was in place in the late 1940s-50s, limits and colimits, initially called 'inverse' and 'direct' limits following earlier usage in algebraic topology, were recognized as instances of a single general categorical construction, systematically developed through the 1950s-60s.",
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the categorical product in the category of sets is the ordinary Cartesian product, by verifying the universal property directly.',
+      'Construct the pushout of two group homomorphisms with a common domain, and identify it with the amalgamated free product.',
+      'Explain why a right adjoint functor automatically preserves limits, using the defining adjunction bijection.',
+    ],
+    applications: [
+      'gluing constructions in algebraic topology and algebraic geometry (pushouts for gluing spaces, fiber products for gluing schemes)',
+      'database theory, where limits and colimits model joins and unions of relational data schemas',
+      'type theory and functional programming, where product and sum types are literally categorical limits and colimits',
+    ],
+    researchDirections: [
+      'homotopy limits and colimits, refining ordinary limits/colimits to be well-behaved up to homotopy in higher category theory',
+      'limits and colimits in enriched and higher categories (infinity-categories)',
+      'applied category theory\'s use of limits and colimits to compose complex systems from simple parts',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The definitive treatment of limits and colimits and their relationship to adjoint functors.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Builds limits and colimits up from concrete examples (products, pullbacks) toward the general universal property.',
+      },
+      {
+        title: 'Handbook of Categorical Algebra, Vol. 1',
+        authors: ['Francis Borceux'],
+        year: 1994,
+        why: 'A comprehensive reference for limits, colimits, and their many variants at the graduate level.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Universal property of a limit', latex: '\\text{Hom}(X, \\lim D) \\cong \\lim_j \\text{Hom}(X, D(j))' },
+      { label: 'Product as a limit', latex: 'A \\times B = \\lim(A \\to \\bullet \\leftarrow B)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Inductive limit', url: 'https://encyclopediaofmath.org/wiki/Inductive_limit', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Projective limit', url: 'https://encyclopediaofmath.org/wiki/Projective_limit', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+    ],
+  },
+  'category-theory:monoidal-categories': {
+    overview:
+      'A monoidal category is a category equipped with a "tensor product" — a way of combining two objects into a new one, associative and unital up to coherent natural isomorphism — abstracting the pattern shared by the Cartesian product of sets, the tensor product of vector spaces, and the composition of processes in quantum mechanics or computation.',
+    formal:
+      'A monoidal category is a category $\\mathcal{C}$ with a bifunctor $\\otimes:\\mathcal{C}\\times\\mathcal{C}\\to\\mathcal{C}$, a unit object $I$, and natural isomorphisms — the associator $\\alpha_{A,B,C}:(A\\otimes B)\\otimes C\\cong A\\otimes(B\\otimes C)$ and unitors $\\lambda_A,\\rho_A$ — satisfying the pentagon and triangle coherence conditions. Mac Lane\'s coherence theorem shows these finitely many conditions suffice to guarantee every diagram built from associators and unitors commutes.',
+    keyIdeas: [
+      'a tensor product bifunctor generalizing Cartesian products, tensor products of vector spaces, and more',
+      'associativity and unitality only up to coherent natural isomorphism, not literal equality',
+      "Mac Lane's coherence theorem: finitely many axioms guarantee all rebracketings agree",
+      'braided and symmetric monoidal categories, adding a controlled notion of "swap"',
+      'string diagrams as a graphical calculus for computing in monoidal categories',
+    ],
+    whyItMatters:
+      'Monoidal categories give a single abstract framework covering an enormous range of "combination" operations across mathematics and physics — vector spaces under tensor product, sets under Cartesian product, and quantum processes under parallel composition are all monoidal categories — and their associated string-diagram calculus has become a genuinely practical computational tool in quantum computing and physics, not just an abstraction.',
+    prerequisites: ['category-theory:limits-and-colimits'],
+    related: ['category-theory:topos-theory', 'lie-theory:representation-of-lie-groups', 'theoretical-cs:quantum-computation'],
+    historicalContext:
+      'Saunders Mac Lane introduced monoidal categories, initially called "categories with multiplication," in a 1963 paper and proved his celebrated coherence theorem there, showing that the seemingly infinite family of ways to rebracket and reorder a tensor product all reduce to checking two finite diagrams. The subject gained major new applications from the 1980s onward through connections to knot theory and low-dimensional topology via braided monoidal categories and quantum groups, developed by Vladimir Drinfeld and others, and, more recently, through Bob Coecke and Samson Abramsky\'s early-2000s categorical formulation of quantum mechanics using monoidal categories and string diagrams.',
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Verify that vector spaces with the usual tensor product form a monoidal category, identifying the unit object and checking the pentagon identity informally.',
+      'Explain the difference between a braided and a symmetric monoidal category, in terms of what happens when you swap an object with itself twice.',
+      'Translate a simple algebraic identity, such as associativity of tensor product, into a string diagram.',
+    ],
+    applications: [
+      'quantum computing and quantum information theory, modeling quantum processes and their composition as a symmetric monoidal category',
+      'knot theory and low-dimensional topology, via braided monoidal categories associated to quantum groups',
+      'representation theory, where categories of representations naturally carry a monoidal structure via tensor product',
+    ],
+    researchDirections: [
+      'categorical quantum mechanics, using monoidal categories and string diagrams as a foundational and computational tool',
+      'higher (2-categorical and beyond) monoidal structures relevant to topological quantum field theory',
+      'applied category theory\'s use of monoidal categories, via "process theories," to model resource-sensitive systems',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Contains Mac Lane\'s own definitive treatment of monoidal categories and the coherence theorem.',
+      },
+      {
+        title: 'Picturing Quantum Processes',
+        authors: ['Bob Coecke', 'Aleks Kissinger'],
+        year: 2017,
+        why: 'The standard modern reference connecting monoidal categories to string diagrams and quantum computation.',
+      },
+      {
+        title: 'Algebra: Chapter 0',
+        authors: ['Paolo Aluffi'],
+        year: 2009,
+        why: 'Introduces monoidal and categorical ideas alongside a standard algebra course, a gentle entry point.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Associator', latex: '\\alpha_{A,B,C}: (A\\otimes B)\\otimes C \\xrightarrow{\\cong} A\\otimes(B\\otimes C)' },
+      { label: "Mac Lane's coherence theorem (informal)", latex: '\\text{pentagon + triangle axioms} \\implies \\text{all rebracketings agree}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Monoidal category', url: 'https://en.wikipedia.org/wiki/Monoidal_category', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Closed monoidal category', url: 'https://encyclopediaofmath.org/wiki/Closed_monoidal_category', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+    ],
+  },
+  'category-theory:topos-theory': {
+    overview:
+      'A topos is a category that behaves enough like the category of sets to support its own internal logic and set-like constructions, even though its "sets" can vary continuously over a space or carry other exotic structure. Topos theory reveals that set theory itself is just one example of a much broader phenomenon.',
+    formal:
+      'An elementary topos is a category with all finite limits, exponential objects, and a subobject classifier $\\Omega$ — an object with a morphism $\\text{true}:1\\to\\Omega$ such that subobjects of any object $A$ correspond bijectively to morphisms $A\\to\\Omega$, generalizing how subsets of a set correspond to characteristic functions. Grothendieck toposes (categories of sheaves on a site) are the motivating examples from algebraic geometry, and every elementary topos supports its own internal logic, generally intuitionistic rather than classical.',
+    keyIdeas: [
+      'a topos as a category with finite limits, exponentials, and a subobject classifier',
+      'the subobject classifier as a categorical generalization of "true/false" characteristic functions',
+      'Grothendieck toposes: categories of sheaves, generalizing spaces and their local-to-global structure',
+      'every topos has an internal logic, typically intuitionistic rather than classical',
+      'toposes as "generalized universes of sets," giving alternative, non-classical models of mathematics',
+    ],
+    whyItMatters:
+      'Topos theory shows that classical set theory is just one point in a much larger space of possible set-like universes, each with its own internal logic, which lets mathematicians build models with exotic properties simply by choosing the right topos, unifying much of algebraic geometry, logic, and even parts of theoretical computer science under one framework.',
+    prerequisites: ['category-theory:monoidal-categories'],
+    related: ['algebraic-geometry:sheaves', 'foundations:constructive-mathematics', 'logic:intuitionistic-logic'],
+    historicalContext:
+      'Alexander Grothendieck introduced toposes as categories of sheaves on a Grothendieck topology, or "site," in the early 1960s as part of his SGA4 seminar, generalizing topological spaces enough to define the cohomology theories needed for his approach to the Weil conjectures in algebraic geometry. William Lawvere and Myles Tierney then abstracted Grothendieck\'s geometric notion into the more general "elementary topos" in 1969-70, defined purely by finitely many categorical axioms with no reference to sheaves or sites, revealing that toposes could serve as alternative foundations for mathematics itself, each with its own often-intuitionistic internal logic.',
+    contributorIds: ['person:william-lawvere', 'person:alexander-grothendieck'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the category of sets is a topos by identifying its subobject classifier, the two-element set $\\{\\text{true}, \\text{false}\\}$.',
+      'Explain, informally, why the internal logic of a general topos is intuitionistic rather than classical, i.e. why the law of excluded middle can fail.',
+      'Describe the basic idea of a sheaf topos: how "varying sets" over a topological space form a topos.',
+    ],
+    applications: [
+      'algebraic geometry, where sheaf-theoretic toposes underlie modern scheme theory and étale cohomology',
+      'categorical (topos-theoretic) semantics for intuitionistic and higher-order logic',
+      "theoretical computer science's use of toposes to model computation with variable or partial information",
+    ],
+    researchDirections: [
+      "higher topos theory (infinity-toposes), connecting topos theory to homotopy theory and Jacob Lurie's work on derived and spectral algebraic geometry",
+      'condensed and pyknotic mathematics, using topos-like frameworks to unify topology and algebra',
+      'applications of topos theory to the foundations of physics and to synthetic differential geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Sheaves in Geometry and Logic: A First Introduction to Topos Theory',
+        authors: ['Saunders Mac Lane', 'Ieke Moerdijk'],
+        year: 1992,
+        why: 'The standard first graduate textbook, bridging the geometric and logical perspectives on toposes.',
+      },
+      {
+        title: 'Sketches of an Elephant: A Topos Theory Compendium',
+        authors: ['Peter T. Johnstone'],
+        year: 2002,
+        why: 'The comprehensive, encyclopedic reference for advanced topos theory.',
+      },
+      {
+        title: 'Topoi: The Categorial Analysis of Logic',
+        authors: ['Robert Goldblatt'],
+        edition: '2nd',
+        year: 1984,
+        why: 'A gentler introduction with a strong focus on the logical side of topos theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Subobject classifier property', latex: '\\text{Sub}(A) \\cong \\text{Hom}(A, \\Omega)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Topos', url: 'https://encyclopediaofmath.org/wiki/Topos', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'Wikipedia: William Lawvere', url: 'https://en.wikipedia.org/wiki/William_Lawvere', kind: 'encyclopedia' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -5435,6 +5832,16 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:ernst-zermelo': ['set-theory:zermelo-fraenkel-axioms', 'set-theory:ordinals'],
   'person:abraham-fraenkel': ['set-theory:zermelo-fraenkel-axioms'],
   'person:paul-cohen': ['set-theory:continuum-hypothesis', 'set-theory:forcing'],
+  'person:saunders-mac-lane': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'category-theory:adjunctions',
+    'category-theory:limits-and-colimits',
+    'category-theory:monoidal-categories',
+  ],
+  'person:samuel-eilenberg': ['category-theory:categories-and-functors', 'category-theory:natural-transformations'],
+  'person:william-lawvere': ['category-theory:topos-theory'],
+  'person:alexander-grothendieck': ['algebraic-geometry:affine-varieties', 'category-theory:topos-theory'],
 };
 
 export const people: Person[] = personRows.map(
@@ -5588,6 +5995,13 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:on-computable-numbers': ['computation:computability', 'foundations:recursion-theory'],
   'work:model-theory': ['foundations:model-theory'],
   'work:beitrage-zur-begrundung-der-transfiniten-mengenlehre': ['set-theory:cardinals'],
+  'work:categories-for-the-working-mathematician': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'category-theory:adjunctions',
+    'category-theory:limits-and-colimits',
+    'category-theory:monoidal-categories',
+  ],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
