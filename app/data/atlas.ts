@@ -7846,6 +7846,417 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
     ],
   },
+  'complex-analysis:complex-numbers': {
+    overview:
+      'Complex numbers extend the reals by adjoining a square root of $-1$, and their geometric interpretation as points in a plane transformed them from a suspicious algebraic trick into a fully legitimate and indispensable part of mathematics. Every polynomial equation has a full set of roots once complex numbers are allowed, and the complex plane makes rotation and scaling as simple as multiplication.',
+    formal:
+      'The complex numbers $\\mathbb{C} = \\{x+iy : x,y\\in\\mathbb{R}\\}$ form a field where $i^2=-1$, with addition and multiplication defined by treating $i$ as a formal symbol: $(a+bi)+(c+di)=(a+c)+(b+d)i$ and $(a+bi)(c+di)=(ac-bd)+(ad+bc)i$. Writing $z=x+iy$ in polar form $z=r(\\cos\\theta+i\\sin\\theta)=re^{i\\theta}$ with $r=|z|=\\sqrt{x^2+y^2}$, multiplication becomes $z_1z_2=r_1r_2\\,e^{i(\\theta_1+\\theta_2)}$: multiply moduli, add arguments. The Fundamental Theorem of Algebra states every non-constant polynomial with complex coefficients has a root in $\\mathbb{C}$, so $\\mathbb{C}$ is algebraically closed.',
+    keyIdeas: [
+      'the complex plane (Argand diagram): identifying $x+iy$ with the point $(x,y)$',
+      'polar form and Euler\'s formula $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, turning multiplication into rotation and scaling',
+      'algebraic closure: the Fundamental Theorem of Algebra guarantees every polynomial factors completely over $\\mathbb{C}$',
+      'complex conjugation $\\bar z = x-iy$ and its role in computing $|z|^2=z\\bar z$',
+      'the historical journey from "impossible" numbers, tolerated only for intermediate steps in solving real cubics, to a fully legitimate number system',
+    ],
+    whyItMatters:
+      "Complex numbers were first taken seriously not out of abstract curiosity but necessity: Cardano and Bombelli found that the 16th-century formula for real roots of a cubic sometimes required manipulating square roots of negative numbers along the way, even when the final answer was a perfectly ordinary real number. Only with Gauss's and Argand's geometric interpretation did complex numbers stop being a suspicious bookkeeping device and become the natural home for algebra (via the Fundamental Theorem of Algebra), analysis (holomorphic functions), and physics (quantum mechanics and electrical engineering both use complex numbers essentially, not just as a convenience).",
+    prerequisites: ['algebra:polynomials'],
+    related: ['complex-analysis:holomorphic-functions', 'algebra:fields', 'linear-algebra:vector-spaces'],
+    historicalContext:
+      "Gerolamo Cardano's Ars Magna (1545) first wrote down expressions involving square roots of negative numbers while solving cubic equations, calling them 'as subtle as they are useless.' Rafael Bombelli showed in 1572 how to compute consistently with them, discovering that manipulating these 'impossible' numbers correctly gave genuine real answers. Descartes coined the dismissive term 'imaginary' in 1637. It took until 1799 for Caspar Wessel to publish (in Danish, largely unnoticed) the geometric interpretation of complex numbers as points in a plane; Jean-Robert Argand rediscovered and popularized this geometric picture in 1806, and Carl Friedrich Gauss, who had also arrived at the interpretation independently, gave it his authority and the name 'complex number' in 1831, after which resistance to complex numbers as a legitimate number system largely disappeared.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:jean-robert-argand'],
+    workIds: [],
+    exampleProblems: [
+      'Express $z=-1+i\\sqrt3$ in polar form and use it to compute $z^6$ via De Moivre\'s formula.',
+      'Use the Fundamental Theorem of Algebra to explain why every real polynomial of odd degree has a real root, while $x^2+1$ has none.',
+      'Solve $x^3=15x+4$ using Cardano\'s formula and show that the intermediate complex numbers cancel to give the real solution $x=4$ (Bombelli\'s example).',
+    ],
+    applications: [
+      'electrical engineering, where impedance and AC circuit analysis are naturally complex-valued',
+      'quantum mechanics, whose wavefunctions and operators are fundamentally complex, not just computationally convenient',
+      'signal processing, via the complex exponential form of Fourier analysis',
+      'control theory and stability analysis, using the location of complex poles and zeros',
+    ],
+    researchDirections: [
+      'hypercomplex number systems (quaternions, octonions) extending complex numbers further, at the cost of commutativity or associativity',
+      'complex dynamics and the iteration of complex functions (Julia and Mandelbrot sets)',
+      'algebraic geometry and number theory over $\\mathbb{C}$ and other algebraically closed fields',
+    ],
+    textbooks: [
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Builds geometric intuition for complex numbers and their arithmetic from first principles, before any calculus is introduced.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The classic, rigorous graduate treatment, starting from the algebraic and topological structure of the complex numbers.',
+      },
+      {
+        title: 'A First Course in Complex Analysis with Applications',
+        authors: ['Dennis Zill', 'Patrick Shanahan'],
+        edition: '3rd',
+        year: 2013,
+        why: 'An accessible undergraduate introduction with a thorough early treatment of complex arithmetic and geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Euler formula', latex: 'e^{i\\theta}=\\cos\\theta+i\\sin\\theta' },
+      { label: 'Polar multiplication', latex: 'z_1 z_2 = r_1 r_2\\, e^{i(\\theta_1+\\theta_2)}' },
+      { label: 'Modulus via conjugate', latex: '|z|^2 = z\\bar z' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Complex number', url: 'https://encyclopediaofmath.org/wiki/Complex_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean-Robert Argand', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Argand/', kind: 'reference' },
+      { label: 'MacTutor: Carl Friedrich Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:holomorphic-functions': {
+    overview:
+      'A holomorphic function is a complex function that is complex-differentiable in a neighborhood of every point, a condition far stronger than real differentiability: it forces the function to be infinitely differentiable and equal to its own Taylor series. Complex analysis is, in large part, the study of the remarkable rigidity this single condition imposes.',
+    formal:
+      'A function $f:U\\to\\mathbb{C}$ on an open set $U\\subseteq\\mathbb{C}$ is holomorphic at $z_0$ if $f\'(z_0)=\\lim_{h\\to 0}\\frac{f(z_0+h)-f(z_0)}{h}$ exists, where $h\\in\\mathbb{C}$ approaches $0$ from every direction. Writing $f=u+iv$ with $z=x+iy$, this is equivalent to $u,v$ satisfying the Cauchy-Riemann equations $\\partial u/\\partial x=\\partial v/\\partial y$ and $\\partial u/\\partial y=-\\partial v/\\partial x$. Every holomorphic function is automatically analytic: it equals its Taylor series $f(z)=\\sum_{n=0}^\\infty a_n(z-z_0)^n$ in a disc around every point of $U$.',
+    keyIdeas: [
+      'the Cauchy-Riemann equations as the precise real-variable translation of complex differentiability',
+      'complex differentiability at every nearby point forces infinite differentiability (unlike the real case)',
+      'holomorphic = analytic: every holomorphic function is locally a convergent power series',
+      'the identity theorem: two holomorphic functions agreeing on a set with a limit point agree everywhere on their common domain',
+      "three equivalent approaches historically due to Cauchy (integral formula), Riemann (Cauchy-Riemann equations, geometric), and Weierstrass (power series)",
+    ],
+    whyItMatters:
+      'Real differentiability is a mild condition — a real function can be differentiable without being twice differentiable, let alone analytic. Complex differentiability is astonishingly stronger: it forces smoothness of every order and equality with a convergent power series, a rigidity with no real analogue. This is why complex analysis is full of theorems with no real-variable counterpart, such as Liouville\'s theorem (a bounded entire function must be constant) and the maximum modulus principle, and why it became indispensable well beyond pure mathematics, in physics and engineering, wherever such rigid, globally-controlled functions are useful.',
+    prerequisites: ['complex-analysis:complex-numbers', 'real-analysis:epsilon-delta-limits'],
+    related: ['complex-analysis:cauchy-integral-theorem', 'complex-analysis:conformal-mapping', 'calculus:taylor-series'],
+    historicalContext:
+      "Augustin-Louis Cauchy developed the theory of functions of a complex variable from the 1810s through the 1840s using contour integration as the foundational tool, proving that a function differentiable on a domain automatically has all the properties later summarized as 'holomorphic.' Bernhard Riemann, in his 1851 doctoral dissertation, took a strikingly different, more geometric route through the Cauchy-Riemann equations and the idea of conformal mapping. Karl Weierstrass, teaching at Berlin from the 1850s, built the theory instead from convergent power series, insisting on total rigor and distrusting geometric intuition. That these three independent approaches — integral, geometric, and power-series — provably describe the exact same class of functions is one of the most celebrated coincidences in mathematics, and each approach remains useful for different purposes today.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:bernhard-riemann', 'person:karl-weierstrass'],
+    workIds: ['work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse'],
+    exampleProblems: [
+      'Verify the Cauchy-Riemann equations for $f(z)=z^2$ by writing $u(x,y)$ and $v(x,y)$ explicitly and checking the partial derivative identities.',
+      "Use Liouville's theorem to prove the Fundamental Theorem of Algebra: a non-constant polynomial cannot be zero-free on all of $\\mathbb{C}$.",
+      'Show that $f(z)=\\bar z$ satisfies neither Cauchy-Riemann equation and is therefore nowhere holomorphic, despite being real-differentiable in each variable.',
+    ],
+    applications: [
+      'fluid dynamics and electrostatics, where holomorphic functions model incompressible, irrotational planar flow and potential fields',
+      'signal processing and control theory, via transfer functions that are holomorphic on regions of the complex plane',
+      'analytic number theory, where holomorphic continuation of functions like the Riemann zeta function encodes deep arithmetic information',
+      'quantum field theory, where analyticity properties of scattering amplitudes encode physical causality',
+    ],
+    researchDirections: [
+      'several complex variables, extending holomorphicity to $\\mathbb{C}^n$ where the theory becomes far more rigid',
+      'complex dynamics: iterating holomorphic maps and the structure of Julia and Fatou sets',
+      'geometric function theory and quasiconformal mappings, weakening holomorphicity in controlled ways',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The classic graduate standard, rigorously developing holomorphic functions from all three classical viewpoints.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: "Part of Princeton's analysis series, motivating the Cauchy-Riemann equations and power series approach with strong intuition.",
+      },
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Gives geometric intuition for why complex differentiability is so much stronger than real differentiability.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy-Riemann equations', latex: '\\frac{\\partial u}{\\partial x}=\\frac{\\partial v}{\\partial y},\\quad \\frac{\\partial u}{\\partial y}=-\\frac{\\partial v}{\\partial x}' },
+      { label: 'Complex derivative', latex: "f'(z_0)=\\lim_{h\\to 0}\\frac{f(z_0+h)-f(z_0)}{h}" },
+      { label: 'Local power series', latex: 'f(z)=\\sum_{n=0}^{\\infty} a_n (z-z_0)^n' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Analytic function', url: 'https://encyclopediaofmath.org/wiki/Analytic_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Karl Weierstrass', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:cauchy-integral-theorem': {
+    overview:
+      "The Cauchy integral theorem says that the integral of a holomorphic function around any closed loop, within a region where it is holomorphic, is exactly zero. This single fact — startling because it holds regardless of the loop's shape or size — is the foundation from which nearly every other property of holomorphic functions can be derived.",
+    formal:
+      'If $f$ is holomorphic on a simply connected domain $U\\subseteq\\mathbb{C}$ and $\\gamma$ is a closed contour in $U$, then $\\oint_\\gamma f(z)\\,dz = 0$. The Cauchy integral formula sharpens this: for $z_0$ inside $\\gamma$, $f(z_0)=\\frac{1}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{z-z_0}\\,dz$, and differentiating under the integral sign gives derivatives of all orders, $f^{(n)}(z_0)=\\frac{n!}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{(z-z_0)^{n+1}}\\,dz$.',
+    keyIdeas: [
+      'path-independence of contour integrals of holomorphic functions within simply connected domains',
+      'the Cauchy integral formula: the values of $f$ on a curve determine $f$ everywhere inside it',
+      'automatic infinite differentiability of holomorphic functions, obtained by differentiating the integral formula',
+      "Goursat's proof, which derives the theorem without assuming (as Cauchy originally did) that $f'$ is continuous",
+      'the theorem as the single foundational fact from which the residue theorem, Liouville\'s theorem, and the maximum modulus principle all follow',
+    ],
+    whyItMatters:
+      'That a contour integral can vanish identically regardless of the loop\'s size or shape, as long as it stays in a region of holomorphicity, is the source of nearly every powerful feature of complex analysis: it is what lets a holomorphic function\'s values on a boundary curve completely determine its values (and every derivative) inside, and it underlies the residue theorem\'s ability to convert difficult real integrals into simple algebraic sums of residues.',
+    prerequisites: ['complex-analysis:holomorphic-functions', 'calculus:integrals'],
+    related: ['complex-analysis:residues', 'complex-analysis:holomorphic-functions', 'complex-analysis:conformal-mapping'],
+    historicalContext:
+      "Augustin-Louis Cauchy proved an early version of the theorem in 1825, in a memoir on integrals taken between imaginary limits, but his argument assumed that the complex derivative $f'$ was continuous — a fact later shown to be automatic, but not something Cauchy could assume without circularity. Édouard Goursat gave the first fully rigorous proof in 1900 that removed this extra hypothesis, showing the theorem follows from complex differentiability alone; the result is accordingly often called the Cauchy-Goursat theorem. The Cauchy integral formula, an immediate consequence, was likewise developed by Cauchy in the 1830s and became the central computational tool of the emerging field.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:edouard-goursat'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Cauchy integral formula to evaluate $\\oint_{|z|=2} \\frac{e^z}{z-1}\\,dz$.',
+      'Show that $\\oint_{|z|=1} z^n\\,dz = 0$ for every integer $n\\ne -1$, and explain why $n=-1$ is the single exception.',
+      "Use the Cauchy integral formula for derivatives to compute $f''(0)$ for $f(z)=\\frac{1}{1-z}$ via a contour integral, and check it against the Taylor series.",
+    ],
+    applications: [
+      'evaluating difficult definite real integrals by relating them to contour integrals in the complex plane',
+      'proving Liouville\'s theorem and the Fundamental Theorem of Algebra',
+      'stability analysis in control theory, via the argument principle (a consequence of the Cauchy integral theorem)',
+      'analytic continuation of functions such as the Riemann zeta function beyond their original domain of definition',
+    ],
+    researchDirections: [
+      'generalizations to several complex variables and to differential forms on complex manifolds',
+      'the Cauchy-Fantappiè integral formula and its role in higher-dimensional function theory',
+      'numerical contour integration methods for solving differential equations and computing special functions',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: "Presents Goursat's rigorous proof and builds the entire subsequent theory from the Cauchy integral theorem.",
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: 'A clear modern treatment placing the Cauchy integral theorem at the center of the course, with strong geometric motivation.',
+      },
+      {
+        title: 'Complex Variables and Applications',
+        authors: ['James Ward Brown', 'Ruel V. Churchill'],
+        edition: '9th',
+        year: 2013,
+        why: 'A widely used applied introduction, strong on the computational use of the Cauchy integral formula.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy integral theorem', latex: '\\oint_\\gamma f(z)\\,dz = 0' },
+      { label: 'Cauchy integral formula', latex: 'f(z_0)=\\frac{1}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{z-z_0}\\,dz' },
+      { label: 'Derivative formula', latex: 'f^{(n)}(z_0)=\\frac{n!}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{(z-z_0)^{n+1}}\\,dz' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cauchy integral theorem', url: 'https://encyclopediaofmath.org/wiki/Cauchy_integral_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+      { label: 'MacTutor: Édouard Goursat', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Goursat/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:residues': {
+    overview:
+      "The residue of a holomorphic function at an isolated singularity is a single number that captures everything the residue theorem needs to know about that singularity, letting a contour integral be computed as a simple sum of these numbers. This turns many otherwise intractable real integrals into short algebraic calculations.",
+    formal:
+      'Near an isolated singularity $z_0$, $f$ has a Laurent series $f(z)=\\sum_{n=-\\infty}^{\\infty} c_n (z-z_0)^n$, and the residue is the coefficient $\\operatorname{Res}(f,z_0)=c_{-1}$. The residue theorem states that for $f$ holomorphic inside and on a closed contour $\\gamma$ except for finitely many isolated singularities $z_1,\\dots,z_k$ inside, $\\oint_\\gamma f(z)\\,dz = 2\\pi i \\sum_{j=1}^{k} \\operatorname{Res}(f,z_j)$.',
+    keyIdeas: [
+      'the Laurent series, extending Taylor series to allow negative powers around a singularity',
+      'the residue as exactly the coefficient of $(z-z_0)^{-1}$, the only Laurent term with nonzero contour integral',
+      'classifying isolated singularities as removable, poles, or essential based on the Laurent expansion',
+      'the residue theorem as a vast generalization of the Cauchy integral formula to multiple singularities',
+      'converting real integrals (rational functions of trigonometric functions, integrals over the real line) into contour integrals evaluated by residues',
+    ],
+    whyItMatters:
+      "Many real integrals central to physics and engineering — such as $\\int_{-\\infty}^{\\infty}\\frac{dx}{1+x^2}$ or integrals arising from Fourier transforms — have no elementary antiderivative but yield instantly to the residue theorem once reframed as complex contour integrals. This makes residue calculus one of the most practically useful pieces of complex analysis, turning what would be delicate real-variable estimates into short algebraic computations of Laurent coefficients.",
+    prerequisites: ['complex-analysis:cauchy-integral-theorem'],
+    related: ['complex-analysis:cauchy-integral-theorem', 'complex-analysis:holomorphic-functions', 'complex-analysis:conformal-mapping'],
+    historicalContext:
+      "Augustin-Louis Cauchy introduced the concept of a residue and proved the residue theorem in the 1820s as a direct extension of his integral theorem, immediately using it to evaluate definite integrals that had resisted classical methods. Pierre Alphonse Laurent, an army engineer, discovered the Laurent series expansion in 1843 while working on a prize-eligible memoir for the French Academy submitted just after the deadline for a related Cauchy result, meaning his contribution — the natural extension of Taylor series to singular points, and the rigorous basis for defining residues — went comparatively unrecognized in his lifetime.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:pierre-alphonse-laurent'],
+    workIds: [],
+    exampleProblems: [
+      'Find the Laurent series of $f(z)=\\frac{1}{z(z-1)}$ around $z_0=0$ and identify $\\operatorname{Res}(f,0)$.',
+      'Use the residue theorem to evaluate $\\int_{-\\infty}^{\\infty} \\frac{dx}{1+x^2}$ by closing the contour with a large semicircle in the upper half-plane.',
+      'Classify the singularity of $f(z)=\\sin(1/z)$ at $z=0$ as removable, a pole, or essential, and justify your answer from the Laurent expansion.',
+    ],
+    applications: [
+      'evaluating definite integrals and infinite sums that arise in physics and engineering (e.g. Fourier and Laplace transform inversion)',
+      'the argument principle and Rouché\'s theorem for counting zeros and poles, used in control theory stability analysis',
+      'analytic number theory, where residues of the Riemann zeta function and related functions encode arithmetic information',
+      'quantum field theory, where residues of propagators correspond to particle masses',
+    ],
+    researchDirections: [
+      'residues on Riemann surfaces and complex manifolds, generalized via Jean Leray\'s theory of residue forms',
+      'multidimensional residues in several complex variables',
+      'the interplay between residue calculus and modern analytic number theory (explicit formulas, zero-counting)',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Variables and Applications',
+        authors: ['James Ward Brown', 'Ruel V. Churchill'],
+        edition: '9th',
+        year: 2013,
+        why: 'The standard applied reference for residue calculus techniques and their use in evaluating real integrals.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'Develops Laurent series and the residue theorem with full mathematical rigor.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: 'Connects residue calculus directly to applications in number theory and Fourier analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Laurent series', latex: 'f(z)=\\sum_{n=-\\infty}^{\\infty} c_n (z-z_0)^n' },
+      { label: 'Residue theorem', latex: '\\oint_\\gamma f(z)\\,dz = 2\\pi i \\sum_{j=1}^{k} \\operatorname{Res}(f,z_j)' },
+      { label: 'Residue at a simple pole', latex: '\\operatorname{Res}(f,z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Residue of an analytic function', url: 'https://encyclopediaofmath.org/wiki/Residue_of_an_analytic_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Pierre Laurent', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Laurent_Pierre/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:conformal-mapping': {
+    overview:
+      'A conformal map is a function that preserves angles locally, and every holomorphic function with nonzero derivative is automatically conformal. This turns complex analysis into a powerful tool for geometry: complicated regions of the plane can be transformed into simple ones (disks, half-planes) while preserving the local shape of small figures, at the cost of only stretching and rotating them uniformly.',
+    formal:
+      "If $f$ is holomorphic at $z_0$ with $f'(z_0)\\ne 0$, then $f$ preserves angles between curves through $z_0$: for curves $\\gamma_1,\\gamma_2$ meeting at $z_0$ with angle $\\alpha$, their images $f(\\gamma_1), f(\\gamma_2)$ meet at $f(z_0)$ with the same angle $\\alpha$. The Riemann mapping theorem states that any simply connected domain $U\\subsetneq\\mathbb{C}$ (other than $\\mathbb{C}$ itself) admits a biholomorphic (bijective holomorphic) map onto the open unit disk $\\mathbb{D}$.",
+    keyIdeas: [
+      'local angle preservation as the defining geometric property, following from $f\'(z_0)\\ne 0$ acting as multiplication by a fixed complex number (rotation + scaling)',
+      'the Riemann mapping theorem: every simply connected proper subdomain of $\\mathbb{C}$ is conformally equivalent to the unit disk',
+      "the Schwarz lemma, constraining holomorphic self-maps of the disk fixing the origin",
+      'Möbius transformations $z\\mapsto \\frac{az+b}{cz+d}$ as the conformal automorphisms of the sphere, disk, and half-plane',
+      'the Schwarz-Christoffel formula, giving an explicit conformal map from the disk or half-plane onto any polygon',
+    ],
+    whyItMatters:
+      "Conformal maps let hard problems on complicated domains (fluid flow around an airfoil, heat distribution in an oddly shaped plate, electrostatic fields near a sharp conductor edge) be transported to the unit disk or upper half-plane, solved there where the answer is often classical, and transported back. The existence of such a map is never in question thanks to the Riemann mapping theorem, one of the deepest existence theorems in classical analysis, guaranteeing this strategy always works for simply connected domains.",
+    prerequisites: ['complex-analysis:holomorphic-functions', 'complex-analysis:cauchy-integral-theorem'],
+    related: ['complex-analysis:holomorphic-functions', 'complex-analysis:riemann-surfaces', 'differential-geometry:riemannian-metrics'],
+    historicalContext:
+      "Bernhard Riemann first stated what is now called the Riemann mapping theorem in his 1851 dissertation, sketching a proof (using Dirichlet's principle) that was later found to have gaps, since Dirichlet's principle itself needed the rigorous justification David Hilbert eventually supplied in 1900. In the meantime, Hermann Amandus Schwarz gave the first fully rigorous proofs of special cases in the 1870s, developed the Schwarz lemma bounding holomorphic self-maps of the disk, and with Elwin Christoffel independently derived the Schwarz-Christoffel formula for explicitly mapping onto polygons, one of the few cases where the abstract existence guaranteed by Riemann's theorem can be made fully explicit.",
+    contributorIds: ['person:bernhard-riemann', 'person:hermann-amandus-schwarz'],
+    workIds: [],
+    exampleProblems: [
+      'Find a Möbius transformation mapping the upper half-plane onto the unit disk, sending $i$ to $0$.',
+      'Use the Schwarz lemma to prove that any holomorphic bijection of the unit disk fixing the origin must be a rotation $z\\mapsto e^{i\\theta}z$.',
+      'Explain, using the Riemann mapping theorem, why no conformal bijection exists between the unit disk and the entire plane $\\mathbb{C}$.',
+    ],
+    applications: [
+      '2D fluid dynamics and aerodynamics, mapping flow around complicated airfoil shapes to flow around a simple circle',
+      'electrostatics and heat conduction, solving Laplace\'s equation on complicated 2D domains by mapping to a disk or half-plane',
+      'map projections in cartography, seeking to preserve local angles (e.g. the Mercator projection)',
+      'complex network and mesh generation algorithms in computer graphics, using discrete conformal mapping',
+    ],
+    researchDirections: [
+      'quasiconformal mappings, systematically relaxing exact angle preservation to bounded distortion',
+      'discrete and computational conformal geometry, used in computer graphics and geometry processing',
+      'conformal field theory in physics, exploiting the infinite-dimensional symmetry of conformal maps in two dimensions',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The standard rigorous treatment of conformal mapping, the Riemann mapping theorem, and the Schwarz lemma.',
+      },
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Builds strong geometric intuition for what conformal maps do, with extensive illustrations of the Riemann mapping theorem in action.',
+      },
+      {
+        title: 'Conformal Mapping',
+        authors: ['Zeev Nehari'],
+        year: 1952,
+        why: 'A classic dedicated text working through conformal mapping techniques, including the Schwarz-Christoffel formula, in depth.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Mobius transformation', latex: 'z \\mapsto \\frac{az+b}{cz+d},\\quad ad-bc\\ne 0' },
+      { label: 'Schwarz lemma bound', latex: 'f:\\mathbb{D}\\to\\mathbb{D} \\text{ holomorphic}, f(0)=0 \\implies |f(z)|\\le |z|' },
+      { label: 'Schwarz-Christoffel map', latex: "f'(z) = C\\prod_{k=1}^{n} (z-x_k)^{-\\alpha_k}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Conformal transformation', url: 'https://encyclopediaofmath.org/wiki/Conformal_transformation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: Hermann Schwarz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Schwarz/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:riemann-surfaces': {
+    overview:
+      'A Riemann surface is a one-dimensional complex manifold: a space that locally looks like the complex plane and on which holomorphic functions make sense, but which globally can have any topology at all — a sphere, a torus, or a more complicated surface with many holes. They were invented to make multi-valued complex functions, like $\\sqrt{z}$ or $\\log z$, into genuine well-defined single-valued functions.',
+    formal:
+      'A Riemann surface is a connected complex manifold of complex dimension $1$: a Hausdorff topological space with an atlas of charts to open subsets of $\\mathbb{C}$ whose transition maps are holomorphic. The genus $g$ (number of "handles") is the primary topological invariant; compact Riemann surfaces are classified up to homeomorphism entirely by $g$, while the uniformization theorem shows every simply connected Riemann surface is conformally equivalent to the sphere $\\hat{\\mathbb{C}}$, the plane $\\mathbb{C}$, or the disk $\\mathbb{D}$.',
+    keyIdeas: [
+      'gluing together sheets of the complex plane to make a multi-valued function like $\\sqrt{z}$ single-valued on the surface',
+      'genus as the fundamental topological invariant, counting the number of "handles" on a compact Riemann surface',
+      'the uniformization theorem: every simply connected Riemann surface is the sphere, the plane, or the disk',
+      'meromorphic functions and differentials on a Riemann surface, generalizing complex analysis from the plane to any such surface',
+      'the deep link to algebraic geometry: compact Riemann surfaces are exactly the same objects as smooth projective algebraic curves over $\\mathbb{C}$',
+    ],
+    whyItMatters:
+      "Functions like $\\sqrt{z}$ or $\\log z$ are inherently multi-valued on the punctured plane, and treating them as ordinary single-valued functions leads to contradictions and branch-cut bookkeeping. Riemann's insight was to change the domain instead of forcing the function: build a surface on which the function becomes genuinely single-valued and holomorphic everywhere. This idea grew into one of the deepest bridges in mathematics, identifying complex analysis (Riemann surfaces) with algebraic geometry (algebraic curves) and later with number theory (modular curves), making it a unifying object across several major fields.",
+    prerequisites: ['complex-analysis:holomorphic-functions', 'topology:manifolds'],
+    related: ['complex-analysis:conformal-mapping', 'algebraic-geometry:projective-varieties', 'algebraic-geometry:moduli-spaces'],
+    historicalContext:
+      "Bernhard Riemann introduced Riemann surfaces in his revolutionary 1851 doctoral dissertation to give a rigorous geometric foundation to multi-valued complex functions and their branch points, developing the theory further in his 1857 work on abelian functions. The concept remained geometrically intuitive but not fully rigorously defined for over sixty years, until Hermann Weyl's 1913 book Die Idee der Riemannschen Fläche (The Concept of a Riemann Surface) gave the first modern, topologically precise axiomatic definition using the language of manifolds and covering spaces, fixing Riemann's foundational gaps and establishing the treatment used ever since.",
+    contributorIds: ['person:bernhard-riemann', 'person:hermann-weyl'],
+    workIds: ['work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse'],
+    exampleProblems: [
+      'Describe the Riemann surface for $f(z)=\\sqrt{z}$ as two copies of the plane glued along a branch cut, and explain why it makes $\\sqrt{z}$ single-valued.',
+      'Show that the Riemann surface of $\\log z$ requires infinitely many sheets, reflecting that $\\log z$ is infinitely multi-valued.',
+      'Verify that the torus $\\mathbb{C}/\\Lambda$ for a lattice $\\Lambda$ is a compact Riemann surface of genus $1$.',
+    ],
+    applications: [
+      'algebraic geometry, where compact Riemann surfaces correspond exactly to smooth projective algebraic curves',
+      'string theory in physics, where a string\'s worldsheet is modeled as a Riemann surface',
+      'number theory, via modular curves (Riemann surfaces quotienting the upper half-plane by arithmetic groups)',
+      'the theory of elliptic functions and elliptic curves, viewed as genus-1 Riemann surfaces',
+    ],
+    researchDirections: [
+      'moduli spaces of Riemann surfaces, parametrizing all surfaces of a given genus (Teichmüller theory)',
+      'the Weil conjectures and their analogues connecting Riemann surfaces over finite fields to number theory',
+      'higher-dimensional generalizations: complex manifolds and algebraic varieties in several variables',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Curves and Riemann Surfaces',
+        authors: ['Rick Miranda'],
+        year: 1995,
+        why: 'A widely used graduate bridge between the complex-analytic and algebraic-geometric perspectives on Riemann surfaces.',
+      },
+      {
+        title: 'Riemann Surfaces',
+        authors: ['Hershel M. Farkas', 'Irwin Kra'],
+        edition: '2nd',
+        year: 1991,
+        why: 'A standard, thorough graduate reference covering the analytic theory in depth.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'Includes a classical introduction to Riemann surfaces as a natural extension of one-variable complex analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann-Hurwitz formula', latex: '2g-2 = n(2g_0-2) + \\sum_{p} (e_p-1)' },
+      { label: 'Genus of a torus', latex: '\\mathbb{C}/\\Lambda,\\ g=1' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Riemann surface', url: 'https://en.wikipedia.org/wiki/Riemann_surface', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: Hermann Weyl', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weyl/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -8110,6 +8521,10 @@ const personRows = [
   ['Joseph Fourier', '1768-1830', 'France', 'real-analysis', 'Fourier series and the mathematical theory of heat'],
   ['Giuseppe Vitali', '1875-1932', 'Italy', 'real-analysis', 'the Vitali covering lemma and non-measurable sets'],
   ['Frigyes Riesz', '1880-1956', 'Hungary', 'real-analysis', 'the Riesz-Fischer theorem and the foundations of $L^p$ space theory'],
+  ['Jean-Robert Argand', '1768-1822', 'Switzerland/France', 'complex-analysis', 'the geometric representation of complex numbers as points in a plane'],
+  ['Edouard Goursat', '1858-1936', 'France', 'complex-analysis', 'the rigorous proof of the Cauchy integral theorem without assuming continuous derivatives'],
+  ['Pierre Alphonse Laurent', '1813-1854', 'France', 'complex-analysis', 'the Laurent series expansion around singularities'],
+  ['Hermann Amandus Schwarz', '1843-1921', 'Germany', 'complex-analysis', 'the Schwarz lemma and Schwarz-Christoffel conformal mapping'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -8120,12 +8535,14 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
   'person:brook-taylor': ['calculus:taylor-series'],
   'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness', 'real-analysis:real-numbers'],
-  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity', 'real-analysis:epsilon-delta-limits'],
+  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity', 'real-analysis:epsilon-delta-limits', 'complex-analysis:holomorphic-functions'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
   'person:augustin-louis-cauchy': [
     'calculus:limits',
     'calculus:integrals',
     'complex-analysis:cauchy-integral-theorem',
+    'complex-analysis:holomorphic-functions',
+    'complex-analysis:residues',
     'linear-algebra:determinants',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
@@ -8171,6 +8588,9 @@ const personTopicOverrides: Record<string, string[]> = {
     'topology:manifolds',
     'algebraic-geometry:projective-varieties',
     'algebraic-geometry:moduli-spaces',
+    'complex-analysis:holomorphic-functions',
+    'complex-analysis:conformal-mapping',
+    'complex-analysis:riemann-surfaces',
   ],
   'person:georg-cantor': [
     'set-theory:naive-set-theory',
@@ -8194,6 +8614,10 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:joseph-fourier': ['real-analysis:fourier-series'],
   'person:giuseppe-vitali': ['real-analysis:differentiation-theorems'],
   'person:frigyes-riesz': ['real-analysis:l-p-spaces'],
+  'person:jean-robert-argand': ['complex-analysis:complex-numbers'],
+  'person:edouard-goursat': ['complex-analysis:cauchy-integral-theorem'],
+  'person:pierre-alphonse-laurent': ['complex-analysis:residues'],
+  'person:hermann-amandus-schwarz': ['complex-analysis:conformal-mapping'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
@@ -8225,6 +8649,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'mathematical-physics:classical-mechanics',
     'algebra:representations',
     'differential-geometry:tangent-spaces',
+    'complex-analysis:riemann-surfaces',
   ],
   'person:hassler-whitney': [
     'differential-geometry:smooth-manifolds',
@@ -8258,6 +8683,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'number-theory:modular-arithmetic',
     'differential-geometry:curvature',
     'differential-geometry:geodesics',
+    'complex-analysis:complex-numbers',
   ],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
@@ -8438,6 +8864,7 @@ const workRows = [
   ['Introduction to Lie Algebras and Representation Theory', 'James Humphreys', 1972, 'lie-theory', 'A compact Lie theory reference.'],
   ['Theorie analytique de la chaleur', 'Joseph Fourier', 1822, 'real-analysis', 'Introduced Fourier series to solve the heat equation, launching harmonic analysis.'],
   ['Lecons sur lintegration et la recherche des fonctions primitives', 'Henri Lebesgue', 1904, 'real-analysis', 'The first systematic treatment of the Lebesgue integral and modern measure-based integration.'],
+  ['Grundlagen fur eine allgemeine Theorie der Functionen einer veranderlichen complexen Grosse', 'Bernhard Riemann', 1851, 'complex-analysis', 'Riemanns doctoral dissertation, which introduced Riemann surfaces and the geometric approach to complex function theory.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -8446,6 +8873,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'analysis:sequences-and-series', 'analysis:continuity'],
   'work:theorie-analytique-de-la-chaleur': ['real-analysis:fourier-series'],
   'work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives': ['real-analysis:lebesgue-integration'],
+  'work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse': ['complex-analysis:riemann-surfaces'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
