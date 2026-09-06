@@ -1800,16 +1800,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: James Joseph Sylvester', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/', kind: 'reference' },
     ],
   },
-  'set-theory:forcing': {
-    formal:
-      'Forcing extends a model of set theory by adding a generic filter over a partially ordered set while controlling truth in the extension.',
-    keyIdeas: ['generic extensions', 'independence proofs', 'partial orders', 'Boolean-valued models'],
-  },
-  'logic:incompleteness-theorems': {
-    formal:
-      'Any sufficiently expressive consistent formal system cannot prove every arithmetical truth expressible in its language.',
-    keyIdeas: ['self-reference', 'arithmetization of syntax', 'consistency', 'formal limits'],
-  },
   'cryptography:zero-knowledge-proofs': {
     formal:
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
@@ -3875,6 +3865,1595 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Andrew Wiles', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Wiles/', kind: 'reference' },
     ],
   },
+  'foundations:axiomatic-method': {
+    overview:
+      'The axiomatic method builds a mathematical theory from a small set of explicitly stated starting assumptions (axioms) and precise rules of inference, deriving every other result by pure logical deduction rather than appeals to intuition or specific examples.',
+    formal:
+      "A formal axiomatic system consists of a formal language, a set of axioms, and a set of inference rules; a theorem is any formula derivable from the axioms by finitely many applications of the rules. A system is consistent if no formula and its negation are both derivable, complete if every sentence or its negation is derivable, and independent if no axiom is derivable from the others.",
+    keyIdeas: [
+      'axioms as explicit, unproved starting assumptions rather than "self-evident truths"',
+      'formal derivation as the only route from axioms to theorems',
+      'the shift, via Hilbert, from axioms describing a fixed intended object to axioms as an implicit definition of any structure satisfying them',
+      'consistency, completeness, and independence of an axiom system',
+      "the limits of the axiomatic method exposed by Gödel's incompleteness theorems",
+    ],
+    whyItMatters:
+      "The axiomatic method is what separates mathematical certainty from empirical confidence in every other science: once a theorem is derived from axioms by valid logical steps, no future observation can overturn it. The discovery that Euclid's parallel postulate could be replaced, yielding equally consistent non-Euclidean geometries, revealed that axioms are not 'obvious truths' but free choices whose consequences are then explored.",
+    prerequisites: [],
+    related: ['logic:predicate-logic', 'foundations:foundational-programs', 'geometry:non-euclidean-geometry'],
+    historicalContext:
+      "Euclid's Elements (c. 300 BCE) gave the first sustained axiomatic treatment of a mathematical subject, deriving hundreds of results in plane and solid geometry from five postulates and five common notions. For two millennia the postulates were treated as self-evident truths about physical space, until Nikolai Lobachevsky and János Bolyai independently showed in the 1820s-30s that replacing the parallel postulate yields an equally consistent non-Euclidean geometry. David Hilbert's Grundlagen der Geometrie (1899) then re-axiomatized Euclidean geometry with a complete, rigorous list of axioms, fixing gaps in Euclid's original, and treated the axioms as an implicit definition of 'point,' 'line,' and 'plane' rather than descriptions of pre-existing objects — a shift that shaped 20th-century mathematics.",
+    contributorIds: ['person:euclid', 'person:david-hilbert', 'person:nikolai-lobachevsky'],
+    workIds: ['work:elements', 'work:grundlagen-der-geometrie'],
+    exampleProblems: [
+      "Explain how replacing Euclid's parallel postulate with its negation leads to a consistent, non-Euclidean geometry.",
+      'Explain what Hilbert meant by treating axioms as implicit definitions, saying one must be able to say "tables, chairs, and beer mugs" instead of "points, lines, and planes."',
+      "Give an example of an axiom system that is consistent but not complete, referencing Gödel's incompleteness theorem.",
+    ],
+    applications: [
+      'computer-verified formal proofs, where proof assistants encode an axiomatic system directly',
+      'formal specification languages in software verification',
+      "axiomatizing physical theories, as posed in Hilbert's sixth problem",
+    ],
+    researchDirections: [
+      'reverse mathematics, classifying exactly which axioms are needed to prove a given classical theorem',
+      'alternative foundational axiom systems, including category-theoretic foundations',
+      'automated and interactive theorem proving built on explicit axiomatic foundations',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate introduction to formal systems, consistency, completeness, and independence.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A comprehensive, widely assigned reference for the formal machinery of axiomatic systems.',
+      },
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: 'The standard text for seeing the axiomatic method worked out in full historical and geometric detail.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Consistency', latex: '\\nexists\\, \\varphi:\\ S \\vdash \\varphi \\text{ and } S \\vdash \\neg\\varphi' },
+      { label: 'Completeness', latex: '\\forall \\varphi:\\ S \\vdash \\varphi \\text{ or } S \\vdash \\neg\\varphi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Axiomatic method', url: 'https://encyclopediaofmath.org/wiki/Axiomatic_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Nikolai Lobachevsky', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Lobachevsky', kind: 'reference' },
+    ],
+  },
+  'foundations:proof-theory': {
+    overview:
+      'Proof theory studies mathematical proofs themselves as formal, finite objects that can be analyzed, measured, and manipulated, asking not just whether a theorem is true but what resources — which axioms, which logical principles — a proof of it actually requires.',
+    formal:
+      "A sequent calculus proof derives sequents $\\Gamma \\vdash \\Delta$ via structural and logical inference rules. Gentzen's Hauptsatz (cut-elimination theorem, 1935) shows that any proof using the cut rule can be transformed into a cut-free proof of the same sequent; cut-free proofs have the subformula property, meaning every formula in the proof is a subformula of the conclusion. Gentzen also proved the consistency of Peano arithmetic (1936) relative to transfinite induction up to the ordinal $\\varepsilon_0$, a result that necessarily falls outside what Peano arithmetic itself can prove, by Gödel's second incompleteness theorem.",
+    keyIdeas: [
+      'proofs as formal, analyzable objects rather than just certificates of truth',
+      'sequent calculus and natural deduction as systematic formalizations of proof',
+      'the cut-elimination theorem and the subformula property',
+      'ordinal analysis: measuring the "strength" of a theory by the ordinal needed to prove its consistency',
+      'proof mining: extracting explicit bounds and algorithms from non-constructive proofs',
+    ],
+    whyItMatters:
+      "Proof theory turns 'how strong is this axiom system?' into a precise, calculable question: Gentzen's consistency proof for arithmetic showed exactly how much transfinite induction is needed to certify arithmetic's consistency, giving a concrete measure of mathematical strength that Gödel's theorems alone only showed must exist.",
+    prerequisites: ['foundations:axiomatic-method'],
+    related: ['logic:completeness-theorem', 'logic:incompleteness-theorems', 'proof-assistants:type-theory'],
+    historicalContext:
+      "David Hilbert launched proof theory explicitly around 1920 as the technical core of his program to prove the consistency of all of mathematics using only finitary methods, hoping to answer foundational worries raised by paradoxes in naive set theory. Gerhard Gentzen, a student in the Hilbert school, invented both natural deduction and the sequent calculus in his 1934-35 dissertation and proved the cut-elimination theorem, then in 1936 proved the consistency of Peano arithmetic using transfinite induction up to $\\varepsilon_0$ — a result Gödel's second incompleteness theorem (1931) had shown could not be achieved by finitary means alone, refining rather than refuting Hilbert's original goal.",
+    contributorIds: ['person:david-hilbert', 'person:gerhard-gentzen', 'person:kurt-godel'],
+    workIds: [],
+    exampleProblems: [
+      'Convert a simple natural-deduction proof of a propositional tautology into sequent-calculus form.',
+      'Explain what the cut-elimination theorem says and why cut-free proofs have the subformula property.',
+      "Explain why Gentzen's 1936 consistency proof for Peano arithmetic does not contradict Gödel's second incompleteness theorem.",
+    ],
+    applications: [
+      'automated theorem proving and proof search algorithms, which rely on cut-free (analytic) proof systems',
+      'type theory and functional programming, via the Curry-Howard correspondence between proofs and programs',
+      'formal verification of software and hardware, using proof assistants grounded in proof-theoretic foundations',
+    ],
+    researchDirections: [
+      'ordinal analysis of increasingly strong theories, measuring their proof-theoretic strength',
+      'proof mining, extracting quantitative and computational content from classical proofs in analysis',
+      'structural proof theory and linear logic, refining the resource-sensitivity of proofs',
+    ],
+    textbooks: [
+      {
+        title: 'Basic Proof Theory',
+        authors: ['A. S. Troelstra', 'H. Schwichtenberg'],
+        edition: '2nd',
+        year: 2000,
+        why: 'The standard modern introduction to sequent calculus, natural deduction, and cut-elimination.',
+      },
+      {
+        title: 'Proof Theory',
+        authors: ['Gaisi Takeuti'],
+        edition: '2nd',
+        year: 1987,
+        why: 'A classic, more advanced reference on ordinal analysis and the proof-theoretic strength of theories.',
+      },
+      {
+        title: 'Introduction to Metamathematics',
+        authors: ['Stephen C. Kleene'],
+        year: 1952,
+        why: 'The classic bridging text connecting proof theory to recursion theory and Hilbert\'s program.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sequent', latex: '\\Gamma \\vdash \\Delta' },
+      { label: "Gentzen's consistency bound", latex: '\\text{Con}(\\text{PA}) \\text{ provable from transfinite induction up to } \\varepsilon_0' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Proof theory', url: 'https://encyclopediaofmath.org/wiki/Proof_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Gerhard Gentzen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gentzen/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'foundations:model-theory': {
+    overview:
+      'Model theory studies the relationship between formal logical theories (sets of sentences) and their models (mathematical structures in which those sentences are true), revealing that a single consistent theory can have wildly different models, some highly unintuitive.',
+    formal:
+      "A structure $\\mathcal{M}$ is a model of a theory $T$ if every sentence in $T$ is true in $\\mathcal{M}$. The Compactness Theorem states that if every finite subset of $T$ has a model, so does $T$ itself. The Löwenheim-Skolem theorem states that if $T$ has an infinite model, it has models of every infinite cardinality at least as large as the cardinality of its language.",
+    keyIdeas: [
+      'a model as a mathematical structure satisfying a formal theory',
+      'the Compactness Theorem, a deceptively simple statement with far-reaching consequences',
+      "the Löwenheim-Skolem theorems and the resulting non-uniqueness of infinite models (Skolem's paradox)",
+      'elementary equivalence versus isomorphism: structures can satisfy exactly the same sentences without being isomorphic',
+      'using compactness to construct nonstandard models, such as in nonstandard analysis',
+    ],
+    whyItMatters:
+      "Model theory reveals that formal theories radically underdetermine their models: Peano arithmetic, for instance, has 'nonstandard' models containing infinite numbers alongside the ordinary ones, and this same compactness-based construction gives Abraham Robinson's nonstandard analysis a rigorous foundation for genuine infinitesimals, vindicating in a new form the reasoning Weierstrass's epsilon-delta program had seemingly banished.",
+    prerequisites: ['foundations:proof-theory'],
+    related: ['logic:completeness-theorem', 'set-theory:cardinals', 'algebraic-geometry:schemes'],
+    historicalContext:
+      "Leopold Löwenheim proved the first version of his eponymous theorem in 1915, and Thoralf Skolem generalized it and drew out its startling consequences — Skolem's paradox, that a countable model can satisfy sentences 'asserting' the existence of uncountable sets — in the 1920s. Kurt Gödel's 1929 doctoral thesis proved the Completeness Theorem for first-order logic, from which the Compactness Theorem follows as a corollary, tightly linking model theory to proof theory. Alfred Tarski's 1933 work on truth gave the precise semantic definition of 'a sentence is true in a structure' that model theory is built on, and Tarski's later Berkeley school turned model theory into a systematic field in the 1950s-60s.",
+    contributorIds: ['person:kurt-godel', 'person:alfred-tarski'],
+    workIds: ['work:model-theory'],
+    exampleProblems: [
+      'Use the Compactness Theorem to show that the theory of ordered fields has a model containing an infinitesimal element.',
+      'Explain Skolem\'s paradox: why a countable model of ZFC set theory can still satisfy the sentence "there exists an uncountable set."',
+      'Show that first-order Peano arithmetic has nonstandard models, using the Compactness Theorem.',
+    ],
+    applications: [
+      'nonstandard analysis, giving a rigorous foundation for infinitesimal reasoning in calculus',
+      'algebraic applications of model theory, such as the model-theoretic proof of the Ax-Grothendieck theorem',
+      'database theory and finite model theory, connecting logic to computational complexity',
+    ],
+    researchDirections: [
+      'o-minimality and tame geometry, using model theory to control the topology of definable sets',
+      "model theory's applications to Diophantine geometry, including the model-theoretic proof of the Mordell-Lang conjecture",
+      'stability theory, classifying theories by the complexity of their models',
+    ],
+    textbooks: [
+      {
+        title: 'Model Theory: An Introduction',
+        authors: ['David Marker'],
+        year: 2002,
+        why: 'The standard modern graduate introduction, connecting classical model theory to its applications in algebra and geometry.',
+      },
+      {
+        title: 'A Shorter Model Theory',
+        authors: ['Wilfrid Hodges'],
+        year: 1997,
+        why: 'A compact, widely used introduction praised for its clarity and efficient coverage of the core results.',
+      },
+      {
+        title: 'Model Theory',
+        authors: ['C. C. Chang', 'H. Jerome Keisler'],
+        edition: '3rd',
+        year: 1990,
+        why: 'The classic, comprehensive reference that has trained generations of model theorists.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Compactness Theorem', latex: '(\\forall T_0 \\subseteq T \\text{ finite},\\ T_0 \\text{ has a model}) \\implies T \\text{ has a model}' },
+      { label: 'Löwenheim-Skolem theorem', latex: 'T \\text{ has an infinite model} \\implies T \\text{ has a model of every infinite cardinality} \\ge |L|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Model theory', url: 'https://encyclopediaofmath.org/wiki/Model_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alfred Tarski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Tarski/', kind: 'reference' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+    ],
+  },
+  'foundations:recursion-theory': {
+    overview:
+      'Recursion theory (computability theory) studies which functions on the natural numbers can be computed by an algorithm at all, and classifies the uncomputable problems by how undecidable they are relative to each other.',
+    formal:
+      'A function $f:\\mathbb{N}\\to\\mathbb{N}$ is Turing-computable if some Turing machine, given input $n$, halts and outputs $f(n)$. The Church-Turing thesis asserts this formal notion coincides exactly with the informal notion of "algorithmically computable," a claim supported by the independent equivalence of Turing machines, Church\'s lambda calculus, and Gödel-Herbrand general recursive functions. The Halting Problem — deciding, given a program and input, whether it eventually halts — is undecidable (Turing, 1936); Turing reducibility lets one compare undecidable problems, organizing them into a hierarchy of Turing degrees.',
+    keyIdeas: [
+      'computability: which functions can be computed by some algorithm at all',
+      'the Church-Turing thesis identifying "algorithm" with formal models like Turing machines',
+      'the undecidability of the Halting Problem and its proof by diagonalization',
+      'Turing reducibility and the resulting hierarchy of Turing degrees',
+      'the arithmetical hierarchy, classifying undecidable problems by logical complexity',
+    ],
+    whyItMatters:
+      'Recursion theory establishes, once and for all, that some perfectly well-defined mathematical problems have no algorithmic solution whatsoever — not "no solution found yet," but a mathematical proof that none can exist — which is the theoretical bedrock underneath every discussion in computer science of what software can and cannot, in principle, do.',
+    prerequisites: ['foundations:model-theory'],
+    related: ['computation:computability', 'computation:lambda-calculus', 'theoretical-cs:formal-languages'],
+    historicalContext:
+      "Kurt Gödel's use of recursive functions to arithmetize syntax in his 1931 incompleteness proof supplied an early formal notion of 'effectively computable.' Alonzo Church (1936) proposed lambda-definability and Alan Turing (1936), independently and using an entirely different machine-based model, both captured the informal notion of computability and proved it equivalent to each other and to Gödel's recursive functions; Turing's paper additionally proved the Halting Problem undecidable and Hilbert's Entscheidungsproblem unsolvable. Stephen Kleene, a student of Church, developed recursive function theory systematically through the 1930s-50s, including the recursion theorem and the arithmetical hierarchy, cementing the field's modern form.",
+    contributorIds: ['person:alan-turing', 'person:alonzo-church', 'person:stephen-kleene'],
+    workIds: ['work:on-computable-numbers'],
+    exampleProblems: [
+      'Prove the Halting Problem is undecidable using a diagonalization argument.',
+      'Explain why the Church-Turing thesis is a thesis, an empirical or philosophical claim, rather than a theorem.',
+      'Give an example of two undecidable problems that are Turing-equivalent, and one pair that is not.',
+    ],
+    applications: [
+      'the theoretical limits of what software verification can achieve, given the undecidability of program correctness in general',
+      'computability-based lower bounds informing computational complexity theory',
+      'programming language semantics grounded in computability',
+    ],
+    researchDirections: [
+      'the structure of the Turing degrees, still only partially understood after 80+ years of study',
+      'algorithmic randomness, connecting recursion theory to Kolmogorov complexity and probability',
+      "reverse mathematics' use of computability-theoretic tools to classify the strength of mathematical theorems",
+    ],
+    textbooks: [
+      {
+        title: 'Turing Computability: Theory and Applications',
+        authors: ['Robert I. Soare'],
+        year: 2016,
+        why: 'The modern standard graduate text, by one of the field\'s leading researchers, unifying classical and contemporary computability theory.',
+      },
+      {
+        title: 'Theory of Recursive Functions and Effective Computability',
+        authors: ['Hartley Rogers Jr.'],
+        year: 1967,
+        why: 'The classic comprehensive reference that shaped the field for decades.',
+      },
+      {
+        title: 'Computability: An Introduction to Recursive Function Theory',
+        authors: ['Nigel Cutland'],
+        year: 1980,
+        why: 'A gentler, widely used undergraduate introduction to the same core results.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Church-Turing thesis (informal)', latex: '\\text{algorithmically computable} \\equiv \\text{Turing-computable}' },
+      { label: 'Halting Problem undecidability', latex: '\\nexists \\text{ Turing machine } H:\\ H(e,x) = [\\varphi_e(x)\\!\\downarrow]' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Recursive set theory', url: 'https://encyclopediaofmath.org/wiki/Recursive_set_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alan Turing', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Turing/', kind: 'reference' },
+      { label: 'MacTutor: Stephen Kleene', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kleene/', kind: 'reference' },
+    ],
+  },
+  'foundations:foundational-programs': {
+    overview:
+      'In the early 20th century, mathematicians launched rival programs to secure the foundations of mathematics after paradoxes emerged in naive set theory: logicism (reducing mathematics to logic), formalism (treating mathematics as symbol manipulation proved consistent by finitary means), and intuitionism (rebuilding mathematics on constructive mental activity alone). Gödel\'s theorems reshaped what any such program could hope to achieve.',
+    formal:
+      "Hilbert's program sought a finitary consistency proof for a formal system $S$ strong enough to encode classical mathematics. Gödel's second incompleteness theorem shows that if $S$ is consistent and strong enough to encode its own arithmetic, $S$ cannot prove its own consistency, showing Hilbert's program cannot succeed in its strongest form. Logicism, pursued in Russell and Whitehead's Principia Mathematica, aimed to derive all of mathematics from pure logic plus a few extra-logical axioms (such as the axiom of infinity), an ambition complicated by Russell's own paradox in naive logicist set theories.",
+    keyIdeas: [
+      "Hilbert's formalist program: prove the consistency of mathematics by finitary means",
+      "logicism: Russell and Whitehead's attempt to derive mathematics from pure logic",
+      "intuitionism: Brouwer's rejection of actual infinity and the unrestricted law of excluded middle",
+      "Russell's paradox and its role in destabilizing naive foundational systems",
+      "Gödel's incompleteness theorems reshaping, without simply destroying, Hilbert's program",
+    ],
+    whyItMatters:
+      'The foundational crisis of the early 20th century forced mathematicians to make explicit something previously taken for granted — what exactly is a mathematical proof, and what are we allowed to assume exists — and even though no single program "won," the crisis produced formal logic, recursion theory, and axiomatic set theory as permanent, load-bearing parts of modern mathematics.',
+    prerequisites: ['foundations:axiomatic-method'],
+    related: ['foundations:constructive-mathematics', 'set-theory:zermelo-fraenkel-axioms', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "Gottlob Frege's Grundgesetze der Arithmetik (1893, 1903) attempted to found arithmetic on pure logic, but Bertrand Russell's 1901 discovery of a paradox in Frege's system — does the set of all sets that do not contain themselves contain itself? — forced a crisis just as the second volume went to press. Russell and Alfred North Whitehead's Principia Mathematica (1910-13) rebuilt logicism using type theory to block the paradox. David Hilbert, worried by such paradoxes, proposed his formalist program around 1920 to secure mathematics via finitary consistency proofs, while L.E.J. Brouwer developed intuitionism as a rival, constructive foundation. Kurt Gödel's incompleteness theorems (1931) then showed Hilbert's strongest hopes could not be realized as originally envisioned, reshaping but not ending foundational research.",
+    contributorIds: ['person:bertrand-russell', 'person:david-hilbert', 'person:l-e-j-brouwer'],
+    workIds: ['work:principia-mathematica'],
+    exampleProblems: [
+      "State Russell's paradox and explain why it shows naive, unrestricted set comprehension is inconsistent.",
+      "Explain what Hilbert's program hoped to achieve and why Gödel's second incompleteness theorem limits it.",
+      'Contrast how logicism, formalism, and intuitionism would each treat the statement "there exists an infinite set."',
+    ],
+    applications: [
+      'the type theory developed to block Russell\'s paradox, a direct ancestor of type systems in proof assistants and functional programming',
+      'ZFC set theory, developed partly in response to these debates, as the standard foundation used throughout mathematics today',
+    ],
+    researchDirections: [
+      'homotopy type theory and univalent foundations as a contemporary rival foundational program',
+      'reverse mathematics, precisely calibrating how much of classical mathematics different foundational fragments can recover',
+      'the philosophy of mathematical practice, examining what working mathematicians actually assume versus what any single program prescribes',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Metamathematics',
+        authors: ['Stephen C. Kleene'],
+        year: 1952,
+        why: 'A classic that surveys logicism, formalism, and intuitionism alongside the technical machinery each produced.',
+      },
+      {
+        title: "Gödel's Theorem: An Incomplete Guide to Its Use and Abuse",
+        authors: ['Torkel Franzén'],
+        year: 2005,
+        why: "A clear, careful account of what Gödel's theorems do and do not imply for Hilbert's program.",
+      },
+      {
+        title: 'Thinking About Mathematics: The Philosophy of Mathematics',
+        authors: ['Stewart Shapiro'],
+        year: 2000,
+        why: 'A widely used survey of the rival foundational schools and their philosophical motivations.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Russell's paradox", latex: 'R = \\{x : x \\notin x\\} \\implies R \\in R \\iff R \\notin R' },
+      { label: "Gödel's second incompleteness theorem (informal)", latex: 'S \\vdash \\text{Con}(S) \\implies S \\text{ is inconsistent (for suitable } S\\text{)}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Foundations of mathematics', url: 'https://en.wikipedia.org/wiki/Foundations_of_mathematics', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bertrand Russell', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Russell/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'foundations:constructive-mathematics': {
+    overview:
+      'Constructive mathematics insists that to prove something exists, you must show how to build it, or give an algorithm that would build it, rejecting proofs by contradiction that merely rule out non-existence without ever exhibiting the object in question.',
+    formal:
+      'Constructive (intuitionistic) logic rejects the unrestricted law of excluded middle, $P \\vee \\neg P$, as a general axiom, since asserting it for an undecided statement $P$ would claim knowledge not actually available. A constructive proof of $\\exists x\\, \\phi(x)$ must supply a specific witness $x_0$ together with a proof of $\\phi(x_0)$, rather than merely deriving a contradiction from $\\forall x\\, \\neg\\phi(x)$.',
+    keyIdeas: [
+      'constructive existence proofs must exhibit a witness, not merely rule out non-existence',
+      'the rejection of the unrestricted law of excluded middle for undecided propositions',
+      'the Brouwer-Heyting-Kolmogorov interpretation of logical connectives in terms of constructions',
+      'the Curry-Howard correspondence between constructive proofs and computer programs',
+      'constructive analysis, rebuilding real analysis on constructive foundations',
+    ],
+    whyItMatters:
+      'Constructive mathematics is not merely a philosophical scruple: because a constructive proof must supply an algorithm, constructive mathematics and computer science turn out to be deeply connected, and the Curry-Howard correspondence shows that "proof" and "program" are, in a precise formal sense, the same kind of object — which is why every modern interactive proof assistant (Coq, Lean, Agda) is built on a constructive type theory.',
+    prerequisites: ['foundations:foundational-programs'],
+    related: ['proof-assistants:type-theory', 'proof-assistants:dependent-types', 'logic:intuitionistic-logic'],
+    historicalContext:
+      "L.E.J. Brouwer launched intuitionism, the philosophical wellspring of constructive mathematics, in his 1907 dissertation and subsequent papers, rejecting the actual infinite and the unrestricted law of excluded middle as illegitimately extrapolated from finite experience. Arend Heyting, Brouwer's student, formalized intuitionistic logic in 1930, giving a precise proof system for what had been a largely informal philosophical position. Errett Bishop's Foundations of Constructive Analysis (1967) then dramatically changed the field's reputation by reconstructing large parts of real and functional analysis constructively, in an ordinary, readable mathematical style, showing constructive mathematics could be practiced without the idiosyncratic philosophical apparatus Brouwer had insisted upon.",
+    contributorIds: ['person:l-e-j-brouwer', 'person:errett-bishop'],
+    workIds: [],
+    exampleProblems: [
+      'Explain why a classical proof of the Intermediate Value Theorem is not automatically constructive, and describe the extra hypothesis constructive analysis typically adds to recover it.',
+      'Show, using the Brouwer-Heyting-Kolmogorov interpretation, what a constructive proof of "P or Q" must supply.',
+      'Explain the basic idea of the Curry-Howard correspondence, matching implication to function types and conjunction to pairs.',
+    ],
+    applications: [
+      'type theory and functional programming languages, whose type systems are direct descendants of constructive logic',
+      'interactive proof assistants (Coq, Agda, Lean) built on constructive dependent type theory',
+      'extracting certified, executable algorithms directly from constructive existence proofs',
+    ],
+    researchDirections: [
+      'homotopy type theory, a modern constructive foundation unifying type theory with ideas from homotopy theory',
+      'constructive reverse mathematics, classifying which classical theorems have constructive proofs',
+      'the formalization of large bodies of mathematics in constructive proof assistants',
+    ],
+    textbooks: [
+      {
+        title: 'Constructive Analysis',
+        authors: ['Errett Bishop', 'Douglas Bridges'],
+        year: 1985,
+        why: "The direct successor to Bishop's original 1967 text and still the standard reference for constructive analysis.",
+      },
+      {
+        title: 'Constructivism in Mathematics',
+        authors: ['A. S. Troelstra', 'Dirk van Dalen'],
+        year: 1988,
+        why: 'A comprehensive two-volume reference covering the full range of constructive foundations and their logic.',
+      },
+      {
+        title: 'Foundations of Constructive Mathematics',
+        authors: ['Michael J. Beeson'],
+        year: 1985,
+        why: 'Connects constructive mathematics directly to metamathematics and proof theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'BHK interpretation of existence', latex: '\\exists x\\,\\phi(x) \\text{ proved by exhibiting } x_0 \\text{ and a proof of } \\phi(x_0)' },
+      { label: 'Rejected as a general axiom', latex: 'P \\vee \\neg P \\ \\text{(law of excluded middle)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Constructive mathematics', url: 'https://encyclopediaofmath.org/wiki/Constructive_mathematics', kind: 'encyclopedia' },
+      { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
+      { label: 'MacTutor: Errett Bishop', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bishop/', kind: 'reference' },
+    ],
+  },
+  'logic:propositional-logic': {
+    overview:
+      'Propositional logic studies how the truth values of compound statements, built from simple propositions using "and," "or," "not," and "if...then," are determined by the truth values of their parts. It gives the most basic layer of formal deductive reasoning.',
+    formal:
+      'Formulas are built from propositional variables $p,q,r,\\ldots$ using connectives $\\neg,\\wedge,\\vee,\\to,\\leftrightarrow$. A truth assignment $v$ maps each variable to $\\{T,F\\}$ and extends recursively to all formulas via truth tables; a formula is a tautology if it is true under every assignment. The classical propositional calculus is sound and complete: a formula is derivable from a standard axiom system, with modus ponens as the sole inference rule, if and only if it is a tautology.',
+    keyIdeas: [
+      'truth tables and truth-functional connectives',
+      'tautologies, contradictions, and satisfiability',
+      'soundness and completeness of the propositional calculus',
+      'the Boolean algebra structure underlying propositional logic',
+      'the Boolean satisfiability problem (SAT) as the archetypal NP-complete problem',
+    ],
+    whyItMatters:
+      'Propositional logic is the smallest fragment of logic complete enough to formalize "and," "or," "not," and "if...then" precisely, and it is simultaneously the theoretical foundation of digital circuit design — every logic gate implements a Boolean connective — and, via the SAT problem, one of the central objects of computational complexity theory.',
+    prerequisites: [],
+    related: ['logic:predicate-logic', 'discrete-math:boolean-algebra', 'theoretical-cs:p-versus-np'],
+    historicalContext:
+      "Aristotle's syllogistic logic and the Stoic logicians studied propositional-style inference in antiquity, but the modern algebraic treatment began with George Boole's The Mathematical Analysis of Logic (1847) and An Investigation of the Laws of Thought (1854), which represented logical statements as algebraic equations over $\\{0,1\\}$, founding what is now called Boolean algebra. Gottlob Frege's Begriffsschrift (1879) then embedded propositional logic within a fully symbolic system also covering quantifiers, and Emil Post (1921) proved the completeness of the classical propositional calculus, showing the standard axioms and modus ponens suffice to derive exactly the tautologies.",
+    contributorIds: ['person:george-boole', 'person:gottlob-frege'],
+    workIds: ['work:the-mathematical-analysis-of-logic'],
+    exampleProblems: [
+      'Construct the truth table for $(p\\to q)\\leftrightarrow(\\neg q\\to\\neg p)$ and confirm it is a tautology.',
+      'Use the resolution rule to show that $\\{p\\vee q,\\ \\neg p\\vee r,\\ \\neg q\\vee r\\}$ entails $r$.',
+      'Explain, at least in outline, why the Boolean satisfiability problem (SAT) is NP-complete (the Cook-Levin theorem).',
+    ],
+    applications: [
+      'digital circuit design, where logic gates directly implement Boolean connectives',
+      'SAT solvers used throughout hardware and software verification and combinatorial optimization',
+      'database query languages built on Boolean predicates',
+    ],
+    researchDirections: [
+      'practical SAT-solving algorithms (CDCL solvers) that scale to millions of variables despite worst-case NP-completeness',
+      'proof complexity, measuring the size of propositional proofs needed for hard tautologies',
+      'quantum and probabilistic generalizations of Boolean logic',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate introduction, with a rigorous treatment of soundness and completeness for propositional logic.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A comprehensive, widely assigned reference covering propositional calculus in full formal detail.',
+      },
+      {
+        title: 'Logic in Computer Science',
+        authors: ['Michael Huth', 'Mark Ryan'],
+        edition: '2nd',
+        year: 2004,
+        why: 'Connects propositional logic directly to SAT solving and its applications in verification.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Modus ponens', latex: '\\varphi,\\ \\varphi\\to\\psi \\ \\vdash\\ \\psi' },
+      { label: "De Morgan's laws", latex: '\\neg(\\varphi\\wedge\\psi) \\equiv \\neg\\varphi\\vee\\neg\\psi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Propositional calculus', url: 'https://encyclopediaofmath.org/wiki/Propositional_calculus', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Boole', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Boole/', kind: 'reference' },
+      { label: 'MacTutor: Gottlob Frege', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frege/', kind: 'reference' },
+    ],
+  },
+  'logic:predicate-logic': {
+    overview:
+      'Predicate (first-order) logic extends propositional logic with quantifiers — "for all," "there exists" — and predicates describing properties and relations among objects, giving mathematics its standard formal language for stating and proving theorems precisely.',
+    formal:
+      "A first-order language consists of constants, function symbols, predicate symbols, and variables, combined with connectives and quantifiers $\\forall,\\exists$. A formula is valid if it is true in every structure under every assignment of its free variables; Gödel's Completeness Theorem (1929) shows validity coincides exactly with derivability in a standard proof system. Unlike propositional logic, first-order validity is undecidable in general (Church, Turing, 1936), though it is semi-decidable.",
+    keyIdeas: [
+      'quantifiers and predicates as the extension beyond propositional logic',
+      'structures and satisfaction: what it means for a formula to be true in a given interpretation',
+      'validity, and its coincidence with provability via the Completeness Theorem',
+      'the undecidability of first-order validity (the Entscheidungsproblem)',
+      'first-order logic as the standard formal language in which nearly all of ordinary mathematics is expressed',
+    ],
+    whyItMatters:
+      'First-order predicate logic is the common formal language underlying essentially every axiomatic mathematical theory — ZFC set theory, Peano arithmetic, group theory, and so on — and its precise, quantifier-based syntax is what makes it possible to state theorems unambiguously and check proofs mechanically, as modern proof assistants do.',
+    prerequisites: ['logic:propositional-logic'],
+    related: ['logic:completeness-theorem', 'foundations:axiomatic-method', 'set-theory:zermelo-fraenkel-axioms'],
+    historicalContext:
+      "Gottlob Frege's Begriffsschrift (1879) introduced quantifiers and a fully symbolic predicate logic for the first time, a landmark Frege himself considered his most important contribution, though its two-dimensional notation was rarely adopted directly. Giuseppe Peano and Bertrand Russell, in Principia Mathematica (1910-13), developed more usable symbolic notations that shaped the modern presentation of first-order logic. David Hilbert and Wilhelm Ackermann's Grundzüge der theoretischen Logik (1928) posed the Entscheidungsproblem for first-order validity explicitly, which Alonzo Church and Alan Turing independently proved unsolvable in 1936, using the same computability tools that founded recursion theory.",
+    contributorIds: ['person:gottlob-frege', 'person:giuseppe-peano'],
+    workIds: ['work:principia-mathematica'],
+    exampleProblems: [
+      'Translate "every prime greater than 2 is odd" into first-order logic, using appropriate predicates.',
+      'Explain the difference between a formula being true in one particular structure and being valid (true in all structures).',
+      'Explain, in outline, why first-order validity is undecidable but semi-decidable.',
+    ],
+    applications: [
+      'the formal specification language underlying nearly all axiomatic mathematics',
+      'database query languages, where relational algebra is closely tied to first-order logic',
+      'automated theorem proving and proof assistants built on first-order or higher-order variants',
+    ],
+    researchDirections: [
+      'decidable fragments of first-order logic and their complexity (e.g. the guarded fragment, used in verification)',
+      "finite model theory's departures from classical (infinite-model) first-order logic, relevant to database theory",
+      'higher-order and modal extensions of first-order logic for richer expressive needs',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate text, with a complete treatment of first-order syntax, semantics, and the Completeness Theorem.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A thorough, formally precise reference on first-order logic and its metatheory.',
+      },
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'A widely used European graduate text with strong treatments of both classical and intuitionistic predicate logic.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Universal and existential quantifiers', latex: '\\forall x\\, \\varphi(x),\\qquad \\exists x\\, \\varphi(x)' },
+      { label: "Gödel's Completeness Theorem", latex: 'T \\vdash \\varphi \\iff T \\models \\varphi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Predicate calculus', url: 'https://encyclopediaofmath.org/wiki/Predicate_calculus', kind: 'encyclopedia' },
+      { label: 'MacTutor: Gottlob Frege', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frege/', kind: 'reference' },
+      { label: 'MacTutor: Giuseppe Peano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Peano/', kind: 'reference' },
+    ],
+  },
+  'logic:completeness-theorem': {
+    overview:
+      "Gödel's Completeness Theorem shows that first-order logic's proof system is exactly powerful enough to prove every logically valid statement: syntax (what can be derived) and semantics (what is true in every model) perfectly match. It is a foundational fact often confused with, and entirely different from, the incompleteness theorems.",
+    formal:
+      'Gödel\'s Completeness Theorem (1929): a first-order sentence $\\varphi$ is provable from a set of axioms $T$ if and only if $\\varphi$ is true in every model of $T$. Equivalently, $T$ is consistent if and only if $T$ has a model. The Compactness Theorem follows as an immediate corollary: if every finite subset of $T$ has a model, then $T$ itself has a model.',
+    keyIdeas: [
+      'the exact match between semantic validity (true in all models) and syntactic provability',
+      'consistency and satisfiability as two sides of the same coin',
+      'the Compactness Theorem as an immediate corollary',
+      'why completeness, a positive result about first-order logic, is compatible with incompleteness, a negative result about arithmetic specifically',
+      'the model-existence proof technique underlying the theorem',
+    ],
+    whyItMatters:
+      'The Completeness Theorem is why mathematicians can treat "no proof exists" and "a countermodel exists" as interchangeable ways of failing to prove something in first-order logic, and it is the theorem that makes model theory and proof theory two views of the same underlying subject rather than separate fields that merely happen to overlap.',
+    prerequisites: ['logic:predicate-logic'],
+    related: ['foundations:model-theory', 'foundations:proof-theory', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "David Hilbert and Wilhelm Ackermann posed the completeness of first-order logic as an open problem in their 1928 textbook Grundzüge der theoretischen Logik. Kurt Gödel proved it in his 1929 doctoral dissertation at the University of Vienna, under Hans Hahn, using a construction later streamlined by Leon Henkin in 1949 that builds a model directly out of the syntactic objects of a consistent theory. The result is frequently and mistakenly conflated with Gödel's very different, and much more famous, incompleteness theorems, proved just two years later in 1931, which concern the limits of any single sufficiently strong theory of arithmetic rather than first-order logic in general.",
+    contributorIds: ['person:kurt-godel', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Explain precisely why the Completeness Theorem and the Incompleteness Theorems are not in tension, despite the similar names.',
+      'Use the Completeness Theorem to show that a first-order theory is consistent if and only if it has a model.',
+      'Sketch the Henkin construction: how a model is built directly from the syntax of a consistent, complete theory with witnesses.',
+    ],
+    applications: [
+      'justifying the standard practice of proving a formula unprovable by exhibiting a countermodel',
+      'the foundation on which model theory as a field is built',
+      "automated theorem proving's guarantee that proof search will eventually succeed on any valid formula",
+    ],
+    researchDirections: [
+      'completeness and incompleteness phenomena in non-classical and higher-order logics (second-order logic is famously incomplete in this sense)',
+      'effective and constructive versions of the completeness theorem',
+      'abstract model theory, characterizing which logics admit a completeness theorem at all (Lindström\'s theorem)',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'Gives the standard modern proof of the Completeness Theorem via the Henkin construction.',
+      },
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'A clear, widely used treatment connecting completeness directly to compactness and model theory.',
+      },
+      {
+        title: 'Handbook of Mathematical Logic',
+        authors: ['Jon Barwise'],
+        year: 1977,
+        why: 'The comprehensive reference surveying completeness and its many generalizations across mathematical logic.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Gödel's Completeness Theorem", latex: 'T \\vdash \\varphi \\iff T \\models \\varphi' },
+      { label: 'Compactness Theorem (corollary)', latex: '(\\forall T_0 \\subseteq T \\text{ finite: } T_0 \\text{ satisfiable}) \\implies T \\text{ satisfiable}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Gödel completeness theorem', url: 'https://encyclopediaofmath.org/wiki/G%C3%B6del_completeness_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'logic:incompleteness-theorems': {
+    overview:
+      "Gödel's incompleteness theorems show that any consistent formal system powerful enough to encode ordinary arithmetic must contain true statements it cannot prove, and cannot even prove its own consistency — a mathematical proof that formal systems have inherent, permanent limitations.",
+    formal:
+      'Gödel\'s First Incompleteness Theorem: for any consistent, recursively axiomatized formal system $S$ containing enough arithmetic, there is a sentence $G_S$, constructed via Gödel numbering and diagonalization, such that neither $G_S$ nor $\\neg G_S$ is provable in $S$, and $G_S$ is in fact true. Gödel\'s Second Incompleteness Theorem: under the same hypotheses, $S$ cannot prove $\\text{Con}(S)$, the arithmetized statement of its own consistency, unless $S$ is actually inconsistent.',
+    keyIdeas: [
+      'Gödel numbering: encoding formulas and proofs as natural numbers so arithmetic can talk about itself',
+      'the diagonal lemma, producing a sentence that, in effect, asserts its own unprovability',
+      'the First Incompleteness Theorem: true-but-unprovable sentences exist in any sufficiently strong consistent system',
+      'the Second Incompleteness Theorem: no such system can prove its own consistency',
+      "the theorems' limited, precise scope — they do not show mathematics is 'broken,' only that no single recursive system captures all arithmetical truth",
+    ],
+    whyItMatters:
+      "The incompleteness theorems permanently ended the strongest form of Hilbert's program — a single finitary system certifying the consistency of all of mathematics — and revealed something genuinely new about formal systems: that provability and truth are not the same thing, even for elementary arithmetic, with implications reaching into computer science and the theory of computation.",
+    prerequisites: ['logic:completeness-theorem'],
+    related: ['foundations:proof-theory', 'foundations:foundational-programs', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "David Hilbert's formalist program of the 1920s hoped to prove the consistency of all of mathematics through finitary means. Kurt Gödel, working alone in Vienna, proved both incompleteness theorems in his 1931 paper Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme, using the newly available technique of arithmetizing syntax to construct a self-referential sentence within arithmetic itself, adapting the Liar paradox into a rigorous mathematical tool. The result stunned the mathematical community, and Gerhard Gentzen's 1936 proof that arithmetic's consistency IS provable using slightly more than finitary means — transfinite induction to $\\varepsilon_0$ — clarified exactly how much stronger than arithmetic itself such a proof requires.",
+    contributorIds: ['person:kurt-godel', 'person:david-hilbert'],
+    workIds: ['work:uber-formal-unentscheidbare-satze'],
+    exampleProblems: [
+      'Explain, in outline, how Gödel numbering lets a formula of arithmetic express a statement about provability in arithmetic.',
+      'State the First Incompleteness Theorem precisely and explain why the Gödel sentence is true despite being unprovable.',
+      "Explain why the Second Incompleteness Theorem strengthens the first, and why it specifically undermines Hilbert's program.",
+    ],
+    applications: [
+      'the theoretical limits on formal software verification: no complete, consistent, automatable proof system can verify all true statements about programs',
+      'philosophical arguments about whether human reasoning can be fully mechanized (the contested Lucas-Penrose argument)',
+      'computability theory, whose undecidability results are close cousins of the incompleteness theorems',
+    ],
+    researchDirections: [
+      'reverse mathematics, precisely calibrating which subsystems of arithmetic can prove which classical theorems',
+      'independence results in set theory (e.g. the Continuum Hypothesis), a direct descendant of the incompleteness methodology',
+      'ordinal analysis, measuring exactly how much stronger than a theory is needed to prove its consistency',
+    ],
+    textbooks: [
+      {
+        title: "Gödel's Theorem: An Incomplete Guide to Its Use and Abuse",
+        authors: ['Torkel Franzén'],
+        year: 2005,
+        why: 'A clear, careful account distinguishing what the incompleteness theorems actually prove from common misreadings.',
+      },
+      {
+        title: "An Introduction to Gödel's Theorems",
+        authors: ['Peter Smith'],
+        edition: '2nd',
+        year: 2013,
+        why: 'The standard rigorous but accessible textbook treatment, working through the full proof in detail.',
+      },
+      {
+        title: "Gödel's Incompleteness Theorems",
+        authors: ['Raymond M. Smullyan'],
+        year: 1992,
+        why: 'A classic, elegant alternative presentation using Smullyan\'s characteristic puzzle-based style.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'First Incompleteness Theorem (Gödel sentence)', latex: 'G_S \\leftrightarrow \\neg\\text{Prov}_S(\\ulcorner G_S \\urcorner)' },
+      { label: 'Second Incompleteness Theorem', latex: 'S \\nvdash \\text{Con}(S) \\quad (\\text{if } S \\text{ consistent})' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Gödel incompleteness theorem', url: 'https://encyclopediaofmath.org/wiki/G%C3%B6del_incompleteness_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: Gerhard Gentzen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gentzen/', kind: 'reference' },
+    ],
+  },
+  'logic:modal-logic': {
+    overview:
+      'Modal logic extends ordinary logic with operators for "necessarily" and "possibly," letting formal reasoning capture not just what is true but what must be true, could be true, is known, is believed, or will be true, with a single elegant semantic framework — possible worlds — handling all of these readings.',
+    formal:
+      'The basic modal language adds operators $\\Box$ (necessarily) and $\\Diamond$ (possibly, defined as $\\neg\\Box\\neg$) to propositional logic. Kripke semantics interprets formulas over a frame $(W,R)$ — a set of possible worlds $W$ with an accessibility relation $R$ — where $\\Box\\varphi$ is true at world $w$ if $\\varphi$ is true at every world accessible from $w$. Constraints on $R$ (reflexivity, transitivity, symmetry) correspond exactly to modal axioms, for instance transitivity to $\\Box\\varphi \\to \\Box\\Box\\varphi$, giving a precise correspondence between logical systems (K, T, S4, S5) and classes of frames.',
+    keyIdeas: [
+      'necessity and possibility as operators added to propositional (or predicate) logic',
+      'Kripke (possible-worlds) semantics: truth relative to a world, modulated by an accessibility relation',
+      'the correspondence between frame conditions (reflexivity, transitivity, symmetry) and modal axioms',
+      'the modal systems K, T, S4, S5 as increasingly strong theories of necessity',
+      'reinterpreting the same formal apparatus for knowledge (epistemic logic), obligation (deontic logic), and time (temporal logic)',
+    ],
+    whyItMatters:
+      'Possible-worlds semantics gave a single rigorous mathematical framework that turned necessity, knowledge, belief, obligation, and future truth from vague philosophical notions into precisely axiomatized logics with well-understood soundness and completeness results, and this same Kripke-frame technology now underlies model checking, the industrial-strength technique used to verify hardware and software against formal specifications.',
+    prerequisites: ['logic:predicate-logic'],
+    related: ['mathematical-logic-cs:temporal-logic', 'mathematical-logic-cs:model-checking', 'logic:intuitionistic-logic'],
+    historicalContext:
+      "C. I. Lewis developed the first modern systems of modal logic starting in 1912, dissatisfied with how material implication in Principia Mathematica-style logic trivialized the notion of implying, and by 1932 (with Cooper Harold Langford) had catalogued the systems S1-S5. For decades modal logic lacked a rigorous formal semantics, relying only on axiomatic proof systems, until Saul Kripke, in a series of papers starting in 1959 written while still a teenager, gave the relational possible-worlds semantics now named for him, proving completeness theorems that matched each major modal system to a class of frames defined by simple conditions on the accessibility relation.",
+    contributorIds: ['person:c-i-lewis', 'person:saul-kripke'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the modal axiom $\\Box\\varphi \\to \\Box\\Box\\varphi$ (axiom 4) corresponds exactly to transitivity of the accessibility relation.',
+      'Explain the difference between the modal systems T, S4, and S5 in terms of the properties required of their Kripke frames.',
+      'Translate "it is possible that it is necessary that P" into modal notation, and determine whether it is a theorem of S5.',
+    ],
+    applications: [
+      'model checking, used throughout hardware and software verification to check systems against temporal/modal specifications',
+      'epistemic logic in multi-agent systems and game theory, formalizing what one agent knows about another\'s beliefs',
+      'deontic logic in formalizing legal and ethical obligation for AI systems',
+    ],
+    researchDirections: [
+      'dynamic epistemic logic, modeling how knowledge and belief change as agents communicate and observe',
+      'the model-theoretic and computational complexity of modal and temporal logics used in automated verification',
+      'hybrid and description logics extending modal logic for knowledge representation in AI',
+    ],
+    textbooks: [
+      {
+        title: 'Modal Logic',
+        authors: ['Patrick Blackburn', 'Maarten de Rijke', 'Yde Venema'],
+        year: 2001,
+        why: 'The standard comprehensive graduate reference, unifying the model theory, proof theory, and complexity of modal logics.',
+      },
+      {
+        title: 'Modal Logic: An Introduction',
+        authors: ['Brian F. Chellas'],
+        year: 1980,
+        why: 'A widely used, accessible introduction covering the major systems K, T, S4, and S5 in depth.',
+      },
+      {
+        title: 'A New Introduction to Modal Logic',
+        authors: ['George E. Hughes', 'Max J. Cresswell'],
+        year: 1996,
+        why: 'A classic, thorough textbook tracing the historical development alongside the formal systems.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Box/Diamond duality', latex: '\\Diamond\\varphi \\equiv \\neg\\Box\\neg\\varphi' },
+      { label: 'Kripke truth condition for necessity', latex: 'w \\models \\Box\\varphi \\iff \\forall v\\,(wRv \\implies v \\models \\varphi)' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Modal logic', url: 'https://en.wikipedia.org/wiki/Modal_logic', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Saul Kripke', url: 'https://en.wikipedia.org/wiki/Saul_Kripke', kind: 'encyclopedia' },
+      { label: 'Wikipedia: C. I. Lewis', url: 'https://en.wikipedia.org/wiki/C._I._Lewis', kind: 'encyclopedia' },
+    ],
+  },
+  'logic:intuitionistic-logic': {
+    overview:
+      'Intuitionistic logic is the formal logic of constructive reasoning: it rejects the unrestricted law of excluded middle and proof by contradiction as general principles, keeping only the inference patterns that correspond to actually constructing evidence for a statement.',
+    formal:
+      'Intuitionistic propositional and predicate calculus differ from their classical counterparts by omitting the law of excluded middle ($\\varphi \\vee \\neg\\varphi$) and double-negation elimination ($\\neg\\neg\\varphi \\to \\varphi$) as general axioms. The Gödel-Gentzen negative translation embeds classical logic into intuitionistic logic via $\\varphi \\mapsto \\varphi^N$, showing intuitionistic arithmetic is consistent if and only if classical arithmetic is. Kripke semantics for intuitionistic logic uses partially ordered "growing" sets of worlds where truth, once established, persists as more information becomes available.',
+    keyIdeas: [
+      'the rejection of the unrestricted law of excluded middle and double-negation elimination',
+      'the Brouwer-Heyting-Kolmogorov interpretation of connectives as constructions',
+      'Kripke semantics for intuitionistic logic via partially ordered, information-increasing worlds',
+      'the Gödel-Gentzen negative translation embedding classical logic into intuitionistic logic',
+      'the Curry-Howard correspondence identifying intuitionistic proofs with typed programs',
+    ],
+    whyItMatters:
+      'Intuitionistic logic is not merely a philosophical restriction but the precise logic that corresponds to computation: every intuitionistic proof of an existential statement carries an algorithm for producing a witness, which is exactly why every practical proof assistant (Coq, Agda, Lean\'s constructive core) is built on intuitionistic rather than classical logic as its foundational layer.',
+    prerequisites: ['logic:modal-logic'],
+    related: ['foundations:constructive-mathematics', 'proof-assistants:type-theory', 'proof-assistants:dependent-types'],
+    historicalContext:
+      "L.E.J. Brouwer's intuitionism, from 1907 onward, rejected the unrestricted law of excluded middle on philosophical grounds but did not initially give a formal proof system for the resulting logic. Arend Heyting, Brouwer's student, formalized intuitionistic propositional and predicate calculus in 1930, giving the field its first rigorous axiomatic proof system. Kurt Gödel (1933) and Gerhard Gentzen (1933) independently discovered the negative translation embedding classical arithmetic into intuitionistic (Heyting) arithmetic, an unexpectedly close proof-theoretic relationship given their very different philosophical origins, and Saul Kripke's 1965 semantics for intuitionistic logic — an adaptation of his modal semantics — finally gave the field a rigorous model theory.",
+    contributorIds: ['person:l-e-j-brouwer', 'person:arend-heyting'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the intuitionistic proof system does not derive $\\varphi \\vee \\neg\\varphi$ for an arbitrary undecided $\\varphi$, by exhibiting a Kripke countermodel.',
+      'Explain the Gödel-Gentzen negative translation and why it shows intuitionistic arithmetic is consistent if and only if classical arithmetic is.',
+      'Use the Curry-Howard correspondence to describe the computational content packed into an intuitionistic proof of $\\varphi \\to \\varphi \\vee \\psi$.',
+    ],
+    applications: [
+      'the constructive core of modern proof assistants (Coq, Agda, Lean), where every proof is directly a program',
+      'extracting certified algorithms from formalized mathematical proofs',
+      'the semantics of typed functional programming languages, closely modeled on intuitionistic logic via Curry-Howard',
+    ],
+    researchDirections: [
+      'homotopy type theory, a rich extension of intuitionistic type theory connecting it to homotopy theory',
+      'realizability interpretations, giving computational semantics to intuitionistic (and even some classical) proofs',
+      "linear and substructural logics refining intuitionistic logic's resource-sensitivity further",
+    ],
+    textbooks: [
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'Includes a strong, self-contained treatment of intuitionistic logic and its Kripke semantics.',
+      },
+      {
+        title: 'Constructivism in Mathematics',
+        authors: ['A. S. Troelstra', 'Dirk van Dalen'],
+        year: 1988,
+        why: 'The comprehensive two-volume reference covering intuitionistic logic within the broader constructive tradition.',
+      },
+      {
+        title: 'Elements of Intuitionism',
+        authors: ['Michael Dummett'],
+        edition: '2nd',
+        year: 2000,
+        why: 'A classic philosophical and technical treatment of intuitionistic logic by one of its most influential defenders.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Rejected as a general axiom', latex: '\\varphi \\vee \\neg\\varphi' },
+      { label: 'Gödel-Gentzen negative translation (informal)', latex: '\\vdash_{\\text{classical}} \\varphi \\iff \\vdash_{\\text{intuitionistic}} \\varphi^N' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Intuitionistic logic', url: 'https://encyclopediaofmath.org/wiki/Intuitionistic_logic', kind: 'encyclopedia' },
+      { label: 'MacTutor: Arend Heyting', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Heyting/', kind: 'reference' },
+      { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
+    ],
+  },
+  'set-theory:naive-set-theory': {
+    overview:
+      'Naive set theory studies sets — collections of objects — using intuitive, informal reasoning about membership, union, and intersection, without the full apparatus of a formal axiom system. It is both the everyday working language of nearly all of mathematics and, in its unrestricted form, a theory containing genuine logical paradoxes.',
+    formal:
+      'A set is informally any collection of objects, and $x\\in A$ denotes that $x$ is a member of $A$. Two sets are equal iff they have the same elements (extensionality). Naive comprehension asserts that for any property $\\phi$, there is a set $\\{x:\\phi(x)\\}$ of all objects satisfying $\\phi$ — an assumption Russell\'s paradox shows is inconsistent: taking $\\phi(x)$ to be "$x\\notin x$" produces a set $R=\\{x:x\\notin x\\}$ for which $R\\in R \\iff R\\notin R$, a contradiction.',
+    keyIdeas: [
+      'sets as collections of objects, and membership as the basic relation',
+      'basic set operations: union, intersection, complement, power set, Cartesian product',
+      "Russell's paradox and the failure of unrestricted comprehension",
+      'the distinction between "naive" (informal) and "axiomatic" (formal, restricted) set theory',
+      'sets as the near-universal building material of modern mathematical objects',
+    ],
+    whyItMatters:
+      'Naive set theory is how the overwhelming majority of working mathematicians actually think and talk about sets day to day — the full ZFC axioms are rarely invoked explicitly — and understanding exactly where naive reasoning breaks down, in Russell\'s paradox, is what motivated the careful, restricted comprehension principles of axiomatic set theory.',
+    prerequisites: [],
+    related: ['set-theory:zermelo-fraenkel-axioms', 'foundations:foundational-programs', 'discrete-math:boolean-algebra'],
+    historicalContext:
+      "Georg Cantor developed set theory from the 1870s onward while studying trigonometric series and the sizes of infinite sets, introducing basic set operations and cardinality informally. Gottlob Frege attempted to found arithmetic on an unrestricted comprehension principle in his Grundgesetze der Arithmetik (1893, 1903), and Bertrand Russell's 1901 discovery of the paradox bearing his name — communicated to Frege just as the second volume of his Grundgesetze went to press — showed this naive approach was inconsistent. Paul Halmos's textbook Naive Set Theory (1960) later popularized the term itself, presenting an informal but careful treatment, deliberately avoiding heavy formal logic, that remains a standard first exposure to the subject.",
+    contributorIds: ['person:georg-cantor', 'person:bertrand-russell'],
+    workIds: ['work:naive-set-theory'],
+    exampleProblems: [
+      "State Russell's paradox precisely and explain why it shows unrestricted comprehension is inconsistent.",
+      "Use Cantor's diagonal argument to prove that the power set of a set always has strictly greater cardinality than the set itself.",
+      'Verify the distributive law $A\\cap(B\\cup C)=(A\\cap B)\\cup(A\\cap C)$ using only the definitions of union and intersection.',
+    ],
+    applications: [
+      'the everyday informal set-theoretic language used across essentially every branch of mathematics',
+      'the basic combinatorial and Boolean reasoning underlying database theory and computer science',
+      "the intuitive scaffolding on which axiomatic set theory's more careful restrictions are explained",
+    ],
+    researchDirections: [
+      'alternative and paraconsistent set theories that tolerate or restrict paradoxes differently than ZFC does',
+      'type-theoretic and category-theoretic alternatives to set-based foundations',
+      "the philosophy of mathematical practice, examining how 'naive' the working mathematician's actual use of sets really is",
+    ],
+    textbooks: [
+      {
+        title: 'Naive Set Theory',
+        authors: ['Paul R. Halmos'],
+        year: 1960,
+        why: 'The classic, famously terse and elegant text that gave the field its informal name and remains a standard first exposure.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentle, careful bridge from naive to axiomatic set theory, widely used in undergraduate courses.',
+      },
+      {
+        title: 'Introduction to Set Theory',
+        authors: ['Karel Hrbacek', 'Thomas Jech'],
+        edition: '3rd',
+        year: 1999,
+        why: 'A widely assigned text that develops naive intuitions before formalizing them axiomatically.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Russell's paradox", latex: 'R = \\{x : x \\notin x\\} \\implies R \\in R \\iff R \\notin R' },
+      { label: 'Distributive law', latex: 'A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Set theory', url: 'https://encyclopediaofmath.org/wiki/Set_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bertrand Russell', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Russell/', kind: 'reference' },
+      { label: 'Wikipedia: Naive set theory', url: 'https://en.wikipedia.org/wiki/Naive_set_theory', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:zermelo-fraenkel-axioms': {
+    overview:
+      'The Zermelo-Fraenkel axioms are the standard formal rules governing what counts as a legitimate set, carefully restricting the naive comprehension principle that led to Russell\'s paradox while remaining rich enough to construct essentially all of ordinary mathematics.',
+    formal:
+      'ZFC consists of axioms including Extensionality, Pairing, Union, Power Set, Infinity (there exists an inductive set), Foundation (no set contains itself, directly or via an infinite descending membership chain), Replacement (the image of a set under a definable function is a set), and Choice (every family of nonempty sets has a choice function). Separation, a restricted form of comprehension, allows forming $\\{x\\in A:\\phi(x)\\}$ for any set $A$ and formula $\\phi$, but not $\\{x:\\phi(x)\\}$ unrestricted — precisely what blocks Russell\'s paradox.',
+    keyIdeas: [
+      'restricted (Separation/Replacement) comprehension in place of naive unrestricted comprehension',
+      'the cumulative hierarchy: sets built up in stages indexed by ordinals, $V_0, V_1, \\ldots, V_\\omega, \\ldots$',
+      "the Axiom of Choice and its many equivalent forms (well-ordering, Zorn's lemma)",
+      'the Axiom of Foundation, ruling out sets that are members of themselves',
+      'ZFC as the de facto standard foundation for essentially all of modern mathematics',
+    ],
+    whyItMatters:
+      'ZFC gives a single, precise, and — as far as anyone has ever found — consistent rulebook for what counts as a set, strong enough that every ordinary mathematical object (numbers, functions, spaces, groups) can be built from it, which is why "is this provable in ZFC?" functions as mathematics\'s default standard of rigor.',
+    prerequisites: ['set-theory:naive-set-theory'],
+    related: ['foundations:foundational-programs', 'set-theory:cardinals', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "Ernst Zermelo published the first axiomatization of set theory in 1908, explicitly designed to block Russell's paradox and other contradictions while still supporting Cantor's theory of transfinite numbers and his own 1904 well-ordering proof, which relied on the Axiom of Choice. Zermelo's original axioms lacked the strength to prove certain sets exist that mathematicians needed; Abraham Fraenkel (1922) and independently Thoralf Skolem (1922) proposed the Axiom of Replacement to repair this, and Zermelo added Foundation in 1930, giving the system its modern ZFC form. The axioms became the near-universal standard foundation by the 1960s.",
+    contributorIds: ['person:ernst-zermelo', 'person:abraham-fraenkel'],
+    workIds: [],
+    exampleProblems: [
+      "Show how the ordered pair $(a,b)$ can be defined purely set-theoretically as $\\{\\{a\\},\\{a,b\\}\\}$ (Kuratowski's definition), and verify $(a,b)=(c,d)$ iff $a=c$ and $b=d$.",
+      'Explain why the Axiom of Replacement is needed to prove that $\\{\\aleph_0, \\aleph_1, \\aleph_2, \\ldots\\}$, indexed over all natural numbers, is a set.',
+      "State Zorn's Lemma and explain, informally, why it is equivalent to the Axiom of Choice.",
+    ],
+    applications: [
+      'providing the formal foundation in which essentially all published mathematics can, in principle, be formalized',
+      'proof assistants, which must choose a precise foundational system (often a ZFC-like set theory or a type theory)',
+      'independence and consistency results in mathematical logic, always stated relative to a specific axiom system like ZFC',
+    ],
+    researchDirections: [
+      "large cardinal axioms, extending ZFC with hypotheses about very large infinities to settle questions ZFC itself cannot decide",
+      'alternative set theories (New Foundations, ZF without choice) and their relative consistency',
+      'the search for new, well-motivated axioms to resolve questions independent of ZFC, such as the continuum hypothesis',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The standard comprehensive graduate reference, covering the axioms through forcing and large cardinals.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A widely used modern graduate text, praised for its clear exposition of the axioms and their consequences.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentler, careful introduction to the ZFC axioms suitable before tackling Jech or Kunen.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Axiom of Extensionality', latex: '\\forall z\\,(z\\in x \\leftrightarrow z\\in y) \\implies x=y' },
+      { label: 'Axiom of Choice', latex: '\\forall \\mathcal{F}\\ (\\emptyset\\notin\\mathcal{F}) \\implies \\exists f:\\mathcal{F}\\to\\bigcup\\mathcal{F},\\ f(A)\\in A' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: ZFC', url: 'https://encyclopediaofmath.org/wiki/ZFC', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Zermelo', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Zermelo/', kind: 'reference' },
+      { label: 'MacTutor: Abraham Fraenkel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fraenkel/', kind: 'reference' },
+    ],
+  },
+  'set-theory:cardinals': {
+    overview:
+      'A cardinal number measures the "size" of a set in a way that extends naturally to infinite sets, and Cantor\'s discovery that some infinities are strictly larger than others — that there is no bijection between the natural numbers and the real numbers — was one of the most startling and consequential discoveries in the history of mathematics.',
+    formal:
+      "Two sets $A,B$ have the same cardinality, $|A|=|B|$, if there is a bijection between them. Cantor's theorem: for any set $A$, $|A|<|\\mathcal{P}(A)|$, so there is an infinite hierarchy of ever-larger infinite cardinals $\\aleph_0<\\aleph_1<\\aleph_2<\\cdots$. Cardinal arithmetic extends addition, multiplication, and exponentiation to infinite cardinals but behaves very differently from finite arithmetic: for infinite cardinals $\\kappa,\\lambda$ with at least one infinite, $\\kappa+\\lambda=\\kappa\\cdot\\lambda=\\max(\\kappa,\\lambda)$.",
+    keyIdeas: [
+      'cardinality via bijection: two sets are the "same size" iff a bijection exists between them',
+      "Cantor's theorem: the power set of any set is strictly larger than the set itself",
+      "the countable/uncountable distinction, and the uncountability of the real numbers via Cantor's diagonal argument",
+      'the aleph hierarchy of infinite cardinals, indexed by the ordinals',
+      "cardinal arithmetic's striking departure from finite arithmetic",
+    ],
+    whyItMatters:
+      "Cantor's discovery that infinite sets come in genuinely different sizes — that infinity is not a single undifferentiated concept but an entire hierarchy — transformed set theory from a tool for organizing collections into a subject with its own deep structure and open problems, chief among them the continuum hypothesis about exactly where the cardinality of the real numbers sits in the aleph hierarchy.",
+    prerequisites: ['set-theory:zermelo-fraenkel-axioms'],
+    related: ['set-theory:ordinals', 'set-theory:continuum-hypothesis', 'foundations:recursion-theory'],
+    historicalContext:
+      "Georg Cantor proved in 1874 that the real numbers are uncountable, not in bijection with the naturals, and in 1891 gave the elegant diagonal argument now used to prove this and the more general Cantor's theorem. Cantor introduced the aleph notation for infinite cardinals and developed cardinal arithmetic through the 1880s-90s, facing significant resistance from contemporaries including Leopold Kronecker, who rejected the entire notion of completed infinities. Felix Hausdorff's early 20th-century work systematized cardinal and ordinal arithmetic into the form used today, including the generalized continuum hypothesis's role in simplifying cardinal exponentiation.",
+    contributorIds: ['person:georg-cantor', 'person:felix-hausdorff'],
+    workIds: ['work:beitrage-zur-begrundung-der-transfiniten-mengenlehre'],
+    exampleProblems: [
+      'Prove that the set of rational numbers is countable by exhibiting an explicit bijection with the natural numbers.',
+      "Use Cantor's diagonal argument to prove that the real numbers are uncountable.",
+      'Show that $|\\mathbb{R}|=|\\mathbb{R}^2|$ by constructing an explicit bijection, or using the cardinal arithmetic identity $\\mathfrak{c}\\cdot\\mathfrak{c}=\\mathfrak{c}$.',
+    ],
+    applications: [
+      'computability theory, where the countability of programs but uncountability of functions immediately implies uncomputable functions exist',
+      'measure theory, where cardinality distinctions underlie the existence of non-measurable sets',
+      "computer science's distinction between countable data (integers, finite programs) and uncountable spaces (real-valued signals)",
+    ],
+    researchDirections: [
+      'large cardinal axioms positing cardinals with special reflection or combinatorial properties, calibrating the strength of set-theoretic statements',
+      'cardinal characteristics of the continuum, studying cardinals strictly between $\\aleph_0$ and the continuum',
+      'the study of cardinal arithmetic under various additional axioms, such as the failure of CH',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'Gives the definitive modern treatment of cardinal arithmetic, including large cardinals and cardinal characteristics.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A clear, widely used graduate development of cardinal numbers and their arithmetic.',
+      },
+      {
+        title: 'Naive Set Theory',
+        authors: ['Paul R. Halmos'],
+        year: 1960,
+        why: 'The classic gentle introduction to cardinality and Cantor\'s theorem before the full axiomatic machinery.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Cantor's theorem", latex: '|A| < |\\mathcal{P}(A)|' },
+      { label: 'Infinite cardinal arithmetic', latex: '\\kappa + \\lambda = \\kappa \\cdot \\lambda = \\max(\\kappa,\\lambda) \\quad (\\kappa \\text{ or } \\lambda \\text{ infinite})' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cardinal number', url: 'https://encyclopediaofmath.org/wiki/Cardinal_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Felix Hausdorff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hausdorff/', kind: 'reference' },
+      { label: 'Wikipedia: Cardinal number', url: 'https://en.wikipedia.org/wiki/Cardinal_number', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:ordinals': {
+    overview:
+      'An ordinal number extends the idea of "position in a sequence" into the infinite, giving a precise way to count past every natural number and organize transfinite induction and recursion — proof and definition techniques that reach far beyond finite mathematics.',
+    formal:
+      'An ordinal is, in the von Neumann definition, a transitive set well-ordered by membership; the first infinite ordinal is $\\omega=\\{0,1,2,\\ldots\\}$, followed by $\\omega+1,\\omega+2,\\ldots,\\omega\\cdot 2,\\ldots,\\omega^2,\\ldots,\\omega^\\omega,\\ldots$. Every well-ordered set is order-isomorphic to a unique ordinal. Transfinite induction generalizes ordinary induction: to prove a property holds for all ordinals, it suffices to prove it for $0$, show it passes from $\\alpha$ to $\\alpha+1$, and show it holds at every limit ordinal given it holds for all smaller ordinals.',
+    keyIdeas: [
+      'ordinals as canonical representatives of well-ordered sets',
+      'successor ordinals versus limit ordinals',
+      'ordinal arithmetic (addition, multiplication, exponentiation), which is not commutative',
+      'transfinite induction and recursion as generalizations of ordinary induction past $\\omega$',
+      'the distinction between ordinal and cardinal numbers, which coincide for finite numbers but diverge sharply for infinite ones',
+    ],
+    whyItMatters:
+      "Transfinite induction and recursion, made rigorous by the theory of ordinals, are indispensable proof techniques throughout set theory, topology, and logic — Zermelo's well-ordering theorem shows, using the Axiom of Choice, that every set, including the real numbers, can in principle be well-ordered and hence indexed by ordinals, even though no explicit well-ordering of the reals can ever be written down.",
+    prerequisites: ['set-theory:cardinals'],
+    related: ['foundations:proof-theory', 'foundations:recursion-theory', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "Georg Cantor introduced ordinal numbers in 1883 while extending his work on the convergence of trigonometric series, needing to iterate a 'derived set' operation transfinitely many times. Cantor developed ordinal arithmetic and the basic theory of well-ordering through the 1880s-90s, and Ernst Zermelo's 1904 proof of the well-ordering theorem tied ordinals inextricably to the foundational debates over the Axiom of Choice that shaped early 20th-century set theory. John von Neumann's 1923 definition of ordinals as specific transitive sets, rather than abstract order types, gave the now-standard set-theoretic construction.",
+    contributorIds: ['person:georg-cantor', 'person:ernst-zermelo'],
+    workIds: [],
+    exampleProblems: [
+      'List the first several ordinals after $\\omega$ (namely $\\omega, \\omega+1, \\ldots, \\omega\\cdot 2, \\ldots, \\omega^2$) and explain the difference between a successor and a limit ordinal.',
+      'Use transfinite induction to prove that every ordinal is a set of smaller ordinals.',
+      'Explain why ordinal addition is not commutative by showing $1+\\omega \\neq \\omega+1$.',
+    ],
+    applications: [
+      'transfinite recursion used to define ordinal-indexed hierarchies throughout set theory, such as the cumulative hierarchy $V_\\alpha$',
+      'ordinal analysis in proof theory, measuring the strength of formal theories by the ordinals needed to prove their consistency',
+      'well-founded recursion in computer science and programming language semantics, a finite analogue of transfinite recursion',
+    ],
+    researchDirections: [
+      'ordinal analysis of increasingly strong theories in proof theory',
+      'large countable ordinals and their notations, relevant to computability and proof-theoretic strength',
+      'the combinatorics of large ordinals and cardinals in advanced set theory',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The standard reference for ordinal arithmetic and transfinite recursion at the graduate level.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A clear, widely used treatment of ordinals as the backbone of the cumulative hierarchy.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentler introduction to ordinal numbers and transfinite induction for a first course.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Von Neumann ordinal', latex: '\\alpha = \\{\\beta : \\beta < \\alpha\\}' },
+      { label: 'Ordinal non-commutativity', latex: '1 + \\omega = \\omega \\neq \\omega + 1' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ordinal number', url: 'https://encyclopediaofmath.org/wiki/Ordinal_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Zermelo', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Zermelo/', kind: 'reference' },
+      { label: 'Wikipedia: Ordinal number', url: 'https://en.wikipedia.org/wiki/Ordinal_number', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:continuum-hypothesis': {
+    overview:
+      'The continuum hypothesis asks whether there is a set whose size is strictly between that of the natural numbers and that of the real numbers. Its resolution — that the question is formally undecidable from the standard axioms of set theory — revealed fundamental limits on what any fixed axiom system can settle.',
+    formal:
+      "The Continuum Hypothesis (CH) states $2^{\\aleph_0}=\\aleph_1$, i.e. there is no set with cardinality strictly between that of $\\mathbb{N}$ and that of $\\mathbb{R}$. Kurt Gödel (1938-40) showed CH cannot be disproved from ZFC, since it holds in the constructible universe $L$, and Paul Cohen (1963) showed CH cannot be proved from ZFC either, using forcing to build a model where it fails. CH is thus independent of ZFC: both ZFC + CH and ZFC + $\\neg$CH are consistent, assuming ZFC itself is.",
+    keyIdeas: [
+      'the continuum hypothesis as a precise question about where $|\\mathbb{R}|$ sits in the aleph hierarchy',
+      "Gödel's constructible universe L, showing CH cannot be disproved from ZFC",
+      "Cohen's forcing technique, showing CH cannot be proved from ZFC either",
+      'independence: a well-posed mathematical question with no answer derivable from the standard axioms',
+      'the ongoing search for new axioms, such as large cardinals or forcing axioms, that might settle CH in a well-motivated way',
+    ],
+    whyItMatters:
+      'The continuum hypothesis was the first of Hilbert\'s 23 famous problems (1900), and its resolution — proving the question itself is undecidable in ZFC — is one of the most philosophically striking results in mathematics, showing that even a question as basic as how many real numbers there are, relative to other infinities, can fall permanently outside what a fixed, reasonable axiom system can decide.',
+    prerequisites: ['set-theory:ordinals'],
+    related: ['set-theory:forcing', 'foundations:foundational-programs', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "Georg Cantor conjectured the continuum hypothesis in 1878 shortly after developing cardinal arithmetic, and spent years unsuccessfully trying to prove it. David Hilbert placed it first on his 1900 list of 23 open problems, cementing its status as a central foundational question. Kurt Gödel proved in 1938-40 that CH is consistent with ZFC by constructing the constructible universe $L$, a minimal model of set theory in which CH holds, and Paul Cohen completed the independence result in 1963 by inventing the forcing technique to construct models of ZFC in which CH fails — work for which Cohen received the Fields Medal in 1966, one of only a few ever awarded for work in logic.",
+    contributorIds: ['person:georg-cantor', 'person:kurt-godel', 'person:paul-cohen'],
+    workIds: [],
+    exampleProblems: [
+      'State the continuum hypothesis precisely, and explain what it would mean for it to be false.',
+      'Explain what it means for CH to be "independent" of ZFC, and why this differs from CH simply being unknown.',
+      "Describe, at a high level, the difference in strategy between Gödel's consistency proof via $L$ and Cohen's independence proof via forcing.",
+    ],
+    applications: [
+      "illustrating the general phenomenon of independence in mathematics, now known to affect many other natural questions (e.g. Whitehead's problem in group theory)",
+      'motivating the search for new set-theoretic axioms with well-understood consequences',
+      'a standard touchstone in the philosophy of mathematics for discussions of mathematical realism versus formalism',
+    ],
+    researchDirections: [
+      "forcing axioms (Martin's Axiom, the Proper Forcing Axiom) and their potential to settle CH-adjacent questions in a principled way",
+      'the search for "true" axioms beyond ZFC, via inner model theory or large cardinals, that might resolve CH',
+      'cardinal characteristics of the continuum, studying cardinals that can consistently sit strictly between $\\aleph_0$ and $2^{\\aleph_0}$',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory and the Continuum Hypothesis',
+        authors: ['Paul J. Cohen'],
+        year: 1966,
+        why: 'The primary, classic source, written by the mathematician who proved the independence result, still in print via Dover.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'Gives the modern, complete treatment of both Gödel\'s and Cohen\'s results within the broader theory.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A widely used graduate text with a particularly clear presentation of the independence of CH.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Continuum Hypothesis', latex: '2^{\\aleph_0} = \\aleph_1' },
+      { label: 'Generalized Continuum Hypothesis', latex: '2^{\\aleph_\\alpha} = \\aleph_{\\alpha+1} \\ \\text{for all ordinals } \\alpha' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Continuum hypothesis', url: 'https://encyclopediaofmath.org/wiki/Continuum_hypothesis', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: Paul Cohen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cohen/', kind: 'reference' },
+    ],
+  },
+  'set-theory:forcing': {
+    overview:
+      'Forcing is a technique for building new models of set theory from old ones by adjoining a carefully chosen "generic" object, giving mathematicians precise control over which statements hold in the resulting model. It is the primary tool for proving that a mathematical statement cannot be proved, or disproved, from the standard axioms.',
+    formal:
+      'Given a model $M$ of ZFC and a partially ordered set $\\mathbb{P}\\in M$ of "conditions," a filter $G\\subseteq\\mathbb{P}$ is generic over $M$ if it meets every dense subset of $\\mathbb{P}$ that lies in $M$. The forcing extension $M[G]$ is a new model of ZFC containing $M$ and $G$, and the forcing relation $p\\Vdash\\varphi$ determines exactly which statements $\\varphi$ will hold in $M[G]$, computed purely from combinatorial facts about $\\mathbb{P}$ inside $M$, without ever constructing $M[G]$ directly.',
+    keyIdeas: [
+      'building new models of set theory by adjoining a generic filter to an old one',
+      'partial orders as "forcing notions" encoding partial information about the object being added',
+      'the forcing relation, letting truth in the extension be computed inside the ground model',
+      'genericity as meeting every dense set, guaranteeing the added object avoids every "bad" property definable in the ground model',
+      'forcing as the primary technique for proving independence results in set theory',
+    ],
+    whyItMatters:
+      "Forcing gave mathematicians a completely general, flexible method for proving independence results: rather than needing a bespoke argument for each new undecidable statement, forcing provides a systematic recipe — choose a forcing notion engineered to make the desired statement true or false in the extension, and the machinery guarantees the extension really is a model of ZFC.",
+    prerequisites: ['set-theory:continuum-hypothesis'],
+    related: ['foundations:model-theory', 'logic:incompleteness-theorems', 'category-theory:topos-theory'],
+    historicalContext:
+      "Paul Cohen invented forcing in 1963 specifically to prove the independence of the continuum hypothesis and the independence of the Axiom of Choice from ZF, resolving Hilbert's first problem and immediately becoming the dominant technique in set theory. The method was rapidly reformulated in more algebraic terms via Boolean-valued models by Dana Scott and Robert Solovay shortly afterward, making it more tractable for many set theorists, and Cohen's original method has since been extended into elaborate iterated and proper forcing techniques, developed by Solovay, Saharon Shelah, and others, capable of proving the independence of hundreds of set-theoretic statements.",
+    contributorIds: ['person:paul-cohen', 'person:kurt-godel'],
+    workIds: [],
+    exampleProblems: [
+      'Explain, at a conceptual level, what it means for a filter $G$ to be generic over a model $M$, and why genericity guarantees $G$ is not already in $M$.',
+      'Describe, in outline, how Cohen forcing (adding a single generic real number) can be used to make the continuum hypothesis false in the extension.',
+      'Explain why the forcing relation being definable inside the ground model $M$ is what makes forcing a rigorous technique rather than a heuristic.',
+    ],
+    applications: [
+      'proving the independence of essentially every major open question in set theory not resolved by ZFC',
+      'constructing models with tailored properties for testing conjectures in set-theoretic topology and measure theory',
+      'category-theoretic generalizations of forcing (sheaf-theoretic and topos-theoretic models) connecting set theory to logic and topology',
+    ],
+    researchDirections: [
+      'iterated and proper forcing techniques for controlling infinitely many forcing steps without collapsing cardinals',
+      "inner model theory, seeking canonical models generalizing Gödel's L for theories with large cardinals",
+      "forcing axioms (Martin's Axiom, PFA, Martin's Maximum) that settle many independent statements at once in a principled way",
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'Widely regarded as having the clearest modern introduction to forcing for graduate students.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The comprehensive reference covering forcing through to iterated forcing and large cardinals.',
+      },
+      {
+        title: "A Beginner's Guide to Forcing",
+        authors: ['Timothy Y. Chow'],
+        year: 2009,
+        why: 'A well-regarded informal survey that bridges the intuition and the technical machinery of forcing.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Forcing relation', latex: 'p \\Vdash \\varphi' },
+      { label: 'Generic extension', latex: 'M[G] \\supseteq M,\\quad G \\text{ generic over } M' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Forcing method', url: 'https://encyclopediaofmath.org/wiki/Forcing_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: Paul Cohen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cohen/', kind: 'reference' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+    ],
+  },
+  'category-theory:categories-and-functors': {
+    overview:
+      'A category consists of objects and structure-preserving "arrows" (morphisms) between them, together with a way to compose arrows; a functor is a structure-preserving map from one category to another. Together they give mathematics a language for describing not just individual structures but the relationships and translations between entire fields of mathematics.',
+    formal:
+      'A category $\\mathcal{C}$ consists of a class of objects, and for each pair of objects $A,B$ a set of morphisms $\\text{Hom}(A,B)$, together with an associative composition operation and an identity morphism $1_A$ for each object $A$. A functor $F:\\mathcal{C}\\to\\mathcal{D}$ assigns to each object $A$ an object $F(A)$ and to each morphism $f:A\\to B$ a morphism $F(f):F(A)\\to F(B)$, preserving composition and identities: $F(g\\circ f)=F(g)\\circ F(f)$ and $F(1_A)=1_{F(A)}$.',
+    keyIdeas: [
+      'objects and morphisms as the two basic ingredients, with composition and identity',
+      'functors as structure-preserving maps between entire categories',
+      'covariant versus contravariant functors',
+      'categories as a way of organizing mathematics by its structure-preserving maps rather than by internal structure alone',
+      'isomorphism, monomorphism, and epimorphism defined purely in terms of morphisms, without reference to elements',
+    ],
+    whyItMatters:
+      "Category theory's insight — that a mathematical object is best understood through its relationships (morphisms) to other objects of the same kind, not by looking inside it — turned out to unify an enormous amount of previously disconnected mathematics, since the same categorical patterns (products, quotients, universal properties) recur nearly verbatim across groups, rings, vector spaces, topological spaces, and beyond.",
+    prerequisites: [],
+    related: ['category-theory:natural-transformations', 'abstract-algebra:homological-algebra', 'topology:homology'],
+    historicalContext:
+      'Samuel Eilenberg and Saunders Mac Lane introduced categories, functors, and natural transformations in their 1945 paper "General Theory of Natural Equivalences," motivated by the need to state precisely what it means for two constructions in algebraic topology to be "naturally" isomorphic, as opposed to merely isomorphic via an arbitrary, unnatural choice. What began as a convenient technical language for organizing algebraic topology gradually became a subject in its own right through the 1950s-60s, particularly through the work of Alexander Grothendieck in algebraic geometry, who used categorical methods on a previously unimaginable scale.',
+    contributorIds: ['person:saunders-mac-lane', 'person:samuel-eilenberg'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Verify that the collection of sets and functions forms a category, checking associativity of composition and the identity axiom.',
+      'Define the opposite category $\\mathcal{C}^{op}$ of a category $\\mathcal{C}$ and show that a contravariant functor $\\mathcal{C}\\to\\mathcal{D}$ is the same as a covariant functor $\\mathcal{C}^{op}\\to\\mathcal{D}$.',
+      'Show that a morphism with a two-sided inverse is automatically both a monomorphism and an epimorphism, and give an example of a morphism that is mono and epi but not an isomorphism.',
+    ],
+    applications: [
+      'providing a common language across algebra, topology, and geometry for stating and transporting theorems',
+      'functional programming languages, where functors, monads, and related categorical structures organize how computations compose',
+      'databases and data migration, using functorial data models to formally track schema translations',
+    ],
+    researchDirections: [
+      'higher category theory (2-categories, infinity-categories) formalizing categories of categories and homotopical structures',
+      'applied category theory, using categorical methods to model systems in physics, chemistry, and computer science',
+      'categorical logic and topos theory linking category theory back to foundations',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The canonical graduate text, written by one of the field\'s founders, that gives the subject its name.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'A modern, freely available, widely praised introduction connecting categorical ideas to concrete examples across mathematics.',
+      },
+      {
+        title: 'Category Theory',
+        authors: ['Steve Awodey'],
+        edition: '2nd',
+        year: 2010,
+        why: 'A widely used, accessible introduction popular in both mathematics and philosophy of mathematics courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Category axioms (composition and identity)', latex: 'h\\circ(g\\circ f) = (h\\circ g)\\circ f,\\qquad 1_B\\circ f = f = f\\circ 1_A' },
+      { label: 'Functoriality', latex: 'F(g\\circ f) = F(g)\\circ F(f),\\qquad F(1_A) = 1_{F(A)}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Category (mathematics)', url: 'https://en.wikipedia.org/wiki/Category_(mathematics)', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'category-theory:natural-transformations': {
+    overview:
+      'A natural transformation is a systematic, coherent way of turning one functor into another: a family of morphisms, one for each object, that fit together compatibly with all the structure-preserving maps in sight. Category theory was invented specifically to make this idea, "naturality," mathematically precise.',
+    formal:
+      'Given functors $F,G:\\mathcal{C}\\to\\mathcal{D}$, a natural transformation $\\eta:F\\Rightarrow G$ assigns to each object $A$ a morphism $\\eta_A:F(A)\\to G(A)$ such that for every morphism $f:A\\to B$, the naturality square commutes: $G(f)\\circ \\eta_A = \\eta_B \\circ F(f)$. If every $\\eta_A$ is an isomorphism, $\\eta$ is a natural isomorphism, expressing that $F$ and $G$ are "the same" in a canonical, choice-free way.',
+    keyIdeas: [
+      'a natural transformation as a coherent family of morphisms between the outputs of two functors',
+      'the naturality square, whose commutativity is the precise content of "naturality"',
+      'natural isomorphisms as a canonical, non-arbitrary notion of "the same" construction',
+      'functor categories, whose objects are functors and whose morphisms are natural transformations',
+      'the distinction between a construction being merely possible versus being natural (functorial)',
+    ],
+    whyItMatters:
+      'Natural transformations were, historically, category theory\'s original motivation: Eilenberg and Mac Lane needed to explain precisely why a vector space is naturally isomorphic to its double dual, using no arbitrary choice of basis, while it is only non-naturally isomorphic to its single dual, which does require a choice of basis — a distinction that turns out to matter throughout mathematics.',
+    prerequisites: ['category-theory:categories-and-functors'],
+    related: ['category-theory:adjunctions', 'category-theory:limits-and-colimits', 'algebraic-geometry:sheaves'],
+    historicalContext:
+      'Samuel Eilenberg and Saunders Mac Lane\'s foundational 1945 paper "General Theory of Natural Equivalences" introduced categories and functors specifically as the necessary scaffolding to define natural transformations rigorously, having found that earlier informal uses of "natural" in algebraic topology needed a precise mathematical meaning. The concept became central to the subject, culminating in the Yoneda lemma, due to Nobuo Yoneda and popularized by Mac Lane, which shows that an object is completely determined, up to natural isomorphism, by the network of natural transformations into or out of it.',
+    contributorIds: ['person:saunders-mac-lane', 'person:samuel-eilenberg'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the double-dual map $V\\to V^{**}$ for a finite-dimensional vector space is a natural transformation from the identity functor, while the single-dual isomorphism $V\\to V^*$ is not natural.',
+      'Verify the naturality square for the determinant transformation from $GL_n$ to the units functor, viewed on the category of commutative rings.',
+      'State the Yoneda lemma and explain, informally, why it says an object is "known by the company it keeps."',
+    ],
+    applications: [
+      'functional programming, where natural transformations formalize polymorphic functions behaving uniformly across all type instances',
+      'the precise formulation of "canonical" isomorphisms throughout algebra and topology',
+      'the Yoneda lemma\'s use in algebraic geometry (representable functors, moduli problems) and beyond',
+    ],
+    researchDirections: [
+      'higher-categorical generalizations of natural transformations (modifications, higher coherence data) in n-category theory',
+      'applications of the Yoneda philosophy in condensed and derived algebraic geometry',
+      'the use of natural transformations in formalized mathematics and dependently typed programming',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Gives the original, definitive treatment of natural transformations and the Yoneda lemma.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Builds up to the Yoneda lemma with unusually clear motivation and worked examples.',
+      },
+      {
+        title: 'Basic Category Theory',
+        authors: ['Tom Leinster'],
+        year: 2014,
+        why: 'A concise, well-regarded alternative that reaches natural transformations and Yoneda quickly and cleanly.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Naturality square', latex: 'G(f)\\circ \\eta_A = \\eta_B \\circ F(f)' },
+      { label: 'Yoneda lemma (informal)', latex: '\\text{Nat}(\\text{Hom}(A,-), F) \\cong F(A)' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Natural transformation', url: 'https://en.wikipedia.org/wiki/Natural_transformation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'category-theory:adjunctions': {
+    overview:
+      'An adjunction is a precise way of saying that two functors going in opposite directions between two categories are "approximately inverse," related by a natural correspondence of morphisms that captures an enormous number of "free" and "forgetful" constructions throughout mathematics as a single pattern.',
+    formal:
+      'Functors $F:\\mathcal{C}\\to\\mathcal{D}$ and $G:\\mathcal{D}\\to\\mathcal{C}$ form an adjunction, $F\\dashv G$, if there is a natural bijection $\\text{Hom}_{\\mathcal{D}}(F(A),B) \\cong \\text{Hom}_{\\mathcal{C}}(A,G(B))$ for all $A,B$. Equivalently, an adjunction can be given by a unit $\\eta:1_{\\mathcal{C}}\\Rightarrow GF$ and counit $\\varepsilon:FG\\Rightarrow 1_{\\mathcal{D}}$ satisfying the triangle identities.',
+    keyIdeas: [
+      'adjoint functors as an "approximate inverse" pair related by a natural bijection of morphisms',
+      'free-forgetful adjunctions as the paradigmatic example (free group, free vector space)',
+      'the unit and counit natural transformations, and the triangle identities they satisfy',
+      'left adjoints preserve colimits, right adjoints preserve limits',
+      'adjunctions as a uniform explanation for why so many "optimal" constructions exist across mathematics',
+    ],
+    whyItMatters:
+      'An enormous fraction of standard mathematical constructions — the free group on a set, the abelianization of a group, the Stone-Čech compactification of a space, polynomial rings as free commutative rings — are all instances of exactly one categorical pattern, the adjoint functor, which explains why all these "universal" constructions share the same formal properties without needing a separate proof each time.',
+    prerequisites: ['category-theory:natural-transformations'],
+    related: ['category-theory:limits-and-colimits', 'category-theory:topos-theory', 'algebra:modules'],
+    historicalContext:
+      'Daniel Kan introduced adjoint functors explicitly in a 1958 paper in the context of simplicial sets and algebraic topology, formalizing a pattern that had been used implicitly, for instance in free-group and Stone-Čech constructions, for decades beforehand. Saunders Mac Lane quickly recognized adjunctions as one of the central organizing concepts of category theory, summarizing the point of the whole subject with the slogan "adjoint functors arise everywhere," a claim borne out repeatedly as more classical constructions across algebra, topology, and logic were recognized as adjunctions in disguise.',
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the free group functor, from sets to groups, is left adjoint to the forgetful functor from groups to sets.',
+      'Verify the triangle identities for the free-forgetful adjunction between vector spaces and sets.',
+      'Explain why left adjoints preserve colimits, using the defining natural bijection of the adjunction.',
+    ],
+    applications: [
+      'the free-forgetful pattern underlying essentially every "free" algebraic construction (free groups, rings, modules, tensor algebras)',
+      'Galois connections in order theory and lattice theory as a special (poset-enriched) case of adjunctions',
+      'compilers and programming language semantics, where adjunctions model the relationship between syntax and semantics',
+    ],
+    researchDirections: [
+      'monads, arising from adjunctions, as a unifying framework for notions of computation in programming language theory',
+      'enriched and higher-categorical generalizations of adjunctions',
+      'the use of adjunctions in categorical logic to relate syntax (theories) and semantics (models)',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Contains the classic, thorough treatment of adjoint functors from one of the concept\'s earliest champions.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Motivates adjunctions through many concrete free-forgetful examples before formalizing the general pattern.',
+      },
+      {
+        title: 'Category Theory',
+        authors: ['Steve Awodey'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Gives a clean, accessible development of adjunctions building on universal properties.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Adjunction hom-set bijection', latex: '\\text{Hom}_{\\mathcal{D}}(F(A),B) \\cong \\text{Hom}_{\\mathcal{C}}(A,G(B))' },
+      { label: 'Triangle identities', latex: '(\\varepsilon F)\\circ(F\\eta) = 1_F,\\qquad (G\\varepsilon)\\circ(\\eta G) = 1_G' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Adjoint functor', url: 'https://encyclopediaofmath.org/wiki/Adjoint_functor', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+      { label: 'Wikipedia: Adjoint functors', url: 'https://en.wikipedia.org/wiki/Adjoint_functors', kind: 'encyclopedia' },
+    ],
+  },
+  'category-theory:limits-and-colimits': {
+    overview:
+      'Limits and colimits are the categorical generalization of familiar constructions like products, intersections, unions, and gluing: each is defined not by describing its elements directly, but by a universal property specifying exactly how it relates to everything else in the category.',
+    formal:
+      'The limit of a diagram $D:\\mathcal{J}\\to\\mathcal{C}$ is an object $\\lim D$ with morphisms to each $D(j)$, universal among all such cones. The colimit is the dual notion, universal among cocones out of the diagram. Products, equalizers, and pullbacks are all limits over specific small diagrams; coproducts, coequalizers, and pushouts are the corresponding colimits.',
+    keyIdeas: [
+      'a universal property as a definition by relationship rather than by internal construction',
+      'limits (products, equalizers, pullbacks) as the "largest compatible" gluing of a diagram',
+      'colimits (coproducts, coequalizers, pushouts) as the dual, "smallest sufficient" gluing',
+      'completeness and cocompleteness: a category having all small limits or colimits',
+      'limits and colimits as simultaneously generalizing constructions from set theory, algebra, and topology',
+    ],
+    whyItMatters:
+      'Defining a construction by a universal property, rather than by an explicit formula, is what lets the same definition of "product" work uniformly for sets, groups, topological spaces, and vector spaces at once, and this uniformity is precisely what lets theorems about limits and colimits (e.g. that right adjoints preserve limits) apply across all of these settings simultaneously without needing separate proofs.',
+    prerequisites: ['category-theory:adjunctions'],
+    related: ['category-theory:monoidal-categories', 'algebraic-geometry:sheaves', 'topology:point-set-topology'],
+    historicalContext:
+      "The universal-property style of definition emerged gradually through Emmy Noether's structural approach to algebra in the 1920s and Bourbaki's structuralist program from the 1930s onward, before category theory gave it a fully general formulation. Once Eilenberg and Mac Lane's categorical framework was in place in the late 1940s-50s, limits and colimits, initially called 'inverse' and 'direct' limits following earlier usage in algebraic topology, were recognized as instances of a single general categorical construction, systematically developed through the 1950s-60s.",
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Show that the categorical product in the category of sets is the ordinary Cartesian product, by verifying the universal property directly.',
+      'Construct the pushout of two group homomorphisms with a common domain, and identify it with the amalgamated free product.',
+      'Explain why a right adjoint functor automatically preserves limits, using the defining adjunction bijection.',
+    ],
+    applications: [
+      'gluing constructions in algebraic topology and algebraic geometry (pushouts for gluing spaces, fiber products for gluing schemes)',
+      'database theory, where limits and colimits model joins and unions of relational data schemas',
+      'type theory and functional programming, where product and sum types are literally categorical limits and colimits',
+    ],
+    researchDirections: [
+      'homotopy limits and colimits, refining ordinary limits/colimits to be well-behaved up to homotopy in higher category theory',
+      'limits and colimits in enriched and higher categories (infinity-categories)',
+      'applied category theory\'s use of limits and colimits to compose complex systems from simple parts',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The definitive treatment of limits and colimits and their relationship to adjoint functors.',
+      },
+      {
+        title: 'Category Theory in Context',
+        authors: ['Emily Riehl'],
+        year: 2016,
+        why: 'Builds limits and colimits up from concrete examples (products, pullbacks) toward the general universal property.',
+      },
+      {
+        title: 'Handbook of Categorical Algebra, Vol. 1',
+        authors: ['Francis Borceux'],
+        year: 1994,
+        why: 'A comprehensive reference for limits, colimits, and their many variants at the graduate level.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Universal property of a limit', latex: '\\text{Hom}(X, \\lim D) \\cong \\lim_j \\text{Hom}(X, D(j))' },
+      { label: 'Product as a limit', latex: 'A \\times B = \\lim(A \\to \\bullet \\leftarrow B)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Inductive limit', url: 'https://encyclopediaofmath.org/wiki/Inductive_limit', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Projective limit', url: 'https://encyclopediaofmath.org/wiki/Projective_limit', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+    ],
+  },
+  'category-theory:monoidal-categories': {
+    overview:
+      'A monoidal category is a category equipped with a "tensor product" — a way of combining two objects into a new one, associative and unital up to coherent natural isomorphism — abstracting the pattern shared by the Cartesian product of sets, the tensor product of vector spaces, and the composition of processes in quantum mechanics or computation.',
+    formal:
+      'A monoidal category is a category $\\mathcal{C}$ with a bifunctor $\\otimes:\\mathcal{C}\\times\\mathcal{C}\\to\\mathcal{C}$, a unit object $I$, and natural isomorphisms — the associator $\\alpha_{A,B,C}:(A\\otimes B)\\otimes C\\cong A\\otimes(B\\otimes C)$ and unitors $\\lambda_A,\\rho_A$ — satisfying the pentagon and triangle coherence conditions. Mac Lane\'s coherence theorem shows these finitely many conditions suffice to guarantee every diagram built from associators and unitors commutes.',
+    keyIdeas: [
+      'a tensor product bifunctor generalizing Cartesian products, tensor products of vector spaces, and more',
+      'associativity and unitality only up to coherent natural isomorphism, not literal equality',
+      "Mac Lane's coherence theorem: finitely many axioms guarantee all rebracketings agree",
+      'braided and symmetric monoidal categories, adding a controlled notion of "swap"',
+      'string diagrams as a graphical calculus for computing in monoidal categories',
+    ],
+    whyItMatters:
+      'Monoidal categories give a single abstract framework covering an enormous range of "combination" operations across mathematics and physics — vector spaces under tensor product, sets under Cartesian product, and quantum processes under parallel composition are all monoidal categories — and their associated string-diagram calculus has become a genuinely practical computational tool in quantum computing and physics, not just an abstraction.',
+    prerequisites: ['category-theory:limits-and-colimits'],
+    related: ['category-theory:topos-theory', 'lie-theory:representation-of-lie-groups', 'theoretical-cs:quantum-computation'],
+    historicalContext:
+      'Saunders Mac Lane introduced monoidal categories, initially called "categories with multiplication," in a 1963 paper and proved his celebrated coherence theorem there, showing that the seemingly infinite family of ways to rebracket and reorder a tensor product all reduce to checking two finite diagrams. The subject gained major new applications from the 1980s onward through connections to knot theory and low-dimensional topology via braided monoidal categories and quantum groups, developed by Vladimir Drinfeld and others, and, more recently, through Bob Coecke and Samson Abramsky\'s early-2000s categorical formulation of quantum mechanics using monoidal categories and string diagrams.',
+    contributorIds: ['person:saunders-mac-lane'],
+    workIds: ['work:categories-for-the-working-mathematician'],
+    exampleProblems: [
+      'Verify that vector spaces with the usual tensor product form a monoidal category, identifying the unit object and checking the pentagon identity informally.',
+      'Explain the difference between a braided and a symmetric monoidal category, in terms of what happens when you swap an object with itself twice.',
+      'Translate a simple algebraic identity, such as associativity of tensor product, into a string diagram.',
+    ],
+    applications: [
+      'quantum computing and quantum information theory, modeling quantum processes and their composition as a symmetric monoidal category',
+      'knot theory and low-dimensional topology, via braided monoidal categories associated to quantum groups',
+      'representation theory, where categories of representations naturally carry a monoidal structure via tensor product',
+    ],
+    researchDirections: [
+      'categorical quantum mechanics, using monoidal categories and string diagrams as a foundational and computational tool',
+      'higher (2-categorical and beyond) monoidal structures relevant to topological quantum field theory',
+      'applied category theory\'s use of monoidal categories, via "process theories," to model resource-sensitive systems',
+    ],
+    textbooks: [
+      {
+        title: 'Categories for the Working Mathematician',
+        authors: ['Saunders Mac Lane'],
+        edition: '2nd',
+        year: 1998,
+        why: 'Contains Mac Lane\'s own definitive treatment of monoidal categories and the coherence theorem.',
+      },
+      {
+        title: 'Picturing Quantum Processes',
+        authors: ['Bob Coecke', 'Aleks Kissinger'],
+        year: 2017,
+        why: 'The standard modern reference connecting monoidal categories to string diagrams and quantum computation.',
+      },
+      {
+        title: 'Algebra: Chapter 0',
+        authors: ['Paolo Aluffi'],
+        year: 2009,
+        why: 'Introduces monoidal and categorical ideas alongside a standard algebra course, a gentle entry point.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Associator', latex: '\\alpha_{A,B,C}: (A\\otimes B)\\otimes C \\xrightarrow{\\cong} A\\otimes(B\\otimes C)' },
+      { label: "Mac Lane's coherence theorem (informal)", latex: '\\text{pentagon + triangle axioms} \\implies \\text{all rebracketings agree}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Monoidal category', url: 'https://en.wikipedia.org/wiki/Monoidal_category', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Closed monoidal category', url: 'https://encyclopediaofmath.org/wiki/Closed_monoidal_category', kind: 'encyclopedia' },
+      { label: 'MacTutor: Saunders Mac Lane', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/MacLane/', kind: 'reference' },
+    ],
+  },
+  'category-theory:topos-theory': {
+    overview:
+      'A topos is a category that behaves enough like the category of sets to support its own internal logic and set-like constructions, even though its "sets" can vary continuously over a space or carry other exotic structure. Topos theory reveals that set theory itself is just one example of a much broader phenomenon.',
+    formal:
+      'An elementary topos is a category with all finite limits, exponential objects, and a subobject classifier $\\Omega$ — an object with a morphism $\\text{true}:1\\to\\Omega$ such that subobjects of any object $A$ correspond bijectively to morphisms $A\\to\\Omega$, generalizing how subsets of a set correspond to characteristic functions. Grothendieck toposes (categories of sheaves on a site) are the motivating examples from algebraic geometry, and every elementary topos supports its own internal logic, generally intuitionistic rather than classical.',
+    keyIdeas: [
+      'a topos as a category with finite limits, exponentials, and a subobject classifier',
+      'the subobject classifier as a categorical generalization of "true/false" characteristic functions',
+      'Grothendieck toposes: categories of sheaves, generalizing spaces and their local-to-global structure',
+      'every topos has an internal logic, typically intuitionistic rather than classical',
+      'toposes as "generalized universes of sets," giving alternative, non-classical models of mathematics',
+    ],
+    whyItMatters:
+      'Topos theory shows that classical set theory is just one point in a much larger space of possible set-like universes, each with its own internal logic, which lets mathematicians build models with exotic properties simply by choosing the right topos, unifying much of algebraic geometry, logic, and even parts of theoretical computer science under one framework.',
+    prerequisites: ['category-theory:monoidal-categories'],
+    related: ['algebraic-geometry:sheaves', 'foundations:constructive-mathematics', 'logic:intuitionistic-logic'],
+    historicalContext:
+      'Alexander Grothendieck introduced toposes as categories of sheaves on a Grothendieck topology, or "site," in the early 1960s as part of his SGA4 seminar, generalizing topological spaces enough to define the cohomology theories needed for his approach to the Weil conjectures in algebraic geometry. William Lawvere and Myles Tierney then abstracted Grothendieck\'s geometric notion into the more general "elementary topos" in 1969-70, defined purely by finitely many categorical axioms with no reference to sheaves or sites, revealing that toposes could serve as alternative foundations for mathematics itself, each with its own often-intuitionistic internal logic.',
+    contributorIds: ['person:william-lawvere', 'person:alexander-grothendieck'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the category of sets is a topos by identifying its subobject classifier, the two-element set $\\{\\text{true}, \\text{false}\\}$.',
+      'Explain, informally, why the internal logic of a general topos is intuitionistic rather than classical, i.e. why the law of excluded middle can fail.',
+      'Describe the basic idea of a sheaf topos: how "varying sets" over a topological space form a topos.',
+    ],
+    applications: [
+      'algebraic geometry, where sheaf-theoretic toposes underlie modern scheme theory and étale cohomology',
+      'categorical (topos-theoretic) semantics for intuitionistic and higher-order logic',
+      "theoretical computer science's use of toposes to model computation with variable or partial information",
+    ],
+    researchDirections: [
+      "higher topos theory (infinity-toposes), connecting topos theory to homotopy theory and Jacob Lurie's work on derived and spectral algebraic geometry",
+      'condensed and pyknotic mathematics, using topos-like frameworks to unify topology and algebra',
+      'applications of topos theory to the foundations of physics and to synthetic differential geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Sheaves in Geometry and Logic: A First Introduction to Topos Theory',
+        authors: ['Saunders Mac Lane', 'Ieke Moerdijk'],
+        year: 1992,
+        why: 'The standard first graduate textbook, bridging the geometric and logical perspectives on toposes.',
+      },
+      {
+        title: 'Sketches of an Elephant: A Topos Theory Compendium',
+        authors: ['Peter T. Johnstone'],
+        year: 2002,
+        why: 'The comprehensive, encyclopedic reference for advanced topos theory.',
+      },
+      {
+        title: 'Topoi: The Categorial Analysis of Logic',
+        authors: ['Robert Goldblatt'],
+        edition: '2nd',
+        year: 1984,
+        why: 'A gentler introduction with a strong focus on the logical side of topos theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Subobject classifier property', latex: '\\text{Sub}(A) \\cong \\text{Hom}(A, \\Omega)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Topos', url: 'https://encyclopediaofmath.org/wiki/Topos', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'Wikipedia: William Lawvere', url: 'https://en.wikipedia.org/wiki/William_Lawvere', kind: 'encyclopedia' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -4111,6 +5690,17 @@ const personRows = [
   ['Andrei Markov', '1856-1922', 'Russia', 'probability', 'Markov chains and dependent sequences of trials'],
   ['Felix Hausdorff', '1868-1942', 'Germany', 'topology', 'the axiomatic theory of topological and metric spaces'],
   ['Ernst Kummer', '1810-1893', 'Germany', 'number-theory', 'ideal numbers and cyclotomic fields'],
+  ['Gerhard Gentzen', '1909-1945', 'Germany', 'foundations', 'natural deduction, sequent calculus, and consistency proofs'],
+  ['Alfred Tarski', '1901-1983', 'Poland/USA', 'foundations', 'the semantic definition of truth and model theory'],
+  ['Bertrand Russell', '1872-1970', 'United Kingdom', 'foundations', 'logicism and the theory of types'],
+  ['Errett Bishop', '1928-1983', 'USA', 'foundations', 'constructive analysis'],
+  ['Gottlob Frege', '1848-1925', 'Germany', 'logic', 'the first fully symbolic predicate logic'],
+  ['Arend Heyting', '1898-1980', 'Netherlands', 'logic', 'the formal axiomatization of intuitionistic logic'],
+  ['C. I. Lewis', '1883-1964', 'USA', 'logic', 'the first modern systems of modal logic'],
+  ['Saul Kripke', '1940-2022', 'USA', 'logic', 'possible-worlds semantics for modal logic'],
+  ['Ernst Zermelo', '1871-1953', 'Germany', 'set-theory', 'the first axiomatization of set theory and the well-ordering theorem'],
+  ['Abraham Fraenkel', '1891-1965', 'Germany/Israel', 'set-theory', 'the axiom of replacement completing ZFC'],
+  ['Paul Cohen', '1934-2007', 'USA', 'set-theory', 'the forcing method and the independence of the continuum hypothesis'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -4144,10 +5734,13 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:groups',
     'topology:connectedness',
   ],
-  'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
+  'person:giuseppe-peano': ['logic:predicate-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
   'person:david-hilbert': [
     'foundations:axiomatic-method',
+    'foundations:proof-theory',
+    'foundations:foundational-programs',
+    'logic:completeness-theorem',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
     'algebra:rings',
@@ -4161,7 +5754,14 @@ const personTopicOverrides: Record<string, string[]> = {
     'differential-geometry:riemannian-metrics',
     'topology:manifolds',
   ],
-  'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces', 'topology:point-set-topology'],
+  'person:georg-cantor': [
+    'set-theory:naive-set-theory',
+    'set-theory:cardinals',
+    'set-theory:ordinals',
+    'set-theory:continuum-hypothesis',
+    'analysis:metric-spaces',
+    'topology:point-set-topology',
+  ],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
   'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
@@ -4192,11 +5792,17 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
-  'person:felix-hausdorff': ['topology:point-set-topology'],
+  'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
   'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
-  'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'topology:homotopy'],
+  'person:l-e-j-brouwer': [
+    'foundations:constructive-mathematics',
+    'foundations:foundational-programs',
+    'topology:homotopy',
+    'logic:intuitionistic-logic',
+  ],
   'person:grigori-perelman': ['topology:manifolds'],
-  'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers'],
+  'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers', 'foundations:axiomatic-method'],
+  'person:nikolai-lobachevsky': ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method'],
   'person:carl-friedrich-gauss': ['number-theory:prime-numbers', 'number-theory:modular-arithmetic'],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
@@ -4204,6 +5810,38 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:andrew-wiles': ['number-theory:diophantine-equations', 'number-theory:modular-forms'],
   'person:srinivasa-ramanujan': ['number-theory:modular-forms'],
   'person:ernst-kummer': ['number-theory:diophantine-equations', 'number-theory:algebraic-number-theory'],
+  'person:kurt-godel': [
+    'logic:completeness-theorem',
+    'logic:incompleteness-theorems',
+    'foundations:proof-theory',
+    'foundations:model-theory',
+    'set-theory:continuum-hypothesis',
+    'set-theory:forcing',
+  ],
+  'person:alan-turing': ['computation:algorithms', 'foundations:recursion-theory'],
+  'person:alonzo-church': ['computation:lambda-calculus', 'foundations:recursion-theory'],
+  'person:stephen-kleene': ['foundations:recursion-theory'],
+  'person:gerhard-gentzen': ['foundations:proof-theory', 'logic:incompleteness-theorems'],
+  'person:alfred-tarski': ['foundations:model-theory'],
+  'person:bertrand-russell': ['foundations:foundational-programs', 'set-theory:naive-set-theory'],
+  'person:errett-bishop': ['foundations:constructive-mathematics'],
+  'person:gottlob-frege': ['logic:propositional-logic', 'logic:predicate-logic'],
+  'person:arend-heyting': ['logic:intuitionistic-logic'],
+  'person:c-i-lewis': ['logic:modal-logic'],
+  'person:saul-kripke': ['logic:modal-logic'],
+  'person:ernst-zermelo': ['set-theory:zermelo-fraenkel-axioms', 'set-theory:ordinals'],
+  'person:abraham-fraenkel': ['set-theory:zermelo-fraenkel-axioms'],
+  'person:paul-cohen': ['set-theory:continuum-hypothesis', 'set-theory:forcing'],
+  'person:saunders-mac-lane': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'category-theory:adjunctions',
+    'category-theory:limits-and-colimits',
+    'category-theory:monoidal-categories',
+  ],
+  'person:samuel-eilenberg': ['category-theory:categories-and-functors', 'category-theory:natural-transformations'],
+  'person:william-lawvere': ['category-theory:topos-theory'],
+  'person:alexander-grothendieck': ['algebraic-geometry:affine-varieties', 'category-theory:topos-theory'],
 };
 
 export const people: Person[] = personRows.map(
@@ -4351,6 +5989,19 @@ const workTopicOverrides: Record<string, string[]> = {
   ],
   'work:arithmetica': ['number-theory:diophantine-equations'],
   'work:a-course-in-arithmetic': ['number-theory:modular-forms'],
+  'work:elements': ['geometry:euclidean-geometry', 'foundations:axiomatic-method'],
+  'work:principia-mathematica': ['logic:predicate-logic', 'foundations:foundational-programs'],
+  'work:uber-formal-unentscheidbare-satze': ['logic:incompleteness-theorems'],
+  'work:on-computable-numbers': ['computation:computability', 'foundations:recursion-theory'],
+  'work:model-theory': ['foundations:model-theory'],
+  'work:beitrage-zur-begrundung-der-transfiniten-mengenlehre': ['set-theory:cardinals'],
+  'work:categories-for-the-working-mathematician': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'category-theory:adjunctions',
+    'category-theory:limits-and-colimits',
+    'category-theory:monoidal-categories',
+  ],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
