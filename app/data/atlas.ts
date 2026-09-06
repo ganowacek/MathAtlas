@@ -1805,11 +1805,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       'Forcing extends a model of set theory by adding a generic filter over a partially ordered set while controlling truth in the extension.',
     keyIdeas: ['generic extensions', 'independence proofs', 'partial orders', 'Boolean-valued models'],
   },
-  'logic:incompleteness-theorems': {
-    formal:
-      'Any sufficiently expressive consistent formal system cannot prove every arithmetical truth expressible in its language.',
-    keyIdeas: ['self-reference', 'arithmetization of syntax', 'consistency', 'formal limits'],
-  },
   'cryptography:zero-knowledge-proofs': {
     formal:
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
@@ -4270,6 +4265,407 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Errett Bishop', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bishop/', kind: 'reference' },
     ],
   },
+  'logic:propositional-logic': {
+    overview:
+      'Propositional logic studies how the truth values of compound statements, built from simple propositions using "and," "or," "not," and "if...then," are determined by the truth values of their parts. It gives the most basic layer of formal deductive reasoning.',
+    formal:
+      'Formulas are built from propositional variables $p,q,r,\\ldots$ using connectives $\\neg,\\wedge,\\vee,\\to,\\leftrightarrow$. A truth assignment $v$ maps each variable to $\\{T,F\\}$ and extends recursively to all formulas via truth tables; a formula is a tautology if it is true under every assignment. The classical propositional calculus is sound and complete: a formula is derivable from a standard axiom system, with modus ponens as the sole inference rule, if and only if it is a tautology.',
+    keyIdeas: [
+      'truth tables and truth-functional connectives',
+      'tautologies, contradictions, and satisfiability',
+      'soundness and completeness of the propositional calculus',
+      'the Boolean algebra structure underlying propositional logic',
+      'the Boolean satisfiability problem (SAT) as the archetypal NP-complete problem',
+    ],
+    whyItMatters:
+      'Propositional logic is the smallest fragment of logic complete enough to formalize "and," "or," "not," and "if...then" precisely, and it is simultaneously the theoretical foundation of digital circuit design — every logic gate implements a Boolean connective — and, via the SAT problem, one of the central objects of computational complexity theory.',
+    prerequisites: [],
+    related: ['logic:predicate-logic', 'discrete-math:boolean-algebra', 'theoretical-cs:p-versus-np'],
+    historicalContext:
+      "Aristotle's syllogistic logic and the Stoic logicians studied propositional-style inference in antiquity, but the modern algebraic treatment began with George Boole's The Mathematical Analysis of Logic (1847) and An Investigation of the Laws of Thought (1854), which represented logical statements as algebraic equations over $\\{0,1\\}$, founding what is now called Boolean algebra. Gottlob Frege's Begriffsschrift (1879) then embedded propositional logic within a fully symbolic system also covering quantifiers, and Emil Post (1921) proved the completeness of the classical propositional calculus, showing the standard axioms and modus ponens suffice to derive exactly the tautologies.",
+    contributorIds: ['person:george-boole', 'person:gottlob-frege'],
+    workIds: ['work:the-mathematical-analysis-of-logic'],
+    exampleProblems: [
+      'Construct the truth table for $(p\\to q)\\leftrightarrow(\\neg q\\to\\neg p)$ and confirm it is a tautology.',
+      'Use the resolution rule to show that $\\{p\\vee q,\\ \\neg p\\vee r,\\ \\neg q\\vee r\\}$ entails $r$.',
+      'Explain, at least in outline, why the Boolean satisfiability problem (SAT) is NP-complete (the Cook-Levin theorem).',
+    ],
+    applications: [
+      'digital circuit design, where logic gates directly implement Boolean connectives',
+      'SAT solvers used throughout hardware and software verification and combinatorial optimization',
+      'database query languages built on Boolean predicates',
+    ],
+    researchDirections: [
+      'practical SAT-solving algorithms (CDCL solvers) that scale to millions of variables despite worst-case NP-completeness',
+      'proof complexity, measuring the size of propositional proofs needed for hard tautologies',
+      'quantum and probabilistic generalizations of Boolean logic',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate introduction, with a rigorous treatment of soundness and completeness for propositional logic.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A comprehensive, widely assigned reference covering propositional calculus in full formal detail.',
+      },
+      {
+        title: 'Logic in Computer Science',
+        authors: ['Michael Huth', 'Mark Ryan'],
+        edition: '2nd',
+        year: 2004,
+        why: 'Connects propositional logic directly to SAT solving and its applications in verification.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Modus ponens', latex: '\\varphi,\\ \\varphi\\to\\psi \\ \\vdash\\ \\psi' },
+      { label: "De Morgan's laws", latex: '\\neg(\\varphi\\wedge\\psi) \\equiv \\neg\\varphi\\vee\\neg\\psi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Propositional calculus', url: 'https://encyclopediaofmath.org/wiki/Propositional_calculus', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Boole', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Boole/', kind: 'reference' },
+      { label: 'MacTutor: Gottlob Frege', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frege/', kind: 'reference' },
+    ],
+  },
+  'logic:predicate-logic': {
+    overview:
+      'Predicate (first-order) logic extends propositional logic with quantifiers — "for all," "there exists" — and predicates describing properties and relations among objects, giving mathematics its standard formal language for stating and proving theorems precisely.',
+    formal:
+      "A first-order language consists of constants, function symbols, predicate symbols, and variables, combined with connectives and quantifiers $\\forall,\\exists$. A formula is valid if it is true in every structure under every assignment of its free variables; Gödel's Completeness Theorem (1929) shows validity coincides exactly with derivability in a standard proof system. Unlike propositional logic, first-order validity is undecidable in general (Church, Turing, 1936), though it is semi-decidable.",
+    keyIdeas: [
+      'quantifiers and predicates as the extension beyond propositional logic',
+      'structures and satisfaction: what it means for a formula to be true in a given interpretation',
+      'validity, and its coincidence with provability via the Completeness Theorem',
+      'the undecidability of first-order validity (the Entscheidungsproblem)',
+      'first-order logic as the standard formal language in which nearly all of ordinary mathematics is expressed',
+    ],
+    whyItMatters:
+      'First-order predicate logic is the common formal language underlying essentially every axiomatic mathematical theory — ZFC set theory, Peano arithmetic, group theory, and so on — and its precise, quantifier-based syntax is what makes it possible to state theorems unambiguously and check proofs mechanically, as modern proof assistants do.',
+    prerequisites: ['logic:propositional-logic'],
+    related: ['logic:completeness-theorem', 'foundations:axiomatic-method', 'set-theory:zermelo-fraenkel-axioms'],
+    historicalContext:
+      "Gottlob Frege's Begriffsschrift (1879) introduced quantifiers and a fully symbolic predicate logic for the first time, a landmark Frege himself considered his most important contribution, though its two-dimensional notation was rarely adopted directly. Giuseppe Peano and Bertrand Russell, in Principia Mathematica (1910-13), developed more usable symbolic notations that shaped the modern presentation of first-order logic. David Hilbert and Wilhelm Ackermann's Grundzüge der theoretischen Logik (1928) posed the Entscheidungsproblem for first-order validity explicitly, which Alonzo Church and Alan Turing independently proved unsolvable in 1936, using the same computability tools that founded recursion theory.",
+    contributorIds: ['person:gottlob-frege', 'person:giuseppe-peano'],
+    workIds: ['work:principia-mathematica'],
+    exampleProblems: [
+      'Translate "every prime greater than 2 is odd" into first-order logic, using appropriate predicates.',
+      'Explain the difference between a formula being true in one particular structure and being valid (true in all structures).',
+      'Explain, in outline, why first-order validity is undecidable but semi-decidable.',
+    ],
+    applications: [
+      'the formal specification language underlying nearly all axiomatic mathematics',
+      'database query languages, where relational algebra is closely tied to first-order logic',
+      'automated theorem proving and proof assistants built on first-order or higher-order variants',
+    ],
+    researchDirections: [
+      'decidable fragments of first-order logic and their complexity (e.g. the guarded fragment, used in verification)',
+      "finite model theory's departures from classical (infinite-model) first-order logic, relevant to database theory",
+      'higher-order and modal extensions of first-order logic for richer expressive needs',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate text, with a complete treatment of first-order syntax, semantics, and the Completeness Theorem.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A thorough, formally precise reference on first-order logic and its metatheory.',
+      },
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'A widely used European graduate text with strong treatments of both classical and intuitionistic predicate logic.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Universal and existential quantifiers', latex: '\\forall x\\, \\varphi(x),\\qquad \\exists x\\, \\varphi(x)' },
+      { label: "Gödel's Completeness Theorem", latex: 'T \\vdash \\varphi \\iff T \\models \\varphi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Predicate calculus', url: 'https://encyclopediaofmath.org/wiki/Predicate_calculus', kind: 'encyclopedia' },
+      { label: 'MacTutor: Gottlob Frege', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frege/', kind: 'reference' },
+      { label: 'MacTutor: Giuseppe Peano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Peano/', kind: 'reference' },
+    ],
+  },
+  'logic:completeness-theorem': {
+    overview:
+      "Gödel's Completeness Theorem shows that first-order logic's proof system is exactly powerful enough to prove every logically valid statement: syntax (what can be derived) and semantics (what is true in every model) perfectly match. It is a foundational fact often confused with, and entirely different from, the incompleteness theorems.",
+    formal:
+      'Gödel\'s Completeness Theorem (1929): a first-order sentence $\\varphi$ is provable from a set of axioms $T$ if and only if $\\varphi$ is true in every model of $T$. Equivalently, $T$ is consistent if and only if $T$ has a model. The Compactness Theorem follows as an immediate corollary: if every finite subset of $T$ has a model, then $T$ itself has a model.',
+    keyIdeas: [
+      'the exact match between semantic validity (true in all models) and syntactic provability',
+      'consistency and satisfiability as two sides of the same coin',
+      'the Compactness Theorem as an immediate corollary',
+      'why completeness, a positive result about first-order logic, is compatible with incompleteness, a negative result about arithmetic specifically',
+      'the model-existence proof technique underlying the theorem',
+    ],
+    whyItMatters:
+      'The Completeness Theorem is why mathematicians can treat "no proof exists" and "a countermodel exists" as interchangeable ways of failing to prove something in first-order logic, and it is the theorem that makes model theory and proof theory two views of the same underlying subject rather than separate fields that merely happen to overlap.',
+    prerequisites: ['logic:predicate-logic'],
+    related: ['foundations:model-theory', 'foundations:proof-theory', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "David Hilbert and Wilhelm Ackermann posed the completeness of first-order logic as an open problem in their 1928 textbook Grundzüge der theoretischen Logik. Kurt Gödel proved it in his 1929 doctoral dissertation at the University of Vienna, under Hans Hahn, using a construction later streamlined by Leon Henkin in 1949 that builds a model directly out of the syntactic objects of a consistent theory. The result is frequently and mistakenly conflated with Gödel's very different, and much more famous, incompleteness theorems, proved just two years later in 1931, which concern the limits of any single sufficiently strong theory of arithmetic rather than first-order logic in general.",
+    contributorIds: ['person:kurt-godel', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Explain precisely why the Completeness Theorem and the Incompleteness Theorems are not in tension, despite the similar names.',
+      'Use the Completeness Theorem to show that a first-order theory is consistent if and only if it has a model.',
+      'Sketch the Henkin construction: how a model is built directly from the syntax of a consistent, complete theory with witnesses.',
+    ],
+    applications: [
+      'justifying the standard practice of proving a formula unprovable by exhibiting a countermodel',
+      'the foundation on which model theory as a field is built',
+      "automated theorem proving's guarantee that proof search will eventually succeed on any valid formula",
+    ],
+    researchDirections: [
+      'completeness and incompleteness phenomena in non-classical and higher-order logics (second-order logic is famously incomplete in this sense)',
+      'effective and constructive versions of the completeness theorem',
+      'abstract model theory, characterizing which logics admit a completeness theorem at all (Lindström\'s theorem)',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'Gives the standard modern proof of the Completeness Theorem via the Henkin construction.',
+      },
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'A clear, widely used treatment connecting completeness directly to compactness and model theory.',
+      },
+      {
+        title: 'Handbook of Mathematical Logic',
+        authors: ['Jon Barwise'],
+        year: 1977,
+        why: 'The comprehensive reference surveying completeness and its many generalizations across mathematical logic.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Gödel's Completeness Theorem", latex: 'T \\vdash \\varphi \\iff T \\models \\varphi' },
+      { label: 'Compactness Theorem (corollary)', latex: '(\\forall T_0 \\subseteq T \\text{ finite: } T_0 \\text{ satisfiable}) \\implies T \\text{ satisfiable}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Gödel completeness theorem', url: 'https://encyclopediaofmath.org/wiki/G%C3%B6del_completeness_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'logic:incompleteness-theorems': {
+    overview:
+      "Gödel's incompleteness theorems show that any consistent formal system powerful enough to encode ordinary arithmetic must contain true statements it cannot prove, and cannot even prove its own consistency — a mathematical proof that formal systems have inherent, permanent limitations.",
+    formal:
+      'Gödel\'s First Incompleteness Theorem: for any consistent, recursively axiomatized formal system $S$ containing enough arithmetic, there is a sentence $G_S$, constructed via Gödel numbering and diagonalization, such that neither $G_S$ nor $\\neg G_S$ is provable in $S$, and $G_S$ is in fact true. Gödel\'s Second Incompleteness Theorem: under the same hypotheses, $S$ cannot prove $\\text{Con}(S)$, the arithmetized statement of its own consistency, unless $S$ is actually inconsistent.',
+    keyIdeas: [
+      'Gödel numbering: encoding formulas and proofs as natural numbers so arithmetic can talk about itself',
+      'the diagonal lemma, producing a sentence that, in effect, asserts its own unprovability',
+      'the First Incompleteness Theorem: true-but-unprovable sentences exist in any sufficiently strong consistent system',
+      'the Second Incompleteness Theorem: no such system can prove its own consistency',
+      "the theorems' limited, precise scope — they do not show mathematics is 'broken,' only that no single recursive system captures all arithmetical truth",
+    ],
+    whyItMatters:
+      "The incompleteness theorems permanently ended the strongest form of Hilbert's program — a single finitary system certifying the consistency of all of mathematics — and revealed something genuinely new about formal systems: that provability and truth are not the same thing, even for elementary arithmetic, with implications reaching into computer science and the theory of computation.",
+    prerequisites: ['logic:completeness-theorem'],
+    related: ['foundations:proof-theory', 'foundations:foundational-programs', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "David Hilbert's formalist program of the 1920s hoped to prove the consistency of all of mathematics through finitary means. Kurt Gödel, working alone in Vienna, proved both incompleteness theorems in his 1931 paper Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme, using the newly available technique of arithmetizing syntax to construct a self-referential sentence within arithmetic itself, adapting the Liar paradox into a rigorous mathematical tool. The result stunned the mathematical community, and Gerhard Gentzen's 1936 proof that arithmetic's consistency IS provable using slightly more than finitary means — transfinite induction to $\\varepsilon_0$ — clarified exactly how much stronger than arithmetic itself such a proof requires.",
+    contributorIds: ['person:kurt-godel', 'person:david-hilbert'],
+    workIds: ['work:uber-formal-unentscheidbare-satze'],
+    exampleProblems: [
+      'Explain, in outline, how Gödel numbering lets a formula of arithmetic express a statement about provability in arithmetic.',
+      'State the First Incompleteness Theorem precisely and explain why the Gödel sentence is true despite being unprovable.',
+      "Explain why the Second Incompleteness Theorem strengthens the first, and why it specifically undermines Hilbert's program.",
+    ],
+    applications: [
+      'the theoretical limits on formal software verification: no complete, consistent, automatable proof system can verify all true statements about programs',
+      'philosophical arguments about whether human reasoning can be fully mechanized (the contested Lucas-Penrose argument)',
+      'computability theory, whose undecidability results are close cousins of the incompleteness theorems',
+    ],
+    researchDirections: [
+      'reverse mathematics, precisely calibrating which subsystems of arithmetic can prove which classical theorems',
+      'independence results in set theory (e.g. the Continuum Hypothesis), a direct descendant of the incompleteness methodology',
+      'ordinal analysis, measuring exactly how much stronger than a theory is needed to prove its consistency',
+    ],
+    textbooks: [
+      {
+        title: "Gödel's Theorem: An Incomplete Guide to Its Use and Abuse",
+        authors: ['Torkel Franzén'],
+        year: 2005,
+        why: 'A clear, careful account distinguishing what the incompleteness theorems actually prove from common misreadings.',
+      },
+      {
+        title: "An Introduction to Gödel's Theorems",
+        authors: ['Peter Smith'],
+        edition: '2nd',
+        year: 2013,
+        why: 'The standard rigorous but accessible textbook treatment, working through the full proof in detail.',
+      },
+      {
+        title: "Gödel's Incompleteness Theorems",
+        authors: ['Raymond M. Smullyan'],
+        year: 1992,
+        why: 'A classic, elegant alternative presentation using Smullyan\'s characteristic puzzle-based style.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'First Incompleteness Theorem (Gödel sentence)', latex: 'G_S \\leftrightarrow \\neg\\text{Prov}_S(\\ulcorner G_S \\urcorner)' },
+      { label: 'Second Incompleteness Theorem', latex: 'S \\nvdash \\text{Con}(S) \\quad (\\text{if } S \\text{ consistent})' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Gödel incompleteness theorem', url: 'https://encyclopediaofmath.org/wiki/G%C3%B6del_incompleteness_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: Gerhard Gentzen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gentzen/', kind: 'reference' },
+    ],
+  },
+  'logic:modal-logic': {
+    overview:
+      'Modal logic extends ordinary logic with operators for "necessarily" and "possibly," letting formal reasoning capture not just what is true but what must be true, could be true, is known, is believed, or will be true, with a single elegant semantic framework — possible worlds — handling all of these readings.',
+    formal:
+      'The basic modal language adds operators $\\Box$ (necessarily) and $\\Diamond$ (possibly, defined as $\\neg\\Box\\neg$) to propositional logic. Kripke semantics interprets formulas over a frame $(W,R)$ — a set of possible worlds $W$ with an accessibility relation $R$ — where $\\Box\\varphi$ is true at world $w$ if $\\varphi$ is true at every world accessible from $w$. Constraints on $R$ (reflexivity, transitivity, symmetry) correspond exactly to modal axioms, for instance transitivity to $\\Box\\varphi \\to \\Box\\Box\\varphi$, giving a precise correspondence between logical systems (K, T, S4, S5) and classes of frames.',
+    keyIdeas: [
+      'necessity and possibility as operators added to propositional (or predicate) logic',
+      'Kripke (possible-worlds) semantics: truth relative to a world, modulated by an accessibility relation',
+      'the correspondence between frame conditions (reflexivity, transitivity, symmetry) and modal axioms',
+      'the modal systems K, T, S4, S5 as increasingly strong theories of necessity',
+      'reinterpreting the same formal apparatus for knowledge (epistemic logic), obligation (deontic logic), and time (temporal logic)',
+    ],
+    whyItMatters:
+      'Possible-worlds semantics gave a single rigorous mathematical framework that turned necessity, knowledge, belief, obligation, and future truth from vague philosophical notions into precisely axiomatized logics with well-understood soundness and completeness results, and this same Kripke-frame technology now underlies model checking, the industrial-strength technique used to verify hardware and software against formal specifications.',
+    prerequisites: ['logic:predicate-logic'],
+    related: ['mathematical-logic-cs:temporal-logic', 'mathematical-logic-cs:model-checking', 'logic:intuitionistic-logic'],
+    historicalContext:
+      "C. I. Lewis developed the first modern systems of modal logic starting in 1912, dissatisfied with how material implication in Principia Mathematica-style logic trivialized the notion of implying, and by 1932 (with Cooper Harold Langford) had catalogued the systems S1-S5. For decades modal logic lacked a rigorous formal semantics, relying only on axiomatic proof systems, until Saul Kripke, in a series of papers starting in 1959 written while still a teenager, gave the relational possible-worlds semantics now named for him, proving completeness theorems that matched each major modal system to a class of frames defined by simple conditions on the accessibility relation.",
+    contributorIds: ['person:c-i-lewis', 'person:saul-kripke'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the modal axiom $\\Box\\varphi \\to \\Box\\Box\\varphi$ (axiom 4) corresponds exactly to transitivity of the accessibility relation.',
+      'Explain the difference between the modal systems T, S4, and S5 in terms of the properties required of their Kripke frames.',
+      'Translate "it is possible that it is necessary that P" into modal notation, and determine whether it is a theorem of S5.',
+    ],
+    applications: [
+      'model checking, used throughout hardware and software verification to check systems against temporal/modal specifications',
+      'epistemic logic in multi-agent systems and game theory, formalizing what one agent knows about another\'s beliefs',
+      'deontic logic in formalizing legal and ethical obligation for AI systems',
+    ],
+    researchDirections: [
+      'dynamic epistemic logic, modeling how knowledge and belief change as agents communicate and observe',
+      'the model-theoretic and computational complexity of modal and temporal logics used in automated verification',
+      'hybrid and description logics extending modal logic for knowledge representation in AI',
+    ],
+    textbooks: [
+      {
+        title: 'Modal Logic',
+        authors: ['Patrick Blackburn', 'Maarten de Rijke', 'Yde Venema'],
+        year: 2001,
+        why: 'The standard comprehensive graduate reference, unifying the model theory, proof theory, and complexity of modal logics.',
+      },
+      {
+        title: 'Modal Logic: An Introduction',
+        authors: ['Brian F. Chellas'],
+        year: 1980,
+        why: 'A widely used, accessible introduction covering the major systems K, T, S4, and S5 in depth.',
+      },
+      {
+        title: 'A New Introduction to Modal Logic',
+        authors: ['George E. Hughes', 'Max J. Cresswell'],
+        year: 1996,
+        why: 'A classic, thorough textbook tracing the historical development alongside the formal systems.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Box/Diamond duality', latex: '\\Diamond\\varphi \\equiv \\neg\\Box\\neg\\varphi' },
+      { label: 'Kripke truth condition for necessity', latex: 'w \\models \\Box\\varphi \\iff \\forall v\\,(wRv \\implies v \\models \\varphi)' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Modal logic', url: 'https://en.wikipedia.org/wiki/Modal_logic', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Saul Kripke', url: 'https://en.wikipedia.org/wiki/Saul_Kripke', kind: 'encyclopedia' },
+      { label: 'Wikipedia: C. I. Lewis', url: 'https://en.wikipedia.org/wiki/C._I._Lewis', kind: 'encyclopedia' },
+    ],
+  },
+  'logic:intuitionistic-logic': {
+    overview:
+      'Intuitionistic logic is the formal logic of constructive reasoning: it rejects the unrestricted law of excluded middle and proof by contradiction as general principles, keeping only the inference patterns that correspond to actually constructing evidence for a statement.',
+    formal:
+      'Intuitionistic propositional and predicate calculus differ from their classical counterparts by omitting the law of excluded middle ($\\varphi \\vee \\neg\\varphi$) and double-negation elimination ($\\neg\\neg\\varphi \\to \\varphi$) as general axioms. The Gödel-Gentzen negative translation embeds classical logic into intuitionistic logic via $\\varphi \\mapsto \\varphi^N$, showing intuitionistic arithmetic is consistent if and only if classical arithmetic is. Kripke semantics for intuitionistic logic uses partially ordered "growing" sets of worlds where truth, once established, persists as more information becomes available.',
+    keyIdeas: [
+      'the rejection of the unrestricted law of excluded middle and double-negation elimination',
+      'the Brouwer-Heyting-Kolmogorov interpretation of connectives as constructions',
+      'Kripke semantics for intuitionistic logic via partially ordered, information-increasing worlds',
+      'the Gödel-Gentzen negative translation embedding classical logic into intuitionistic logic',
+      'the Curry-Howard correspondence identifying intuitionistic proofs with typed programs',
+    ],
+    whyItMatters:
+      'Intuitionistic logic is not merely a philosophical restriction but the precise logic that corresponds to computation: every intuitionistic proof of an existential statement carries an algorithm for producing a witness, which is exactly why every practical proof assistant (Coq, Agda, Lean\'s constructive core) is built on intuitionistic rather than classical logic as its foundational layer.',
+    prerequisites: ['logic:modal-logic'],
+    related: ['foundations:constructive-mathematics', 'proof-assistants:type-theory', 'proof-assistants:dependent-types'],
+    historicalContext:
+      "L.E.J. Brouwer's intuitionism, from 1907 onward, rejected the unrestricted law of excluded middle on philosophical grounds but did not initially give a formal proof system for the resulting logic. Arend Heyting, Brouwer's student, formalized intuitionistic propositional and predicate calculus in 1930, giving the field its first rigorous axiomatic proof system. Kurt Gödel (1933) and Gerhard Gentzen (1933) independently discovered the negative translation embedding classical arithmetic into intuitionistic (Heyting) arithmetic, an unexpectedly close proof-theoretic relationship given their very different philosophical origins, and Saul Kripke's 1965 semantics for intuitionistic logic — an adaptation of his modal semantics — finally gave the field a rigorous model theory.",
+    contributorIds: ['person:l-e-j-brouwer', 'person:arend-heyting'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the intuitionistic proof system does not derive $\\varphi \\vee \\neg\\varphi$ for an arbitrary undecided $\\varphi$, by exhibiting a Kripke countermodel.',
+      'Explain the Gödel-Gentzen negative translation and why it shows intuitionistic arithmetic is consistent if and only if classical arithmetic is.',
+      'Use the Curry-Howard correspondence to describe the computational content packed into an intuitionistic proof of $\\varphi \\to \\varphi \\vee \\psi$.',
+    ],
+    applications: [
+      'the constructive core of modern proof assistants (Coq, Agda, Lean), where every proof is directly a program',
+      'extracting certified algorithms from formalized mathematical proofs',
+      'the semantics of typed functional programming languages, closely modeled on intuitionistic logic via Curry-Howard',
+    ],
+    researchDirections: [
+      'homotopy type theory, a rich extension of intuitionistic type theory connecting it to homotopy theory',
+      'realizability interpretations, giving computational semantics to intuitionistic (and even some classical) proofs',
+      "linear and substructural logics refining intuitionistic logic's resource-sensitivity further",
+    ],
+    textbooks: [
+      {
+        title: 'Logic and Structure',
+        authors: ['Dirk van Dalen'],
+        edition: '5th',
+        year: 2013,
+        why: 'Includes a strong, self-contained treatment of intuitionistic logic and its Kripke semantics.',
+      },
+      {
+        title: 'Constructivism in Mathematics',
+        authors: ['A. S. Troelstra', 'Dirk van Dalen'],
+        year: 1988,
+        why: 'The comprehensive two-volume reference covering intuitionistic logic within the broader constructive tradition.',
+      },
+      {
+        title: 'Elements of Intuitionism',
+        authors: ['Michael Dummett'],
+        edition: '2nd',
+        year: 2000,
+        why: 'A classic philosophical and technical treatment of intuitionistic logic by one of its most influential defenders.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Rejected as a general axiom', latex: '\\varphi \\vee \\neg\\varphi' },
+      { label: 'Gödel-Gentzen negative translation (informal)', latex: '\\vdash_{\\text{classical}} \\varphi \\iff \\vdash_{\\text{intuitionistic}} \\varphi^N' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Intuitionistic logic', url: 'https://encyclopediaofmath.org/wiki/Intuitionistic_logic', kind: 'encyclopedia' },
+      { label: 'MacTutor: Arend Heyting', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Heyting/', kind: 'reference' },
+      { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -4510,6 +4906,10 @@ const personRows = [
   ['Alfred Tarski', '1901-1983', 'Poland/USA', 'foundations', 'the semantic definition of truth and model theory'],
   ['Bertrand Russell', '1872-1970', 'United Kingdom', 'foundations', 'logicism and the theory of types'],
   ['Errett Bishop', '1928-1983', 'USA', 'foundations', 'constructive analysis'],
+  ['Gottlob Frege', '1848-1925', 'Germany', 'logic', 'the first fully symbolic predicate logic'],
+  ['Arend Heyting', '1898-1980', 'Netherlands', 'logic', 'the formal axiomatization of intuitionistic logic'],
+  ['C. I. Lewis', '1883-1964', 'USA', 'logic', 'the first modern systems of modal logic'],
+  ['Saul Kripke', '1940-2022', 'USA', 'logic', 'possible-worlds semantics for modal logic'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -4543,12 +4943,13 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:groups',
     'topology:connectedness',
   ],
-  'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
+  'person:giuseppe-peano': ['logic:predicate-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
   'person:david-hilbert': [
     'foundations:axiomatic-method',
     'foundations:proof-theory',
     'foundations:foundational-programs',
+    'logic:completeness-theorem',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
     'algebra:rings',
@@ -4595,7 +4996,12 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:andrei-markov': ['probability:markov-chains'],
   'person:felix-hausdorff': ['topology:point-set-topology'],
   'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
-  'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'foundations:foundational-programs', 'topology:homotopy'],
+  'person:l-e-j-brouwer': [
+    'foundations:constructive-mathematics',
+    'foundations:foundational-programs',
+    'topology:homotopy',
+    'logic:intuitionistic-logic',
+  ],
   'person:grigori-perelman': ['topology:manifolds'],
   'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers', 'foundations:axiomatic-method'],
   'person:nikolai-lobachevsky': ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method'],
@@ -4606,14 +5012,23 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:andrew-wiles': ['number-theory:diophantine-equations', 'number-theory:modular-forms'],
   'person:srinivasa-ramanujan': ['number-theory:modular-forms'],
   'person:ernst-kummer': ['number-theory:diophantine-equations', 'number-theory:algebraic-number-theory'],
-  'person:kurt-godel': ['logic:propositional-logic', 'foundations:proof-theory', 'foundations:model-theory'],
+  'person:kurt-godel': [
+    'logic:completeness-theorem',
+    'logic:incompleteness-theorems',
+    'foundations:proof-theory',
+    'foundations:model-theory',
+  ],
   'person:alan-turing': ['computation:algorithms', 'foundations:recursion-theory'],
   'person:alonzo-church': ['computation:lambda-calculus', 'foundations:recursion-theory'],
   'person:stephen-kleene': ['foundations:recursion-theory'],
-  'person:gerhard-gentzen': ['foundations:proof-theory'],
+  'person:gerhard-gentzen': ['foundations:proof-theory', 'logic:incompleteness-theorems'],
   'person:alfred-tarski': ['foundations:model-theory'],
   'person:bertrand-russell': ['foundations:foundational-programs'],
   'person:errett-bishop': ['foundations:constructive-mathematics'],
+  'person:gottlob-frege': ['logic:propositional-logic', 'logic:predicate-logic'],
+  'person:arend-heyting': ['logic:intuitionistic-logic'],
+  'person:c-i-lewis': ['logic:modal-logic'],
+  'person:saul-kripke': ['logic:modal-logic'],
 };
 
 export const people: Person[] = personRows.map(
@@ -4762,7 +5177,8 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:arithmetica': ['number-theory:diophantine-equations'],
   'work:a-course-in-arithmetic': ['number-theory:modular-forms'],
   'work:elements': ['geometry:euclidean-geometry', 'foundations:axiomatic-method'],
-  'work:principia-mathematica': ['logic:propositional-logic', 'foundations:foundational-programs'],
+  'work:principia-mathematica': ['logic:predicate-logic', 'foundations:foundational-programs'],
+  'work:uber-formal-unentscheidbare-satze': ['logic:incompleteness-theorems'],
   'work:on-computable-numbers': ['computation:computability', 'foundations:recursion-theory'],
   'work:model-theory': ['foundations:model-theory'],
 };
