@@ -9905,6 +9905,422 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: Donald Rubin', url: 'https://en.wikipedia.org/wiki/Donald_Rubin', kind: 'reference' },
     ],
   },
+  'discrete-math:counting-principles': {
+    overview:
+      'Counting principles are the basic rules — addition, multiplication, permutations, combinations, and inclusion-exclusion — for determining the exact size of a finite set without listing its elements one by one. Deceptively simple, these rules are the foundation on which all of combinatorics, discrete probability, and algorithm analysis are built.',
+    formal:
+      'The multiplication principle: if a first choice can be made in $m$ ways and a second in $n$ ways independently, the pair can be made in $mn$ ways. The number of permutations of $n$ objects taken $r$ at a time is $P(n,r)=\\frac{n!}{(n-r)!}$, and the number of combinations (order not mattering) is $\\binom{n}{r}=\\frac{n!}{r!(n-r)!}$. The inclusion-exclusion principle computes the size of a union of sets, $\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_i |A_i| - \\sum_{i<j}|A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$.',
+    keyIdeas: [
+      'the addition and multiplication principles as the two basic building blocks from which all counting arguments are assembled',
+      'permutations (order matters) versus combinations (order does not matter) as the two fundamental counting scenarios',
+      'the pigeonhole principle: if more than $n$ objects are placed into $n$ boxes, some box holds more than one',
+      'inclusion-exclusion, correcting for overcounting when combining overlapping sets',
+      'bijective proofs: establishing a count by exhibiting a one-to-one correspondence with an already-counted set',
+    ],
+    whyItMatters:
+      "Counting exactly how many ways something can happen is the entry point to discrete probability (probability is a ratio of counts), cryptography (key-space sizes determine security), and algorithm analysis (the number of possible inputs or execution paths bounds running time). What looks like an elementary topic hides real subtlety — the pigeonhole principle alone proves surprisingly deep results (two people in any city have exactly the same number of hairs, is a classic example), and many combinatorial identities have no proof shorter than a clever bijective argument.",
+    prerequisites: ['calculus:limits'],
+    related: ['discrete-math:generating-functions', 'combinatorics:permutations', 'probability:sample-spaces'],
+    historicalContext:
+      "Counting problems appear throughout ancient mathematics — Indian and Arabic scholars studied permutations and combinations by at least the 12th century, and Blaise Pascal's Traité du triangle arithmétique (1654) systematically organized binomial coefficients into what is now called Pascal's triangle, connecting them explicitly to combinations. Leonhard Euler, in the 18th century, transformed combinatorics from a collection of clever tricks into a systematic subject, solving landmark counting problems (the bridges of Königsberg, partitions of integers, the '36 officers problem') that revealed deep and unexpected structure, and effectively founding graph theory and the theory of generating functions along the way.",
+    contributorIds: ['person:leonhard-euler', 'person:blaise-pascal'],
+    workIds: [],
+    exampleProblems: [
+      'How many distinct 5-card poker hands can be dealt from a standard 52-card deck? Compute using combinations.',
+      'Use the pigeonhole principle to prove that among any 13 people, at least two share a birth month.',
+      'Use inclusion-exclusion to count the number of integers from 1 to 100 divisible by 2, 3, or 5.',
+    ],
+    applications: [
+      'cryptography, where the size of a key space determines resistance to brute-force attack',
+      'probability theory, computing probabilities of finite, equally likely outcomes as ratios of counts',
+      'computer science, counting the number of possible states, inputs, or execution paths of an algorithm',
+      'coding theory, counting the number of valid codewords under given constraints',
+    ],
+    researchDirections: [
+      'analytic combinatorics, using generating functions and complex analysis to derive precise asymptotic counts',
+      'the probabilistic method, using counting arguments to prove existence results in combinatorics',
+      'algebraic and enumerative combinatorics, connecting counting problems to symmetric functions and representation theory',
+    ],
+    textbooks: [
+      {
+        title: 'A Walk Through Combinatorics',
+        authors: ['Miklós Bóna'],
+        edition: '4th',
+        year: 2016,
+        why: 'A widely used, accessible introduction to counting principles and enumerative combinatorics.',
+      },
+      {
+        title: 'Discrete Mathematics and Its Applications',
+        authors: ['Kenneth H. Rosen'],
+        edition: '8th',
+        year: 2018,
+        why: 'The standard undergraduate discrete mathematics textbook, with thorough coverage of counting techniques.',
+      },
+      {
+        title: 'Concrete Mathematics',
+        authors: ['Ronald L. Graham', 'Donald E. Knuth', 'Oren Patashnik'],
+        edition: '2nd',
+        year: 1994,
+        why: 'A classic, rigorous, and playful treatment connecting counting to generating functions and asymptotics.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Permutations', latex: 'P(n,r) = \\frac{n!}{(n-r)!}' },
+      { label: 'Combinations', latex: '\\binom{n}{r} = \\frac{n!}{r!(n-r)!}' },
+      { label: 'Inclusion-exclusion (two sets)', latex: '|A\\cup B| = |A|+|B|-|A\\cap B|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Combinatorial analysis', url: 'https://encyclopediaofmath.org/wiki/Combinatorial_analysis', kind: 'encyclopedia' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+      { label: 'MacTutor: Blaise Pascal', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Pascal/', kind: 'reference' },
+    ],
+  },
+  'discrete-math:recurrence-relations': {
+    overview:
+      'A recurrence relation defines each term of a sequence in terms of earlier terms, giving a compact rule (like the Fibonacci recursion) that can generate infinitely many values from just a few starting conditions. Solving a recurrence — finding an explicit closed-form formula — turns a step-by-step generating rule into a direct, one-shot computation.',
+    formal:
+      'A linear recurrence relation with constant coefficients has the form $a_n = c_1 a_{n-1} + c_2 a_{n-2} + \\cdots + c_k a_{n-k}$. Its solutions form a vector space spanned by $r^n$ for each root $r$ of the characteristic equation $x^k = c_1 x^{k-1} + \\cdots + c_k$ (with polynomial factors $n^j r^n$ for repeated roots). The Fibonacci recurrence $F_n = F_{n-1}+F_{n-2}$, $F_0=0,F_1=1$, has characteristic roots $\\varphi = \\frac{1+\\sqrt5}{2}$ and $\\psi=\\frac{1-\\sqrt5}{2}$, giving the closed form $F_n = \\frac{\\varphi^n-\\psi^n}{\\sqrt5}$ (Binet\'s formula).',
+    keyIdeas: [
+      'the characteristic equation, converting a linear recurrence into a polynomial root-finding problem, exactly parallel to solving linear ODEs',
+      'the divide-and-conquer master theorem, extracting the running-time growth rate of a recursive algorithm directly from its recurrence',
+      'generating functions as an alternative, often more powerful, method for solving recurrences, especially non-linear ones',
+      'closed-form (explicit) solutions versus the original recursive definition, and the computational advantage of the former',
+      'linear homogeneous recurrences forming a vector space, mirroring the theory of linear differential equations',
+    ],
+    whyItMatters:
+      "Recurrence relations are the natural language for anything defined by a step-by-step process — population growth models, financial compound interest, and above all, recursive computer algorithms, whose running time is almost always most naturally expressed as a recurrence (e.g. merge sort's $T(n)=2T(n/2)+O(n)$). Converting such a recurrence into a closed-form or asymptotic estimate, via the characteristic-equation method or the master theorem, is one of the most practically important skills in the analysis of algorithms.",
+    prerequisites: ['discrete-math:counting-principles'],
+    related: ['discrete-math:generating-functions', 'differential-equations:ordinary-differential-equations', 'combinatorics:permutations'],
+    historicalContext:
+      "Leonardo of Pisa (Fibonacci) introduced the sequence that now bears his name in Liber Abaci (1202) as the solution to a hypothetical rabbit-breeding problem, giving one of the earliest documented recurrence relations, though its now-standard closed form (Binet's formula) was not derived until Abraham de Moivre found it in the 1730s using generating functions, later rediscovered and popularized by Jacques Binet in 1843. The general theory of linear recurrences with constant coefficients, and its close parallel to linear differential equations, was developed alongside 18th-century analysis by Euler, de Moivre, and others studying the algebra of sequences and series.",
+    contributorIds: ['person:fibonacci'],
+    workIds: [],
+    exampleProblems: [
+      "Solve the recurrence $a_n = 5a_{n-1} - 6a_{n-2}$, $a_0=1, a_1=4$ using the characteristic equation method.",
+      "Derive Binet's formula for the Fibonacci sequence from its characteristic equation $x^2=x+1$.",
+      'Solve the divide-and-conquer recurrence $T(n) = 2T(n/2) + n$ using the master theorem, and interpret the result as the running time of merge sort.',
+    ],
+    applications: [
+      'algorithm analysis, expressing and solving the running time of recursive algorithms',
+      'population and financial models, where a quantity at each step depends on its recent past values',
+      'combinatorics, counting problems that naturally decompose based on a smaller instance of themselves',
+      'digital signal processing, where linear recurrences describe discrete-time filters',
+    ],
+    researchDirections: [
+      'nonlinear and non-constant-coefficient recurrences, generally lacking closed-form solutions',
+      'automated recurrence-solving and computer algebra methods (holonomic sequences, the WZ method)',
+      'recurrences over finite fields and their applications to pseudorandom number generation and coding theory',
+    ],
+    textbooks: [
+      {
+        title: 'Concrete Mathematics',
+        authors: ['Ronald L. Graham', 'Donald E. Knuth', 'Oren Patashnik'],
+        edition: '2nd',
+        year: 1994,
+        why: 'The definitive treatment of recurrence relations and their solution via generating functions and asymptotics.',
+      },
+      {
+        title: 'Discrete Mathematics and Its Applications',
+        authors: ['Kenneth H. Rosen'],
+        edition: '8th',
+        year: 2018,
+        why: 'A standard accessible introduction to solving linear recurrences via the characteristic equation.',
+      },
+      {
+        title: 'Introduction to Algorithms',
+        authors: ['Thomas H. Cormen', 'Charles E. Leiserson', 'Ronald L. Rivest', 'Clifford Stein'],
+        edition: '4th',
+        year: 2022,
+        why: 'Develops the master theorem and recurrence-solving specifically for analyzing algorithm running time.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fibonacci recurrence', latex: 'F_n = F_{n-1}+F_{n-2},\\ F_0=0,\\ F_1=1' },
+      { label: "Binet's formula", latex: 'F_n = \\frac{\\varphi^n-\\psi^n}{\\sqrt5},\\quad \\varphi=\\frac{1+\\sqrt5}{2}' },
+      { label: 'Divide-and-conquer master theorem form', latex: 'T(n) = aT(n/b) + f(n)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Recurrence relation', url: 'https://encyclopediaofmath.org/wiki/Recurrence_relation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Fibonacci', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fibonacci/', kind: 'reference' },
+    ],
+  },
+  'discrete-math:posets': {
+    overview:
+      'A partially ordered set (poset) generalizes the familiar idea of "less than or equal to" to situations where not every pair of elements is comparable — divisibility of integers, subset inclusion, or task dependencies in a project schedule are all naturally partial rather than total orders. Posets give a precise language for structures built from local, not global, comparisons.',
+    formal:
+      'A partial order on a set $P$ is a relation $\\le$ that is reflexive ($a\\le a$), antisymmetric ($a\\le b$ and $b\\le a$ implies $a=b$), and transitive ($a\\le b\\le c$ implies $a\\le c$), without requiring that every pair be comparable. A lattice is a poset in which every pair of elements $a,b$ has a least upper bound $a\\vee b$ (join) and greatest lower bound $a\\wedge b$ (meet). Dilworth\'s theorem states that the minimum number of chains needed to cover a finite poset equals the maximum size of an antichain (a set of pairwise incomparable elements).',
+    keyIdeas: [
+      'partial order versus total order: not every pair of elements need be comparable',
+      'Hasse diagrams, drawing a poset by showing only its covering relations, with comparability implied by upward paths',
+      'chains (totally ordered subsets) and antichains (pairwise incomparable subsets) as the two extreme kinds of substructure',
+      "Dilworth's theorem, linking the minimum chain cover to the maximum antichain size",
+      'lattices as posets where every pair has a well-defined join and meet, unifying order theory with algebra',
+    ],
+    whyItMatters:
+      "Many real structures are naturally partially, not totally, ordered — task scheduling (task A must precede task B, but many other pairs of tasks are independent), divisibility of integers, and subset inclusion are all posets rather than linear orders. Recognizing this and reasoning with the right tools (topological sorting, Dilworth's theorem, lattice operations) rather than forcing an artificial total order onto the problem is often the key structural insight in scheduling, database theory, and the algebra of logic (Boolean algebras are themselves a special kind of lattice).",
+    prerequisites: ['set-theory:naive-set-theory'],
+    related: ['discrete-math:boolean-algebra', 'category-theory:categories-and-functors', 'combinatorics:extremal-combinatorics'],
+    historicalContext:
+      "The systematic study of partial orders and lattices emerged in the late 19th and early 20th centuries from several directions at once: Richard Dedekind studied lattice-like structures (which he called 'dual groups') arising from divisibility around 1897, while George Boole's algebra of logic implicitly used the Boolean lattice structure decades earlier. Garrett Birkhoff unified these scattered threads into the single coherent subject of lattice theory with his 1940 book Lattice Theory, systematically developing posets, lattices, and their applications across algebra, logic, topology, and geometry, and Robert Dilworth's 1950 theorem on chain covers and antichains became one of the subject's most celebrated results.",
+    contributorIds: ['person:garrett-birkhoff'],
+    workIds: ['work:lattice-theory'],
+    exampleProblems: [
+      'Draw the Hasse diagram of the divisors of 12 ordered by divisibility, and identify its maximum chain and maximum antichain.',
+      'Show that the power set of a finite set, ordered by inclusion, is a lattice, and identify the join and meet operations explicitly.',
+      "Verify Dilworth's theorem on a small example: find a poset's minimum chain cover and confirm it equals the size of its largest antichain.",
+    ],
+    applications: [
+      'task scheduling and project management, modeling task dependencies as a poset and finding valid execution orders via topological sort',
+      'database theory, where functional dependencies form a lattice structure',
+      'computer science type systems, using lattice-theoretic subtyping and domain theory for program semantics',
+      'social choice theory and voting, analyzing preference orderings that need not be total',
+    ],
+    researchDirections: [
+      'lattice-ordered algebraic structures (lattice-ordered groups, rings) connecting order theory to abstract algebra',
+      'combinatorics of posets: Möbius functions, order polynomials, and poset enumeration',
+      'domain theory in theoretical computer science, using posets and lattices to give denotational semantics to programs',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Lattices and Order',
+        authors: ['B. A. Davey', 'H. A. Priestley'],
+        edition: '2nd',
+        year: 2002,
+        why: 'The standard modern introduction to order theory and lattices, widely used in graduate courses.',
+      },
+      {
+        title: 'Enumerative Combinatorics, Vol. 1',
+        authors: ['Richard P. Stanley'],
+        edition: '2nd',
+        year: 2011,
+        why: 'Develops the combinatorics of posets (Möbius functions, order polynomials) with exceptional depth.',
+      },
+      {
+        title: 'Lattice Theory',
+        authors: ['Garrett Birkhoff'],
+        edition: '3rd',
+        year: 1967,
+        why: "The founder's own definitive treatise, still a standard reference for the subject's classical results.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Partial order axioms', latex: 'a\\le a;\\ a\\le b, b\\le a \\implies a=b;\\ a\\le b\\le c \\implies a\\le c' },
+      { label: 'Lattice join and meet', latex: 'a\\vee b = \\sup\\{a,b\\},\\quad a\\wedge b = \\inf\\{a,b\\}' },
+      { label: "Dilworth's theorem", latex: '\\min(\\text{chain cover}) = \\max(\\text{antichain size})' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Partially ordered set', url: 'https://encyclopediaofmath.org/wiki/Partially_ordered_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: Garrett Birkhoff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Birkhoff_Garrett/', kind: 'reference' },
+    ],
+  },
+  'discrete-math:boolean-algebra': {
+    overview:
+      'Boolean algebra is the algebra of logical truth values, where AND, OR, and NOT replace ordinary multiplication, addition, and negation. Invented to give logic an algebraic form, it turned out a century later to be exactly the mathematics needed to design digital circuits, making it one of the most consequential pieces of "pure" 19th-century mathematics.',
+    formal:
+      'A Boolean algebra is a set $B$ with operations $\\vee$ (join/OR), $\\wedge$ (meet/AND), and $\\neg$ (complement/NOT), and distinguished elements $0,1$, satisfying the lattice axioms plus distributivity ($a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)$) and complementation ($a\\vee\\neg a=1$, $a\\wedge\\neg a=0$). The two-element Boolean algebra $\\{0,1\\}$ with $\\vee=\\max,\\wedge=\\min,\\neg x=1-x$ models classical propositional logic and digital circuit logic simultaneously, and every finite Boolean algebra is isomorphic to the power set of some finite set.',
+    keyIdeas: [
+      'the isomorphism between propositional logic, set algebra (union/intersection/complement), and switching circuits — three superficially different structures obeying identical laws',
+      "De Morgan's laws, $\\neg(a\\vee b)=\\neg a\\wedge \\neg b$, linking OR/AND under negation",
+      'every finite Boolean algebra is isomorphic to a power-set algebra (Stone\'s representation theorem for the general case)',
+      'Boolean functions and their representation as sums of products (disjunctive normal form) or products of sums (conjunctive normal form)',
+      "Shannon's realization that Boolean algebra is exactly the right mathematics for analyzing and simplifying relay and switching circuits",
+    ],
+    whyItMatters:
+      "George Boole set out only to give logic an algebraic form, with no inkling of any practical application; nearly a century later, Claude Shannon's 1937 master's thesis showed that Boolean algebra perfectly describes the behavior of electrical relay and switching circuits, since a circuit element is either on or off exactly as a Boolean variable is true or false. This single observation — sometimes called the most important master's thesis of the 20th century — is the direct theoretical foundation of every digital computer, logic gate, and integrated circuit built since.",
+    prerequisites: ['logic:propositional-logic'],
+    related: ['logic:propositional-logic', 'discrete-math:posets', 'theoretical-cs:p-versus-np'],
+    historicalContext:
+      "George Boole introduced his algebra of logic in The Mathematical Analysis of Logic (1847) and developed it fully in An Investigation of the Laws of Thought (1854), representing logical propositions as equations over $\\{0,1\\}$ using ordinary algebraic notation. The subject remained a purely logical curiosity for decades until Claude Shannon's 1937 MIT master's thesis, A Symbolic Analysis of Relay and Switching Circuits, showed that Boole's algebra exactly captures the behavior of switching circuits built from relays, providing the theoretical foundation that let circuit designers use algebraic simplification instead of trial and error — a result that directly enabled the systematic design of digital computers.",
+    contributorIds: ['person:george-boole', 'person:claude-shannon'],
+    workIds: [],
+    exampleProblems: [
+      'Simplify the Boolean expression $(A\\wedge B)\\vee(A\\wedge \\neg B)$ using the distributive and complement laws.',
+      "Verify De Morgan's law $\\neg(A\\vee B)=\\neg A\\wedge \\neg B$ using a truth table.",
+      'Design a simple digital circuit (using AND, OR, NOT gates) implementing the Boolean function $f(A,B,C)=(A\\wedge B)\\vee(\\neg C)$.',
+    ],
+    applications: [
+      'digital circuit design, where every logic gate directly implements a Boolean operation',
+      'computer programming, where Boolean expressions control conditionals and program flow',
+      'database query languages, using Boolean algebra to combine search and filter conditions',
+      'search engines, combining query terms using Boolean AND/OR/NOT operators',
+    ],
+    researchDirections: [
+      'Boolean satisfiability (SAT) solving, the algorithmic study of finding assignments satisfying Boolean formulas',
+      'Boolean function complexity, studying the minimum circuit size needed to compute a given function',
+      'quantum Boolean functions and their role in quantum computing and cryptography',
+    ],
+    textbooks: [
+      {
+        title: 'Discrete Mathematics and Its Applications',
+        authors: ['Kenneth H. Rosen'],
+        edition: '8th',
+        year: 2018,
+        why: 'A standard introduction covering Boolean algebra and its direct connection to digital logic design.',
+      },
+      {
+        title: 'Introduction to Boolean Algebras',
+        authors: ['Steven Givant', 'Paul Halmos'],
+        year: 2009,
+        why: 'A rigorous, modern mathematical treatment of Boolean algebras as algebraic structures in their own right.',
+      },
+      {
+        title: 'Digital Design and Computer Architecture',
+        authors: ['David Money Harris', 'Sarah L. Harris'],
+        edition: '2nd',
+        year: 2012,
+        why: "Applies Boolean algebra directly to the design of digital circuits, showing Shannon's insight in practice.",
+      },
+    ],
+    keyFormulas: [
+      { label: "De Morgan's laws", latex: '\\neg(a\\vee b)=\\neg a\\wedge \\neg b,\\quad \\neg(a\\wedge b)=\\neg a\\vee \\neg b' },
+      { label: 'Distributive law', latex: 'a\\wedge(b\\vee c)=(a\\wedge b)\\vee(a\\wedge c)' },
+      { label: 'Complement laws', latex: 'a\\vee\\neg a = 1,\\quad a\\wedge\\neg a = 0' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Boolean algebra', url: 'https://encyclopediaofmath.org/wiki/Boolean_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Boole', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Boole/', kind: 'reference' },
+      { label: 'Wikipedia: Claude Shannon', url: 'https://en.wikipedia.org/wiki/Claude_Shannon', kind: 'encyclopedia' },
+    ],
+  },
+  'discrete-math:finite-automata': {
+    overview:
+      'A finite automaton is the simplest model of computation: a machine with only a finite number of internal states that reads an input one symbol at a time and moves between states according to fixed rules. Despite this extreme simplicity, finite automata exactly capture the notion of a "regular" pattern, giving a complete and decidable theory of pattern matching.',
+    formal:
+      'A deterministic finite automaton (DFA) is a tuple $(Q,\\Sigma,\\delta,q_0,F)$: a finite set of states $Q$, an alphabet $\\Sigma$, a transition function $\\delta:Q\\times\\Sigma\\to Q$, a start state $q_0$, and accepting states $F\\subseteq Q$. A string is accepted if following $\\delta$ from $q_0$ ends in a state in $F$. Kleene\'s theorem states that a language is accepted by some finite automaton if and only if it is regular, i.e. describable by a regular expression built from symbols, concatenation, union, and Kleene star.',
+    keyIdeas: [
+      'determinism versus nondeterminism: a nondeterministic finite automaton (NFA) can be in several states "at once," yet is provably no more powerful than a DFA',
+      "Kleene's theorem: finite automata and regular expressions describe exactly the same class of languages",
+      'the pumping lemma, providing a tool to prove certain languages are not regular (cannot be recognized by any finite automaton)',
+      'state minimization, finding the smallest DFA equivalent to a given one',
+      "the subset construction, converting any NFA into an equivalent DFA by tracking sets of possible states",
+    ],
+    whyItMatters:
+      "Finite automata give the simplest possible model of computation for which every natural question (does this string match this pattern? are two automata equivalent?) is decidable, in sharp contrast to more powerful models like Turing machines where such questions are generally undecidable. This decidability, combined with Kleene's theorem connecting automata to regular expressions, is exactly why finite automata underlie the pattern-matching engines used in every text editor, compiler lexer, and network protocol validator — a beautiful case where the mathematically simplest model turned out to be the practically indispensable one.",
+    prerequisites: ['discrete-math:boolean-algebra'],
+    related: ['theoretical-cs:automata-theory', 'theoretical-cs:formal-languages', 'dynamical-systems:symbolic-dynamics'],
+    historicalContext:
+      "Warren McCulloch and Walter Pitts's 1943 model of idealized neurons implicitly contained the first finite-state machine, and Stephen Kleene formalized the connection to what he called 'regular events' in a 1951 RAND Corporation report, proving the theorem (his own theorem) that finite automata and regular expressions define the same class of languages. Michael Rabin and Dana Scott's landmark 1959 paper Finite Automata and Their Decision Problems introduced the nondeterministic finite automaton and proved it equivalent in power to the deterministic version despite its apparently greater flexibility, work for which they shared the 1976 Turing Award.",
+    contributorIds: ['person:stephen-kleene', 'person:michael-rabin'],
+    workIds: [],
+    exampleProblems: [
+      'Construct a DFA that accepts all binary strings containing an even number of 1s.',
+      'Convert the regular expression $(a\\vert b)^*abb$ into an equivalent NFA, then use the subset construction to convert it to a DFA.',
+      'Use the pumping lemma to prove that the language $\\{a^n b^n : n\\ge 0\\}$ is not regular.',
+    ],
+    applications: [
+      'lexical analysis in compilers, tokenizing source code using regular-expression-based finite automata',
+      'text editors and search tools, implementing regular expression pattern matching via finite automata',
+      'network protocol and hardware verification, modeling and checking simple protocols as finite-state machines',
+      'digital circuit design, where sequential circuits are naturally modeled as finite-state machines',
+    ],
+    researchDirections: [
+      'weighted and probabilistic automata, generalizing acceptance to quantities other than a binary yes/no',
+      'automata over infinite words (Büchi automata) for verifying properties of non-terminating systems',
+      'algebraic automata theory, connecting finite automata to semigroup and monoid theory',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to the Theory of Computation',
+        authors: ['Michael Sipser'],
+        edition: '3rd',
+        year: 2012,
+        why: 'The standard textbook introduction to finite automata, regular languages, and their theory.',
+      },
+      {
+        title: 'Introduction to Automata Theory, Languages, and Computation',
+        authors: ['John E. Hopcroft', 'Rajeev Motwani', 'Jeffrey D. Ullman'],
+        edition: '3rd',
+        year: 2006,
+        why: 'A comprehensive, rigorous classic reference covering finite automata in full mathematical detail.',
+      },
+      {
+        title: 'Elements of the Theory of Computation',
+        authors: ['Harry Lewis', 'Christos Papadimitriou'],
+        edition: '2nd',
+        year: 1997,
+        why: 'A clear, mathematically careful treatment of finite automata as the foundation of computability theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'DFA definition', latex: '(Q,\\Sigma,\\delta,q_0,F)' },
+      { label: 'Transition function', latex: '\\delta: Q\\times\\Sigma \\to Q' },
+      { label: "Kleene's theorem", latex: '\\text{regular language} \\iff \\text{recognized by a finite automaton}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Automaton, finite', url: 'https://encyclopediaofmath.org/wiki/Automaton,_finite', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stephen Kleene', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kleene/', kind: 'reference' },
+      { label: 'Wikipedia: Michael O. Rabin', url: 'https://en.wikipedia.org/wiki/Michael_O._Rabin', kind: 'reference' },
+    ],
+  },
+  'discrete-math:generating-functions': {
+    overview:
+      'A generating function packages an entire infinite sequence of numbers into the coefficients of a single formal power series, converting combinatorial questions about counting into algebraic questions about manipulating series. This translation is astonishingly powerful: hard counting problems often become easy algebra once phrased in terms of generating functions.',
+    formal:
+      'The ordinary generating function of a sequence $(a_n)_{n\\ge 0}$ is the formal power series $A(x) = \\sum_{n=0}^\\infty a_n x^n$. Operations on sequences correspond to algebraic operations on generating functions: adding two sequences adds their generating functions, and the recurrence $a_n = a_{n-1}+a_{n-2}$ (Fibonacci) translates into the functional equation $A(x) = xA(x) + x^2A(x) + x$, solvable algebraically for $A(x) = \\frac{x}{1-x-x^2}$, from which $a_n$ can be extracted via partial fractions.',
+    keyIdeas: [
+      'treating an infinite sequence as a single algebraic object (a formal power series), regardless of convergence',
+      'converting a recurrence relation into a solvable algebraic equation for the generating function',
+      'convolution of sequences corresponding to multiplication of their generating functions',
+      'extracting exact or asymptotic coefficient formulas from a generating function via partial fractions or complex analysis',
+      'exponential generating functions, $\\sum a_n x^n/n!$, naturally suited to counting labeled structures (permutations, labeled graphs)',
+    ],
+    whyItMatters:
+      "Generating functions let combinatorialists trade an intractable direct-counting argument for tractable algebra: rather than reasoning combinatorially about a complicated recursive structure, encode it as a functional equation for its generating function, solve that equation using ordinary algebra or calculus, and read off exact formulas or precise asymptotics for the original counting problem. This technique, systematized by Euler in the 18th century, remains the single most powerful general tool in enumerative combinatorics, and its modern extension (analytic combinatorics) uses complex analysis to extract asymptotic growth rates from generating functions with remarkable precision.",
+    prerequisites: ['discrete-math:recurrence-relations', 'calculus:taylor-series'],
+    related: ['discrete-math:recurrence-relations', 'discrete-math:counting-principles', 'combinatorics:inclusion-exclusion'],
+    historicalContext:
+      "Abraham de Moivre used generating functions in the 1720s-1730s to solve linear recurrences, including deriving the closed form for the Fibonacci sequence decades before it became well known. Leonhard Euler developed the technique into a systematic and extraordinarily productive tool from the 1740s onward, most famously using generating functions to prove that the number of partitions of an integer into odd parts equals the number of partitions into distinct parts — a beautiful identity with no obvious direct combinatorial explanation at the time. The subject was substantially modernized and extended into 'analytic combinatorics' in the late 20th century by Philippe Flajolet and Robert Sedgewick, who systematized the use of complex-analytic methods to extract precise asymptotics from generating functions.",
+    contributorIds: ['person:leonhard-euler', 'person:abraham-de-moivre'],
+    workIds: [],
+    exampleProblems: [
+      "Find the ordinary generating function for the sequence $a_n=1$ for all $n\\ge 0$, and use it to derive the generating function for $a_n=n+1$.",
+      'Use generating functions to solve the recurrence $a_n=2a_{n-1}+1$, $a_0=0$.',
+      "Use Euler's generating function argument to explain why the number of partitions of $n$ into distinct parts equals the number of partitions of $n$ into odd parts, for a small value of $n$.",
+    ],
+    applications: [
+      'analysis of algorithms, deriving exact and asymptotic formulas for the complexity of recursive algorithms',
+      'statistical physics, where partition functions are generating functions encoding a system\'s possible energy states',
+      'probability theory, where probability and moment generating functions encode an entire distribution',
+      'coding theory, using generating functions (weight enumerators) to analyze the structure of error-correcting codes',
+    ],
+    researchDirections: [
+      'analytic combinatorics, using singularity analysis of generating functions to derive precise asymptotic counts',
+      'multivariate generating functions for counting problems with several parameters simultaneously',
+      'q-analogues and generating functions in algebraic combinatorics and representation theory',
+    ],
+    textbooks: [
+      {
+        title: 'generatingfunctionology',
+        authors: ['Herbert S. Wilf'],
+        edition: '3rd',
+        year: 2005,
+        why: 'The classic, freely available, and highly readable dedicated introduction to generating functions.',
+      },
+      {
+        title: 'Concrete Mathematics',
+        authors: ['Ronald L. Graham', 'Donald E. Knuth', 'Oren Patashnik'],
+        edition: '2nd',
+        year: 1994,
+        why: 'Develops generating functions as a central tool for solving recurrences and counting problems.',
+      },
+      {
+        title: 'Analytic Combinatorics',
+        authors: ['Philippe Flajolet', 'Robert Sedgewick'],
+        year: 2009,
+        why: 'The definitive modern reference on extracting precise asymptotics from generating functions via complex analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Ordinary generating function', latex: 'A(x) = \\sum_{n=0}^{\\infty} a_n x^n' },
+      { label: 'Geometric series generating function', latex: '\\sum_{n=0}^{\\infty} x^n = \\frac{1}{1-x}' },
+      { label: 'Exponential generating function', latex: 'A(x) = \\sum_{n=0}^{\\infty} a_n \\frac{x^n}{n!}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Generating function', url: 'https://encyclopediaofmath.org/wiki/Generating_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+      { label: 'MacTutor: Abraham de Moivre', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/De_Moivre/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -10189,6 +10605,8 @@ const personRows = [
   ['Karl Pearson', '1857-1936', 'England', 'statistics', 'the correlation coefficient, chi-squared test, and founding mathematical statistics'],
   ['Judea Pearl', '1936-', 'Israel/USA', 'statistics', 'causal diagrams and the structural theory of causal inference'],
   ['Donald Rubin', '1943-', 'USA', 'statistics', 'the potential outcomes framework for causal inference'],
+  ['Garrett Birkhoff', '1911-1996', 'USA', 'discrete-math', 'founding modern lattice theory'],
+  ['Michael Rabin', '1931-2026', 'Israel/USA', 'discrete-math', 'nondeterministic finite automata theory'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -10350,12 +10768,12 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:charles-ehresmann': ['differential-geometry:fiber-bundles'],
   'person:ernst-steinitz': ['algebra:fields', 'abstract-algebra:field-theory'],
   'person:ferdinand-georg-frobenius': ['algebra:representations', 'abstract-algebra:representation-theory'],
-  'person:blaise-pascal': ['probability:sample-spaces'],
+  'person:blaise-pascal': ['probability:sample-spaces', 'discrete-math:counting-principles'],
   'person:christiaan-huygens': ['probability:sample-spaces', 'probability:expectation'],
   'person:jacob-bernoulli': ['probability:law-of-large-numbers'],
   'person:pierre-simon-laplace': ['probability:central-limit-theorem', 'statistics:bayesian-inference'],
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
-  'person:abraham-de-moivre': ['probability:central-limit-theorem'],
+  'person:abraham-de-moivre': ['probability:central-limit-theorem', 'discrete-math:generating-functions'],
   'person:andrei-markov': ['probability:markov-chains'],
   'person:ronald-fisher': ['statistics:estimation', 'statistics:experimental-design'],
   'person:jerzy-neyman': ['statistics:hypothesis-testing'],
@@ -10393,7 +10811,12 @@ const personTopicOverrides: Record<string, string[]> = {
     'statistics:estimation',
   ],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
-  'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
+  'person:leonhard-euler': [
+    'number-theory:modular-arithmetic',
+    'number-theory:analytic-number-theory',
+    'discrete-math:counting-principles',
+    'discrete-math:generating-functions',
+  ],
   'person:diophantus': ['number-theory:diophantine-equations'],
   'person:andrew-wiles': ['number-theory:diophantine-equations', 'number-theory:modular-forms'],
   'person:srinivasa-ramanujan': ['number-theory:modular-forms'],
@@ -10408,7 +10831,12 @@ const personTopicOverrides: Record<string, string[]> = {
   ],
   'person:alan-turing': ['computation:algorithms', 'foundations:recursion-theory'],
   'person:alonzo-church': ['computation:lambda-calculus', 'foundations:recursion-theory'],
-  'person:stephen-kleene': ['foundations:recursion-theory'],
+  'person:stephen-kleene': ['foundations:recursion-theory', 'discrete-math:finite-automata'],
+  'person:fibonacci': ['discrete-math:recurrence-relations'],
+  'person:george-boole': ['logic:propositional-logic', 'discrete-math:boolean-algebra'],
+  'person:claude-shannon': ['discrete-math:boolean-algebra'],
+  'person:garrett-birkhoff': ['discrete-math:posets'],
+  'person:michael-rabin': ['discrete-math:finite-automata'],
   'person:gerhard-gentzen': ['foundations:proof-theory', 'logic:incompleteness-theorems'],
   'person:alfred-tarski': ['foundations:model-theory'],
   'person:bertrand-russell': ['foundations:foundational-programs', 'set-theory:naive-set-theory'],
@@ -10577,6 +11005,7 @@ const workRows = [
   ['Les methodes nouvelles de la mecanique celeste', 'Henri Poincare', 1892, 'dynamical-systems', 'Founded the qualitative theory of dynamical systems and contains the first mathematical description of chaotic behavior.'],
   ['An Essay towards Solving a Problem in the Doctrine of Chances', 'Thomas Bayes', 1763, 'statistics', "Published posthumously, it contains what became known as Bayes' theorem, the basis of Bayesian inference."],
   ['The Design of Experiments', 'Ronald Fisher', 1935, 'statistics', 'Introduced randomization, replication, and blocking as the foundations of modern experimental design.'],
+  ['Lattice Theory', 'Garrett Birkhoff', 1940, 'discrete-math', 'The founding systematic treatise on lattices and partially ordered sets.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -10591,6 +11020,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:les-methodes-nouvelles-de-la-mecanique-celeste': ['dynamical-systems:chaos'],
   'work:an-essay-towards-solving-a-problem-in-the-doctrine-of-chances': ['statistics:bayesian-inference'],
   'work:the-design-of-experiments': ['statistics:experimental-design'],
+  'work:lattice-theory': ['discrete-math:posets'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
