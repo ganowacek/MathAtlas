@@ -8257,6 +8257,417 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Hermann Weyl', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weyl/', kind: 'reference' },
     ],
   },
+  'functional-analysis:normed-spaces': {
+    overview:
+      'A normed space is a vector space equipped with a notion of length, letting the geometric language of distance and convergence be used even in infinite dimensions. This modest-looking definition is the entry point into functional analysis, the branch of mathematics that treats functions themselves as points in a space.',
+    formal:
+      'A norm on a vector space $V$ over $\\mathbb{R}$ or $\\mathbb{C}$ is a function $\\|\\cdot\\|:V\\to[0,\\infty)$ satisfying $\\|v\\|=0 \\iff v=0$, $\\|\\lambda v\\|=|\\lambda|\\,\\|v\\|$, and the triangle inequality $\\|u+v\\|\\le\\|u\\|+\\|v\\|$. The pair $(V,\\|\\cdot\\|)$ is a normed space, and the norm induces a metric $d(u,v)=\\|u-v\\|$, so every normed space is automatically a metric space and hence a topological space.',
+    keyIdeas: [
+      'a norm as an axiomatized notion of length, generalizing the Euclidean norm to arbitrary (often infinite-dimensional) vector spaces',
+      'every norm induces a metric, so normed spaces inherit all metric-space notions: convergence, continuity, completeness',
+      'equivalence of norms in finite dimensions versus genuinely different topologies in infinite dimensions',
+      'examples ranging from $\\mathbb{R}^n$ with the Euclidean norm to sequence spaces $\\ell^p$ and function spaces $C[a,b]$ or $L^p$',
+      'the norm topology as the minimal structure needed to define continuous linear maps between vector spaces',
+    ],
+    whyItMatters:
+      'Working with functions the way one works with vectors — measuring their "size," asking whether a sequence of functions converges, defining continuous transformations between spaces of functions — requires exactly the structure a normed space provides. This single idea, applied to spaces whose "points" are themselves functions or sequences, is what turns classical analysis (limits, continuity, convergence of series) into a subject that can be studied with the geometric intuition of linear algebra, extended to infinite dimensions.',
+    prerequisites: ['linear-algebra:vector-spaces', 'analysis:metric-spaces'],
+    related: ['functional-analysis:banach-spaces', 'functional-analysis:hilbert-spaces', 'linear-algebra:inner-product-spaces'],
+    historicalContext:
+      "The idea of measuring the 'size' of a function goes back to the study of specific function spaces by Vito Volterra, David Hilbert, and Ivar Fredholm on integral equations in the 1900s, and Maurice Fréchet's 1906 thesis introduced the more general framework of metric spaces. Stefan Banach's 1920 doctoral thesis and his 1922 papers isolated the normed space axioms explicitly, in parallel with related work by Hans Hahn and Norbert Wiener, giving the field its modern starting point and its name (the term 'normed space' itself became standard through Banach's systematic 1932 treatise).",
+    contributorIds: ['person:stefan-banach', 'person:maurice-frechet'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Verify that $\\|x\\|_1=\\sum_i |x_i|$, $\\|x\\|_2=\\sqrt{\\sum_i x_i^2}$, and $\\|x\\|_\\infty=\\max_i|x_i|$ are all norms on $\\mathbb{R}^n$, and sketch their unit balls.',
+      'Show that on $\\mathbb{R}^n$ all norms are equivalent (induce the same convergent sequences), but that $\\|f\\|_1=\\int_0^1|f|$ and $\\|f\\|_\\infty=\\sup|f|$ are not equivalent on $C[0,1]$.',
+      'Prove that the norm function $v\\mapsto \\|v\\|$ is always continuous with respect to the topology it induces.',
+    ],
+    applications: [
+      'numerical analysis, where error bounds and convergence of algorithms are stated in terms of norms',
+      'approximation theory, where "best approximation" means minimizing a norm',
+      'machine learning, where $L^1$ and $L^2$ regularization penalize model weights using different norms',
+      'signal processing, comparing signals and approximation errors using function-space norms',
+    ],
+    researchDirections: [
+      'geometry of Banach spaces: convexity, smoothness, and the classification of infinite-dimensional normed spaces',
+      'operator ideals and approximation properties in general normed spaces',
+      'nonlinear functional analysis, extending norm-based methods beyond linear operators',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The standard graduate introduction, building normed and Banach space theory from the ground up.',
+      },
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A widely used, more accessible introduction with strong motivation for the normed-space axioms.',
+      },
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'Develops normed and Banach space theory with an eye toward its use in PDE, a common destination for the theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Norm axioms', latex: '\\|\\lambda v\\|=|\\lambda|\\|v\\|,\\quad \\|u+v\\|\\le\\|u\\|+\\|v\\|' },
+      { label: 'Induced metric', latex: 'd(u,v)=\\|u-v\\|' },
+      { label: 'Sup norm', latex: '\\|f\\|_\\infty = \\sup_{x\\in[a,b]} |f(x)|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Normed space', url: 'https://encyclopediaofmath.org/wiki/Normed_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+      { label: 'MacTutor: Maurice Fréchet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frechet/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:banach-spaces': {
+    overview:
+      'A Banach space is a normed space that is complete: every Cauchy sequence converges to a limit within the space. Completeness is what makes limiting arguments — the lifeblood of analysis — safe to use, and Banach spaces are the natural infinite-dimensional setting for most of classical and modern analysis.',
+    formal:
+      'A normed space $(V,\\|\\cdot\\|)$ is a Banach space if it is complete with respect to the induced metric: every Cauchy sequence $(v_n)$ (satisfying $\\|v_n-v_m\\|\\to 0$ as $n,m\\to\\infty$) converges to some $v\\in V$. Examples include $\\mathbb{R}^n$ and $\\mathbb{C}^n$ with any norm, the sequence spaces $\\ell^p$ for $1\\le p\\le\\infty$, and the function spaces $C[a,b]$ (sup norm) and $L^p(X,\\mu)$ (by the Riesz-Fischer theorem).',
+    keyIdeas: [
+      'completeness: every Cauchy sequence has a limit within the space, not just "nearby"',
+      'the Banach fixed-point theorem, guaranteeing unique solutions to equations $Tx=x$ for contractions $T$',
+      'three foundational pillars: the Hahn-Banach theorem, the open mapping theorem, and the uniform boundedness principle',
+      'incompleteness as a genuine obstruction: $C[a,b]$ with the $L^1$ norm is not complete, so it is a normed space but not a Banach space',
+      'the dual space $V^*$ of continuous linear functionals, itself always a Banach space',
+    ],
+    whyItMatters:
+      "Without completeness, a sequence of successive approximations might converge to something that does not exist within the space being studied — precisely the failure that plagued early, informal treatments of function spaces. Banach's three foundational theorems (Hahn-Banach, open mapping, uniform boundedness) turn this one completeness axiom into an entire working toolkit, letting existence-and-uniqueness questions for differential and integral equations be answered abstractly, without solving the equation explicitly.",
+    prerequisites: ['functional-analysis:normed-spaces', 'analysis:metric-spaces'],
+    related: ['functional-analysis:normed-spaces', 'functional-analysis:hilbert-spaces', 'functional-analysis:bounded-operators'],
+    historicalContext:
+      "Stefan Banach's 1920 doctoral dissertation at the University of Lwów axiomatized complete normed spaces, unifying earlier special cases studied by David Hilbert, Erhard Schmidt, and Frigyes Riesz. Working with the 'Lwów School' of mathematicians (Hugo Steinhaus, Stanisław Mazur, and others, famously meeting at the Scottish Café to pose problems in what became the Scottish Book), Banach developed the theory into a coherent discipline, publishing the founding treatise Théorie des opérations linéaires in 1932, which coined the term Banach space and proved the Hahn-Banach, open mapping, and uniform boundedness theorems in their modern form.",
+    contributorIds: ['person:stefan-banach', 'person:frigyes-riesz'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Show that $\\ell^\\infty$ (bounded sequences with the sup norm) is a Banach space by verifying that every Cauchy sequence of sequences converges.',
+      'Give an example of a normed space that is not complete, and identify what element a natural Cauchy sequence in it "should" converge to but does not.',
+      'Use the Banach fixed-point theorem to prove existence and uniqueness of a solution to the integral equation $x(t) = 1 + \\lambda\\int_0^t x(s)\\,ds$ for small $|\\lambda|$.',
+    ],
+    applications: [
+      'existence and uniqueness theory for ordinary and partial differential equations via fixed-point arguments',
+      'numerical analysis, where iterative methods are justified by the Banach fixed-point theorem',
+      'optimization and control theory, formulated over Banach spaces of functions or sequences',
+      'quantum mechanics and signal processing, which use particular Banach (and Hilbert) function spaces as their state spaces',
+    ],
+    researchDirections: [
+      'geometry of Banach spaces: reflexivity, uniform convexity, and the structure of infinite-dimensional unit balls',
+      'operator theory on Banach spaces, including semigroups of operators for evolution equations',
+      'nonlinear functional analysis and fixed-point theory beyond the contraction mapping setting',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Proves the Hahn-Banach, open mapping, and uniform boundedness theorems with full rigor and clarity.',
+      },
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'A modern standard graduate text connecting Banach space theory directly to applications in PDE.',
+      },
+      {
+        title: 'A Short Course on Banach Space Theory',
+        authors: ['N. L. Carothers'],
+        year: 2005,
+        why: 'A compact, well-motivated introduction focused specifically on Banach spaces and their geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy sequence condition', latex: '\\|v_n-v_m\\|\\to 0 \\text{ as } n,m\\to\\infty' },
+      { label: 'Banach fixed-point theorem', latex: 'd(Tx,Ty)\\le k\\,d(x,y),\\ k<1 \\implies \\exists! x^*: Tx^*=x^*' },
+      { label: 'Operator norm', latex: '\\|T\\| = \\sup_{\\|x\\|\\le 1} \\|Tx\\|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Banach space', url: 'https://encyclopediaofmath.org/wiki/Banach_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:hilbert-spaces': {
+    overview:
+      'A Hilbert space is a Banach space whose norm comes from an inner product, so it retains not just length but also angle — in particular, orthogonality. This extra structure makes Hilbert spaces the best-behaved infinite-dimensional spaces, and the natural mathematical home for Fourier series, least-squares approximation, and quantum mechanics.',
+    formal:
+      'A Hilbert space is a vector space $H$ with an inner product $\\langle\\cdot,\\cdot\\rangle$ that is complete with respect to the induced norm $\\|v\\|=\\sqrt{\\langle v,v\\rangle}$. Every closed subspace $M\\subseteq H$ has an orthogonal complement with $H=M\\oplus M^\\perp$, and every vector has a well-defined orthogonal projection onto $M$. The Riesz representation theorem states that every continuous linear functional $\\varphi$ on $H$ has the form $\\varphi(x)=\\langle x,y\\rangle$ for a unique $y\\in H$.',
+    keyIdeas: [
+      'the inner product as the source of angle and orthogonality, not just length',
+      'orthogonal projection onto closed subspaces, generalizing least-squares approximation to infinite dimensions',
+      'orthonormal bases and generalized Fourier expansions $x=\\sum_n \\langle x,e_n\\rangle e_n$',
+      'the Riesz representation theorem, identifying a Hilbert space with its own dual',
+      'Hilbert spaces as the unique infinite-dimensional spaces where geometric (Euclidean) intuition remains essentially valid',
+    ],
+    whyItMatters:
+      "Quantum mechanics requires an infinite-dimensional space of states where 'angle' (probability amplitude overlap) makes sense, not just distance — exactly what a Hilbert space provides, which is why von Neumann's axiomatization of Hilbert space theory in 1929-1932 doubled as the first fully rigorous mathematical foundation for quantum mechanics. More broadly, whenever a problem in analysis reduces to finding the closest point in a subspace (least-squares regression, Fourier approximation, signal reconstruction), it is really a Hilbert-space orthogonal projection in disguise.",
+    prerequisites: ['functional-analysis:banach-spaces', 'linear-algebra:inner-product-spaces'],
+    related: ['functional-analysis:banach-spaces', 'functional-analysis:bounded-operators', 'real-analysis:l-p-spaces'],
+    historicalContext:
+      "David Hilbert and his students, especially Erhard Schmidt, developed the specific space now called $\\ell^2$ around 1904-1908 while studying integral equations, and Frigyes Riesz and Ernst Fischer's 1907 completeness theorem for $L^2$ (Riesz-Fischer) showed $\\ell^2$ and $L^2$ to be, in effect, the same object. It took until 1929 for John von Neumann, working to give quantum mechanics a rigorous mathematical foundation, to isolate the abstract axioms of a Hilbert space independent of any specific realization, coining the term 'Hilbert space' in Hilbert's honor even though Hilbert himself had never given the fully abstract definition.",
+    contributorIds: ['person:david-hilbert', 'person:john-von-neumann'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $\\ell^2$, the space of square-summable sequences, is a Hilbert space by verifying the parallelogram law $\\|x+y\\|^2+\\|x-y\\|^2=2\\|x\\|^2+2\\|y\\|^2$.',
+      'Find the orthogonal projection of $f(x)=x^2$ onto the subspace of linear functions in $L^2[-1,1]$.',
+      'Use the Riesz representation theorem to identify the continuous linear functional $\\varphi(f)=\\int_0^1 f(x)\\,dx$ on $L^2[0,1]$ with an explicit element of $L^2[0,1]$.',
+    ],
+    applications: [
+      'quantum mechanics, where physical states are vectors in a Hilbert space and observables are self-adjoint operators on it',
+      'signal processing and Fourier analysis, via orthonormal bases and least-squares approximation',
+      'machine learning, through reproducing kernel Hilbert spaces used in kernel methods and support vector machines',
+      'numerical methods for PDEs, such as the finite element method, formulated as projections onto finite-dimensional Hilbert subspaces',
+    ],
+    researchDirections: [
+      'operator algebras (C*-algebras and von Neumann algebras) built from bounded operators on Hilbert space',
+      'reproducing kernel Hilbert spaces in statistical learning theory',
+      'infinite-dimensional analysis and stochastic processes taking values in a Hilbert space',
+    ],
+    textbooks: [
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A very accessible route into Hilbert space geometry: projections, orthonormal bases, and the Riesz representation theorem.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The rigorous graduate standard, developing Hilbert space theory as a special, especially well-behaved case of Banach space theory.',
+      },
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'Develops Hilbert space theory with the needs of quantum mechanics and mathematical physics explicitly in view.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Parallelogram law', latex: '\\|x+y\\|^2+\\|x-y\\|^2=2\\|x\\|^2+2\\|y\\|^2' },
+      { label: 'Orthogonal decomposition', latex: 'H = M \\oplus M^{\\perp}' },
+      { label: 'Generalized Fourier expansion', latex: 'x=\\sum_{n} \\langle x,e_n\\rangle e_n' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Hilbert space', url: 'https://en.wikipedia.org/wiki/Hilbert_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:bounded-operators': {
+    overview:
+      'A bounded operator is a linear map between normed spaces that does not stretch vectors by an unbounded amount, a condition that turns out to be exactly equivalent to continuity. Bounded operators are the "linear transformations" of functional analysis, and the space of bounded operators between two Banach spaces is itself a Banach space with its own rich structure.',
+    formal:
+      'A linear operator $T:X\\to Y$ between normed spaces is bounded if there is $C\\ge 0$ with $\\|Tx\\|\\le C\\|x\\|$ for all $x\\in X$; the smallest such $C$ is the operator norm $\\|T\\| = \\sup_{\\|x\\|\\le 1}\\|Tx\\|$. For linear operators, boundedness is exactly equivalent to continuity. The space $B(X,Y)$ of bounded operators from $X$ to $Y$, with this norm, is itself a Banach space whenever $Y$ is; when $Y=\\mathbb{R}$ or $\\mathbb{C}$, $B(X,Y)=X^*$ is the dual space.',
+    keyIdeas: [
+      'boundedness $\\iff$ continuity for linear operators, a purely infinite-dimensional subtlety with no finite-dimensional analogue',
+      'the operator norm, turning the space of bounded operators into a normed (and often Banach) space in its own right',
+      'the dual space $X^*=B(X,\\mathbb{R})$ (or $\\mathbb{C}$) of continuous linear functionals',
+      'the uniform boundedness principle: pointwise-bounded families of operators are uniformly bounded',
+      'compact operators as an important subclass behaving much like finite-rank (matrix) operators',
+    ],
+    whyItMatters:
+      'In infinite dimensions, unlike in $\\mathbb{R}^n$, a linear map can fail to be continuous — differentiation on a space of smooth functions is a classic unbounded (discontinuous) linear operator. Distinguishing bounded from unbounded operators, and developing an entire calculus (operator norms, adjoints, spectra) for the bounded ones, is what lets functional analysis extend the intuitions of matrix theory to infinite-dimensional settings such as quantum mechanics and differential equations, where matrices are replaced by bounded (or, more delicately, unbounded but densely defined) operators.',
+    prerequisites: ['functional-analysis:normed-spaces', 'functional-analysis:banach-spaces'],
+    related: ['functional-analysis:hilbert-spaces', 'functional-analysis:spectral-theory', 'linear-algebra:matrices'],
+    historicalContext:
+      "The systematic study of linear operators on function spaces began with Vito Volterra's and Ivar Fredholm's work on integral equations around 1900, where the 'operator' point of view first crystallized. Frigyes Riesz developed much of the general theory of bounded (and compact) linear operators and linear functionals on $L^p$ and Hilbert spaces in the 1910s, proving the Riesz representation theorem identifying continuous linear functionals with concrete integral or inner-product expressions. Stefan Banach's school then organized operator boundedness, the operator norm, and the resulting Banach space $B(X,Y)$ into the coherent framework presented in Théorie des opérations linéaires (1932).",
+    contributorIds: ['person:frigyes-riesz', 'person:john-von-neumann'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Show that the differentiation operator $Df=f\'$ on $C^1[0,1]$ with the sup norm is unbounded by exhibiting a sequence $f_n$ with $\\|f_n\\|=1$ but $\\|Df_n\\|\\to\\infty$.',
+      'Compute the operator norm of the multiplication operator $(Tf)(x)=xf(x)$ on $L^2[0,1]$.',
+      'Use the Riesz representation theorem to show every bounded linear functional on $\\ell^2$ has the form $\\varphi(x)=\\sum_i x_i y_i$ for some $y\\in\\ell^2$.',
+    ],
+    applications: [
+      'quantum mechanics, where observables are represented by (typically unbounded, densely defined) self-adjoint operators, with bounded operators as the well-behaved special case',
+      'signal processing, where filters and transforms are modeled as bounded linear operators on function or sequence spaces',
+      'numerical linear algebra, where discretizations of differential operators are analyzed via operator norm bounds',
+      'control theory, where system stability is analyzed through the norms of relevant linear operators',
+    ],
+    researchDirections: [
+      'operator algebras (C*-algebras, von Neumann algebras) built from bounded operators on Hilbert space',
+      'unbounded operator theory (self-adjoint extensions, domains) needed for quantum mechanics and PDE',
+      'compact and Fredholm operator theory, and index theory relating analysis to topology',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Develops bounded operator theory, the operator norm, and dual spaces with full generality and rigor.',
+      },
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A gentler introduction to bounded linear operators, with many worked examples on concrete function spaces.',
+      },
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'Carefully distinguishes bounded from unbounded operators with the needs of quantum mechanics in mind.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Boundedness condition', latex: '\\|Tx\\|\\le C\\|x\\| \\quad \\forall x\\in X' },
+      { label: 'Operator norm', latex: '\\|T\\| = \\sup_{\\|x\\|\\le 1} \\|Tx\\|' },
+      { label: 'Submultiplicativity', latex: '\\|ST\\| \\le \\|S\\|\\,\\|T\\|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bounded operator', url: 'https://encyclopediaofmath.org/wiki/Bounded_operator', kind: 'encyclopedia' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:spectral-theory': {
+    overview:
+      'Spectral theory generalizes the eigenvalues and eigenvectors of a matrix to operators on infinite-dimensional spaces, where the "spectrum" can be far richer than a finite list of eigenvalues. This generalization is what let functional analysis rigorously underpin quantum mechanics, in which every observable quantity is represented by the spectrum of an operator.',
+    formal:
+      'For a bounded operator $T$ on a Banach space $X$, the spectrum $\\sigma(T)\\subseteq\\mathbb{C}$ consists of all $\\lambda$ for which $T-\\lambda I$ is not invertible; it decomposes into the point spectrum (eigenvalues), continuous spectrum, and residual spectrum. The spectral theorem for a bounded self-adjoint operator $T$ on a Hilbert space states $T=\\int_{\\sigma(T)} \\lambda \\, dE(\\lambda)$ for a projection-valued measure $E$, generalizing the diagonalization $T=\\sum_i \\lambda_i \\langle \\cdot, e_i\\rangle e_i$ of a symmetric matrix.',
+    keyIdeas: [
+      'the spectrum as the infinite-dimensional generalization of the set of eigenvalues of a matrix',
+      'point, continuous, and residual spectrum: phenomena with no finite-dimensional analogue',
+      'the spectral theorem for self-adjoint operators, generalizing the diagonalization of symmetric matrices via a projection-valued measure',
+      'compact operators, whose spectral theory (discrete eigenvalues accumulating only at $0$) most closely resembles the finite-dimensional case',
+      'the resolvent $(T-\\lambda I)^{-1}$ and its analytic dependence on $\\lambda$ away from the spectrum',
+    ],
+    whyItMatters:
+      "In quantum mechanics, the possible outcomes of measuring a physical observable are exactly the points in the spectrum of the corresponding self-adjoint operator, and the spectral theorem is what makes this correspondence mathematically precise — a continuous spectrum corresponds to a continuum of possible measured values (such as position), while discrete spectrum corresponds to quantized values (such as atomic energy levels). Von Neumann's rigorous 1932 development of spectral theory for unbounded self-adjoint operators supplied exactly the mathematics quantum mechanics needed, resolving inconsistencies in Dirac's more informal earlier formulation.",
+    prerequisites: ['functional-analysis:bounded-operators', 'linear-algebra:eigenvalues'],
+    related: ['functional-analysis:bounded-operators', 'functional-analysis:hilbert-spaces', 'linear-algebra:eigenvalues'],
+    historicalContext:
+      "David Hilbert developed the first spectral theory, for symmetric bilinear forms and integral operators, in a series of papers from 1904 to 1910, introducing the term 'spectrum' by analogy with the spectral lines of atomic physics though the physical connection was not yet understood. The subject became urgent with the arrival of quantum mechanics in the mid-1920s, where Werner Heisenberg's and Erwin Schrödinger's formulations needed exactly this operator-theoretic language. John von Neumann supplied the rigorous mathematical foundation in his 1932 book Mathematische Grundlagen der Quantenmechanik, extending spectral theory to the unbounded self-adjoint operators that quantum observables like position and momentum actually require.",
+    contributorIds: ['person:david-hilbert', 'person:john-von-neumann'],
+    workIds: [],
+    exampleProblems: [
+      'Find the spectrum of the multiplication operator $(Tf)(x)=xf(x)$ on $L^2[0,1]$ and explain why it is purely continuous spectrum with no eigenvalues.',
+      'Show that a compact self-adjoint operator on a Hilbert space has eigenvalues accumulating only at $0$.',
+      'Compute the spectrum of the right-shift operator $S(x_1,x_2,\\dots)=(0,x_1,x_2,\\dots)$ on $\\ell^2$ and identify which points are eigenvalues.',
+    ],
+    applications: [
+      'quantum mechanics, where the spectrum of the Hamiltonian operator gives the possible energy levels of a physical system',
+      'vibration analysis in engineering, where eigenvalues of a differential operator correspond to resonant frequencies',
+      'Google\'s PageRank and other spectral graph algorithms, using the spectrum of an operator built from a graph',
+      'stability analysis of linear dynamical systems, via the spectrum of the system\'s generator',
+    ],
+    researchDirections: [
+      'spectral theory of unbounded operators, essential for quantum mechanics and PDE',
+      'random matrix theory and the statistical behavior of eigenvalues of large random operators',
+      'spectral geometry, relating the spectrum of the Laplacian on a manifold to its geometric shape',
+    ],
+    textbooks: [
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'The standard rigorous treatment of spectral theory built with quantum mechanics applications constantly in view.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Proves the spectral theorem for bounded and unbounded self-adjoint operators with complete rigor.',
+      },
+      {
+        title: 'A Course in Functional Analysis',
+        authors: ['John B. Conway'],
+        edition: '2nd',
+        year: 1990,
+        why: 'A widely used graduate text with a particularly clear treatment of spectral theory on Hilbert spaces.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Spectrum definition', latex: '\\sigma(T) = \\{\\lambda\\in\\mathbb{C} : T-\\lambda I \\text{ not invertible}\\}' },
+      { label: 'Spectral theorem (self-adjoint)', latex: 'T = \\int_{\\sigma(T)} \\lambda \\, dE(\\lambda)' },
+      { label: 'Resolvent', latex: 'R(\\lambda) = (T-\\lambda I)^{-1}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Spectral theory', url: 'https://encyclopediaofmath.org/wiki/Spectral_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: John von Neumann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:distributions': {
+    overview:
+      "Distributions (generalized functions) extend the notion of 'function' to include objects like the Dirac delta, which behaves like an infinitely concentrated point mass, letting operations such as differentiation be performed on functions, like $|x|$ or a step function, that are not classically differentiable everywhere.",
+    formal:
+      'A distribution is a continuous linear functional on the space $\\mathcal{D}$ of smooth, compactly supported test functions. Every locally integrable function $f$ defines a distribution via $\\langle f,\\varphi\\rangle = \\int f(x)\\varphi(x)\\,dx$, and the derivative of a distribution $T$ is defined by duality, $\\langle T\', \\varphi\\rangle = -\\langle T,\\varphi\'\\rangle$, so that every distribution is infinitely differentiable in this generalized sense. The Dirac delta $\\delta_a$ is the distribution $\\langle \\delta_a, \\varphi\\rangle = \\varphi(a)$, not given by any ordinary function.',
+    keyIdeas: [
+      'testing against smooth compactly supported functions as the mechanism that makes differentiation always well-defined',
+      'the Dirac delta as a distribution representing an idealized point mass or impulse, with no classical function representation',
+      'weak (distributional) derivatives, letting non-smooth functions like $|x|$ have a well-defined generalized derivative',
+      'tempered distributions and the Fourier transform, extended to distributions that grow no faster than polynomially',
+      'the link to Sobolev spaces, which measure how many weak derivatives of a function lie in $L^p$',
+    ],
+    whyItMatters:
+      "Physicists had used objects like the Dirac delta function since the 1920s to model point charges and impulses, despite delta having no meaning as an ordinary function (it would need to be zero everywhere except one point, yet integrate to one). Laurent Schwartz's theory of distributions, for which he won the 1950 Fields Medal, made this practice fully rigorous, and the resulting weak-derivative framework became indispensable for modern PDE theory, since it is often far easier to first find a weak (distributional) solution to a differential equation and only later ask whether it happens to be classically smooth.",
+    prerequisites: ['functional-analysis:normed-spaces', 'real-analysis:lebesgue-integration'],
+    related: ['functional-analysis:normed-spaces', 'partial-differential-equations:sobolev-spaces', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Oliver Heaviside and Paul Dirac used delta-function-like objects informally in engineering and quantum mechanics from the 1890s through the 1920s without a rigorous foundation. Sergei Sobolev introduced a precursor notion of weak derivative in the 1930s while studying hyperbolic PDEs, effectively working with a special case of distributions before the general theory existed. Laurent Schwartz unified and completed the theory in his 1945-1950 work, defining distributions as continuous linear functionals on test functions and developing the calculus of weak derivatives and the Fourier transform of tempered distributions, for which he received the Fields Medal in 1950 — the first awarded to a French mathematician.",
+    contributorIds: ['person:laurent-schwartz', 'person:sergei-sobolev'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the distributional derivative of the Heaviside step function $H(x)$ and verify it equals the Dirac delta $\\delta_0$.',
+      'Show that $f(x)=|x|$ has weak derivative $\\operatorname{sgn}(x)$, and that $\\operatorname{sgn}(x)$ in turn has weak derivative $2\\delta_0$.',
+      'Verify that the sequence of functions $f_n(x) = n \\cdot \\mathbf{1}_{[0,1/n]}(x)$ converges to the Dirac delta $\\delta_0$ as a distribution, i.e. $\\int f_n \\varphi \\to \\varphi(0)$ for test functions $\\varphi$.',
+    ],
+    applications: [
+      'signal processing, modeling impulses and using the Dirac delta as the identity for convolution',
+      'PDE theory, via weak solutions and Sobolev spaces built from distributional derivatives',
+      'quantum mechanics and quantum field theory, where the Dirac delta and its derivatives appear throughout',
+      'Green\'s functions in physics and engineering, which are fundamentally distributional solutions to differential equations',
+    ],
+    researchDirections: [
+      'microlocal analysis, refining distribution theory to track the location and direction of singularities',
+      'generalized function algebras (Colombeau algebras), allowing certain nonlinear operations on distributions',
+      'distributions on manifolds and in several variables, needed for modern geometric PDE theory',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'Introduces distributions and weak derivatives as the natural language for modern PDE theory.',
+      },
+      {
+        title: 'Distribution Theory and Transform Analysis',
+        authors: ['A. H. Zemanian'],
+        year: 1965,
+        why: 'A classic, application-oriented introduction to distributions for engineers and applied mathematicians.',
+      },
+      {
+        title: 'The Analysis of Linear Partial Differential Operators I',
+        authors: ['Lars Hörmander'],
+        year: 1983,
+        why: 'The definitive advanced reference, developing distribution theory rigorously before its PDE applications.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Distributional derivative', latex: "\\langle T', \\varphi\\rangle = -\\langle T,\\varphi'\\rangle" },
+      { label: 'Dirac delta action', latex: '\\langle \\delta_a, \\varphi\\rangle = \\varphi(a)' },
+      { label: 'Distribution paired with test function', latex: '\\langle f,\\varphi\\rangle = \\int f(x)\\varphi(x)\\,dx' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Generalized function', url: 'https://encyclopediaofmath.org/wiki/Generalized_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Laurent Schwartz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Schwartz/', kind: 'reference' },
+      { label: 'MacTutor: Sergei Sobolev', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sobolev/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -8525,6 +8936,8 @@ const personRows = [
   ['Edouard Goursat', '1858-1936', 'France', 'complex-analysis', 'the rigorous proof of the Cauchy integral theorem without assuming continuous derivatives'],
   ['Pierre Alphonse Laurent', '1813-1854', 'France', 'complex-analysis', 'the Laurent series expansion around singularities'],
   ['Hermann Amandus Schwarz', '1843-1921', 'Germany', 'complex-analysis', 'the Schwarz lemma and Schwarz-Christoffel conformal mapping'],
+  ['Laurent Schwartz', '1915-2002', 'France', 'functional-analysis', 'the rigorous theory of distributions (generalized functions)'],
+  ['Sergei Sobolev', '1908-1989', 'Soviet Union', 'functional-analysis', 'Sobolev spaces and generalized (weak) derivatives'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -8578,8 +8991,16 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebraic-geometry:affine-varieties',
     'geometry:euclidean-geometry',
     'geometry:incidence-geometry',
+    'functional-analysis:hilbert-spaces',
+    'functional-analysis:spectral-theory',
   ],
-  'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
+  'person:john-von-neumann': [
+    'game-theory:normal-form-games',
+    'linear-algebra:inner-product-spaces',
+    'functional-analysis:hilbert-spaces',
+    'functional-analysis:bounded-operators',
+    'functional-analysis:spectral-theory',
+  ],
   'person:bernhard-riemann': [
     'analysis:sequences-and-series',
     'analysis:integration',
@@ -8603,7 +9024,7 @@ const personTopicOverrides: Record<string, string[]> = {
   ],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
-  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
+  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology', 'functional-analysis:normed-spaces'],
   'person:emile-borel': ['analysis:measure-theory', 'topology:compactness'],
   'person:henri-lebesgue': [
     'analysis:measure-theory',
@@ -8613,11 +9034,14 @@ const personTopicOverrides: Record<string, string[]> = {
   ],
   'person:joseph-fourier': ['real-analysis:fourier-series'],
   'person:giuseppe-vitali': ['real-analysis:differentiation-theorems'],
-  'person:frigyes-riesz': ['real-analysis:l-p-spaces'],
+  'person:frigyes-riesz': ['real-analysis:l-p-spaces', 'functional-analysis:banach-spaces', 'functional-analysis:bounded-operators'],
   'person:jean-robert-argand': ['complex-analysis:complex-numbers'],
   'person:edouard-goursat': ['complex-analysis:cauchy-integral-theorem'],
   'person:pierre-alphonse-laurent': ['complex-analysis:residues'],
   'person:hermann-amandus-schwarz': ['complex-analysis:conformal-mapping'],
+  'person:stefan-banach': ['functional-analysis:normed-spaces', 'functional-analysis:banach-spaces'],
+  'person:laurent-schwartz': ['functional-analysis:distributions'],
+  'person:sergei-sobolev': ['functional-analysis:distributions'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
@@ -8865,6 +9289,7 @@ const workRows = [
   ['Theorie analytique de la chaleur', 'Joseph Fourier', 1822, 'real-analysis', 'Introduced Fourier series to solve the heat equation, launching harmonic analysis.'],
   ['Lecons sur lintegration et la recherche des fonctions primitives', 'Henri Lebesgue', 1904, 'real-analysis', 'The first systematic treatment of the Lebesgue integral and modern measure-based integration.'],
   ['Grundlagen fur eine allgemeine Theorie der Functionen einer veranderlichen complexen Grosse', 'Bernhard Riemann', 1851, 'complex-analysis', 'Riemanns doctoral dissertation, which introduced Riemann surfaces and the geometric approach to complex function theory.'],
+  ['Theorie des operations lineaires', 'Stefan Banach', 1932, 'functional-analysis', 'The founding systematic treatise of functional analysis, naming and characterizing Banach spaces.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -8874,6 +9299,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:theorie-analytique-de-la-chaleur': ['real-analysis:fourier-series'],
   'work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives': ['real-analysis:lebesgue-integration'],
   'work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse': ['complex-analysis:riemann-surfaces'],
+  'work:theorie-des-operations-lineaires': ['functional-analysis:banach-spaces'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',

@@ -36,7 +36,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] differential-geometry
 - [x] real-analysis
 - [x] complex-analysis
-- [ ] functional-analysis
+- [x] functional-analysis
 - [ ] differential-equations
 - [ ] dynamical-systems
 - [ ] statistics
