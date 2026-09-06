@@ -8668,6 +8668,418 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Sergei Sobolev', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sobolev/', kind: 'reference' },
     ],
   },
+  'differential-equations:ordinary-differential-equations': {
+    overview:
+      'An ordinary differential equation (ODE) relates a function of a single variable to its derivatives, encoding how a quantity changes based on its current state. From Newton\'s laws of motion to population growth and radioactive decay, ODEs are the mathematical language for describing how systems evolve over time.',
+    formal:
+      'An $n$-th order ODE has the general form $F(t, y, y\', y\'\', \\dots, y^{(n)}) = 0$, or in explicit form $y^{(n)} = f(t,y,y\',\\dots,y^{(n-1)})$. A first-order system $y\'=f(t,y)$, $y(t_0)=y_0$ is called an initial value problem. Linear ODEs with constant coefficients, $a_n y^{(n)}+\\cdots+a_1 y\'+a_0 y = g(t)$, can be solved explicitly via the characteristic equation $a_n r^n + \\cdots + a_1 r + a_0 = 0$, whose roots determine the exponential and oscillatory building blocks of the general solution.',
+    keyIdeas: [
+      'order (highest derivative appearing) and linearity as the primary ways to classify an ODE',
+      'the characteristic equation, converting a linear constant-coefficient ODE into an algebraic root-finding problem',
+      'the superposition principle: linear combinations of solutions to a linear homogeneous ODE are themselves solutions',
+      'phase space and qualitative analysis, understanding solution behavior without solving explicitly',
+      'the reduction of any higher-order ODE to an equivalent first-order system',
+    ],
+    whyItMatters:
+      "Newton invented calculus specifically to write down and solve the differential equation of motion, $F=ma$, and ever since, ODEs have been the standard language for any process that evolves according to a rule depending on its current state — planetary orbits, chemical reaction rates, population dynamics, and electrical circuits are all, at heart, ODEs. Even when an ODE cannot be solved in closed form (the generic case), the theory built around it — existence, uniqueness, qualitative behavior, numerical approximation — still yields deep and reliable information about the system it models.",
+    prerequisites: ['calculus:derivatives', 'calculus:integrals'],
+    related: ['differential-equations:existence-and-uniqueness', 'differential-equations:stability', 'dynamical-systems:phase-portraits'],
+    historicalContext:
+      "Isaac Newton and Gottfried Wilhelm Leibniz effectively invented the differential equation alongside calculus itself in the 1660s-1680s, with Newton's Principia (1687) built entirely on solving the differential equations of orbital motion. The Bernoulli family and Leonhard Euler spent the 18th century developing systematic solution techniques (separation of variables, integrating factors, series solutions), and Euler's 1768-1770 Institutiones calculi integralis organized these methods into the first systematic treatment of ODEs as a subject in its own right, including what is now called the Euler method for numerical approximation.",
+    contributorIds: ['person:isaac-newton', 'person:gottfried-wilhelm-leibniz'],
+    workIds: [],
+    exampleProblems: [
+      'Solve the linear ODE $y\'\' - 3y\' + 2y = 0$ by finding its characteristic equation and roots.',
+      'Use separation of variables to solve the logistic growth equation $y\' = ry(1-y/K)$ with $y(0)=y_0$.',
+      'Reduce the second-order ODE $y\'\' + \\omega^2 y = 0$ to an equivalent first-order system in the phase plane $(y,y\')$.',
+    ],
+    applications: [
+      'classical mechanics, where Newton\'s second law $F=ma$ is a second-order ODE for position',
+      'population biology and epidemiology (logistic growth, the SIR model for disease spread)',
+      'electrical circuit analysis, where RLC circuits are governed by linear ODEs',
+      'chemical kinetics, modeling reaction rates as a system of coupled ODEs',
+    ],
+    researchDirections: [
+      'delay differential equations, where the derivative depends on past as well as present values',
+      'stochastic differential equations, adding random noise to the classical ODE framework',
+      'geometric and structure-preserving numerical integration for long-time ODE simulation',
+    ],
+    textbooks: [
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'A geometrically-minded classic emphasizing qualitative understanding over rote solution techniques.',
+      },
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'The most widely used undergraduate textbook, strong on both solution techniques and applications.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Bridges classical ODE solution methods with the modern qualitative and dynamical-systems perspective.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'General nth-order ODE', latex: "F(t, y, y', y'', \\dots, y^{(n)}) = 0" },
+      { label: 'Characteristic equation', latex: 'a_n r^n + \\cdots + a_1 r + a_0 = 0' },
+      { label: 'Exponential growth solution', latex: "y' = ky \\implies y(t) = y_0 e^{kt}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Differential equation, ordinary', url: 'https://encyclopediaofmath.org/wiki/Differential_equation,_ordinary', kind: 'encyclopedia' },
+      { label: 'MacTutor: Isaac Newton', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Newton/', kind: 'reference' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:partial-differential-equations': {
+    overview:
+      'A partial differential equation (PDE) relates a function of several variables to its partial derivatives, describing how quantities that vary in both space and time evolve. Heat flow, wave propagation, and fluid motion are all governed by PDEs, making them the central mathematical tool of continuum physics.',
+    formal:
+      'A PDE for $u(x_1,\\dots,x_n)$ has the general form $F(x, u, \\partial u/\\partial x_1, \\dots, \\partial^2 u/\\partial x_i \\partial x_j, \\dots) = 0$. Second-order linear PDEs in two variables, $Au_{xx}+Bu_{xy}+Cu_{yy}+\\cdots=0$, are classified by the sign of the discriminant $B^2-4AC$: elliptic ($<0$, e.g. Laplace\'s equation), parabolic ($=0$, e.g. the heat equation), or hyperbolic ($>0$, e.g. the wave equation), each with qualitatively different behavior. The Cauchy-Kovalevskaya theorem guarantees local existence of an analytic solution to a PDE with analytic data, under a non-characteristic condition on the initial surface.',
+    keyIdeas: [
+      'the elliptic/parabolic/hyperbolic classification, determining whether a PDE behaves like Laplace\'s, the heat, or the wave equation',
+      'the number of independent variables (unlike an ODE) as the source of vastly richer and harder behavior',
+      'characteristics: curves or surfaces along which information propagates or singularities can occur',
+      'well-posedness (Hadamard\'s criteria): existence, uniqueness, and continuous dependence on data',
+      'separation of variables and Fourier methods as classical tools for solving linear PDEs on simple domains',
+    ],
+    whyItMatters:
+      'Almost every fundamental law of continuum physics — how heat diffuses, how waves propagate, how fluids flow, how electromagnetic fields behave — is stated as a PDE, because physical quantities depend on both space and time simultaneously. Unlike ODEs, PDEs can behave in profoundly different ways depending on their type (elliptic equations are smooth and well-behaved; hyperbolic equations propagate sharp signals and discontinuities), which is why the elliptic/parabolic/hyperbolic classification is one of the most consequential ideas in the whole theory.',
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'calculus:vector-calculus'],
+    related: ['differential-equations:boundary-value-problems', 'differential-equations:green-functions', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Jean le Rond d'Alembert derived and solved the one-dimensional wave equation in 1747, giving the first PDE solution in closed form (as a sum of two arbitrary traveling waves), while studying vibrating strings. Joseph Fourier's 1822 treatment of the heat equation via trigonometric series soon followed. Augustin-Louis Cauchy began the general existence theory in the 1840s, completed for equations with analytic coefficients by Sofia Kovalevskaya in her landmark 1874 doctoral dissertation — the first mathematics doctorate awarded to a woman in Europe — which proved what is now called the Cauchy-Kovalevskaya theorem and corrected a gap in Cauchy's own earlier argument.",
+    contributorIds: ['person:jean-le-rond-dalembert', 'person:sofia-kovalevskaya'],
+    workIds: [],
+    exampleProblems: [
+      'Classify the PDE $u_{xx} - 4u_{xy} + 4u_{yy} = 0$ as elliptic, parabolic, or hyperbolic using the discriminant.',
+      "Verify d'Alembert's solution $u(x,t)=f(x-ct)+g(x+ct)$ satisfies the wave equation $u_{tt}=c^2 u_{xx}$ for arbitrary twice-differentiable $f,g$.",
+      'Use separation of variables $u(x,t)=X(x)T(t)$ to reduce the heat equation $u_t = k u_{xx}$ on $[0,L]$ to two ordinary differential equations.',
+    ],
+    applications: [
+      'fluid dynamics (Navier-Stokes equations) and aerodynamics',
+      'electromagnetism, where Maxwell\'s equations are a coupled system of PDEs',
+      'financial mathematics, where the Black-Scholes equation for option pricing is a parabolic PDE',
+      'image processing, using diffusion-type PDEs for denoising and edge detection',
+    ],
+    researchDirections: [
+      'nonlinear PDEs and the existence/regularity theory for equations like Navier-Stokes (a Millennium Prize problem)',
+      'geometric PDEs such as the Ricci flow, used in Perelman\'s proof of the Poincaré conjecture',
+      'numerical methods (finite element, finite difference, spectral methods) for PDEs without closed-form solutions',
+    ],
+    textbooks: [
+      {
+        title: 'Partial Differential Equations',
+        authors: ['Lawrence C. Evans'],
+        edition: '2nd',
+        year: 2010,
+        why: 'The standard modern graduate textbook, covering the elliptic/parabolic/hyperbolic classification and much more with full rigor.',
+      },
+      {
+        title: 'Partial Differential Equations: An Introduction',
+        authors: ['Walter A. Strauss'],
+        edition: '2nd',
+        year: 2007,
+        why: 'A widely used, more accessible introduction emphasizing classical solution techniques and physical motivation.',
+      },
+      {
+        title: 'Applied Partial Differential Equations',
+        authors: ['Richard Haberman'],
+        edition: '5th',
+        year: 2013,
+        why: 'A strongly applications-focused text, popular for engineering and physics-oriented courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'General second-order PDE', latex: 'Au_{xx}+Bu_{xy}+Cu_{yy}+\\text{(lower order)}=0' },
+      { label: "d'Alembert's wave solution", latex: 'u(x,t)=f(x-ct)+g(x+ct)' },
+      { label: 'Heat equation', latex: 'u_t = k\\, u_{xx}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Differential equation, partial', url: 'https://encyclopediaofmath.org/wiki/Differential_equation,_partial', kind: 'encyclopedia' },
+      { label: 'MacTutor: Sofia Kovalevskaya', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kovalevskaya/', kind: 'reference' },
+      { label: 'MacTutor: Jean le Rond d\'Alembert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/DAlembert/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:existence-and-uniqueness': {
+    overview:
+      'Before solving a differential equation, it is worth asking whether a solution exists at all, and if so, whether it is the only one. Existence-and-uniqueness theorems answer both questions in general, guaranteeing that an initial value problem behaves the way intuition expects, without requiring an explicit formula for the solution.',
+    formal:
+      'The Picard-Lindelöf (Cauchy-Lipschitz) theorem: if $f(t,y)$ is continuous and satisfies a Lipschitz condition in $y$, $|f(t,y_1)-f(t,y_2)| \\le L|y_1-y_2|$, then the initial value problem $y\'=f(t,y)$, $y(t_0)=y_0$ has a unique solution on some interval around $t_0$. The proof constructs the solution as the limit of Picard iterates $y_{n+1}(t) = y_0 + \\int_{t_0}^{t} f(s,y_n(s))\\,ds$, which converge by the Banach fixed-point theorem.',
+    keyIdeas: [
+      'the Lipschitz condition as exactly the right amount of regularity to guarantee uniqueness',
+      'Picard iteration: constructing the solution as the limit of successive approximations',
+      'Peano\'s existence theorem, which needs only continuity of $f$ but gives up uniqueness',
+      'finite-time blow-up: even smooth nonlinear ODEs, like $y\'=y^2$, can fail to have solutions for all time',
+      'local versus global existence, and how far a solution can be extended before it breaks down',
+    ],
+    whyItMatters:
+      "Without an existence-and-uniqueness theorem, numerically or analytically 'solving' a differential equation would carry no guarantee that the object being computed is meaningful — there might be no solution at all, or multiple contradictory ones. The Picard-Lindelöf theorem is what turns differential equations from a collection of ad hoc solved examples into a genuine deductive theory: as long as the Lipschitz condition holds, every initial condition determines a solution's entire future (and past) uniquely, a mathematical expression of determinism itself.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'functional-analysis:banach-spaces'],
+    related: ['differential-equations:stability', 'functional-analysis:banach-spaces', 'analysis:metric-spaces'],
+    historicalContext:
+      "Augustin-Louis Cauchy gave the first existence proof for ODEs in the 1820s using what is now called the Cauchy-Euler (polygon) method, though under restrictive smoothness assumptions. Rudolf Lipschitz introduced the condition that now bears his name in 1876, showing continuity of $f$ alone need not guarantee uniqueness but the (weaker than differentiability) Lipschitz condition suffices. Émile Picard developed the method of successive approximations (Picard iteration) in the 1890s, giving a constructive existence proof later streamlined by Ernst Lindelöf in 1894, and the combined result is known as the Picard-Lindelöf or Cauchy-Lipschitz theorem.",
+    contributorIds: ['person:emile-picard', 'person:rudolf-lipschitz'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $f(y)=\\sqrt{|y|}$ is continuous but not Lipschitz at $y=0$, and verify that $y\'=\\sqrt{|y|}$, $y(0)=0$ has more than one solution.',
+      'Compute the first three Picard iterates for $y\'=y$, $y(0)=1$, and verify they converge to $y(t)=e^t$.',
+      'Show that $y\'=y^2$, $y(0)=1$ has the solution $y(t)=1/(1-t)$, which blows up at $t=1$, illustrating finite-time blow-up despite a smooth right-hand side.',
+    ],
+    applications: [
+      'numerical analysis, where existence-and-uniqueness theory justifies that ODE solvers are approximating a well-defined object',
+      'control theory, where uniqueness of trajectories is required for deterministic system behavior',
+      'physics, where determinism (a unique future given the present state) rests on existence-and-uniqueness theorems for the governing equations',
+      'mathematical biology and economics, verifying that a proposed model actually has a well-defined solution before using it',
+    ],
+    researchDirections: [
+      'existence theory for PDEs, vastly harder than the ODE case (e.g. the open Navier-Stokes existence and smoothness problem)',
+      'well-posedness theory for stochastic differential equations',
+      'existence and uniqueness under weaker-than-Lipschitz conditions (Carathéodory conditions, one-sided Lipschitz conditions)',
+    ],
+    textbooks: [
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'Presents the existence-and-uniqueness theorem with strong geometric intuition for why the Lipschitz condition matters.',
+      },
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'Presents the Picard iteration method accessibly, with worked examples of successive approximations.',
+      },
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Philip Hartman'],
+        year: 1964,
+        why: 'The classic advanced graduate reference for rigorous existence, uniqueness, and continuation theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lipschitz condition', latex: '|f(t,y_1)-f(t,y_2)| \\le L|y_1-y_2|' },
+      { label: 'Picard iteration', latex: 'y_{n+1}(t) = y_0 + \\int_{t_0}^{t} f(s,y_n(s))\\,ds' },
+      { label: 'Finite-time blow-up example', latex: "y'=y^2,\\ y(0)=1 \\implies y(t)=\\frac{1}{1-t}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cauchy-Lipschitz theorem', url: 'https://encyclopediaofmath.org/wiki/Cauchy-Lipschitz_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Émile Picard', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Picard_Emile/', kind: 'reference' },
+      { label: 'MacTutor: Rudolf Lipschitz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lipschitz/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:stability': {
+    overview:
+      "Stability theory asks what happens to solutions of a differential equation under small perturbations: does a slightly disturbed trajectory return to its original path, drift away, or wander off entirely? This question, rather than finding an explicit formula, is often the only realistic way to understand equations too complicated to solve outright.",
+    formal:
+      "An equilibrium $y^*$ of $y'=f(y)$ (with $f(y^*)=0$) is Lyapunov stable if for every $\\varepsilon>0$ there is $\\delta>0$ such that $\\|y(0)-y^*\\|<\\delta$ implies $\\|y(t)-y^*\\|<\\varepsilon$ for all $t\\ge 0$, and asymptotically stable if additionally $y(t)\\to y^*$. Lyapunov's direct (second) method certifies stability without solving the equation: if there is a function $V(y)>0$ (for $y\\ne y^*$) with $\\dot V(y) = \\nabla V(y)\\cdot f(y) \\le 0$ along trajectories, then $y^*$ is stable, and asymptotically stable if the inequality is strict.",
+    keyIdeas: [
+      'Lyapunov stability versus asymptotic stability versus instability, as increasingly strong long-term guarantees',
+      "Lyapunov's direct method: certifying stability using an energy-like function, without ever solving the ODE",
+      'linearization: analyzing stability of a nonlinear equilibrium via the eigenvalues of the Jacobian at that point',
+      'structural stability: whether the qualitative behavior of a system persists under small perturbations of the equations themselves',
+      'the connection between stability and long-term predictability, as opposed to short-term solvability',
+    ],
+    whyItMatters:
+      "Most differential equations arising in practice cannot be solved in closed form, so knowing whether solutions near an equilibrium stay near it, converge to it, or diverge is frequently the only tractable — and often the only practically relevant — question. Lyapunov's second method turned this into a systematic technique: engineers routinely certify that a bridge, an aircraft, or a control system is stable by exhibiting a suitable Lyapunov function, without ever writing down an explicit solution to the underlying differential equation.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:phase-portraits', 'differential-equations:existence-and-uniqueness', 'control-theory:controllability'],
+    historicalContext:
+      "Henri Poincaré's work on celestial mechanics in the 1880s-1890s pioneered the qualitative study of differential equations, asking about the long-term behavior of orbits without solving the underlying equations explicitly. Aleksandr Lyapunov's 1892 doctoral dissertation The General Problem of the Stability of Motion, written independently and roughly contemporaneously with Poincaré's qualitative program, gave stability theory its rigorous modern foundation, including both the linearization ('first') method and the energy-function ('second' or direct) method that remains the standard tool used throughout engineering and applied mathematics today.",
+    contributorIds: ['person:aleksandr-lyapunov', 'person:henri-poincare'],
+    workIds: [],
+    exampleProblems: [
+      'Use Lyapunov\'s direct method with $V(x,y)=x^2+y^2$ to show the origin is asymptotically stable for the system $\\dot x=-x+y^3$, $\\dot y=-y-x^3$.',
+      'Linearize $y\'=\\sin(y)$ at the equilibrium $y=0$ and use the linearization to determine local stability.',
+      'Classify the stability of the equilibrium of $y\'=y(1-y)$ at $y=1$ and at $y=0$ using the sign of $f\'$ at each point.',
+    ],
+    applications: [
+      'control theory and engineering, certifying that feedback-controlled systems (aircraft, robots, power grids) return to equilibrium after disturbances',
+      'ecology, analyzing whether predator-prey and other population models settle to a stable coexistence equilibrium',
+      'chemical engineering, ensuring reactor operating points do not run away under small perturbations',
+      'celestial mechanics, addressing the long-term stability of orbits and planetary systems',
+    ],
+    researchDirections: [
+      'stability of infinite-dimensional systems (PDEs), extending Lyapunov theory beyond finite dimensions',
+      'stochastic stability, incorporating random perturbations into the classical stability framework',
+      'stability and bifurcation theory in dynamical systems, studying how stability changes as parameters vary',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Systems',
+        authors: ['Hassan K. Khalil'],
+        edition: '3rd',
+        year: 2002,
+        why: 'The standard engineering reference for Lyapunov stability theory and its use in control systems.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Develops linearization and stability theory with a strong geometric, dynamical-systems perspective.',
+      },
+      {
+        title: 'Stability Theory of Differential Equations',
+        authors: ['Richard Bellman'],
+        year: 1953,
+        why: 'A classic dedicated treatment of Lyapunov and other stability methods for differential equations.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lyapunov stability condition', latex: '\\|y(0)-y^*\\|<\\delta \\implies \\|y(t)-y^*\\|<\\varepsilon\\ \\forall t\\ge 0' },
+      { label: "Lyapunov function derivative", latex: '\\dot V(y) = \\nabla V(y)\\cdot f(y) \\le 0' },
+      { label: 'Linearization', latex: "y'=f(y) \\approx Df(y^*)(y-y^*) \\text{ near } y^*" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lyapunov stability theory', url: 'https://encyclopediaofmath.org/wiki/Lyapunov_stability_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Aleksandr Lyapunov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lyapunov/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:boundary-value-problems': {
+    overview:
+      'A boundary value problem specifies conditions at two or more separate points rather than all at one starting time, as in the initial value problems typical of mechanics — for instance, fixing the temperature at both ends of a rod rather than at a single initial moment. This shift changes the mathematics substantially: solutions may fail to exist or fail to be unique in ways initial value problems never do.',
+    formal:
+      'A two-point boundary value problem for a second-order ODE has the form $y\'\'=f(x,y,y\')$ on $[a,b]$ with conditions such as $y(a)=\\alpha$, $y(b)=\\beta$. A Sturm-Liouville problem is the eigenvalue boundary value problem $-\\big(p(x)y\'\\big)\' + q(x)y = \\lambda w(x) y$ on $[a,b]$ with separated boundary conditions; its eigenvalues $\\lambda_1<\\lambda_2<\\cdots$ are real, simple, and tend to infinity, and the corresponding eigenfunctions form a complete orthogonal basis (with respect to the weight $w$) for the relevant function space.',
+    keyIdeas: [
+      'boundary conditions imposed at multiple points, unlike the single initial point of an initial value problem',
+      'existence and uniqueness can fail or hold non-generically, unlike the well-behaved initial value case',
+      'Sturm-Liouville theory: a general eigenvalue framework producing orthogonal eigenfunction expansions',
+      'the eigenfunctions of a Sturm-Liouville problem generalize the sines and cosines of ordinary Fourier series',
+      "the Sturm oscillation and comparison theorems, controlling how many times eigenfunctions vanish",
+    ],
+    whyItMatters:
+      "Steady-state physical problems — the equilibrium temperature distribution in a rod with fixed end temperatures, the shape of a vibrating string pinned at both ends — are naturally boundary value problems, not initial value problems, and behave differently: a boundary value problem can have no solution, exactly one, or infinitely many, depending subtly on the boundary data. Sturm-Liouville theory unifies an enormous range of such problems (each choice of $p, q, w$ recovers a different classical special-function theory: Legendre, Bessel, Chebyshev, and more) under one eigenfunction-expansion framework, directly generalizing Fourier series.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['differential-equations:green-functions', 'real-analysis:fourier-series', 'functional-analysis:spectral-theory'],
+    historicalContext:
+      "Charles-François Sturm and Joseph Liouville developed the general theory of second-order linear boundary value problems together in a remarkable series of joint and parallel papers from 1836 to 1837, published in the journal Liouville had just founded. Their work showed that the eigenvalue problems arising from separating variables in the heat and wave equations on general domains — not just the special trigonometric case Fourier had studied — always produce a complete orthogonal system of eigenfunctions, unifying what had previously seemed to be separate special cases (Legendre polynomials, Bessel functions) under a single general theory.",
+    contributorIds: ['person:charles-francois-sturm', 'person:joseph-liouville'],
+    workIds: [],
+    exampleProblems: [
+      'Solve the boundary value problem $y\'\'+y=0$, $y(0)=0$, $y(\\pi)=0$ and show it has infinitely many solutions, unlike a generic initial value problem.',
+      'Find the eigenvalues and eigenfunctions of the Sturm-Liouville problem $-y\'\'=\\lambda y$ on $[0,L]$ with $y(0)=y(L)=0$.',
+      'Verify that eigenfunctions corresponding to distinct eigenvalues of a Sturm-Liouville problem are orthogonal with respect to the weight function $w(x)$.',
+    ],
+    applications: [
+      'separation of variables solutions to the heat, wave, and Laplace equations on bounded domains',
+      'quantum mechanics, where the time-independent Schrödinger equation is a Sturm-Liouville-type eigenvalue problem',
+      'vibration analysis in engineering, computing the natural frequencies and mode shapes of a structure',
+      'special function theory (Legendre, Bessel, Chebyshev, Hermite functions), all arising as Sturm-Liouville eigenfunctions',
+    ],
+    researchDirections: [
+      'singular Sturm-Liouville problems on infinite or semi-infinite intervals, connecting to continuous spectrum',
+      'inverse Sturm-Liouville problems: reconstructing $p,q,w$ from the eigenvalues (Gel\'fand-Levitan theory)',
+      'boundary value problems for PDEs (elliptic boundary value theory) generalizing the ODE case',
+    ],
+    textbooks: [
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'A widely used undergraduate treatment introducing Sturm-Liouville theory and eigenfunction expansions.',
+      },
+      {
+        title: 'Methods of Mathematical Physics, Vol. I',
+        authors: ['Richard Courant', 'David Hilbert'],
+        year: 1953,
+        why: 'The classic advanced treatment connecting Sturm-Liouville theory to the full range of mathematical physics.',
+      },
+      {
+        title: 'Sturm-Liouville Theory',
+        authors: ['Anton Zettl'],
+        year: 2005,
+        why: 'A modern, comprehensive dedicated monograph on Sturm-Liouville problems, regular and singular.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sturm-Liouville equation', latex: "-\\big(p(x)y'\\big)' + q(x)y = \\lambda w(x) y" },
+      { label: 'Orthogonality of eigenfunctions', latex: '\\int_a^b y_m(x) y_n(x)\\, w(x)\\,dx = 0 \\quad (m\\ne n)' },
+      { label: 'Eigenfunction expansion', latex: 'f(x) = \\sum_{n=1}^{\\infty} c_n y_n(x)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Sturm-Liouville problem', url: 'https://encyclopediaofmath.org/wiki/Sturm-Liouville_problem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Charles-François Sturm', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sturm/', kind: 'reference' },
+      { label: 'MacTutor: Joseph Liouville', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Liouville/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:green-functions': {
+    overview:
+      "A Green's function is the response of a linear differential operator to an idealized point source (a Dirac delta), from which the solution for any source distribution can be built up by integration. This turns solving an entire family of differential equations, one for each possible source, into a single computation done once and for all.",
+    formal:
+      'For a linear differential operator $L$ with homogeneous boundary conditions, the Green\'s function $G(x,s)$ satisfies $L_x G(x,s) = \\delta(x-s)$ subject to those boundary conditions. The solution to the inhomogeneous problem $Ly=f(x)$ with the same boundary conditions is then $y(x) = \\int_a^b G(x,s) f(s)\\,ds$, since $L_x\\!\\int G(x,s)f(s)\\,ds = \\int \\delta(x-s) f(s)\\,ds = f(x)$ by linearity.',
+    keyIdeas: [
+      "the Green's function as the operator's response to an idealized point impulse, from which every other response is built by superposition",
+      "converting a differential equation into an equivalent integral equation, with the Green's function as the integral kernel",
+      'the Green\'s function encodes the boundary conditions directly, so it depends on the domain and boundary data, not just the operator',
+      'symmetry of the Green\'s function ($G(x,s)=G(s,x)$) for self-adjoint operators, reflecting a reciprocity principle',
+      'construction via two solutions of the homogeneous equation satisfying the boundary conditions at each end, matched with a jump in derivative at $x=s$',
+    ],
+    whyItMatters:
+      "Solving a boundary value problem separately for every possible source term would be enormously wasteful; the Green's function computes the operator's response once, to the simplest possible source (a point impulse), and superposition (integration) then assembles the response to any source for free. This idea recurs throughout physics as the 'propagator' or 'impulse response,' and it is the mathematical justification for treating a continuous distribution of causes (charge, force, heat) as a superposition of many point contributions.",
+    prerequisites: ['differential-equations:boundary-value-problems', 'functional-analysis:distributions'],
+    related: ['differential-equations:boundary-value-problems', 'functional-analysis:distributions', 'partial-differential-equations:laplace-equation'],
+    historicalContext:
+      "George Green, a self-taught miller's son with almost no formal mathematical education, introduced the method in his self-published 1828 Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism, using what he called the 'potential function' to solve electrostatics problems — the technique now called the Green's function method. The essay, printed in a run of only 51 copies, went almost entirely unnoticed until William Thomson (Lord Kelvin) rediscovered it in 1845 and arranged for its wider publication, after which the method was rapidly generalized and became standard throughout mathematical physics.",
+    contributorIds: ['person:george-green'],
+    workIds: ['work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism'],
+    exampleProblems: [
+      'Construct the Green\'s function for $-y\'\'=f(x)$ on $[0,1]$ with $y(0)=y(1)=0$, and use it to write the solution as an integral.',
+      'Verify the symmetry $G(x,s)=G(s,x)$ for the Green\'s function found above.',
+      'Use the free-space Green\'s function for the Laplacian in three dimensions, $G(x,y)=\\frac{1}{4\\pi|x-y|}$, to write the solution to Poisson\'s equation $-\\Delta u = f$ on all of $\\mathbb{R}^3$.',
+    ],
+    applications: [
+      'electrostatics and potential theory, where the Green\'s function gives the potential due to a point charge',
+      'quantum field theory, where Green\'s functions (propagators) describe particle propagation between interactions',
+      'structural engineering, computing a beam or plate\'s response to an arbitrary load from its impulse response',
+      'acoustics and wave propagation, modeling the field generated by a point source',
+    ],
+    researchDirections: [
+      "Green's functions for elliptic PDE on general domains, and their boundary behavior",
+      'numerical boundary element methods, which discretize integral equations built from Green\'s functions',
+      'Green\'s functions in quantum many-body theory and condensed matter physics',
+    ],
+    textbooks: [
+      {
+        title: 'Methods of Mathematical Physics, Vol. I',
+        authors: ['Richard Courant', 'David Hilbert'],
+        year: 1953,
+        why: 'A classic thorough treatment of Green\'s functions across ODE and PDE boundary value problems.',
+      },
+      {
+        title: 'Partial Differential Equations',
+        authors: ['Lawrence C. Evans'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Develops Green\'s functions for the Laplace and Poisson equations with modern rigor.',
+      },
+      {
+        title: 'Green\'s Functions and Boundary Value Problems',
+        authors: ['Ivar Stakgold', 'Michael Holst'],
+        edition: '3rd',
+        year: 2011,
+        why: 'A dedicated, comprehensive treatment of Green\'s function methods across mathematical physics.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Green's function defining equation", latex: 'L_x G(x,s) = \\delta(x-s)' },
+      { label: 'Solution via superposition', latex: 'y(x) = \\int_a^b G(x,s) f(s)\\,ds' },
+      { label: 'Free-space Laplacian Green\'s function (3D)', latex: 'G(x,y) = \\frac{1}{4\\pi|x-y|}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Green function', url: 'https://encyclopediaofmath.org/wiki/Green_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Green', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Green/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -8938,14 +9350,20 @@ const personRows = [
   ['Hermann Amandus Schwarz', '1843-1921', 'Germany', 'complex-analysis', 'the Schwarz lemma and Schwarz-Christoffel conformal mapping'],
   ['Laurent Schwartz', '1915-2002', 'France', 'functional-analysis', 'the rigorous theory of distributions (generalized functions)'],
   ['Sergei Sobolev', '1908-1989', 'Soviet Union', 'functional-analysis', 'Sobolev spaces and generalized (weak) derivatives'],
+  ['Charles-Francois Sturm', '1803-1855', 'Switzerland/France', 'differential-equations', 'Sturm-Liouville theory and the theory of oscillation'],
+  ['Joseph Liouville', '1809-1882', 'France', 'differential-equations', 'Sturm-Liouville theory and the discovery of transcendental numbers'],
+  ['George Green', '1793-1841', 'England', 'differential-equations', "Green's functions and the mathematical theory of potentials"],
+  ['Rudolf Lipschitz', '1832-1903', 'Germany', 'differential-equations', 'the Lipschitz condition guaranteeing unique solutions to differential equations'],
+  ['Emile Picard', '1856-1941', 'France', 'differential-equations', 'the Picard-Lindelof existence theorem via successive approximations'],
+  ['Aleksandr Lyapunov', '1857-1918', 'Russia', 'differential-equations', 'the modern mathematical theory of the stability of motion'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
 // topic id(s) a person is associated with, once that topic has been
 // researched. Keyed by person id (person:<slug-of-name>).
 const personTopicOverrides: Record<string, string[]> = {
-  'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
-  'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
+  'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits', 'differential-equations:ordinary-differential-equations'],
+  'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives', 'differential-equations:ordinary-differential-equations'],
   'person:brook-taylor': ['calculus:taylor-series'],
   'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness', 'real-analysis:real-numbers'],
   'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity', 'real-analysis:epsilon-delta-limits', 'complex-analysis:holomorphic-functions'],
@@ -8956,6 +9374,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'complex-analysis:cauchy-integral-theorem',
     'complex-analysis:holomorphic-functions',
     'complex-analysis:residues',
+    'differential-equations:existence-and-uniqueness',
     'linear-algebra:determinants',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
@@ -9042,6 +9461,14 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:stefan-banach': ['functional-analysis:normed-spaces', 'functional-analysis:banach-spaces'],
   'person:laurent-schwartz': ['functional-analysis:distributions'],
   'person:sergei-sobolev': ['functional-analysis:distributions'],
+  'person:sofia-kovalevskaya': ['differential-equations:partial-differential-equations'],
+  'person:jean-le-rond-dalembert': ['differential-equations:partial-differential-equations'],
+  'person:charles-francois-sturm': ['differential-equations:boundary-value-problems'],
+  'person:joseph-liouville': ['differential-equations:boundary-value-problems'],
+  'person:george-green': ['differential-equations:green-functions'],
+  'person:rudolf-lipschitz': ['differential-equations:existence-and-uniqueness'],
+  'person:emile-picard': ['differential-equations:existence-and-uniqueness'],
+  'person:aleksandr-lyapunov': ['differential-equations:stability'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
@@ -9092,7 +9519,7 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
   'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
-  'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
+  'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds', 'differential-equations:stability'],
   'person:l-e-j-brouwer': [
     'foundations:constructive-mathematics',
     'foundations:foundational-programs',
@@ -9290,6 +9717,7 @@ const workRows = [
   ['Lecons sur lintegration et la recherche des fonctions primitives', 'Henri Lebesgue', 1904, 'real-analysis', 'The first systematic treatment of the Lebesgue integral and modern measure-based integration.'],
   ['Grundlagen fur eine allgemeine Theorie der Functionen einer veranderlichen complexen Grosse', 'Bernhard Riemann', 1851, 'complex-analysis', 'Riemanns doctoral dissertation, which introduced Riemann surfaces and the geometric approach to complex function theory.'],
   ['Theorie des operations lineaires', 'Stefan Banach', 1932, 'functional-analysis', 'The founding systematic treatise of functional analysis, naming and characterizing Banach spaces.'],
+  ['An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism', 'George Green', 1828, 'differential-equations', "Introduced the potential function and Green's theorem, and implicitly the Green's function method for solving boundary value problems."],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -9300,6 +9728,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives': ['real-analysis:lebesgue-integration'],
   'work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse': ['complex-analysis:riemann-surfaces'],
   'work:theorie-des-operations-lineaires': ['functional-analysis:banach-spaces'],
+  'work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism': ['differential-equations:green-functions'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
