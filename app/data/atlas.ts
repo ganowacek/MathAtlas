@@ -5454,6 +5454,404 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: William Lawvere', url: 'https://en.wikipedia.org/wiki/William_Lawvere', kind: 'encyclopedia' },
     ],
   },
+  'abstract-algebra:group-theory': {
+    overview:
+      'Group theory at this level studies the internal structure of groups themselves: how a group decomposes into smaller pieces via subgroups, quotients, and group actions, culminating in deep structural results like the Sylow theorems and, ultimately, the complete classification of the finite simple groups — the atomic building blocks from which every finite group is assembled.',
+    formal:
+      "For a finite group $G$ with $|G|=p^a m$, $p$ prime, $p\\nmid m$, the Sylow theorems guarantee: (1) $G$ has a subgroup of order $p^a$; (2) all Sylow $p$-subgroups are conjugate; (3) the number of Sylow $p$-subgroups is $\\equiv 1\\pmod p$ and divides $m$. The Jordan-Hölder theorem states that any two composition series of a finite group have the same length and the same composition factors up to order and isomorphism, making simple groups the unique 'prime factors' of any finite group.",
+    keyIdeas: [
+      'the Sylow theorems as the primary tool for understanding the subgroup structure of a finite group',
+      "composition series and the Jordan-Hölder theorem: simple groups as the unique building blocks of any finite group",
+      'solvable and nilpotent groups as generalizations of abelian groups built from simple pieces',
+      'group actions, orbit-stabilizer, and the class equation',
+      'the classification of finite simple groups as one of the largest collaborative theorems in mathematical history',
+    ],
+    whyItMatters:
+      "The Jordan-Hölder theorem shows that every finite group, however complicated, is built from a unique multiset of simple groups, reducing 'understanding all finite groups' to two hard problems: classify the simple groups, and understand how they can be assembled. The classification of finite simple groups, completed around 1983-2004, is arguably the largest single theorem ever proved, spanning tens of thousands of journal pages by hundreds of mathematicians.",
+    prerequisites: ['algebra:groups'],
+    related: ['abstract-algebra:representation-theory', 'lie-theory:semisimple-lie-algebras', 'graph-theory:spectral-graph-theory'],
+    historicalContext:
+      "Peter Ludwig Sylow proved his eponymous theorems in 1872, giving the first general tool for finding subgroups of a prescribed order inside an arbitrary finite group. Camille Jordan's Traité des substitutions (1870) and Otto Hölder's 1889 refinement established the Jordan-Hölder theorem on composition series. The 20th-century classification of finite simple groups, a collaborative effort involving over 100 mathematicians initiated by Richard Brauer and Daniel Gorenstein among others, was substantially advanced by Walter Feit and John Thompson's 1963 proof that every group of odd order is solvable, and was declared complete in outline by 1983, with the quasithin case gap finally closed by Michael Aschbacher and Stephen Smith in 2004.",
+    contributorIds: ['person:ludwig-sylow', 'person:camille-jordan', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Sylow theorems to show that every group of order 15 is cyclic.',
+      'Find a composition series for the symmetric group $S_4$ and identify its composition factors.',
+      'Explain, in outline, why the Feit-Thompson theorem was a crucial step toward the classification of finite simple groups.',
+    ],
+    applications: [
+      'cryptographic protocols relying on the structure of specific finite groups (elliptic curve groups, discrete-log groups)',
+      'crystallography and chemistry, classifying symmetry groups of crystal structures',
+      'coding theory, using specific finite simple groups (e.g. Mathieu groups) to construct highly efficient error-correcting codes',
+    ],
+    researchDirections: [
+      'ongoing simplification and re-verification of the classification of finite simple groups proof',
+      'the study of infinite and profinite groups using structural techniques inspired by the finite case',
+      'computational group theory algorithms (GAP, Magma) for working with extremely large finite groups',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Covers the Sylow theorems, composition series, and solvable groups with extensive worked examples.',
+      },
+      {
+        title: 'Finite Group Theory',
+        authors: ['I. Martin Isaacs'],
+        year: 2008,
+        why: 'A standard graduate text going well beyond Sylow theory into the deeper structural results needed for the classification.',
+      },
+      {
+        title: 'A Course in the Theory of Groups',
+        authors: ['Derek J. S. Robinson'],
+        edition: '2nd',
+        year: 1996,
+        why: 'A comprehensive graduate reference covering both finite and infinite group theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Sylow's theorem (existence)", latex: '|G| = p^a m,\\ p\\nmid m \\implies \\exists H \\le G,\\ |H| = p^a' },
+      { label: "Jordan-Hölder theorem", latex: '\\text{composition factors of } G \\text{ are unique up to order and isomorphism}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Simple group', url: 'https://encyclopediaofmath.org/wiki/Simple_group', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ludwig Sylow', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylow/', kind: 'reference' },
+      { label: 'MacTutor: Camille Jordan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Jordan/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:ring-theory': {
+    overview:
+      'Ring theory at this level studies noncommutative and structurally intricate rings — matrix rings, group rings, division rings — through their modules and ideal structure, extending far beyond the commutative rings of elementary number theory into a theory with its own rich structural classification.',
+    formal:
+      'The Jacobson radical $J(R)$ of a ring $R$ is the intersection of all maximal left ideals, and $R$ is semisimple if $J(R)=0$ and $R$, as a module over itself, is a direct sum of simple modules. The Artin-Wedderburn theorem classifies semisimple rings completely: every semisimple ring is isomorphic to a finite product of matrix rings over division rings, $R\\cong M_{n_1}(D_1)\\times\\cdots\\times M_{n_k}(D_k)$. A ring is left Artinian if it satisfies the descending chain condition on left ideals; every Artinian ring modulo its Jacobson radical is semisimple.',
+    keyIdeas: [
+      'the Jacobson radical as the ring-theoretic obstruction to semisimplicity',
+      'the Artin-Wedderburn theorem: semisimple rings are exactly finite products of matrix rings over division rings',
+      'Noetherian versus Artinian chain conditions, and their role in structure theory',
+      'group rings as a bridge between ring theory and representation theory',
+      'division rings and noncommutative analogues of fields',
+    ],
+    whyItMatters:
+      "The Artin-Wedderburn theorem is the ring-theoretic analogue of the classification of finite simple groups — a complete structural description of an entire class of rings — and it directly explains why representation theory works the way it does, since the semisimplicity of a group algebra $\\mathbb{C}[G]$, guaranteed by Maschke's theorem, is exactly what Artin-Wedderburn needs to decompose it into matrix blocks corresponding to irreducible representations.",
+    prerequisites: ['algebra:rings'],
+    related: ['abstract-algebra:representation-theory', 'commutative-algebra:noetherian-rings', 'abstract-algebra:homological-algebra'],
+    historicalContext:
+      'Joseph Wedderburn classified semisimple algebras over a field in his 1907 paper "On Hypercomplex Numbers," building on earlier structural work by Theodor Molien and Élie Cartan on associative algebras. Emil Artin generalized Wedderburn\'s theorem from finite-dimensional algebras to the more general Artinian rings in 1927, giving the theorem its modern form and name. Emmy Noether\'s contemporaneous 1920s work established the general chain-condition framework, Noetherian and, by extension, Artinian rings, within which Artin\'s generalization naturally sits.',
+    contributorIds: ['person:emil-artin', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the ring of $n\\times n$ matrices over a field is simple, and identify its unique simple module.',
+      "Show that the group algebra $\\mathbb{C}[G]$ of a finite group $G$ is semisimple, using Maschke's theorem, and connect this to the Artin-Wedderburn decomposition.",
+      'Give an example of a Noetherian ring that is not Artinian, and explain which chain condition fails.',
+    ],
+    applications: [
+      'representation theory, where the semisimplicity of group algebras underlies the decomposition-into-irreducibles framework',
+      'coding theory, using group rings and their idempotents to construct and analyze codes',
+      'noncommutative algebraic geometry, extending geometric intuition to noncommutative rings via their module categories',
+    ],
+    researchDirections: [
+      'noncommutative Noetherian ring theory and its geometric applications',
+      'the representation theory of Artin algebras and quiver representations',
+      'ring-theoretic methods in operator algebras and noncommutative geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives an accessible route into Artinian and semisimple rings before more specialized noncommutative texts.',
+      },
+      {
+        title: 'A First Course in Noncommutative Rings',
+        authors: ['T. Y. Lam'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate text for the Jacobson radical, Artin-Wedderburn, and noncommutative ring structure theory.',
+      },
+      {
+        title: 'Noncommutative Rings',
+        authors: ['I. N. Herstein'],
+        year: 1968,
+        why: 'A concise classic that remains a widely recommended entry point into structural ring theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Artin-Wedderburn theorem', latex: 'R \\cong M_{n_1}(D_1)\\times\\cdots\\times M_{n_k}(D_k)' },
+      { label: 'Jacobson radical', latex: 'J(R) = \\bigcap \\{\\text{maximal left ideals of } R\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ring', url: 'https://encyclopediaofmath.org/wiki/Ring', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:field-theory': {
+    overview:
+      'Field theory at this level extends the study of field extensions into finer structural questions — separability, normality, transcendence degree, and the classification of fields with extra structure such as orderings or valuations — providing the technical foundation beneath Galois theory, algebraic geometry, and algebraic number theory alike.',
+    formal:
+      'An extension $K/F$ is separable if the minimal polynomial of every element of $K$ over $F$ has no repeated roots, automatic in characteristic 0. It is normal if it is the splitting field of a family of polynomials over $F$. A finitely generated field extension $K/F$ has a well-defined transcendence degree, the size of a maximal algebraically independent subset. Artin-Schreier theory classifies finite extensions of a field $F$ fixed by an automorphism group of prime order $p$ in terms of solutions to $x^p-x=a$.',
+    keyIdeas: [
+      'separable and normal extensions as the two conditions defining a Galois extension',
+      'transcendence degree as a notion of "dimension" for arbitrary field extensions',
+      'perfect fields, where every algebraic extension is automatically separable',
+      'formally real and ordered fields, and their role in real algebraic geometry',
+      'valued fields and completions, generalizing the construction of the p-adic numbers',
+    ],
+    whyItMatters:
+      'The finer distinctions of modern field theory — separability failing only in positive characteristic, transcendence degree measuring the size of function fields — are exactly what is needed to make Galois theory, algebraic geometry, and algebraic number theory work correctly over fields other than the rationals, reals, and complexes, including the finite and function fields central to modern cryptography and arithmetic geometry.',
+    prerequisites: ['algebra:fields'],
+    related: ['abstract-algebra:galois-theory', 'number-theory:algebraic-number-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      "Ernst Steinitz's 1910 paper Algebraische Theorie der Körper gave the first fully general axiomatic theory of fields, including the classification of fields by characteristic, the notion of a perfect field, and transcendence degree. Emil Artin and Otto Schreier's 1927 theory of formally real fields characterized exactly which fields can be ordered, and Artin resolved Hilbert's seventeenth problem on positive polynomials shortly afterward. Wolfgang Krull's 1930s work on valuation theory and Artin's later reformulation of Galois theory in his Notre Dame lecture notes rounded out the modern structural theory of fields.",
+    contributorIds: ['person:ernst-steinitz', 'person:emil-artin'],
+    workIds: [],
+    exampleProblems: [
+      'Give an example of an inseparable field extension in characteristic $p$, and explain why this cannot happen in characteristic 0.',
+      'Compute the transcendence degree of the field of rational functions $F(x,y)$ over $F$.',
+      'Explain what it means for a field to be formally real, and give an example of a field that is not.',
+    ],
+    applications: [
+      'finite field arithmetic (automatically separable) underlying coding theory and cryptography',
+      'function fields of algebraic curves in arithmetic geometry, where transcendence degree measures dimension',
+      'real algebraic geometry and semialgebraic sets, built on ordered and formally real fields',
+    ],
+    researchDirections: [
+      'the model theory of valued and ordered fields, such as the p-adics and real closed fields',
+      'higher-dimensional local fields and their arithmetic, extending classical valuation theory',
+      'the arithmetic of function fields over finite fields, paralleling number fields',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Covers separability, normality, and transcendence degree thoroughly before Galois theory itself.',
+      },
+      {
+        title: 'Field and Galois Theory',
+        authors: ['Patrick Morandi'],
+        year: 1996,
+        why: 'A dedicated, well-regarded text on the finer structural theory of fields.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Serge Lang'],
+        edition: '3rd',
+        year: 2002,
+        why: 'A comprehensive graduate reference with a thorough treatment of valuations and formally real fields.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Transcendence degree', latex: '\\text{trdeg}_F(K) = |\\{\\text{maximal algebraically independent subset}\\}|' },
+      { label: 'Artin-Schreier equation', latex: 'x^p - x = a' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Field', url: 'https://encyclopediaofmath.org/wiki/Field', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Steinitz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Steinitz/', kind: 'reference' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:galois-theory': {
+    overview: "Galois theory at this level develops the full Fundamental Theorem of Galois Theory in Emil Artin's automorphism-group formulation, and pushes it toward its modern applications: solvability by radicals, explicit computation of Galois groups, and the far-reaching inverse Galois problem.",
+    formal:
+      'For a finite Galois extension $K/F$, $\\text{Gal}(K/F)=\\text{Aut}(K/F)$ has order $[K:F]$, and there is an inclusion-reversing bijection between subgroups $H\\le\\text{Gal}(K/F)$ and intermediate fields $F\\subseteq E\\subseteq K$, given by $H\\mapsto K^H$ and $E\\mapsto\\text{Gal}(K/E)$. A polynomial is solvable by radicals over $F$ if and only if its Galois group is solvable; since $S_5$ is not solvable, the general quintic is not solvable by radicals.',
+    keyIdeas: [
+      "the Fundamental Theorem of Galois Theory in Artin's automorphism-group formulation",
+      'solvability by radicals as exactly equivalent to solvability of the Galois group',
+      'computing Galois groups of specific polynomials via resolvents and reduction mod p',
+      'the inverse Galois problem: which finite groups occur as Galois groups over $\\mathbb{Q}$',
+      "Galois's original insight reformulated: symmetry among a polynomial's roots controls solvability",
+    ],
+    whyItMatters:
+      'The Fundamental Theorem of Galois Theory converts a hard algebraic question — can this equation be solved by a formula? — into a purely group-theoretic question — is this group solvable? — and this translation between two very different-looking areas of mathematics is one of the most productive correspondences in the subject, inspiring parallel "Galois-theoretic" correspondences throughout modern mathematics.',
+    prerequisites: ['abstract-algebra:field-theory'],
+    related: ['algebra:fields', 'number-theory:algebraic-number-theory', 'abstract-algebra:group-theory'],
+    historicalContext:
+      "Évariste Galois's 1831 memoir first connected solvability by radicals to a group of permutations of a polynomial's roots, but his original formulation was difficult and not widely understood for decades. Emil Artin's reformulation in his 1938-44 lecture notes, published as Galois Theory (1944), recast the theory in terms of automorphism groups of field extensions and fixed fields, giving the clean, modern Fundamental Theorem still taught today. The still-open inverse Galois problem, posed implicitly by Hilbert around 1892 and made precise by Emmy Noether in 1918, continues to drive research connecting Galois theory to number theory and group theory.",
+    contributorIds: ['person:evariste-galois', 'person:emil-artin'],
+    workIds: ['work:memoire-sur-les-conditions-de-resolubilite-des-equations-par-radicaux'],
+    exampleProblems: [
+      'Compute the Galois group of $x^4-5x^2+6$ over $\\mathbb{Q}$ and identify all intermediate fields via the Galois correspondence.',
+      'Show that $S_5$ is not a solvable group, and use this to explain why the general quintic is not solvable by radicals.',
+      'Explain, at a high level, what the inverse Galois problem asks and why it remains open in general.',
+    ],
+    applications: [
+      'explicit computation of Galois groups in computer algebra systems, used in algorithmic number theory',
+      'cryptographic constructions relying on field extensions and their automorphism groups',
+      'the resolution of classical construction and solvability problems inherited from 19th-century algebra',
+    ],
+    researchDirections: [
+      "the inverse Galois problem, resolved for many specific classes of groups (e.g. solvable groups, by Shafarevich) but open in general",
+      "the Langlands program's vast generalization of the correspondence between Galois representations and automorphic forms",
+      'explicit and computational Galois theory for polynomials of high degree',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives a thorough advanced treatment of the Fundamental Theorem and its applications to solvability.',
+      },
+      {
+        title: 'Galois Theory',
+        authors: ['Emil Artin'],
+        year: 1944,
+        why: "The original lecture notes that gave the theory its modern automorphism-group formulation, still influential and in print.",
+      },
+      {
+        title: 'Galois Theory',
+        authors: ['Ian Stewart'],
+        edition: '4th',
+        year: 2015,
+        why: 'A consistently recommended dedicated text spanning classical results through the inverse Galois problem.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fundamental Theorem of Galois Theory', latex: '\\{\\text{subgroups}\\} \\longleftrightarrow \\{\\text{intermediate fields}\\}' },
+      { label: 'Solvability by radicals criterion', latex: 'f \\text{ solvable by radicals} \\iff \\text{Gal}(f) \\text{ is a solvable group}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Galois theory', url: 'https://en.wikipedia.org/wiki/Galois_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Évariste Galois', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Galois/', kind: 'reference' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:homological-algebra': {
+    overview:
+      'Homological algebra studies exact sequences, chain complexes, and the derived functors Ext and Tor that measure the failure of otherwise well-behaved operations, like Hom and tensor product, to preserve exactness, turning obstructions throughout algebra and geometry into computable algebraic invariants.',
+    formal:
+      'A sequence of module homomorphisms $\\cdots\\to M_{n-1}\\to M_n\\to M_{n+1}\\to\\cdots$ is exact if the image of each map equals the kernel of the next. Given a short exact sequence $0\\to A\\to B\\to C\\to 0$, applying $\\text{Hom}(-,N)$ or $-\\otimes N$ generally fails to preserve exactness; the derived functors $\\text{Ext}^n(C,N)$ and $\\text{Tor}_n(C,N)$ measure this failure precisely, fitting into long exact sequences. Both are computed via projective or injective resolutions and are independent of the resolution chosen, up to canonical isomorphism.',
+    keyIdeas: [
+      'exact sequences as the basic bookkeeping device of homological algebra',
+      'Ext and Tor as derived functors measuring the failure of Hom and tensor product to preserve exactness',
+      'projective and injective resolutions as the computational tool for defining derived functors',
+      'long exact sequences relating the homology of an exact sequence of complexes',
+      'homological algebra as the common computational engine behind group cohomology, sheaf cohomology, and algebraic K-theory',
+    ],
+    whyItMatters:
+      'Ext and Tor turn obstruction questions across mathematics — does this extension of groups split? does this module decompose as a direct sum? — into concrete, computable algebraic invariants, which is why homological algebra, originally developed to organize algebraic topology, became indispensable throughout modern algebra, algebraic geometry, and number theory.',
+    prerequisites: ['abstract-algebra:ring-theory'],
+    related: ['topology:homology', 'algebraic-geometry:sheaves', 'category-theory:limits-and-colimits'],
+    historicalContext:
+      "Homological ideas emerged from algebraic topology in the 1930s-40s, particularly in the work of Heinz Hopf and Beno Eckmann on group cohomology. Henri Cartan and Samuel Eilenberg's landmark textbook Homological Algebra (1956) first systematically extracted the algebraic core of these topological techniques, defining Ext and Tor via projective and injective resolutions in complete generality. Alexander Grothendieck's 1957 'Tôhoku paper' then recast the entire theory in the language of abelian categories, generalizing it far beyond modules over a ring to sheaves and other settings essential for modern algebraic geometry.",
+    contributorIds: ['person:henri-cartan', 'person:samuel-eilenberg'],
+    workIds: ['work:homological-algebra'],
+    exampleProblems: [
+      'Compute $\\text{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/n\\mathbb{Z}, \\mathbb{Z})$ using a projective resolution, and interpret the result in terms of group extensions.',
+      'Show that $\\text{Tor}_1(\\mathbb{Z}/m\\mathbb{Z}, \\mathbb{Z}/n\\mathbb{Z})$ is nonzero exactly when $\\gcd(m,n)>1$, and interpret this in terms of torsion.',
+      'Derive the long exact sequence in Ext associated to a short exact sequence of modules, explaining where each connecting map comes from.',
+    ],
+    applications: [
+      'group cohomology, classifying group extensions and computing invariants in algebraic number theory (Galois cohomology)',
+      'sheaf cohomology in algebraic geometry, computing global sections and obstructions on varieties and schemes',
+      'algebraic K-theory and its applications to topology and number theory',
+    ],
+    researchDirections: [
+      'derived categories and triangulated categories as the modern organizing framework for homological algebra',
+      'spectral sequences for computing homology in increasingly complex settings',
+      'the interaction between homological algebra and homotopy theory in modern derived algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Homological Algebra',
+        authors: ['Charles A. Weibel'],
+        year: 1994,
+        why: 'The modern standard graduate text, covering derived functors through spectral sequences and derived categories.',
+      },
+      {
+        title: 'Homological Algebra',
+        authors: ['Henri Cartan', 'Samuel Eilenberg'],
+        year: 1956,
+        why: 'The founding text that first systematized Ext and Tor via projective and injective resolutions.',
+      },
+      {
+        title: 'A Course in Homological Algebra',
+        authors: ['Peter J. Hilton', 'Urs Stammbach'],
+        edition: '2nd',
+        year: 1997,
+        why: 'A widely used, more gradual introduction before tackling Weibel\'s comprehensive text.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Exactness', latex: '\\text{im}(f_{n-1}) = \\ker(f_n)' },
+      { label: 'Long exact sequence in Ext', latex: '0\\to \\text{Hom}(C,N)\\to \\text{Hom}(B,N)\\to \\text{Hom}(A,N)\\to \\text{Ext}^1(C,N)\\to \\cdots' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Homological algebra', url: 'https://encyclopediaofmath.org/wiki/Homological_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan_Henri/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:representation-theory': {
+    overview:
+      'Representation theory at this level studies modules over group algebras and other associative algebras systematically, unifying the character-theoretic study of finite groups with the broader machinery of ring and module theory, and extending naturally into the modular case where the classical theory breaks down.',
+    formal:
+      'A representation of a group $G$ over a field $F$ is equivalent to a module over the group algebra $F[G]$. When $\\text{char}(F)$ does not divide $|G|$, Maschke\'s theorem makes $F[G]$ semisimple, so by the Artin-Wedderburn theorem $F[G]\\cong\\prod_i M_{n_i}(D_i)$. When $\\text{char}(F)$ divides $|G|$ (the modular case), $F[G]$ is no longer semisimple, and modular representation theory instead studies its indecomposable modules and the block decomposition of $F[G]$ (Brauer\'s theory).',
+    keyIdeas: [
+      'representations as modules over the group algebra $F[G]$',
+      "the ordinary case (Maschke's theorem, Artin-Wedderburn) versus the modular case, where characteristic divides the group order",
+      'Brauer characters and block theory in modular representation theory',
+      'induced and restricted representations relating a group to its subgroups',
+      'representation theory of associative algebras more generally, via quivers and their representations',
+    ],
+    whyItMatters:
+      'Recasting representation theory in module-theoretic language is what let mathematicians extend it into modular representation theory, needed whenever the relevant characteristic divides the group order — a case central to the classification of finite simple groups, where modular representation-theoretic techniques, developed largely by Richard Brauer, were indispensable.',
+    prerequisites: ['abstract-algebra:homological-algebra'],
+    related: ['algebra:representations', 'lie-theory:representation-of-lie-groups', 'abstract-algebra:group-theory'],
+    historicalContext:
+      "Ferdinand Georg Frobenius founded ordinary character theory in 1896, and Emmy Noether's 1929 paper Hyperkomplexe Grössen und Darstellungstheorie recast representation theory explicitly in terms of modules over the group algebra, unifying it with the general theory of associative algebras developed by Wedderburn and Artin. Richard Brauer, starting in the 1930s and continuing for decades, developed modular representation theory essentially from scratch, including Brauer characters and block theory, motivated in large part by their eventual indispensable role in the classification of finite simple groups.",
+    contributorIds: ['person:ferdinand-georg-frobenius', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $F[G]$ is semisimple when $\\text{char}(F)$ does not divide $|G|$, using an averaging argument (a proof of Maschke\'s theorem).',
+      'Give an example of a representation of a cyclic group in characteristic $p$ dividing the group order that is indecomposable but not irreducible.',
+      'Explain the basic idea of Brauer characters and why they are needed once ordinary character theory breaks down.',
+    ],
+    applications: [
+      "modular representation theory's essential role in the classification of finite simple groups",
+      'representation theory of algebraic groups and Lie algebras, extending the finite-group case',
+      'quiver representations in the representation theory of algebras, with applications to cluster algebras and mathematical physics',
+    ],
+    researchDirections: [
+      'the representation theory of finite groups of Lie type, connecting to Deligne-Lusztig theory',
+      'categorification, lifting representation-theoretic identities to the level of categories',
+      'geometric representation theory, using algebraic geometry (perverse sheaves, geometric Satake) to study representations',
+    ],
+    textbooks: [
+      {
+        title: 'Representation Theory of Finite Groups and Associative Algebras',
+        authors: ['Charles W. Curtis', 'Irving Reiner'],
+        year: 1962,
+        why: 'The classic advanced reference unifying group representation theory with the theory of associative algebras.',
+      },
+      {
+        title: 'Linear Representations of Finite Groups',
+        authors: ['Jean-Pierre Serre'],
+        year: 1977,
+        why: 'The standard compact reference, including a chapter bridging to the module-theoretic viewpoint.',
+      },
+      {
+        title: 'Representation Theory: A First Course',
+        authors: ['William Fulton', 'Joe Harris'],
+        year: 1991,
+        why: 'Extends naturally from finite groups toward Lie groups and Lie algebras with the same module-theoretic language.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Representation as a module', latex: '\\rho: G \\to GL(V) \\ \\leftrightarrow\\ V \\text{ an } F[G]\\text{-module}' },
+      { label: 'Artin-Wedderburn for the group algebra', latex: 'F[G] \\cong \\prod_i M_{n_i}(D_i) \\quad (\\text{char}(F) \\nmid |G|)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Representation theory', url: 'https://encyclopediaofmath.org/wiki/Representation_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ferdinand Georg Frobenius', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frobenius/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -5701,6 +6099,9 @@ const personRows = [
   ['Ernst Zermelo', '1871-1953', 'Germany', 'set-theory', 'the first axiomatization of set theory and the well-ordering theorem'],
   ['Abraham Fraenkel', '1891-1965', 'Germany/Israel', 'set-theory', 'the axiom of replacement completing ZFC'],
   ['Paul Cohen', '1934-2007', 'USA', 'set-theory', 'the forcing method and the independence of the continuum hypothesis'],
+  ['Ludwig Sylow', '1832-1918', 'Norway', 'abstract-algebra', 'the Sylow theorems on subgroups of finite groups'],
+  ['Emil Artin', '1898-1962', 'Austria/USA', 'abstract-algebra', 'Artinian rings, Artin-Schreier theory, and the automorphism-group formulation of Galois theory'],
+  ['Henri Cartan', '1904-2008', 'France', 'abstract-algebra', 'homological algebra and the Cartan-Eilenberg framework'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -5733,6 +6134,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'linear-algebra:eigenvalues',
     'algebra:groups',
     'topology:connectedness',
+    'abstract-algebra:group-theory',
   ],
   'person:giuseppe-peano': ['logic:predicate-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
@@ -5775,7 +6177,14 @@ const personTopicOverrides: Record<string, string[]> = {
     'probability:markov-chains',
   ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
-  'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules', 'topology:homology'],
+  'person:emmy-noether': [
+    'abstract-algebra:group-theory',
+    'abstract-algebra:ring-theory',
+    'abstract-algebra:representation-theory',
+    'algebra:rings',
+    'algebra:modules',
+    'topology:homology',
+  ],
   'person:richard-dedekind': [
     'set-theory:naive-set-theory',
     'algebra:rings',
@@ -5783,8 +6192,8 @@ const personTopicOverrides: Record<string, string[]> = {
     'number-theory:algebraic-number-theory',
   ],
   'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
-  'person:ernst-steinitz': ['algebra:fields'],
-  'person:ferdinand-georg-frobenius': ['algebra:representations'],
+  'person:ernst-steinitz': ['algebra:fields', 'abstract-algebra:field-theory'],
+  'person:ferdinand-georg-frobenius': ['algebra:representations', 'abstract-algebra:representation-theory'],
   'person:blaise-pascal': ['probability:sample-spaces'],
   'person:christiaan-huygens': ['probability:sample-spaces', 'probability:expectation'],
   'person:jacob-bernoulli': ['probability:law-of-large-numbers'],
@@ -5839,9 +6248,16 @@ const personTopicOverrides: Record<string, string[]> = {
     'category-theory:limits-and-colimits',
     'category-theory:monoidal-categories',
   ],
-  'person:samuel-eilenberg': ['category-theory:categories-and-functors', 'category-theory:natural-transformations'],
+  'person:samuel-eilenberg': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'abstract-algebra:homological-algebra',
+  ],
   'person:william-lawvere': ['category-theory:topos-theory'],
   'person:alexander-grothendieck': ['algebraic-geometry:affine-varieties', 'category-theory:topos-theory'],
+  'person:ludwig-sylow': ['abstract-algebra:group-theory'],
+  'person:emil-artin': ['abstract-algebra:ring-theory', 'abstract-algebra:field-theory', 'abstract-algebra:galois-theory'],
+  'person:henri-cartan': ['abstract-algebra:homological-algebra'],
 };
 
 export const people: Person[] = personRows.map(
@@ -6002,6 +6418,7 @@ const workTopicOverrides: Record<string, string[]> = {
     'category-theory:limits-and-colimits',
     'category-theory:monoidal-categories',
   ],
+  'work:homological-algebra': ['abstract-algebra:homological-algebra'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

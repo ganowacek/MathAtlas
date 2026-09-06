@@ -29,7 +29,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] logic
 - [x] set-theory
 - [x] category-theory
-- [ ] abstract-algebra
+- [x] abstract-algebra
 - [ ] commutative-algebra
 - [ ] algebraic-geometry
 - [ ] geometry
