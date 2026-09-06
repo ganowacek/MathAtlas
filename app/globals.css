@@ -128,7 +128,7 @@ input[type=checkbox] { accent-color: #527d68; }
   .scene-toolbar { right: 20px; }
   .has-details .world-stage { right: 76px; }
   .has-details .scene-toolbar { right: 20px; }
-  .atlas-detail { top: auto; bottom: 125px; max-height: 53dvh; right: 82px; }
+  .atlas-detail { top: auto; bottom: 160px; max-height: 53dvh; right: 82px; }
   .has-details .scene-heading { max-width: calc(100% - 310px); }
   .has-details .structure-control { left: calc(50% + 100px); }
   .collection-footer { left: 273px; right: 86px; }

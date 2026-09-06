@@ -215,11 +215,31 @@ export default function MathWorlds(props: Props) {
         const changed = controls.update(delta);
         renderer.render(scene, camera);
         const rect = container.getBoundingClientRect();
-        items.forEach(item => {
+        const positioned = items.map(item => {
           item.labelPoint.copy(item.object.position).add(new THREE.Vector3(0, -1.25, 0.9));
           projected.copy(item.labelPoint).project(camera);
           const x = (projected.x * 0.5 + 0.5) * rect.width, y = (-projected.y * 0.5 + 0.5) * rect.height;
-          item.label.hidden = !item.object.visible || expansion < 0.7 || projected.z < -1 || projected.z > 1 || x < 20 || x > rect.width - 20 || y < 0 || y > rect.height - 35;
+          const culled = !item.object.visible || expansion < 0.7 || projected.z < -1 || projected.z > 1 || x < 20 || x > rect.width - 20 || y < 0 || y > rect.height - 35;
+          return { item, x, y, culled };
+        });
+        // Labels are placed by independent 3D projection with no shared layout pass, so
+        // nearby dimensions/fields can project to overlapping screen positions as the
+        // camera moves. Declutter greedily, giving the selected item priority so it never
+        // gets suppressed by a neighbor.
+        const LABEL_HALF_WIDTH = 55, LABEL_HEIGHT = 40, LABEL_GAP = 4;
+        const placedRects: { x0: number; y0: number; x1: number; y1: number }[] = [];
+        [...positioned]
+          .sort((a, b) => Number(b.item.selection.id === latest.current.selectedId) - Number(a.item.selection.id === latest.current.selectedId))
+          .forEach(entry => {
+            if (entry.culled) return;
+            const x0 = entry.x - LABEL_HALF_WIDTH, x1 = entry.x + LABEL_HALF_WIDTH;
+            const y0 = entry.y - LABEL_GAP, y1 = entry.y + LABEL_HEIGHT + LABEL_GAP;
+            const overlapping = placedRects.some(r => x0 < r.x1 && x1 > r.x0 && y0 < r.y1 && y1 > r.y0);
+            if (overlapping) { entry.culled = true; return; }
+            placedRects.push({ x0, y0, x1, y1 });
+          });
+        positioned.forEach(({ item, x, y, culled }) => {
+          item.label.hidden = culled;
           item.label.style.transform = `translate(${x}px, ${y}px) translate(-50%, 0)`;
         });
         // Expose inexpensive render counters for local performance regression checks.
