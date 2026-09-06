@@ -12,3 +12,4 @@ build/
 .vercel
 .wrangler/
 *.tsbuildinfo
+.claude/
