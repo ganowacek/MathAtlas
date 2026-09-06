@@ -3875,6 +3875,401 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Andrew Wiles', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Wiles/', kind: 'reference' },
     ],
   },
+  'foundations:axiomatic-method': {
+    overview:
+      'The axiomatic method builds a mathematical theory from a small set of explicitly stated starting assumptions (axioms) and precise rules of inference, deriving every other result by pure logical deduction rather than appeals to intuition or specific examples.',
+    formal:
+      "A formal axiomatic system consists of a formal language, a set of axioms, and a set of inference rules; a theorem is any formula derivable from the axioms by finitely many applications of the rules. A system is consistent if no formula and its negation are both derivable, complete if every sentence or its negation is derivable, and independent if no axiom is derivable from the others.",
+    keyIdeas: [
+      'axioms as explicit, unproved starting assumptions rather than "self-evident truths"',
+      'formal derivation as the only route from axioms to theorems',
+      'the shift, via Hilbert, from axioms describing a fixed intended object to axioms as an implicit definition of any structure satisfying them',
+      'consistency, completeness, and independence of an axiom system',
+      "the limits of the axiomatic method exposed by Gödel's incompleteness theorems",
+    ],
+    whyItMatters:
+      "The axiomatic method is what separates mathematical certainty from empirical confidence in every other science: once a theorem is derived from axioms by valid logical steps, no future observation can overturn it. The discovery that Euclid's parallel postulate could be replaced, yielding equally consistent non-Euclidean geometries, revealed that axioms are not 'obvious truths' but free choices whose consequences are then explored.",
+    prerequisites: [],
+    related: ['logic:predicate-logic', 'foundations:foundational-programs', 'geometry:non-euclidean-geometry'],
+    historicalContext:
+      "Euclid's Elements (c. 300 BCE) gave the first sustained axiomatic treatment of a mathematical subject, deriving hundreds of results in plane and solid geometry from five postulates and five common notions. For two millennia the postulates were treated as self-evident truths about physical space, until Nikolai Lobachevsky and János Bolyai independently showed in the 1820s-30s that replacing the parallel postulate yields an equally consistent non-Euclidean geometry. David Hilbert's Grundlagen der Geometrie (1899) then re-axiomatized Euclidean geometry with a complete, rigorous list of axioms, fixing gaps in Euclid's original, and treated the axioms as an implicit definition of 'point,' 'line,' and 'plane' rather than descriptions of pre-existing objects — a shift that shaped 20th-century mathematics.",
+    contributorIds: ['person:euclid', 'person:david-hilbert', 'person:nikolai-lobachevsky'],
+    workIds: ['work:elements', 'work:grundlagen-der-geometrie'],
+    exampleProblems: [
+      "Explain how replacing Euclid's parallel postulate with its negation leads to a consistent, non-Euclidean geometry.",
+      'Explain what Hilbert meant by treating axioms as implicit definitions, saying one must be able to say "tables, chairs, and beer mugs" instead of "points, lines, and planes."',
+      "Give an example of an axiom system that is consistent but not complete, referencing Gödel's incompleteness theorem.",
+    ],
+    applications: [
+      'computer-verified formal proofs, where proof assistants encode an axiomatic system directly',
+      'formal specification languages in software verification',
+      "axiomatizing physical theories, as posed in Hilbert's sixth problem",
+    ],
+    researchDirections: [
+      'reverse mathematics, classifying exactly which axioms are needed to prove a given classical theorem',
+      'alternative foundational axiom systems, including category-theoretic foundations',
+      'automated and interactive theorem proving built on explicit axiomatic foundations',
+    ],
+    textbooks: [
+      {
+        title: 'A Mathematical Introduction to Logic',
+        authors: ['Herbert B. Enderton'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate introduction to formal systems, consistency, completeness, and independence.',
+      },
+      {
+        title: 'Introduction to Mathematical Logic',
+        authors: ['Elliott Mendelson'],
+        edition: '6th',
+        year: 2015,
+        why: 'A comprehensive, widely assigned reference for the formal machinery of axiomatic systems.',
+      },
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: 'The standard text for seeing the axiomatic method worked out in full historical and geometric detail.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Consistency', latex: '\\nexists\\, \\varphi:\\ S \\vdash \\varphi \\text{ and } S \\vdash \\neg\\varphi' },
+      { label: 'Completeness', latex: '\\forall \\varphi:\\ S \\vdash \\varphi \\text{ or } S \\vdash \\neg\\varphi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Axiomatic method', url: 'https://encyclopediaofmath.org/wiki/Axiomatic_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Nikolai Lobachevsky', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Lobachevsky', kind: 'reference' },
+    ],
+  },
+  'foundations:proof-theory': {
+    overview:
+      'Proof theory studies mathematical proofs themselves as formal, finite objects that can be analyzed, measured, and manipulated, asking not just whether a theorem is true but what resources — which axioms, which logical principles — a proof of it actually requires.',
+    formal:
+      "A sequent calculus proof derives sequents $\\Gamma \\vdash \\Delta$ via structural and logical inference rules. Gentzen's Hauptsatz (cut-elimination theorem, 1935) shows that any proof using the cut rule can be transformed into a cut-free proof of the same sequent; cut-free proofs have the subformula property, meaning every formula in the proof is a subformula of the conclusion. Gentzen also proved the consistency of Peano arithmetic (1936) relative to transfinite induction up to the ordinal $\\varepsilon_0$, a result that necessarily falls outside what Peano arithmetic itself can prove, by Gödel's second incompleteness theorem.",
+    keyIdeas: [
+      'proofs as formal, analyzable objects rather than just certificates of truth',
+      'sequent calculus and natural deduction as systematic formalizations of proof',
+      'the cut-elimination theorem and the subformula property',
+      'ordinal analysis: measuring the "strength" of a theory by the ordinal needed to prove its consistency',
+      'proof mining: extracting explicit bounds and algorithms from non-constructive proofs',
+    ],
+    whyItMatters:
+      "Proof theory turns 'how strong is this axiom system?' into a precise, calculable question: Gentzen's consistency proof for arithmetic showed exactly how much transfinite induction is needed to certify arithmetic's consistency, giving a concrete measure of mathematical strength that Gödel's theorems alone only showed must exist.",
+    prerequisites: ['foundations:axiomatic-method'],
+    related: ['logic:completeness-theorem', 'logic:incompleteness-theorems', 'proof-assistants:type-theory'],
+    historicalContext:
+      "David Hilbert launched proof theory explicitly around 1920 as the technical core of his program to prove the consistency of all of mathematics using only finitary methods, hoping to answer foundational worries raised by paradoxes in naive set theory. Gerhard Gentzen, a student in the Hilbert school, invented both natural deduction and the sequent calculus in his 1934-35 dissertation and proved the cut-elimination theorem, then in 1936 proved the consistency of Peano arithmetic using transfinite induction up to $\\varepsilon_0$ — a result Gödel's second incompleteness theorem (1931) had shown could not be achieved by finitary means alone, refining rather than refuting Hilbert's original goal.",
+    contributorIds: ['person:david-hilbert', 'person:gerhard-gentzen', 'person:kurt-godel'],
+    workIds: [],
+    exampleProblems: [
+      'Convert a simple natural-deduction proof of a propositional tautology into sequent-calculus form.',
+      'Explain what the cut-elimination theorem says and why cut-free proofs have the subformula property.',
+      "Explain why Gentzen's 1936 consistency proof for Peano arithmetic does not contradict Gödel's second incompleteness theorem.",
+    ],
+    applications: [
+      'automated theorem proving and proof search algorithms, which rely on cut-free (analytic) proof systems',
+      'type theory and functional programming, via the Curry-Howard correspondence between proofs and programs',
+      'formal verification of software and hardware, using proof assistants grounded in proof-theoretic foundations',
+    ],
+    researchDirections: [
+      'ordinal analysis of increasingly strong theories, measuring their proof-theoretic strength',
+      'proof mining, extracting quantitative and computational content from classical proofs in analysis',
+      'structural proof theory and linear logic, refining the resource-sensitivity of proofs',
+    ],
+    textbooks: [
+      {
+        title: 'Basic Proof Theory',
+        authors: ['A. S. Troelstra', 'H. Schwichtenberg'],
+        edition: '2nd',
+        year: 2000,
+        why: 'The standard modern introduction to sequent calculus, natural deduction, and cut-elimination.',
+      },
+      {
+        title: 'Proof Theory',
+        authors: ['Gaisi Takeuti'],
+        edition: '2nd',
+        year: 1987,
+        why: 'A classic, more advanced reference on ordinal analysis and the proof-theoretic strength of theories.',
+      },
+      {
+        title: 'Introduction to Metamathematics',
+        authors: ['Stephen C. Kleene'],
+        year: 1952,
+        why: 'The classic bridging text connecting proof theory to recursion theory and Hilbert\'s program.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sequent', latex: '\\Gamma \\vdash \\Delta' },
+      { label: "Gentzen's consistency bound", latex: '\\text{Con}(\\text{PA}) \\text{ provable from transfinite induction up to } \\varepsilon_0' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Proof theory', url: 'https://encyclopediaofmath.org/wiki/Proof_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Gerhard Gentzen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gentzen/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'foundations:model-theory': {
+    overview:
+      'Model theory studies the relationship between formal logical theories (sets of sentences) and their models (mathematical structures in which those sentences are true), revealing that a single consistent theory can have wildly different models, some highly unintuitive.',
+    formal:
+      "A structure $\\mathcal{M}$ is a model of a theory $T$ if every sentence in $T$ is true in $\\mathcal{M}$. The Compactness Theorem states that if every finite subset of $T$ has a model, so does $T$ itself. The Löwenheim-Skolem theorem states that if $T$ has an infinite model, it has models of every infinite cardinality at least as large as the cardinality of its language.",
+    keyIdeas: [
+      'a model as a mathematical structure satisfying a formal theory',
+      'the Compactness Theorem, a deceptively simple statement with far-reaching consequences',
+      "the Löwenheim-Skolem theorems and the resulting non-uniqueness of infinite models (Skolem's paradox)",
+      'elementary equivalence versus isomorphism: structures can satisfy exactly the same sentences without being isomorphic',
+      'using compactness to construct nonstandard models, such as in nonstandard analysis',
+    ],
+    whyItMatters:
+      "Model theory reveals that formal theories radically underdetermine their models: Peano arithmetic, for instance, has 'nonstandard' models containing infinite numbers alongside the ordinary ones, and this same compactness-based construction gives Abraham Robinson's nonstandard analysis a rigorous foundation for genuine infinitesimals, vindicating in a new form the reasoning Weierstrass's epsilon-delta program had seemingly banished.",
+    prerequisites: ['foundations:proof-theory'],
+    related: ['logic:completeness-theorem', 'set-theory:cardinals', 'algebraic-geometry:schemes'],
+    historicalContext:
+      "Leopold Löwenheim proved the first version of his eponymous theorem in 1915, and Thoralf Skolem generalized it and drew out its startling consequences — Skolem's paradox, that a countable model can satisfy sentences 'asserting' the existence of uncountable sets — in the 1920s. Kurt Gödel's 1929 doctoral thesis proved the Completeness Theorem for first-order logic, from which the Compactness Theorem follows as a corollary, tightly linking model theory to proof theory. Alfred Tarski's 1933 work on truth gave the precise semantic definition of 'a sentence is true in a structure' that model theory is built on, and Tarski's later Berkeley school turned model theory into a systematic field in the 1950s-60s.",
+    contributorIds: ['person:kurt-godel', 'person:alfred-tarski'],
+    workIds: ['work:model-theory'],
+    exampleProblems: [
+      'Use the Compactness Theorem to show that the theory of ordered fields has a model containing an infinitesimal element.',
+      'Explain Skolem\'s paradox: why a countable model of ZFC set theory can still satisfy the sentence "there exists an uncountable set."',
+      'Show that first-order Peano arithmetic has nonstandard models, using the Compactness Theorem.',
+    ],
+    applications: [
+      'nonstandard analysis, giving a rigorous foundation for infinitesimal reasoning in calculus',
+      'algebraic applications of model theory, such as the model-theoretic proof of the Ax-Grothendieck theorem',
+      'database theory and finite model theory, connecting logic to computational complexity',
+    ],
+    researchDirections: [
+      'o-minimality and tame geometry, using model theory to control the topology of definable sets',
+      "model theory's applications to Diophantine geometry, including the model-theoretic proof of the Mordell-Lang conjecture",
+      'stability theory, classifying theories by the complexity of their models',
+    ],
+    textbooks: [
+      {
+        title: 'Model Theory: An Introduction',
+        authors: ['David Marker'],
+        year: 2002,
+        why: 'The standard modern graduate introduction, connecting classical model theory to its applications in algebra and geometry.',
+      },
+      {
+        title: 'A Shorter Model Theory',
+        authors: ['Wilfrid Hodges'],
+        year: 1997,
+        why: 'A compact, widely used introduction praised for its clarity and efficient coverage of the core results.',
+      },
+      {
+        title: 'Model Theory',
+        authors: ['C. C. Chang', 'H. Jerome Keisler'],
+        edition: '3rd',
+        year: 1990,
+        why: 'The classic, comprehensive reference that has trained generations of model theorists.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Compactness Theorem', latex: '(\\forall T_0 \\subseteq T \\text{ finite},\\ T_0 \\text{ has a model}) \\implies T \\text{ has a model}' },
+      { label: 'Löwenheim-Skolem theorem', latex: 'T \\text{ has an infinite model} \\implies T \\text{ has a model of every infinite cardinality} \\ge |L|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Model theory', url: 'https://encyclopediaofmath.org/wiki/Model_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alfred Tarski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Tarski/', kind: 'reference' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+    ],
+  },
+  'foundations:recursion-theory': {
+    overview:
+      'Recursion theory (computability theory) studies which functions on the natural numbers can be computed by an algorithm at all, and classifies the uncomputable problems by how undecidable they are relative to each other.',
+    formal:
+      'A function $f:\\mathbb{N}\\to\\mathbb{N}$ is Turing-computable if some Turing machine, given input $n$, halts and outputs $f(n)$. The Church-Turing thesis asserts this formal notion coincides exactly with the informal notion of "algorithmically computable," a claim supported by the independent equivalence of Turing machines, Church\'s lambda calculus, and Gödel-Herbrand general recursive functions. The Halting Problem — deciding, given a program and input, whether it eventually halts — is undecidable (Turing, 1936); Turing reducibility lets one compare undecidable problems, organizing them into a hierarchy of Turing degrees.',
+    keyIdeas: [
+      'computability: which functions can be computed by some algorithm at all',
+      'the Church-Turing thesis identifying "algorithm" with formal models like Turing machines',
+      'the undecidability of the Halting Problem and its proof by diagonalization',
+      'Turing reducibility and the resulting hierarchy of Turing degrees',
+      'the arithmetical hierarchy, classifying undecidable problems by logical complexity',
+    ],
+    whyItMatters:
+      'Recursion theory establishes, once and for all, that some perfectly well-defined mathematical problems have no algorithmic solution whatsoever — not "no solution found yet," but a mathematical proof that none can exist — which is the theoretical bedrock underneath every discussion in computer science of what software can and cannot, in principle, do.',
+    prerequisites: ['foundations:model-theory'],
+    related: ['computation:computability', 'computation:lambda-calculus', 'theoretical-cs:formal-languages'],
+    historicalContext:
+      "Kurt Gödel's use of recursive functions to arithmetize syntax in his 1931 incompleteness proof supplied an early formal notion of 'effectively computable.' Alonzo Church (1936) proposed lambda-definability and Alan Turing (1936), independently and using an entirely different machine-based model, both captured the informal notion of computability and proved it equivalent to each other and to Gödel's recursive functions; Turing's paper additionally proved the Halting Problem undecidable and Hilbert's Entscheidungsproblem unsolvable. Stephen Kleene, a student of Church, developed recursive function theory systematically through the 1930s-50s, including the recursion theorem and the arithmetical hierarchy, cementing the field's modern form.",
+    contributorIds: ['person:alan-turing', 'person:alonzo-church', 'person:stephen-kleene'],
+    workIds: ['work:on-computable-numbers'],
+    exampleProblems: [
+      'Prove the Halting Problem is undecidable using a diagonalization argument.',
+      'Explain why the Church-Turing thesis is a thesis, an empirical or philosophical claim, rather than a theorem.',
+      'Give an example of two undecidable problems that are Turing-equivalent, and one pair that is not.',
+    ],
+    applications: [
+      'the theoretical limits of what software verification can achieve, given the undecidability of program correctness in general',
+      'computability-based lower bounds informing computational complexity theory',
+      'programming language semantics grounded in computability',
+    ],
+    researchDirections: [
+      'the structure of the Turing degrees, still only partially understood after 80+ years of study',
+      'algorithmic randomness, connecting recursion theory to Kolmogorov complexity and probability',
+      "reverse mathematics' use of computability-theoretic tools to classify the strength of mathematical theorems",
+    ],
+    textbooks: [
+      {
+        title: 'Turing Computability: Theory and Applications',
+        authors: ['Robert I. Soare'],
+        year: 2016,
+        why: 'The modern standard graduate text, by one of the field\'s leading researchers, unifying classical and contemporary computability theory.',
+      },
+      {
+        title: 'Theory of Recursive Functions and Effective Computability',
+        authors: ['Hartley Rogers Jr.'],
+        year: 1967,
+        why: 'The classic comprehensive reference that shaped the field for decades.',
+      },
+      {
+        title: 'Computability: An Introduction to Recursive Function Theory',
+        authors: ['Nigel Cutland'],
+        year: 1980,
+        why: 'A gentler, widely used undergraduate introduction to the same core results.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Church-Turing thesis (informal)', latex: '\\text{algorithmically computable} \\equiv \\text{Turing-computable}' },
+      { label: 'Halting Problem undecidability', latex: '\\nexists \\text{ Turing machine } H:\\ H(e,x) = [\\varphi_e(x)\\!\\downarrow]' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Recursive set theory', url: 'https://encyclopediaofmath.org/wiki/Recursive_set_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alan Turing', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Turing/', kind: 'reference' },
+      { label: 'MacTutor: Stephen Kleene', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kleene/', kind: 'reference' },
+    ],
+  },
+  'foundations:foundational-programs': {
+    overview:
+      'In the early 20th century, mathematicians launched rival programs to secure the foundations of mathematics after paradoxes emerged in naive set theory: logicism (reducing mathematics to logic), formalism (treating mathematics as symbol manipulation proved consistent by finitary means), and intuitionism (rebuilding mathematics on constructive mental activity alone). Gödel\'s theorems reshaped what any such program could hope to achieve.',
+    formal:
+      "Hilbert's program sought a finitary consistency proof for a formal system $S$ strong enough to encode classical mathematics. Gödel's second incompleteness theorem shows that if $S$ is consistent and strong enough to encode its own arithmetic, $S$ cannot prove its own consistency, showing Hilbert's program cannot succeed in its strongest form. Logicism, pursued in Russell and Whitehead's Principia Mathematica, aimed to derive all of mathematics from pure logic plus a few extra-logical axioms (such as the axiom of infinity), an ambition complicated by Russell's own paradox in naive logicist set theories.",
+    keyIdeas: [
+      "Hilbert's formalist program: prove the consistency of mathematics by finitary means",
+      "logicism: Russell and Whitehead's attempt to derive mathematics from pure logic",
+      "intuitionism: Brouwer's rejection of actual infinity and the unrestricted law of excluded middle",
+      "Russell's paradox and its role in destabilizing naive foundational systems",
+      "Gödel's incompleteness theorems reshaping, without simply destroying, Hilbert's program",
+    ],
+    whyItMatters:
+      'The foundational crisis of the early 20th century forced mathematicians to make explicit something previously taken for granted — what exactly is a mathematical proof, and what are we allowed to assume exists — and even though no single program "won," the crisis produced formal logic, recursion theory, and axiomatic set theory as permanent, load-bearing parts of modern mathematics.',
+    prerequisites: ['foundations:axiomatic-method'],
+    related: ['foundations:constructive-mathematics', 'set-theory:zermelo-fraenkel-axioms', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "Gottlob Frege's Grundgesetze der Arithmetik (1893, 1903) attempted to found arithmetic on pure logic, but Bertrand Russell's 1901 discovery of a paradox in Frege's system — does the set of all sets that do not contain themselves contain itself? — forced a crisis just as the second volume went to press. Russell and Alfred North Whitehead's Principia Mathematica (1910-13) rebuilt logicism using type theory to block the paradox. David Hilbert, worried by such paradoxes, proposed his formalist program around 1920 to secure mathematics via finitary consistency proofs, while L.E.J. Brouwer developed intuitionism as a rival, constructive foundation. Kurt Gödel's incompleteness theorems (1931) then showed Hilbert's strongest hopes could not be realized as originally envisioned, reshaping but not ending foundational research.",
+    contributorIds: ['person:bertrand-russell', 'person:david-hilbert', 'person:l-e-j-brouwer'],
+    workIds: ['work:principia-mathematica'],
+    exampleProblems: [
+      "State Russell's paradox and explain why it shows naive, unrestricted set comprehension is inconsistent.",
+      "Explain what Hilbert's program hoped to achieve and why Gödel's second incompleteness theorem limits it.",
+      'Contrast how logicism, formalism, and intuitionism would each treat the statement "there exists an infinite set."',
+    ],
+    applications: [
+      'the type theory developed to block Russell\'s paradox, a direct ancestor of type systems in proof assistants and functional programming',
+      'ZFC set theory, developed partly in response to these debates, as the standard foundation used throughout mathematics today',
+    ],
+    researchDirections: [
+      'homotopy type theory and univalent foundations as a contemporary rival foundational program',
+      'reverse mathematics, precisely calibrating how much of classical mathematics different foundational fragments can recover',
+      'the philosophy of mathematical practice, examining what working mathematicians actually assume versus what any single program prescribes',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Metamathematics',
+        authors: ['Stephen C. Kleene'],
+        year: 1952,
+        why: 'A classic that surveys logicism, formalism, and intuitionism alongside the technical machinery each produced.',
+      },
+      {
+        title: "Gödel's Theorem: An Incomplete Guide to Its Use and Abuse",
+        authors: ['Torkel Franzén'],
+        year: 2005,
+        why: "A clear, careful account of what Gödel's theorems do and do not imply for Hilbert's program.",
+      },
+      {
+        title: 'Thinking About Mathematics: The Philosophy of Mathematics',
+        authors: ['Stewart Shapiro'],
+        year: 2000,
+        why: 'A widely used survey of the rival foundational schools and their philosophical motivations.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Russell's paradox", latex: 'R = \\{x : x \\notin x\\} \\implies R \\in R \\iff R \\notin R' },
+      { label: "Gödel's second incompleteness theorem (informal)", latex: 'S \\vdash \\text{Con}(S) \\implies S \\text{ is inconsistent (for suitable } S\\text{)}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Foundations of mathematics', url: 'https://en.wikipedia.org/wiki/Foundations_of_mathematics', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bertrand Russell', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Russell/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'foundations:constructive-mathematics': {
+    overview:
+      'Constructive mathematics insists that to prove something exists, you must show how to build it, or give an algorithm that would build it, rejecting proofs by contradiction that merely rule out non-existence without ever exhibiting the object in question.',
+    formal:
+      'Constructive (intuitionistic) logic rejects the unrestricted law of excluded middle, $P \\vee \\neg P$, as a general axiom, since asserting it for an undecided statement $P$ would claim knowledge not actually available. A constructive proof of $\\exists x\\, \\phi(x)$ must supply a specific witness $x_0$ together with a proof of $\\phi(x_0)$, rather than merely deriving a contradiction from $\\forall x\\, \\neg\\phi(x)$.',
+    keyIdeas: [
+      'constructive existence proofs must exhibit a witness, not merely rule out non-existence',
+      'the rejection of the unrestricted law of excluded middle for undecided propositions',
+      'the Brouwer-Heyting-Kolmogorov interpretation of logical connectives in terms of constructions',
+      'the Curry-Howard correspondence between constructive proofs and computer programs',
+      'constructive analysis, rebuilding real analysis on constructive foundations',
+    ],
+    whyItMatters:
+      'Constructive mathematics is not merely a philosophical scruple: because a constructive proof must supply an algorithm, constructive mathematics and computer science turn out to be deeply connected, and the Curry-Howard correspondence shows that "proof" and "program" are, in a precise formal sense, the same kind of object — which is why every modern interactive proof assistant (Coq, Lean, Agda) is built on a constructive type theory.',
+    prerequisites: ['foundations:foundational-programs'],
+    related: ['proof-assistants:type-theory', 'proof-assistants:dependent-types', 'logic:intuitionistic-logic'],
+    historicalContext:
+      "L.E.J. Brouwer launched intuitionism, the philosophical wellspring of constructive mathematics, in his 1907 dissertation and subsequent papers, rejecting the actual infinite and the unrestricted law of excluded middle as illegitimately extrapolated from finite experience. Arend Heyting, Brouwer's student, formalized intuitionistic logic in 1930, giving a precise proof system for what had been a largely informal philosophical position. Errett Bishop's Foundations of Constructive Analysis (1967) then dramatically changed the field's reputation by reconstructing large parts of real and functional analysis constructively, in an ordinary, readable mathematical style, showing constructive mathematics could be practiced without the idiosyncratic philosophical apparatus Brouwer had insisted upon.",
+    contributorIds: ['person:l-e-j-brouwer', 'person:errett-bishop'],
+    workIds: [],
+    exampleProblems: [
+      'Explain why a classical proof of the Intermediate Value Theorem is not automatically constructive, and describe the extra hypothesis constructive analysis typically adds to recover it.',
+      'Show, using the Brouwer-Heyting-Kolmogorov interpretation, what a constructive proof of "P or Q" must supply.',
+      'Explain the basic idea of the Curry-Howard correspondence, matching implication to function types and conjunction to pairs.',
+    ],
+    applications: [
+      'type theory and functional programming languages, whose type systems are direct descendants of constructive logic',
+      'interactive proof assistants (Coq, Agda, Lean) built on constructive dependent type theory',
+      'extracting certified, executable algorithms directly from constructive existence proofs',
+    ],
+    researchDirections: [
+      'homotopy type theory, a modern constructive foundation unifying type theory with ideas from homotopy theory',
+      'constructive reverse mathematics, classifying which classical theorems have constructive proofs',
+      'the formalization of large bodies of mathematics in constructive proof assistants',
+    ],
+    textbooks: [
+      {
+        title: 'Constructive Analysis',
+        authors: ['Errett Bishop', 'Douglas Bridges'],
+        year: 1985,
+        why: "The direct successor to Bishop's original 1967 text and still the standard reference for constructive analysis.",
+      },
+      {
+        title: 'Constructivism in Mathematics',
+        authors: ['A. S. Troelstra', 'Dirk van Dalen'],
+        year: 1988,
+        why: 'A comprehensive two-volume reference covering the full range of constructive foundations and their logic.',
+      },
+      {
+        title: 'Foundations of Constructive Mathematics',
+        authors: ['Michael J. Beeson'],
+        year: 1985,
+        why: 'Connects constructive mathematics directly to metamathematics and proof theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'BHK interpretation of existence', latex: '\\exists x\\,\\phi(x) \\text{ proved by exhibiting } x_0 \\text{ and a proof of } \\phi(x_0)' },
+      { label: 'Rejected as a general axiom', latex: 'P \\vee \\neg P \\ \\text{(law of excluded middle)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Constructive mathematics', url: 'https://encyclopediaofmath.org/wiki/Constructive_mathematics', kind: 'encyclopedia' },
+      { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
+      { label: 'MacTutor: Errett Bishop', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bishop/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -4111,6 +4506,10 @@ const personRows = [
   ['Andrei Markov', '1856-1922', 'Russia', 'probability', 'Markov chains and dependent sequences of trials'],
   ['Felix Hausdorff', '1868-1942', 'Germany', 'topology', 'the axiomatic theory of topological and metric spaces'],
   ['Ernst Kummer', '1810-1893', 'Germany', 'number-theory', 'ideal numbers and cyclotomic fields'],
+  ['Gerhard Gentzen', '1909-1945', 'Germany', 'foundations', 'natural deduction, sequent calculus, and consistency proofs'],
+  ['Alfred Tarski', '1901-1983', 'Poland/USA', 'foundations', 'the semantic definition of truth and model theory'],
+  ['Bertrand Russell', '1872-1970', 'United Kingdom', 'foundations', 'logicism and the theory of types'],
+  ['Errett Bishop', '1928-1983', 'USA', 'foundations', 'constructive analysis'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -4148,6 +4547,8 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
   'person:david-hilbert': [
     'foundations:axiomatic-method',
+    'foundations:proof-theory',
+    'foundations:foundational-programs',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
     'algebra:rings',
@@ -4194,9 +4595,10 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:andrei-markov': ['probability:markov-chains'],
   'person:felix-hausdorff': ['topology:point-set-topology'],
   'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
-  'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'topology:homotopy'],
+  'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'foundations:foundational-programs', 'topology:homotopy'],
   'person:grigori-perelman': ['topology:manifolds'],
-  'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers'],
+  'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers', 'foundations:axiomatic-method'],
+  'person:nikolai-lobachevsky': ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method'],
   'person:carl-friedrich-gauss': ['number-theory:prime-numbers', 'number-theory:modular-arithmetic'],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
@@ -4204,6 +4606,14 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:andrew-wiles': ['number-theory:diophantine-equations', 'number-theory:modular-forms'],
   'person:srinivasa-ramanujan': ['number-theory:modular-forms'],
   'person:ernst-kummer': ['number-theory:diophantine-equations', 'number-theory:algebraic-number-theory'],
+  'person:kurt-godel': ['logic:propositional-logic', 'foundations:proof-theory', 'foundations:model-theory'],
+  'person:alan-turing': ['computation:algorithms', 'foundations:recursion-theory'],
+  'person:alonzo-church': ['computation:lambda-calculus', 'foundations:recursion-theory'],
+  'person:stephen-kleene': ['foundations:recursion-theory'],
+  'person:gerhard-gentzen': ['foundations:proof-theory'],
+  'person:alfred-tarski': ['foundations:model-theory'],
+  'person:bertrand-russell': ['foundations:foundational-programs'],
+  'person:errett-bishop': ['foundations:constructive-mathematics'],
 };
 
 export const people: Person[] = personRows.map(
@@ -4351,6 +4761,10 @@ const workTopicOverrides: Record<string, string[]> = {
   ],
   'work:arithmetica': ['number-theory:diophantine-equations'],
   'work:a-course-in-arithmetic': ['number-theory:modular-forms'],
+  'work:elements': ['geometry:euclidean-geometry', 'foundations:axiomatic-method'],
+  'work:principia-mathematica': ['logic:propositional-logic', 'foundations:foundational-programs'],
+  'work:on-computable-numbers': ['computation:computability', 'foundations:recursion-theory'],
+  'work:model-theory': ['foundations:model-theory'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

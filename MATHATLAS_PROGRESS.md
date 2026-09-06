@@ -25,7 +25,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 
 ## Remaining fields (40)
 
-- [ ] foundations
+- [x] foundations
 - [ ] logic
 - [ ] set-theory
 - [ ] category-theory
