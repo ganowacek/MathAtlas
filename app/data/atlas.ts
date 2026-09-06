@@ -1233,7 +1233,7 @@ const topicExtras: Record<string, Partial<Topic>> = {
     keyFormulas: [
       { label: 'Taylor series', latex: 'f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n' },
       { label: 'Lagrange remainder', latex: 'R_N(x)=\\frac{f^{(N+1)}(\\xi)}{(N+1)!}(x-x_0)^{N+1}' },
-      { label: 'Maclaurin series of $e^x$', latex: 'e^x=\\sum_{n=0}^{\\infty}\\frac{x^n}{n!}' },
+      { label: 'Maclaurin series of e^x', latex: 'e^x=\\sum_{n=0}^{\\infty}\\frac{x^n}{n!}' },
     ],
     externalRefs: [
       { label: 'Encyclopedia of Mathematics: Taylor series', url: 'https://encyclopediaofmath.org/wiki/Taylor_series', kind: 'encyclopedia' },
@@ -1381,10 +1381,424 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: Divergence theorem', url: 'https://en.wikipedia.org/wiki/Divergence_theorem', kind: 'encyclopedia' },
     ],
   },
-  'linear-algebra:eigenvalues': {
+  'linear-algebra:vector-spaces': {
+    overview:
+      'A vector space is a collection of objects — "vectors" — that can be added to each other and scaled by numbers (scalars) from some field, in a way that behaves like ordinary arithmetic with arrows in the plane. The point of the axioms is that they capture exactly what $\\mathbb{R}^n$, polynomials, matrices, and function spaces all have in common, so any theorem proved from the axioms alone applies to all of them at once.',
     formal:
-      'A scalar lambda is an eigenvalue of a linear map T when there is a nonzero vector v with T(v)=lambda v.',
-    keyIdeas: ['invariant directions', 'spectra', 'diagonalization', 'dynamical modes'],
+      'A vector space over a field $F$ is a set $V$ with an operation $+:V\\times V\\to V$ and a scalar multiplication $\\cdot:F\\times V\\to V$ such that $(V,+)$ is an abelian group with identity $0$, and for all $a,b\\in F$, $u,v\\in V$: $a(u+v)=au+av$, $(a+b)v=av+bv$, $(ab)v=a(bv)$, and $1v=v$. A finite subset $\\{v_1,\\dots,v_n\\}$ is a basis if it is linearly independent and spans $V$; the Steinitz exchange lemma shows every basis of a finite-dimensional $V$ has the same size, called $\\dim V$.',
+    keyIdeas: [
+      'linear combinations and span',
+      'linear independence versus redundancy',
+      'basis and the well-definedness of dimension (Steinitz exchange lemma)',
+      'subspaces, direct sums $V=U\\oplus W$, and quotient spaces $V/U$',
+      'the dual space $V^*$ of linear functionals on $V$',
+    ],
+    whyItMatters:
+      "Vector spaces are the single most reused structure in mathematics: the axioms say nothing about what a 'vector' is, so the same theorems about span, independence, and dimension apply verbatim to arrows in $\\mathbb{R}^3$, to polynomials, to solution sets of linear differential equations, and to quantum states in a Hilbert space. This abstraction is what lets a single course in linear algebra pay off across analysis, physics, statistics, and computer science.",
+    prerequisites: [],
+    related: ['linear-algebra:matrices', 'abstract-algebra:field-theory', 'functional-analysis:normed-spaces'],
+    historicalContext:
+      "Hermann Grassmann's Die lineale Ausdehnungslehre (1844, revised 1862) gave the first abstract, coordinate-free calculus of $n$-dimensional 'extensive quantities,' including linear independence and dimension, but its idiosyncratic philosophical style meant it was barely read for decades. Giuseppe Peano gave the modern, explicit list of vector space axioms — for finite- and infinite-dimensional real spaces alike — in Calcolo Geometrico (1888), crediting Grassmann's ideas but restating them in the algebraic form still used today. Hermann Weyl's Space, Time, Matter (1918) and later Bourbaki's Éléments de mathématique cemented the axiomatic vector space as the standard starting point of linear algebra.",
+    contributorIds: ['person:hermann-grassmann', 'person:giuseppe-peano'],
+    workIds: ['work:die-lineale-ausdehnungslehre', 'work:linear-algebra-and-its-applications'],
+    exampleProblems: [
+      "Show that the set of solutions to the differential equation $y''+y=0$ forms a 2-dimensional real vector space, and exhibit a basis.",
+      'Prove that any two bases of a finite-dimensional vector space have the same number of elements.',
+      'Determine whether $1,\\,x,\\,x^2,\\,x^3$ form a basis for the vector space of real polynomials of degree at most 3.',
+    ],
+    applications: [
+      'state spaces in quantum mechanics (Hilbert spaces)',
+      'function spaces in signal processing and Fourier analysis',
+      'feature spaces and embeddings in machine learning',
+      'coordinate and transformation systems in computer graphics',
+    ],
+    researchDirections: [
+      'infinite-dimensional and topological vector spaces in functional analysis',
+      'representation theory: vector spaces equipped with a group action',
+      'sparse and low-rank structure in high-dimensional vector spaces of data',
+    ],
+    textbooks: [
+      {
+        title: 'Linear Algebra Done Right',
+        authors: ['Sheldon Axler'],
+        edition: '4th',
+        year: 2024,
+        why: 'Builds linear algebra from vector spaces and linear maps rather than determinants, and is now a standard undergraduate text at many universities precisely for that conceptual approach.',
+      },
+      {
+        title: 'Finite-Dimensional Vector Spaces',
+        authors: ['Paul R. Halmos'],
+        edition: '2nd',
+        year: 1958,
+        why: 'A famously clean, axiomatic exposition that shaped how generations of mathematicians think about vector spaces, bases, and duality.',
+      },
+      {
+        title: 'Linear Algebra',
+        authors: ['Kenneth Hoffman', 'Ray Kunze'],
+        edition: '2nd',
+        year: 1971,
+        why: 'A rigorous, proof-first treatment of vector spaces over general fields, long used in more theoretical undergraduate and beginning graduate courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Vector space axioms (distributivity)', latex: 'a(u+v)=au+av,\\qquad (a+b)v=av+bv' },
+      { label: 'Dimension of a direct sum', latex: '\\dim(U\\oplus W)=\\dim U+\\dim W' },
+      { label: 'Dimension (rank-nullity precursor)', latex: '\\dim V = |\\{v_1,\\dots,v_n\\}| \\text{ for any basis of } V' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Vector space', url: 'https://encyclopediaofmath.org/wiki/Vector_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hermann Grassmann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grassmann/', kind: 'reference' },
+      { label: 'MacTutor: Giuseppe Peano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Peano/', kind: 'reference' },
+    ],
+  },
+  'linear-algebra:matrices': {
+    overview:
+      'A matrix is a rectangular array of numbers that represents a linear map between finite-dimensional vector spaces once bases are chosen. Matrix addition and multiplication are defined precisely so that they mirror composing and combining linear maps, which is why matrix algebra, despite looking like a bookkeeping device, encodes the entire theory of linear transformations.',
+    formal:
+      'An $m\\times n$ matrix over a field $F$ is an array $A=(a_{ij})\\in F^{m\\times n}$. Given a linear map $T:V\\to W$ and ordered bases of $V$ and $W$, the matrix of $T$ is the array whose $j$-th column lists the coordinates of $T(v_j)$; composition of linear maps corresponds to matrix multiplication, $(AB)_{ik}=\\sum_j a_{ij}b_{jk}$, and this product is associative but in general not commutative.',
+    keyIdeas: [
+      'a matrix as the coordinate representation of a linear map',
+      'matrix multiplication as composition of linear maps',
+      'row reduction (Gaussian elimination) for solving linear systems',
+      'rank, column space, and null space',
+      'change of basis and similarity of matrices',
+    ],
+    whyItMatters:
+      'Once a linear map is written as a matrix, abstract questions about vector spaces become concrete arithmetic that computers can execute: solving linear systems, fitting data by least squares, rotating a 3D model, or propagating signals through a neural network layer are all matrix multiplications. Matrix algebra is the computational engine that makes linear algebra practically useful, not just theoretically elegant.',
+    prerequisites: ['linear-algebra:vector-spaces'],
+    related: ['linear-algebra:determinants', 'linear-algebra:eigenvalues', 'numerical-analysis:numerical-linear-algebra'],
+    historicalContext:
+      'Systems of linear equations and array-based elimination methods go back to the Chinese text Jiuzhang Suanshu (Nine Chapters on the Mathematical Art, c. 200 BCE), which describes a counting-rod procedure equivalent to Gaussian elimination. The word and modern concept of a "matrix" as an algebraic object in its own right — separate from the determinant it could produce — was introduced by James Joseph Sylvester in 1850, and Arthur Cayley\'s A Memoir on the Theory of Matrices (1858) first defined matrix addition, multiplication, and inversion and proved the Cayley-Hamilton theorem for small cases, founding matrix algebra as a subject.',
+    contributorIds: ['person:arthur-cayley', 'person:james-joseph-sylvester'],
+    workIds: ['work:a-memoir-on-the-theory-of-matrices'],
+    exampleProblems: [
+      'Use Gaussian elimination to solve the system $x+2y-z=3,\\ 2x-y+3z=1,\\ 3x+y+2z=7$, or show it is inconsistent.',
+      'Show that matrix multiplication is associative directly from the definition $(AB)_{ik}=\\sum_j a_{ij}b_{jk}$.',
+      'Find the rank of $A=\\begin{pmatrix}1&2&1\\\\2&4&3\\\\3&6&4\\end{pmatrix}$ and describe its null space.',
+    ],
+    applications: [
+      'solving linear systems in engineering and physics',
+      'representing rotations, projections, and transformations in computer graphics',
+      'weight matrices and layer computations in neural networks',
+      'Markov transition matrices in probability and PageRank-style algorithms',
+    ],
+    researchDirections: [
+      'randomized and communication-efficient algorithms for very large matrices',
+      'structured and sparse matrix computations for large-scale scientific computing',
+      'tensor generalizations of matrix decompositions for multiway data',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Linear Algebra',
+        authors: ['Gilbert Strang'],
+        edition: '6th',
+        year: 2023,
+        why: "The text for MIT's 18.06 course and one of the most widely used linear algebra books worldwide, built around concrete matrix computation and its four fundamental subspaces.",
+      },
+      {
+        title: 'Matrix Analysis',
+        authors: ['Roger A. Horn', 'Charles R. Johnson'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The standard graduate reference for matrix theory: canonical forms, norms, and structural results, cited across pure and applied linear algebra.',
+      },
+      {
+        title: 'Numerical Linear Algebra',
+        authors: ['Lloyd N. Trefethen', 'David Bau III'],
+        year: 1997,
+        why: 'Reframes classical matrix algebra (factorizations, conditioning, elimination) from the algorithmic and numerical-stability perspective needed for real computation.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Matrix multiplication', latex: '(AB)_{ik}=\\sum_{j=1}^n a_{ij}b_{jk}' },
+      { label: 'Rank-nullity theorem', latex: '\\operatorname{rank}(A)+\\dim(\\ker A)=n' },
+      { label: 'Matrix inverse condition', latex: 'AA^{-1}=A^{-1}A=I \\iff \\det A\\neq 0' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Matrix algebra', url: 'https://encyclopediaofmath.org/wiki/Matrix_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: Matrices and determinants', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/', kind: 'reference' },
+      { label: 'MacTutor: James Joseph Sylvester', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/', kind: 'reference' },
+    ],
+  },
+  'linear-algebra:determinants': {
+    overview:
+      'The determinant is a single number computed from a square matrix that measures how the associated linear map scales volume and whether it reverses orientation. A matrix is invertible exactly when its determinant is nonzero, which makes the determinant a compact test for whether a linear system has a unique solution.',
+    formal:
+      'For an $n\\times n$ matrix $A=(a_{ij})$ over a commutative ring, $\\det A=\\sum_{\\sigma\\in S_n}\\operatorname{sgn}(\\sigma)\\prod_{i=1}^n a_{i,\\sigma(i)}$, summed over all permutations $\\sigma$ of $\\{1,\\dots,n\\}$. Equivalently, the determinant is the unique alternating multilinear function of the columns of $A$ normalized so $\\det I=1$; geometrically $|\\det A|$ is the volume of the parallelepiped spanned by the columns of $A$, and $\\det(AB)=\\det A\\det B$.',
+    keyIdeas: [
+      'the determinant as signed volume scaling factor',
+      'multilinearity and alternation in the columns',
+      'cofactor (Laplace) expansion and the adjugate formula for the inverse',
+      "Cramer's rule for solving linear systems",
+      'invertibility criterion: $A$ invertible iff $\\det A\\neq 0$',
+    ],
+    whyItMatters:
+      "The determinant packages an enormous amount of linear-algebraic information — invertibility, orientation, volume distortion, and the characteristic polynomial used to find eigenvalues — into one scalar computed by a fixed formula, which is why it recurs everywhere from solving linear systems to the Jacobian in multivariable calculus's change-of-variables formula.",
+    prerequisites: ['linear-algebra:matrices'],
+    related: ['linear-algebra:eigenvalues', 'calculus:multivariable-calculus', 'abstract-algebra:ring-theory'],
+    historicalContext:
+      "Special cases of determinant-like elimination appear in Gerolamo Cardano's Ars Magna (1545) for 2x2 systems, and Seki Takakazu in Japan (1683) and Gottfried Wilhelm Leibniz in Europe (1693, in a letter to l'Hopital) independently gave early determinant-style formulas for eliminating variables from linear systems. Gabriel Cramer stated his eponymous rule in 1750, and Augustin-Louis Cauchy gave the first systematic, near-modern treatment — including the term 'determinant' in its current sense, the multiplication theorem $\\det(AB)=\\det A \\det B$, and the connection to alternating functions — in an 1812 memoir.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:carl-friedrich-gauss'],
+    workIds: ['work:a-memoir-on-the-theory-of-matrices'],
+    exampleProblems: [
+      'Compute $\\det\\begin{pmatrix}2&1&0\\\\1&3&1\\\\0&1&2\\end{pmatrix}$ by cofactor expansion and verify it with row reduction.',
+      "Use Cramer's rule to solve $2x+y=5,\\ x-3y=-1$, and explain why the method fails when the coefficient determinant is zero.",
+      'Prove that swapping two rows of a matrix negates its determinant, directly from the permutation-sum definition.',
+    ],
+    applications: [
+      'testing invertibility of linear systems in engineering and physics',
+      'the Jacobian determinant in multivariable change of variables and probability density transformations',
+      'orientation and volume computations in computer graphics and computational geometry',
+      'the characteristic polynomial used to compute eigenvalues',
+    ],
+    researchDirections: [
+      'fast and numerically stable determinant and permanent computation for large matrices',
+      'determinantal point processes in probability and statistical physics',
+      'generalizations of the determinant to non-commutative and quantum settings (quasideterminants)',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Linear Algebra',
+        authors: ['Gilbert Strang'],
+        edition: '6th',
+        year: 2023,
+        why: 'Presents the determinant through its defining properties (multilinear, alternating, normalized) alongside cofactor expansion and geometric volume interpretation.',
+      },
+      {
+        title: 'Linear Algebra',
+        authors: ['Kenneth Hoffman', 'Ray Kunze'],
+        edition: '2nd',
+        year: 1971,
+        why: 'Gives a fully rigorous, axiomatic construction of the determinant as the unique alternating multilinear form, over an arbitrary field.',
+      },
+      {
+        title: 'Matrix Analysis',
+        authors: ['Roger A. Horn', 'Charles R. Johnson'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The standard reference for determinant identities, inequalities, and their role in matrix theory beyond the introductory course.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Leibniz formula', latex: '\\det A=\\sum_{\\sigma\\in S_n}\\operatorname{sgn}(\\sigma)\\prod_{i=1}^n a_{i,\\sigma(i)}' },
+      { label: 'Multiplicativity', latex: '\\det(AB)=\\det A\\,\\det B' },
+      { label: "Cramer's rule", latex: 'x_i=\\frac{\\det A_i}{\\det A}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Determinant', url: 'https://encyclopediaofmath.org/wiki/Determinant', kind: 'encyclopedia' },
+      { label: 'MacTutor: Matrices and determinants', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'linear-algebra:eigenvalues': {
+    overview:
+      'An eigenvector of a linear map is a nonzero vector whose direction is left unchanged by the map — it is only stretched or shrunk by a scalar factor, its eigenvalue. Eigenvalues and eigenvectors reveal the "natural axes" of a linear transformation: directions along which its complicated action reduces to simple scalar multiplication.',
+    formal:
+      'For a linear operator $T:V\\to V$ (or matrix $A\\in F^{n\\times n}$), $\\lambda\\in F$ is an eigenvalue if there is a nonzero $v\\in V$ with $Tv=\\lambda v$; such $v$ is an eigenvector. Eigenvalues are exactly the roots of the characteristic polynomial $p(\\lambda)=\\det(A-\\lambda I)$. If $A$ has $n$ linearly independent eigenvectors, $A=PDP^{-1}$ where $D$ is diagonal with the eigenvalues on the diagonal and the columns of $P$ are the corresponding eigenvectors; the spectral theorem strengthens this to $A=Q\\Lambda Q^{T}$ with $Q$ orthogonal whenever $A$ is real symmetric.',
+    keyIdeas: [
+      'invariant directions (eigenvectors) and their scaling factors (eigenvalues)',
+      'the characteristic polynomial $\\det(A-\\lambda I)$ and algebraic vs. geometric multiplicity',
+      'diagonalizability and the Jordan normal form when a full eigenbasis fails to exist',
+      'the spectral theorem for real symmetric / Hermitian matrices',
+      'eigenvalues as steady-state or resonant modes of a linear dynamical system',
+    ],
+    whyItMatters:
+      'Diagonalizing a matrix via its eigenvalues turns a coupled linear system into independent one-dimensional problems, which is why eigenvalues govern the long-run behavior of Markov chains, the stability of equilibria in dynamical systems, the vibration modes of a physical structure, and the principal components extracted from data.',
+    prerequisites: ['linear-algebra:determinants'],
+    related: ['linear-algebra:inner-product-spaces', 'dynamical-systems:fixed-points', 'linear-algebra:singular-value-decomposition'],
+    historicalContext:
+      "Euler and Lagrange encountered eigenvalue-like quantities in the 1740s-1770s while analyzing the principal axes of rotation of rigid bodies and secular perturbations in planetary orbits; Cauchy proved in 1829 that the eigenvalues (which he called 'racines caracteristiques') of a real symmetric matrix are always real, an early form of the spectral theorem, while studying quadratic forms and principal axes of ellipsoids of inertia. David Hilbert introduced the German term 'Eigenwert' around 1904 while extending the theory to infinite-dimensional integral operators, and Camille Jordan's 1870 canonical form theory resolved the case where a matrix cannot be diagonalized.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:camille-jordan', 'person:david-hilbert'],
+    workIds: ['work:a-memoir-on-the-theory-of-matrices'],
+    exampleProblems: [
+      'Find the eigenvalues and eigenvectors of $A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ and diagonalize it.',
+      'Show that $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ has only one linearly independent eigenvector and so cannot be diagonalized; find its Jordan form.',
+      'Prove that a real symmetric matrix has only real eigenvalues.',
+    ],
+    applications: [
+      'principal component analysis for dimensionality reduction in data science',
+      "Google's PageRank algorithm as the dominant eigenvector of a web-link matrix",
+      'stability analysis of equilibria in dynamical systems and control theory',
+      'vibration modes and resonant frequencies in mechanical and structural engineering',
+    ],
+    researchDirections: [
+      'randomized and iterative eigenvalue algorithms for enormous sparse matrices',
+      'spectral graph theory: eigenvalues of adjacency and Laplacian matrices as structural invariants',
+      'spectral theory of operators on infinite-dimensional Hilbert spaces (quantum mechanics)',
+    ],
+    textbooks: [
+      {
+        title: 'Linear Algebra Done Right',
+        authors: ['Sheldon Axler'],
+        edition: '4th',
+        year: 2024,
+        why: 'Organizes the entire book around eigenvalues and eigenvectors of linear operators, reaching the spectral theorem without relying on determinants.',
+      },
+      {
+        title: 'Introduction to Linear Algebra',
+        authors: ['Gilbert Strang'],
+        edition: '6th',
+        year: 2023,
+        why: 'The standard applied treatment of diagonalization, symmetric matrices, and their use in solving systems of differential equations.',
+      },
+      {
+        title: 'Matrix Analysis',
+        authors: ['Roger A. Horn', 'Charles R. Johnson'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The definitive graduate reference on eigenvalue theory, canonical forms, and spectral inequalities.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Eigenvalue equation', latex: 'Av=\\lambda v' },
+      { label: 'Characteristic polynomial', latex: 'p(\\lambda)=\\det(A-\\lambda I)' },
+      { label: 'Diagonalization', latex: 'A=PDP^{-1}' },
+      { label: 'Spectral theorem (symmetric case)', latex: 'A=Q\\Lambda Q^{T},\\quad Q^{T}Q=I' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Eigen value', url: 'https://encyclopediaofmath.org/wiki/Eigen_value', kind: 'encyclopedia' },
+      { label: 'MacTutor: Camille Jordan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Jordan/', kind: 'reference' },
+      { label: 'Wikipedia: Eigenvalues and eigenvectors', url: 'https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors', kind: 'encyclopedia' },
+    ],
+  },
+  'linear-algebra:inner-product-spaces': {
+    overview:
+      'An inner product space is a vector space equipped with a notion of angle and length: an inner product $\\langle u,v\\rangle$ that generalizes the familiar dot product. This single extra structure lets you talk about orthogonality, projection, and distance, turning bare linear algebra into geometry.',
+    formal:
+      'An inner product on a real (or complex) vector space $V$ is a map $\\langle\\cdot,\\cdot\\rangle:V\\times V\\to \\mathbb{R}$ (or $\\mathbb{C}$) that is linear in the first argument, conjugate-symmetric ($\\langle u,v\\rangle=\\overline{\\langle v,u\\rangle}$), and positive definite ($\\langle v,v\\rangle>0$ for $v\\neq 0$); it induces the norm $\\|v\\|=\\sqrt{\\langle v,v\\rangle}$. Every inner product satisfies the Cauchy-Schwarz inequality $|\\langle u,v\\rangle|\\le \\|u\\|\\,\\|v\\|$, and the Gram-Schmidt process converts any basis into an orthonormal one, $\\{e_1,\\dots,e_n\\}$ with $\\langle e_i,e_j\\rangle=\\delta_{ij}$.',
+    keyIdeas: [
+      'the inner product as a generalized dot product measuring angle and length',
+      'orthogonality and orthonormal bases via Gram-Schmidt',
+      'orthogonal projection onto a subspace as the best approximation',
+      'the Cauchy-Schwarz and triangle inequalities',
+      'self-adjoint (symmetric/Hermitian) operators and the spectral theorem',
+    ],
+    whyItMatters:
+      'Adding an inner product is what makes least-squares regression, Fourier series, and quantum mechanics possible: each is fundamentally about projecting a vector orthogonally onto a subspace (the best-fit line, the closest trigonometric approximation, the most likely measured state), and orthogonal projection only makes sense once you have an inner product to define "closest" and "perpendicular."',
+    prerequisites: ['linear-algebra:eigenvalues'],
+    related: ['linear-algebra:singular-value-decomposition', 'functional-analysis:hilbert-spaces', 'real-analysis:fourier-series'],
+    historicalContext:
+      "The geometric dot product for vectors in $\\mathbb{R}^3$ was formalized by Josiah Willard Gibbs and Oliver Heaviside in the 1880s from Hamilton's quaternion calculus, but the abstract axiomatic inner product space emerged from David Hilbert's 1904-1910 work on integral equations, where he studied sequence and function spaces with an inner-product-like bilinear form to generalize Fourier analysis. John von Neumann coined the term 'Hilbert space' in 1929 and gave the modern axiomatic definition while formalizing the mathematics of quantum mechanics, in which inner products directly compute transition probabilities between states.",
+    contributorIds: ['person:david-hilbert', 'person:john-von-neumann', 'person:augustin-louis-cauchy'],
+    workIds: [],
+    exampleProblems: [
+      'Apply the Gram-Schmidt process to $v_1=(1,1,0),\\,v_2=(1,0,1)$ to produce an orthonormal basis for their span.',
+      'Prove the Cauchy-Schwarz inequality $|\\langle u,v\\rangle|\\le\\|u\\|\\|v\\|$ starting from positive definiteness of $\\|u-tv\\|^2$.',
+      'Find the orthogonal projection of $(1,2,3)$ onto the plane $x+y+z=0$.',
+    ],
+    applications: [
+      'least-squares curve fitting and linear regression',
+      'Fourier series as orthogonal projection onto sinusoidal basis functions',
+      'quantum mechanics, where inner products of state vectors give transition probabilities',
+      'orthogonal matrices and rotations in computer graphics and robotics',
+    ],
+    researchDirections: [
+      'reproducing kernel Hilbert spaces underlying kernel methods in machine learning',
+      'infinite-dimensional inner product (Hilbert) spaces in functional analysis and quantum theory',
+      'indefinite and Krein-space inner products in relativity and signal processing',
+    ],
+    textbooks: [
+      {
+        title: 'Linear Algebra Done Right',
+        authors: ['Sheldon Axler'],
+        edition: '4th',
+        year: 2024,
+        why: 'Devotes a full, careful chapter to inner product spaces, orthogonality, and the spectral theorem for self-adjoint and normal operators.',
+      },
+      {
+        title: 'Finite-Dimensional Vector Spaces',
+        authors: ['Paul R. Halmos'],
+        edition: '2nd',
+        year: 1958,
+        why: 'A classic axiomatic treatment that moves cleanly from vector spaces to inner products, adjoints, and self-adjoint transformations.',
+      },
+      {
+        title: 'Introduction to Linear Algebra',
+        authors: ['Gilbert Strang'],
+        edition: '6th',
+        year: 2023,
+        why: 'Motivates orthogonality and projections concretely through least squares, the standard route most students first meet inner product spaces.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy-Schwarz inequality', latex: '|\\langle u,v\\rangle|\\le \\|u\\|\\,\\|v\\|' },
+      { label: 'Orthogonal projection', latex: '\\operatorname{proj}_u v=\\frac{\\langle v,u\\rangle}{\\langle u,u\\rangle}u' },
+      { label: 'Parseval / orthonormal expansion', latex: 'v=\\sum_{i=1}^n \\langle v,e_i\\rangle e_i,\\qquad \\|v\\|^2=\\sum_i|\\langle v,e_i\\rangle|^2' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Inner product', url: 'https://encyclopediaofmath.org/wiki/Inner_product', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'Wikipedia: Inner product space', url: 'https://en.wikipedia.org/wiki/Inner_product_space', kind: 'encyclopedia' },
+    ],
+  },
+  'linear-algebra:singular-value-decomposition': {
+    overview:
+      'The singular value decomposition (SVD) factors any matrix — even a non-square or non-invertible one — into a rotation, a scaling along orthogonal axes, and another rotation. It is the closest thing linear algebra has to a universal "best" factorization, because it exists for every matrix and directly exposes rank, norm, and the best low-rank approximation.',
+    formal:
+      'Every $A\\in\\mathbb{R}^{m\\times n}$ (or $\\mathbb{C}^{m\\times n}$) can be written $A=U\\Sigma V^{T}$ (or $V^{*}$), where $U\\in\\mathbb{R}^{m\\times m}$ and $V\\in\\mathbb{R}^{n\\times n}$ are orthogonal and $\\Sigma\\in\\mathbb{R}^{m\\times n}$ is diagonal with non-negative entries $\\sigma_1\\ge\\sigma_2\\ge\\cdots\\ge 0$ (the singular values), the square roots of the eigenvalues of $A^{T}A$. The Eckart-Young theorem states that truncating the SVD to its top $k$ singular values gives the best rank-$k$ approximation to $A$ in both the operator and Frobenius norms.',
+    keyIdeas: [
+      'factoring any matrix as rotation-scale-rotation, $A=U\\Sigma V^{T}$',
+      'singular values as the square roots of the eigenvalues of $A^{T}A$',
+      'the SVD as a generalization of eigendecomposition to non-square and non-normal matrices',
+      'the Eckart-Young theorem: truncated SVD gives the optimal low-rank approximation',
+      'the pseudoinverse and its role in solving least-squares problems robustly',
+    ],
+    whyItMatters:
+      "The SVD is the workhorse numerical decomposition of applied linear algebra: it gives the numerically stable way to compute rank, condition number, and least-squares solutions, and its optimal low-rank approximation property is exactly what underlies principal component analysis, image compression, and recommender systems — Trefethen and Bau open their classic numerical linear algebra text by calling the SVD 'the climax of this linear algebra course.'",
+    prerequisites: ['linear-algebra:inner-product-spaces'],
+    related: ['numerical-analysis:numerical-linear-algebra', 'machine-learning-theory:kernel-methods', 'statistics:regression'],
+    historicalContext:
+      'Eugenio Beltrami (1873) and Camille Jordan (1874) independently discovered the singular value decomposition of a real matrix while studying bilinear and quadratic forms, showing the singular values are invariant under orthogonal changes of basis. James Joseph Sylvester rediscovered it again in 1889. It remained a largely theoretical curiosity in pure linear algebra until Erhard Schmidt (1907) extended it to integral operators and Gene Golub and William Kahan (1965) devised a numerically stable algorithm for computing it on a computer, after which the SVD became the standard tool of modern numerical linear algebra, statistics, and data analysis.',
+    contributorIds: ['person:eugenio-beltrami', 'person:camille-jordan', 'person:james-joseph-sylvester'],
+    workIds: ['work:numerical-linear-algebra'],
+    exampleProblems: [
+      'Compute the SVD of $A=\\begin{pmatrix}3&0\\\\0&0\\\\0&2\\end{pmatrix}$ by finding the eigenvalues and eigenvectors of $A^{T}A$.',
+      'Show that the best rank-1 approximation of a matrix $A$ in Frobenius norm is $\\sigma_1 u_1 v_1^{T}$, using its SVD.',
+      'Explain how the SVD is used to compute the Moore-Penrose pseudoinverse of a non-square matrix.',
+    ],
+    applications: [
+      'principal component analysis for dimensionality reduction and data visualization',
+      'image and signal compression by truncating small singular values',
+      'recommender systems via low-rank matrix factorization',
+      'computing numerically stable least-squares solutions and matrix pseudoinverses',
+    ],
+    researchDirections: [
+      'randomized numerical linear algebra for computing approximate SVDs of massive matrices',
+      'robust and sparse PCA methods resistant to outliers and missing data',
+      'tensor decompositions (e.g. higher-order SVD) generalizing SVD beyond two dimensions',
+    ],
+    textbooks: [
+      {
+        title: 'Numerical Linear Algebra',
+        authors: ['Lloyd N. Trefethen', 'David Bau III'],
+        year: 1997,
+        why: 'Builds the entire course around the SVD as the central organizing decomposition, exactly the treatment most graduate numerical linear algebra courses follow.',
+      },
+      {
+        title: 'Matrix Analysis',
+        authors: ['Roger A. Horn', 'Charles R. Johnson'],
+        edition: '2nd',
+        year: 2012,
+        why: 'Gives the rigorous existence proof of the SVD and its relationship to eigenvalues, norms, and matrix approximation theorems.',
+      },
+      {
+        title: 'Introduction to Linear Algebra',
+        authors: ['Gilbert Strang'],
+        edition: '6th',
+        year: 2023,
+        why: "Strang calls the SVD the 'fundamental theorem of linear algebra' and builds a full geometric and applied intuition for it aimed at practitioners.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Singular value decomposition', latex: 'A=U\\Sigma V^{T}' },
+      { label: 'Singular values from A^T A', latex: '\\sigma_i=\\sqrt{\\lambda_i(A^{T}A)}' },
+      { label: 'Eckart-Young best rank-k approximation', latex: 'A_k=\\sum_{i=1}^k \\sigma_i u_i v_i^{T}=\\arg\\min_{\\operatorname{rank}(B)\\le k}\\|A-B\\|_F' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Singular value decomposition', url: 'https://en.wikipedia.org/wiki/Singular_value_decomposition', kind: 'encyclopedia' },
+      { label: 'MacTutor: Camille Jordan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Jordan/', kind: 'reference' },
+      { label: 'MacTutor: James Joseph Sylvester', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/', kind: 'reference' },
+    ],
   },
   'set-theory:forcing': {
     formal:
@@ -1719,6 +2133,7 @@ const workRows = [
   ['Cours dAnalyse', 'Augustin-Louis Cauchy', 1821, 'real-analysis', 'A milestone in rigorous analysis.'],
   ['The Mathematical Analysis of Logic', 'George Boole', 1847, 'logic', 'A foundation for Boolean algebra.'],
   ['A Memoir on the Theory of Matrices', 'Arthur Cayley', 1858, 'linear-algebra', 'The first treatment of matrices as independent algebraic objects, defining matrix addition, multiplication, and inverses.'],
+  ['Die lineale Ausdehnungslehre', 'Hermann Grassmann', 1844, 'linear-algebra', 'The first abstract, coordinate-free calculus of n-dimensional vector spaces and exterior (wedge) products.'],
   ['Uber die Hypothesen welche der Geometrie zu Grunde liegen', 'Bernhard Riemann', 1854, 'differential-geometry', 'Introduced Riemannian geometry.'],
   ['Memoire sur les conditions de resolubilite des equations par radicaux', 'Evariste Galois', 1846, 'abstract-algebra', 'Founded Galois theory.'],
   ['Beitrage zur Begrundung der transfiniten Mengenlehre', 'Georg Cantor', 1895, 'set-theory', 'Established transfinite set theory.'],
@@ -1787,7 +2202,8 @@ const workRows = [
 const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits'],
   'work:introductio-in-analysin-infinitorum': ['calculus:taylor-series', 'analysis:sequences-and-series'],
-  'work:a-memoir-on-the-theory-of-matrices': ['linear-algebra:matrices'],
+  'work:a-memoir-on-the-theory-of-matrices': ['linear-algebra:matrices', 'linear-algebra:determinants', 'linear-algebra:eigenvalues'],
+  'work:die-lineale-ausdehnungslehre': ['linear-algebra:vector-spaces'],
   'work:linear-algebra-and-its-applications': ['linear-algebra:vector-spaces'],
   'work:numerical-linear-algebra': ['numerical-analysis:floating-point-arithmetic', 'linear-algebra:singular-value-decomposition'],
 };
