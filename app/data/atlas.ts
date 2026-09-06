@@ -6243,6 +6243,398 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: Irvin Cohen', url: 'https://en.wikipedia.org/wiki/Irvin_Cohen', kind: 'encyclopedia' },
     ],
   },
+  'algebraic-geometry:affine-varieties': {
+    overview:
+      'An affine variety is the solution set of a system of polynomial equations in affine space, the most concrete starting object of algebraic geometry. The Nullstellensatz shows that these geometric solution sets correspond exactly, and reversibly, to certain ideals of a polynomial ring, making geometry and algebra two languages for the same thing.',
+    formal:
+      'For an algebraically closed field $k$ and polynomials $f_1,\\ldots,f_r\\in k[x_1,\\ldots,x_n]$, the affine variety $V(f_1,\\ldots,f_r)=\\{p\\in k^n : f_i(p)=0 \\text{ for all } i\\}$. Hilbert\'s Nullstellensatz establishes a bijection between affine varieties in $k^n$ and radical ideals of $k[x_1,\\ldots,x_n]$: $I(V(J))=\\sqrt{J}$. The coordinate ring $k[V]=k[x_1,\\ldots,x_n]/I(V)$ encodes the polynomial functions on $V$, and a variety is irreducible exactly when $I(V)$ is prime.',
+    keyIdeas: [
+      'affine varieties as common zero sets of polynomials in affine space',
+      'the Nullstellensatz: a dictionary between radical ideals and affine varieties',
+      'the coordinate ring of a variety, encoding its polynomial functions algebraically',
+      'irreducibility of a variety corresponding to primality of its ideal',
+      'morphisms of varieties as polynomial maps, dual to ring homomorphisms of coordinate rings',
+    ],
+    whyItMatters:
+      'The Nullstellensatz is the founding dictionary of algebraic geometry, translating every geometric question about a variety — does it contain this point? is it irreducible? what is its dimension? — into a purely algebraic question about its ideal, which is precisely what lets the machinery of commutative algebra be brought to bear on geometric problems.',
+    prerequisites: [],
+    related: ['commutative-algebra:ideals', 'algebraic-geometry:projective-varieties', 'algebra:polynomials'],
+    historicalContext:
+      "The study of curves and surfaces defined by polynomial equations dates to classical 19th-century algebraic geometry (Cayley, Riemann, Max Noether), but the modern algebraic formulation began with David Hilbert's Nullstellensatz (1893), proved using his Basis Theorem, which for the first time made the correspondence between ideals and varieties precise. Emmy Noether's 1920s abstraction of ideal theory to general commutative rings then supplied the algebraic language in which affine varieties could be studied rigorously over arbitrary fields.",
+    contributorIds: ['person:david-hilbert', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Nullstellensatz to explain why algebraic closure of the field matters, contrasting $V(x^2+y^2+1)$ over $\\mathbb{R}$ and over $\\mathbb{C}$.',
+      'Show that the variety $V(xy)$ in the plane is reducible by exhibiting its two irreducible components.',
+      'Compute the coordinate ring of the variety $V(y-x^2)$ and show it is isomorphic to a polynomial ring in one variable.',
+    ],
+    applications: [
+      'computer-aided geometric design and robotics, using affine varieties to model configuration spaces and constraint surfaces',
+      'cryptography, where elliptic curves are affine (or projective) varieties',
+      'solving systems of polynomial equations algorithmically via Gröbner bases',
+    ],
+    researchDirections: [
+      'real algebraic geometry, studying varieties over the real numbers where the classical Nullstellensatz fails',
+      'computational algebraic geometry and effective methods for variety membership and dimension',
+      'tropical geometry\'s combinatorial degeneration of affine varieties',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'The standard graduate text, opening with a rigorous chapter on classical affine and projective varieties before schemes.',
+      },
+      {
+        title: 'Basic Algebraic Geometry 1',
+        authors: ['Igor R. Shafarevich'],
+        edition: '3rd',
+        year: 2013,
+        why: 'A classic, more gradual introduction to varieties, widely recommended before tackling Hartshorne.',
+      },
+      {
+        title: 'Algebraic Geometry: A First Course',
+        authors: ['Joe Harris'],
+        year: 1992,
+        why: 'An example-driven introduction that builds geometric intuition for varieties before full generality.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Hilbert's Nullstellensatz", latex: 'I(V(J)) = \\sqrt{J}' },
+      { label: 'Coordinate ring', latex: 'k[V] = k[x_1,\\ldots,x_n]/I(V)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Affine algebraic set', url: 'https://encyclopediaofmath.org/wiki/Affine_algebraic_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:projective-varieties': {
+    overview:
+      'A projective variety is the solution set of homogeneous polynomial equations in projective space, which adds "points at infinity" to affine space so that curves and surfaces behave more uniformly — for instance, so that any two distinct lines in the plane always meet in exactly one point, with no exception for parallel lines.',
+    formal:
+      "Projective space $\\mathbb{P}^n(k)$ is the set of lines through the origin in $k^{n+1}$, with homogeneous coordinates $[x_0:\\cdots:x_n]$ defined up to scalar multiple. A projective variety is the common zero locus of homogeneous polynomials in $k[x_0,\\ldots,x_n]$. Bézout's theorem states that two projective plane curves of degrees $d_1$ and $d_2$ with no common component meet in exactly $d_1 d_2$ points, counted with multiplicity, over an algebraically closed field.",
+    keyIdeas: [
+      'projective space as affine space compactified by adding points at infinity',
+      'homogeneous coordinates and homogeneous polynomials as the natural language for projective varieties',
+      "Bézout's theorem: intersection numbers become exact and uniform in projective space",
+      'projective varieties as always compact, in the classical topology over $\\mathbb{C}$, unlike general affine varieties',
+      'the projective closure of an affine variety, recovering points "at infinity"',
+    ],
+    whyItMatters:
+      "Working projectively removes the awkward exceptions that plague affine geometry — parallel lines that never meet, intersection counts that vary unpredictably — replacing them with clean, uniform statements like Bézout's theorem, which is why projective space, not affine space, is the natural home for most of classical and modern algebraic geometry.",
+    prerequisites: ['algebraic-geometry:affine-varieties'],
+    related: ['geometry:projective-geometry', 'algebraic-geometry:moduli-spaces', 'complex-analysis:riemann-surfaces'],
+    historicalContext:
+      "Projective geometry originates with Jean-Victor Poncelet's 1822 Traité des propriétés projectives des figures, developed from perspective drawing techniques used by Renaissance artists. Julius Plücker and others in the mid-19th century developed homogeneous coordinates, letting projective varieties be studied algebraically, and Étienne Bézout had already stated his eponymous intersection theorem in 1779, though a fully rigorous proof required the 19th-century development of intersection multiplicity. Max Noether and the Italian school of algebraic geometry (Castelnuovo, Enriques, Severi) developed the classical theory of projective varieties, especially surfaces, extensively through the late 19th and early 20th centuries.",
+    contributorIds: ['person:bernhard-riemann'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that two distinct lines in the projective plane $\\mathbb{P}^2$ always meet in exactly one point, including the case of "parallel" affine lines.',
+      "Use Bézout's theorem to find the number of intersection points, with multiplicity, of two conics in the projective plane.",
+      'Find the projective closure of the affine parabola $y=x^2$, and identify its point(s) at infinity.',
+    ],
+    applications: [
+      'computer vision and computer graphics, where projective geometry models perspective and camera transformations',
+      'coding theory, where projective spaces over finite fields define important classes of error-correcting codes',
+      'the classification of algebraic curves and surfaces in classical and modern algebraic geometry',
+    ],
+    researchDirections: [
+      'the classification of higher-dimensional projective varieties via the minimal model program',
+      'moduli of projective varieties (curves, surfaces, and beyond) as points of a moduli space',
+      'arithmetic questions about rational points on projective varieties over number fields',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Develops projective varieties rigorously alongside their affine counterparts as a foundation for schemes.',
+      },
+      {
+        title: 'Algebraic Geometry: A First Course',
+        authors: ['Joe Harris'],
+        year: 1992,
+        why: 'Gives an unusually rich collection of concrete projective examples (curves, surfaces, Grassmannians).',
+      },
+      {
+        title: 'Basic Algebraic Geometry 1',
+        authors: ['Igor R. Shafarevich'],
+        edition: '3rd',
+        year: 2013,
+        why: 'A classic, geometrically motivated treatment of projective varieties and their classical theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Homogeneous coordinates', latex: '[x_0:x_1:\\cdots:x_n] \\sim [\\lambda x_0:\\lambda x_1:\\cdots:\\lambda x_n]' },
+      { label: "Bézout's theorem", latex: '|C_1 \\cap C_2| = d_1 d_2 \\ \\text{(with multiplicity)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Projective algebraic set', url: 'https://encyclopediaofmath.org/wiki/Projective_algebraic_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: search for Poncelet', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Poncelet', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:schemes': {
+    overview:
+      'A scheme generalizes an algebraic variety far enough to unify algebraic geometry with commutative algebra and number theory completely: every commutative ring, not just those without nilpotents or defined over an algebraically closed field, gives rise to a scheme, letting geometric intuition apply to arithmetic objects like the integers themselves.',
+    formal:
+      'The spectrum $\\text{Spec}(R)$ of a commutative ring $R$ is the set of its prime ideals, equipped with the Zariski topology and a structure sheaf $\\mathcal{O}_{\\text{Spec}(R)}$; an affine scheme is $(\\text{Spec}(R), \\mathcal{O}_{\\text{Spec}(R)})$, and a general scheme is a topological space covered by affine schemes, glued compatibly. Every classical affine or projective variety over a field embeds as a special case, but schemes additionally allow nilpotent elements and bases other than a field, such as $\\text{Spec}(\\mathbb{Z})$.',
+    keyIdeas: [
+      'Spec(R): the prime spectrum of a ring as the points of a geometric space',
+      'the structure sheaf, attaching a ring of "functions" to every open subset',
+      'schemes gluing affine pieces together, generalizing how a manifold glues coordinate charts',
+      'nilpotents in the structure sheaf encoding infinitesimal geometric data invisible to classical varieties',
+      'Spec(Z) and arithmetic schemes, unifying number theory with geometry',
+    ],
+    whyItMatters:
+      "Schemes let a single geometric formalism describe both a classical algebraic curve over the complex numbers and the ring of integers $\\mathbb{Z}$ simultaneously, and this unification is precisely what let Grothendieck's school bring genuinely geometric techniques (sheaf cohomology, base change, deformation theory) to bear on deep arithmetic problems, culminating decades later in results like Wiles's proof of Fermat's Last Theorem.",
+    prerequisites: ['algebraic-geometry:projective-varieties'],
+    related: ['commutative-algebra:localization', 'algebraic-geometry:sheaves', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "Alexander Grothendieck introduced the modern general definition of a scheme in his and Jean Dieudonné's Éléments de géométrie algébrique (EGA), begun in 1960, building on earlier, more restrictive notions proposed by André Weil, Oscar Zariski, and Jean-Pierre Serre in the 1940s-50s. Grothendieck's scheme-theoretic reformulation, developed with collaborators through the 1960s Séminaire de Géométrie Algébrique (SGA), was explicitly designed to supply the machinery, étale cohomology in particular, needed to attack the Weil conjectures, and it is now the standard foundation for research-level algebraic geometry.",
+    contributorIds: ['person:alexander-grothendieck', 'person:jean-pierre-serre'],
+    workIds: ['work:ega'],
+    exampleProblems: [
+      'Describe $\\text{Spec}(\\mathbb{Z})$ explicitly: what are its points, and what does the structure sheaf assign to a basic open set?',
+      'Give an example of a non-reduced scheme, one whose structure sheaf has nilpotents, and explain its geometric meaning.',
+      'Explain why every classical affine variety over an algebraically closed field $k$ can be recovered as the closed points of $\\text{Spec}$ of its coordinate ring.',
+    ],
+    applications: [
+      'arithmetic geometry, where schemes over $\\mathbb{Z}$ or rings of integers unify number theory and geometry',
+      'moduli theory, where moduli spaces are most naturally constructed as schemes or algebraic stacks',
+      "modern proofs of deep arithmetic results, such as Fermat's Last Theorem and the Weil conjectures, relying on scheme-theoretic machinery",
+    ],
+    researchDirections: [
+      'derived algebraic geometry, extending schemes to allow homotopical and higher-categorical structure',
+      'the theory of algebraic stacks, generalizing schemes to handle moduli problems with automorphisms',
+      'p-adic and rigid-analytic geometry, adapting scheme-theoretic ideas to non-archimedean settings',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'The standard graduate introduction to schemes, still the most widely assigned text worldwide.',
+      },
+      {
+        title: 'The Geometry of Schemes',
+        authors: ['David Eisenbud', 'Joe Harris'],
+        year: 2000,
+        why: 'A more geometric, example-driven companion to Hartshorne, emphasizing intuition for scheme-theoretic constructions.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'Freely available modern lecture notes that have become a widely used alternative to Hartshorne.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Spectrum of a ring', latex: '\\text{Spec}(R) = \\{\\text{prime ideals of } R\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Algebraic geometry', url: 'https://encyclopediaofmath.org/wiki/Algebraic_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'MacTutor: search for Serre', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Serre', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:sheaves': {
+    overview:
+      'A sheaf systematically tracks data — functions, sections, or other algebraic structures — attached to the open sets of a space, in a way fully determined by local information: knowing the data on small enough pieces, and how they agree on overlaps, always determines the data on the whole. Sheaves are the technical device that lets "local" and "global" be related precisely.',
+    formal:
+      'A sheaf $\\mathcal{F}$ of abelian groups on a topological space $X$ assigns to each open set $U$ a group $\\mathcal{F}(U)$, with restriction maps to smaller opens, satisfying: (identity) sections agreeing locally on an open cover are equal, and (gluing) compatible local sections on an open cover glue to a unique global section. On a scheme, the structure sheaf $\\mathcal{O}_X$ assigns to each open set its ring of regular functions, and quasi-coherent sheaves, locally given by modules, are the natural class of sheaves for doing algebra on a scheme.',
+    keyIdeas: [
+      'a sheaf as data attached to open sets, subject to the identity and gluing axioms',
+      'the structure sheaf of a scheme, encoding its "functions" locally',
+      'quasi-coherent and coherent sheaves as the geometric analogue of modules',
+      'stalks of a sheaf, capturing purely local behavior near a point',
+      'sheafification: turning a presheaf that fails the sheaf axioms into the closest sheaf that satisfies them',
+    ],
+    whyItMatters:
+      'Sheaves solve a problem every geometer eventually confronts — how do you assemble consistent local data into a single global object, and precisely when does this fail — and the failure of local data to glue into global data, measured by sheaf cohomology, turns out to be one of the most productive sources of geometric invariants in modern mathematics.',
+    prerequisites: ['algebraic-geometry:schemes'],
+    related: ['abstract-algebra:homological-algebra', 'category-theory:topos-theory', 'algebraic-geometry:cohomology'],
+    historicalContext:
+      "Jean Leray invented sheaves during his internment in a German prisoner-of-war camp from 1940-1945, originally to study solutions of partial differential equations and develop what became the Leray spectral sequence, though he could not publish his ideas until after the war. Henri Cartan and Jean-Pierre Serre then adapted sheaf theory into the primary tool of the Cartan seminar in Paris in the early 1950s, and Serre's landmark 1955 paper Faisceaux algébriques cohérents (FAC) brought coherent algebraic sheaves and homological methods into algebraic geometry for the first time, directly inspiring Grothendieck's subsequent scheme-theoretic reformulation of the subject.",
+    contributorIds: ['person:jean-leray', 'person:henri-cartan'],
+    workIds: [],
+    exampleProblems: [
+      'Verify the sheaf axioms (identity and gluing) for the presheaf of continuous real-valued functions on a topological space.',
+      'Give an example of a presheaf that fails the gluing axiom, and describe its sheafification.',
+      'Explain the difference between a sheaf and its stalk at a point, using the sheaf of holomorphic functions on the complex plane as an example.',
+    ],
+    applications: [
+      'algebraic geometry, where quasi-coherent sheaves are the natural generalization of modules to schemes',
+      'complex analytic geometry, where sheaf theory organizes local holomorphic data into global structures',
+      'sensor networks and data fusion, using sheaf-theoretic methods to combine local measurements consistently',
+    ],
+    researchDirections: [
+      'perverse sheaves and their role in the geometric Langlands program and representation theory',
+      'condensed mathematics, reformulating sheaf theory to handle topological algebra more robustly',
+      'derived and infinity-categorical sheaf theory in modern algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Chapter II develops sheaves from scratch en route to schemes, the standard first exposure for most students.',
+      },
+      {
+        title: 'Sheaf Theory',
+        authors: ['Glen E. Bredon'],
+        edition: '2nd',
+        year: 1997,
+        why: 'A dedicated, thorough treatment of sheaf theory independent of any particular geometric application.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'A modern, freely available treatment building sheaves and schemes together with strong intuition.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sheaf gluing axiom', latex: 's_i|_{U_i\\cap U_j} = s_j|_{U_i\\cap U_j}\\ \\forall i,j \\implies \\exists! s \\in \\mathcal{F}(U):\\ s|_{U_i}=s_i' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Sheaf (mathematics)', url: 'https://en.wikipedia.org/wiki/Sheaf_(mathematics)', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean Leray', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Leray/', kind: 'reference' },
+      { label: 'MacTutor: Henri Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan_Henri/', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:cohomology': {
+    overview:
+      'Cohomology of sheaves measures the global obstructions to solving equations or gluing local data on a variety or scheme — how far local sections fail to extend to global ones — and computing these cohomology groups is one of the most powerful and widely used tools in modern algebraic geometry.',
+    formal:
+      'For a sheaf $\\mathcal{F}$ on a scheme $X$, the cohomology groups $H^i(X,\\mathcal{F})$ are the derived functors of the global sections functor, fitting into a long exact sequence for any short exact sequence of sheaves. Serre\'s finiteness and vanishing theorems show that for a coherent sheaf on a projective variety, all $H^i(X,\\mathcal{F})$ are finite-dimensional and vanish for $i$ larger than $\\dim X$; the Riemann-Roch theorem computes the Euler characteristic $\\chi(X,\\mathcal{F})=\\sum_i(-1)^i\\dim H^i(X,\\mathcal{F})$ explicitly.',
+    keyIdeas: [
+      'sheaf cohomology as the derived functors of global sections',
+      'the long exact sequence relating cohomology of sheaves in a short exact sequence',
+      "Serre's finiteness and vanishing theorems for coherent cohomology on projective varieties",
+      'the Riemann-Roch theorem computing Euler characteristics from topological data',
+      'étale cohomology, extending sheaf cohomology to settings where the Zariski topology is too coarse',
+    ],
+    whyItMatters:
+      "Sheaf cohomology converts geometric existence questions — does this section or deformation exist globally? — into computable linear-algebra invariants, and Grothendieck's étale cohomology, purpose-built to have the right properties in positive characteristic, supplied exactly the tool needed to prove the Weil conjectures, one of the towering achievements of 20th-century mathematics.",
+    prerequisites: ['algebraic-geometry:sheaves'],
+    related: ['abstract-algebra:homological-algebra', 'topology:homology', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "Jean-Pierre Serre's 1955 paper Faisceaux algébriques cohérents (FAC) first developed sheaf cohomology systematically for algebraic varieties, proving the finiteness and vanishing theorems that bear his name. Alexander Grothendieck's 1957 Tôhoku paper recast sheaf cohomology in the fully general language of derived functors on abelian categories, and through the 1960s SGA seminars Grothendieck and collaborators developed étale cohomology specifically to have good properties in all characteristics, which Pierre Deligne then used to complete the proof of the Weil conjectures in 1974.",
+    contributorIds: ['person:jean-pierre-serre', 'person:alexander-grothendieck'],
+    workIds: ['work:sga'],
+    exampleProblems: [
+      'Use the long exact sequence in cohomology to relate $H^0$ and $H^1$ of the ideal sheaf of a point on a curve to sections of the structure sheaf.',
+      'State the Riemann-Roch theorem for a curve and use it to compute the dimension of a space of meromorphic functions with prescribed poles.',
+      'Explain, in outline, why étale cohomology was needed, rather than ordinary sheaf cohomology, to prove the Weil conjectures in positive characteristic.',
+    ],
+    applications: [
+      'the Weil conjectures and modern arithmetic geometry, resting fundamentally on étale cohomology',
+      'deformation theory, where obstruction and tangent spaces are computed via sheaf cohomology',
+      'string theory and mirror symmetry in mathematical physics, using coherent sheaf cohomology on Calabi-Yau varieties',
+    ],
+    researchDirections: [
+      'the geometric Langlands program, using sheaf-theoretic and cohomological methods to relate number theory and representation theory',
+      'motivic cohomology, seeking a universal cohomology theory underlying all the others',
+      'p-adic Hodge theory and p-adic cohomology theories for arithmetic geometry in mixed characteristic',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Chapter III gives the standard first treatment of sheaf cohomology and Serre\'s theorems on projective varieties.',
+      },
+      {
+        title: 'Étale Cohomology',
+        authors: ['James S. Milne'],
+        year: 1980,
+        why: 'The standard reference for étale cohomology and its role in the proof of the Weil conjectures.',
+      },
+      {
+        title: 'The Geometry of Schemes',
+        authors: ['David Eisenbud', 'Joe Harris'],
+        year: 2000,
+        why: 'Builds cohomological intuition alongside concrete geometric examples.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Euler characteristic', latex: '\\chi(X,\\mathcal{F}) = \\sum_i (-1)^i \\dim H^i(X,\\mathcal{F})' },
+      { label: 'Riemann-Roch (curve case)', latex: '\\ell(D) - \\ell(K-D) = \\deg(D) + 1 - g' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Abstract algebraic geometry', url: 'https://encyclopediaofmath.org/wiki/Abstract_algebraic_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'MacTutor: search for Serre', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Serre', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:moduli-spaces': {
+    overview:
+      'A moduli space is a geometric object whose points themselves represent all the ways a certain kind of mathematical structure — a curve, a vector bundle, a polynomial — can occur, up to some natural notion of equivalence, turning the problem of "classify all X" into the problem of understanding the geometry of one auxiliary space.',
+    formal:
+      'A moduli problem is a functor $\\mathcal{M}:(\\text{Schemes})^{op}\\to(\\text{Sets})$ sending a scheme $T$ to the set of families of the objects being classified over $T$; a fine moduli space represents this functor, meaning $\\mathcal{M}(T)\\cong\\text{Hom}(T,M)$ naturally. Many natural moduli problems are not representable by a scheme, requiring the more flexible notion of a moduli stack. Geometric Invariant Theory (GIT), developed by David Mumford, constructs moduli spaces as quotients of a parameter space by a group action, handling the technical difficulties caused by automorphisms and unstable objects.',
+    keyIdeas: [
+      'a moduli problem as a classification problem recast as a functor of families',
+      'fine versus coarse moduli spaces, depending on whether the functor is fully representable',
+      'Geometric Invariant Theory (GIT) as a systematic method for constructing moduli spaces via quotients',
+      'moduli stacks as the correct, automorphism-respecting generalization of moduli schemes',
+      'the moduli space of curves $\\mathcal{M}_g$ as the archetypal and most studied example',
+    ],
+    whyItMatters:
+      'Moduli spaces turn "classify all objects of type X" from an open-ended cataloguing exercise into a genuine geometric research program: once curves of genus $g$ are organized into a moduli space $\\mathcal{M}_g$, questions about "most" curves, or how curves degenerate, become questions about the geometry of $\\mathcal{M}_g$ itself.',
+    prerequisites: ['algebraic-geometry:cohomology'],
+    related: ['algebraic-geometry:projective-varieties', 'differential-geometry:riemannian-metrics', 'category-theory:topos-theory'],
+    historicalContext:
+      "Bernhard Riemann already showed in 1857 that the isomorphism classes of genus-$g$ Riemann surfaces depend on $3g-3$ continuous 'moduli,' giving the concept its name well before a rigorous construction existed. David Mumford's Geometric Invariant Theory (1965) gave the first systematic, rigorous method for constructing moduli spaces, handling the technical obstacles posed by automorphisms and unstable points via careful quotient constructions, for which Mumford was awarded the Fields Medal in 1974. Pierre Deligne and Mumford's 1969 paper then introduced the moduli stack $\\overline{\\mathcal{M}}_g$, a compactification of the moduli space of curves that remains one of the most intensively studied objects in modern algebraic geometry.",
+    contributorIds: ['person:david-mumford', 'person:bernhard-riemann'],
+    workIds: [],
+    exampleProblems: [
+      'Explain why the moduli space of elliptic curves is essentially one-dimensional, using the $j$-invariant to parametrize isomorphism classes.',
+      'Describe the difference between a fine and a coarse moduli space, using the moduli of elliptic curves (which has extra automorphisms at special points) as an example.',
+      'Explain, at a high level, what problem Geometric Invariant Theory solves when naively forming a quotient by a group action fails to produce a variety.',
+    ],
+    applications: [
+      'the classification of algebraic curves and surfaces via their moduli spaces',
+      'string theory and mathematical physics, where moduli spaces of curves appear in string perturbation theory',
+      'the study of vector bundles and sheaves on varieties via their moduli spaces, relevant to gauge theory',
+    ],
+    researchDirections: [
+      'the geometry (Kodaira dimension, cohomology, birational type) of moduli spaces of curves and higher-dimensional varieties',
+      "moduli of higher-dimensional varieties via the minimal model program's approach to compactified moduli",
+      'derived and stacky moduli problems in derived algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Geometric Invariant Theory',
+        authors: ['David Mumford', 'John Fogarty', 'Frances Kirwan'],
+        edition: '3rd',
+        year: 1994,
+        why: 'The foundational text, by the theory\'s inventor, for constructing moduli spaces via quotient constructions.',
+      },
+      {
+        title: 'Moduli of Curves',
+        authors: ['Joe Harris', 'Ian Morrison'],
+        year: 1998,
+        why: 'The standard dedicated text on the geometry of $\\mathcal{M}_g$ and its compactification.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'Provides the scheme-theoretic background (functors of points, representability) needed to state moduli problems precisely.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Moduli functor representability', latex: '\\mathcal{M}(T) \\cong \\text{Hom}(T, M)' },
+      { label: 'Dimension of the moduli of curves', latex: '\\dim \\mathcal{M}_g = 3g-3 \\quad (g \\ge 2)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Moduli problem', url: 'https://encyclopediaofmath.org/wiki/Moduli_problem', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Mumford', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Mumford/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -6497,6 +6889,8 @@ const personRows = [
   ['Emanuel Lasker', '1868-1941', 'Germany', 'commutative-algebra', 'primary decomposition of ideals'],
   ['Irvin Cohen', '1917-1955', 'USA', 'commutative-algebra', 'the unmixedness theorem for power series rings'],
   ['Francis Macaulay', '1862-1937', 'United Kingdom', 'commutative-algebra', 'the unmixedness theorem for polynomial rings'],
+  ['Jean Leray', '1906-1998', 'France', 'algebraic-geometry', 'the invention of sheaves and the Leray spectral sequence'],
+  ['David Mumford', '1937-', 'USA', 'algebraic-geometry', 'Geometric Invariant Theory and moduli of curves'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -6545,6 +6939,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'number-theory:algebraic-number-theory',
     'commutative-algebra:ideals',
     'commutative-algebra:noetherian-rings',
+    'algebraic-geometry:affine-varieties',
   ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
   'person:bernhard-riemann': [
@@ -6552,6 +6947,8 @@ const personTopicOverrides: Record<string, string[]> = {
     'analysis:integration',
     'differential-geometry:riemannian-metrics',
     'topology:manifolds',
+    'algebraic-geometry:projective-varieties',
+    'algebraic-geometry:moduli-spaces',
   ],
   'person:georg-cantor': [
     'set-theory:naive-set-theory',
@@ -6583,6 +6980,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'topology:homology',
     'commutative-algebra:noetherian-rings',
     'commutative-algebra:primary-decomposition',
+    'algebraic-geometry:affine-varieties',
   ],
   'person:richard-dedekind': [
     'set-theory:naive-set-theory',
@@ -6654,14 +7052,25 @@ const personTopicOverrides: Record<string, string[]> = {
     'abstract-algebra:homological-algebra',
   ],
   'person:william-lawvere': ['category-theory:topos-theory'],
-  'person:alexander-grothendieck': ['algebraic-geometry:affine-varieties', 'category-theory:topos-theory'],
+  'person:alexander-grothendieck': [
+    'algebraic-geometry:schemes',
+    'algebraic-geometry:cohomology',
+    'category-theory:topos-theory',
+  ],
+  'person:jean-pierre-serre': [
+    'number-theory:prime-numbers',
+    'algebraic-geometry:schemes',
+    'algebraic-geometry:cohomology',
+  ],
   'person:ludwig-sylow': ['abstract-algebra:group-theory'],
   'person:emil-artin': ['abstract-algebra:ring-theory', 'abstract-algebra:field-theory', 'abstract-algebra:galois-theory'],
-  'person:henri-cartan': ['abstract-algebra:homological-algebra'],
+  'person:henri-cartan': ['abstract-algebra:homological-algebra', 'algebraic-geometry:sheaves'],
   'person:wolfgang-krull': ['commutative-algebra:localization', 'commutative-algebra:dimension-theory'],
   'person:emanuel-lasker': ['commutative-algebra:primary-decomposition'],
   'person:irvin-cohen': ['commutative-algebra:cohen-macaulay-rings'],
   'person:francis-macaulay': ['commutative-algebra:cohen-macaulay-rings'],
+  'person:jean-leray': ['algebraic-geometry:sheaves'],
+  'person:david-mumford': ['algebraic-geometry:moduli-spaces'],
 };
 
 export const people: Person[] = personRows.map(
@@ -6823,6 +7232,8 @@ const workTopicOverrides: Record<string, string[]> = {
     'category-theory:monoidal-categories',
   ],
   'work:homological-algebra': ['abstract-algebra:homological-algebra'],
+  'work:ega': ['algebraic-geometry:schemes'],
+  'work:sga': ['algebraic-geometry:cohomology'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

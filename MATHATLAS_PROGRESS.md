@@ -31,7 +31,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] category-theory
 - [x] abstract-algebra
 - [x] commutative-algebra
-- [ ] algebraic-geometry
+- [x] algebraic-geometry
 - [ ] geometry
 - [ ] differential-geometry
 - [ ] real-analysis
