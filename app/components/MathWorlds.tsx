@@ -35,7 +35,7 @@ export default function MathWorlds(props: Props) {
     const container = host.current!;
 
     async function mount() {
-      const [THREE, { OrbitControls }, { createMathForm, disposeForm }] = await Promise.all([
+      const [THREE, { OrbitControls }, { createMathForm, disposeForm, seedFromId }] = await Promise.all([
         import('three'), import('three/addons/controls/OrbitControls.js'), import('@/app/lib/math-forms'),
       ]);
       if (cancelled) return;
@@ -103,7 +103,7 @@ export default function MathWorlds(props: Props) {
       }
 
       function addItem(kind: FormKind, color: string, title: string, selection: WorldSelection, index: number, detail: string) {
-        const object = createMathForm(kind, color, index);
+        const object = createMathForm(kind, color, index, seedFromId(selection.id));
         object.userData.selection = selection;
         root.add(object);
         const label = document.createElement('button');
@@ -127,7 +127,7 @@ export default function MathWorlds(props: Props) {
         } else {
           const field = regions.find(r => r.id === state.fieldId);
           const kind = field ? fieldForms[field.id] : dimension.form;
-          hero = createMathForm(kind, dimension.color);
+          hero = createMathForm(kind, dimension.color, 0, seedFromId(field ? field.id : dimension.id));
           hero.userData.selection = field ? { kind: 'region', id: field.id } : { kind: 'dimension', id: dimension.id };
           root.add(hero);
           if (field) {
