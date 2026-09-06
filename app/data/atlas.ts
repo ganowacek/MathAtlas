@@ -2248,6 +2248,422 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Émile Borel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Borel/', kind: 'reference' },
     ],
   },
+  'algebra:polynomials': {
+    overview:
+      'Polynomials are the algebraic expressions built from a variable and coefficients using only addition and multiplication. Studying their roots and factorizations was the original problem of algebra, and the search for a formula solving the general polynomial equation — successful up to degree four but famously impossible beyond it — is the problem that led directly to the invention of group theory.',
+    formal:
+      'The polynomial ring $R[x]$ over a commutative ring $R$ consists of formal sums $\\sum a_i x^i$ with finitely many nonzero coefficients $a_i\\in R$. When $R=F$ is a field, $F[x]$ is a Euclidean domain (division with remainder holds), hence a principal ideal domain and a unique factorization domain: every nonzero polynomial factors into irreducibles uniquely up to order and units. The Fundamental Theorem of Algebra states that every nonconstant polynomial in $\\mathbb{C}[x]$ has a root in $\\mathbb{C}$, so the irreducible polynomials in $\\mathbb{C}[x]$ are exactly the linear ones.',
+    keyIdeas: [
+      'polynomial rings and division with remainder (the division algorithm)',
+      'irreducibility and unique factorization in $F[x]$',
+      'roots, multiplicity, and the Fundamental Theorem of Algebra',
+      "Galois's insight: solvability of a polynomial equation by radicals is governed by the symmetry group of its roots",
+      'polynomial rings in several variables and Gröbner bases',
+    ],
+    whyItMatters:
+      'The centuries-long attempt to find a general formula solving polynomial equations by radicals — successful for degree 2, 3, and 4, but proved impossible in general for degree 5 — is precisely the problem that forced mathematicians to invent group theory in order to explain exactly which equations can be solved by a formula and which cannot.',
+    prerequisites: [],
+    related: ['algebra:groups', 'algebra:fields', 'abstract-algebra:galois-theory'],
+    historicalContext:
+      "Al-Khwarizmi's Al-Kitab al-mukhtasar fi hisab al-jabr wal-muqabala (c. 820) gave the first systematic classification and solution methods for linear and quadratic equations — the word 'algebra' derives from 'al-jabr' in its title. Omar Khayyam (c. 1070) solved cubic equations geometrically via intersecting conic sections, and the algebraic solution of the cubic and quartic appeared in Gerolamo Cardano's Ars Magna (1545), with the cubic formula obtained from Niccolò Tartaglia and Scipione del Ferro and the quartic solved by Cardano's student Lodovico Ferrari. Paolo Ruffini (1799) and Niels Henrik Abel (1824) showed no analogous radical formula exists for the general quintic, and Évariste Galois, in a memoir submitted in 1831 and published posthumously in 1846, explained precisely why: by attaching a permutation group to a polynomial's roots and showing that solvability by radicals corresponds exactly to a group-theoretic property (solvability of that group).",
+    contributorIds: ['person:al-khwarizmi', 'person:gerolamo-cardano', 'person:evariste-galois'],
+    workIds: ['work:al-kitab-al-mukhtasar-fi-hisab-al-jabr-wal-muqabala', 'work:ars-magna'],
+    exampleProblems: [
+      'Use Cardano\'s formula to solve $x^3-15x-4=0$, and explain the "casus irreducibilis" complication that arises even for a real root.',
+      'Show that $x^4+1$ is irreducible over $\\mathbb{Q}$ but factors over $\\mathbb{R}$ and over $\\mathbb{F}_2$.',
+      'Explain, without a full proof, why the general quintic cannot be solved by radicals even though every quartic can.',
+    ],
+    applications: [
+      'error-correcting codes defined by polynomials over finite fields (Reed-Solomon, BCH codes)',
+      'polynomial rings underlying elliptic-curve and lattice-based cryptosystems',
+      'computer algebra systems using Gröbner bases to solve polynomial systems',
+      'characteristic polynomials of linear systems in control theory and dynamical systems',
+    ],
+    researchDirections: [
+      'computational algebraic geometry and Gröbner basis algorithms',
+      'polynomial factorization and root-finding algorithms over finite fields',
+      'the inverse Galois problem: which finite groups arise as Galois groups over $\\mathbb{Q}$',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'The most widely used advanced-undergraduate and beginning-graduate algebra text, with an extensive, example-rich treatment of polynomial rings and their factorization theory.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Michael Artin'],
+        edition: '2nd',
+        year: 2010,
+        why: "MIT's standard undergraduate algebra text, praised for grounding polynomial and Galois theory in concrete, computational examples.",
+      },
+      {
+        title: 'Ideals, Varieties, and Algorithms',
+        authors: ['David Cox', 'John Little', 'Donal O\'Shea'],
+        edition: '4th',
+        year: 2015,
+        why: 'The standard introduction to computational and algorithmic aspects of polynomial rings, including Gröbner bases.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Division algorithm in F[x]', latex: 'f(x)=q(x)g(x)+r(x),\\quad \\deg r < \\deg g' },
+      { label: "Cardano's formula (depressed cubic)", latex: 'x=\\sqrt[3]{-\\frac{q}{2}+\\sqrt{\\frac{q^2}{4}+\\frac{p^3}{27}}}+\\sqrt[3]{-\\frac{q}{2}-\\sqrt{\\frac{q^2}{4}+\\frac{p^3}{27}}}' },
+      { label: 'Fundamental Theorem of Algebra', latex: '\\text{every nonconstant } p\\in\\mathbb{C}[x] \\text{ has a root in } \\mathbb{C}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Algebra, fundamental theorem of', url: 'https://encyclopediaofmath.org/wiki/Algebra,_fundamental_theorem_of', kind: 'encyclopedia' },
+      { label: 'MacTutor: Al-Khwarizmi', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Al-Khwarizmi/', kind: 'reference' },
+      { label: 'MacTutor: Gerolamo Cardano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cardan/', kind: 'reference' },
+    ],
+  },
+  'algebra:groups': {
+    overview:
+      'A group captures the mathematical essence of symmetry and reversible transformation: a set with one operation that is associative, has an identity element, and lets every operation be undone. Groups classify the symmetries of geometric objects, the structure of solutions to equations, and much more.',
+    formal:
+      "A group is a set $G$ with a binary operation $\\cdot:G\\times G\\to G$ satisfying associativity $(ab)c=a(bc)$, the existence of an identity $e$ with $ea=ae=a$ for all $a$, and the existence of inverses $a^{-1}$ with $aa^{-1}=a^{-1}a=e$ for every $a\\in G$. Lagrange's theorem: if $G$ is finite and $H\\le G$ is a subgroup, then $|H|$ divides $|G|$. Cayley's theorem: every group $G$ is isomorphic to a subgroup of the symmetric group $\\text{Sym}(G)$, via the left-regular action $g\\mapsto(x\\mapsto gx)$.",
+    keyIdeas: [
+      'symmetry made algebraic: groups as sets of reversible transformations',
+      "subgroups, cosets, and Lagrange's theorem",
+      'homomorphisms, kernels, normal subgroups, and quotient groups',
+      "Cayley's theorem: every abstract group is a group of permutations",
+      'group actions and orbits linking abstract groups to concrete symmetry',
+    ],
+    whyItMatters:
+      "Group theory turns 'symmetry' from an intuitive idea into a rigorous algebraic structure, which is why the same theory classifies the symmetries of a molecule in chemistry, the conserved quantities of a physical system via Noether's theorem, the structure exploited (and defended against) in cryptographic protocols, and precisely which polynomial equations can be solved by a formula.",
+    prerequisites: ['algebra:polynomials'],
+    related: ['abstract-algebra:group-theory', 'algebra:representations', 'lie-theory:lie-groups'],
+    historicalContext:
+      "Joseph-Louis Lagrange (1770) and Paolo Ruffini studied permutations of the roots of equations before any abstract notion of 'group' existed. Évariste Galois was the first to use the word 'groupe' in this sense, in his 1831 memoir on the permutations preserving the algebraic relations among a polynomial's roots. Arthur Cayley gave the first abstract axiomatic definition of a finite group independent of any particular representation in his 1854 paper 'On the theory of groups, as depending on the symbolic equation $\\theta^n=1$,' and proved what is now called Cayley's theorem; Camille Jordan's Traité des substitutions et des équations algébriques (1870) then systematized the subject into a unified theory of permutation groups.",
+    contributorIds: ['person:evariste-galois', 'person:arthur-cayley', 'person:camille-jordan'],
+    workIds: ['work:memoire-sur-les-conditions-de-resolubilite-des-equations-par-radicaux'],
+    exampleProblems: [
+      "List all subgroups of the symmetric group $S_3$ and verify Lagrange's theorem for each.",
+      "Prove Cayley's theorem by exhibiting the regular representation of a group of order 4.",
+      'Show that the quotient group $\\mathbb{Z}/n\\mathbb{Z}$ is cyclic and determine its automorphism group.',
+    ],
+    applications: [
+      'symmetry classification of molecules and crystals in chemistry (point groups, space groups)',
+      "conservation laws in physics via Noether's theorem, applied to the symmetry group of a Lagrangian",
+      'the discrete logarithm problem in finite groups underlying public-key cryptography',
+      'error-correcting codes and combinatorial designs built from group actions',
+    ],
+    researchDirections: [
+      'the classification of finite simple groups, completed in outline in the 1980s across tens of thousands of pages',
+      'computational group theory and algorithms for very large finite groups (GAP, Magma)',
+      'geometric group theory, studying infinite groups through their actions on geometric spaces',
+    ],
+    textbooks: [
+      {
+        title: 'Contemporary Abstract Algebra',
+        authors: ['Joseph A. Gallian'],
+        edition: '10th',
+        year: 2021,
+        why: 'One of the most widely used undergraduate introductions to group theory, known for its wealth of concrete examples and applications.',
+      },
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives the standard advanced treatment of group actions, Sylow theory, and the structure of finite groups.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Michael Artin'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Presents groups through their actions on concrete geometric and linear-algebraic objects, an approach widely praised for building intuition.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Group axioms', latex: '(ab)c=a(bc),\\quad ea=ae=a,\\quad aa^{-1}=a^{-1}a=e' },
+      { label: "Lagrange's theorem", latex: 'H\\le G,\\ G \\text{ finite} \\implies |H| \\text{ divides } |G|' },
+      { label: "Cayley's theorem", latex: 'G \\hookrightarrow \\text{Sym}(G)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Group', url: 'https://encyclopediaofmath.org/wiki/Group', kind: 'encyclopedia' },
+      { label: 'MacTutor: Évariste Galois', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Galois/', kind: 'reference' },
+      { label: 'MacTutor: Arthur Cayley', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cayley/', kind: 'reference' },
+    ],
+  },
+  'algebra:rings': {
+    overview:
+      'A ring generalizes the integers: a set with addition and multiplication where addition forms an abelian group and multiplication distributes over it, but multiplication need not be commutative and elements need not have multiplicative inverses. Rings are the common algebraic home of number systems, polynomial systems, and matrix systems alike.',
+    formal:
+      'A ring is a set $R$ with operations $+,\\cdot$ such that $(R,+)$ is an abelian group, multiplication is associative, and the distributive laws $a(b+c)=ab+ac$ and $(a+b)c=ac+bc$ hold. An ideal $I\\subseteq R$ is a subgroup of $(R,+)$ closed under multiplication by any ring element ($rI\\subseteq I$ and $Ir\\subseteq I$ for all $r\\in R$); ideals are exactly the kernels of ring homomorphisms, and the First Isomorphism Theorem states $R/\\ker(\\phi)\\cong\\text{im}(\\phi)$ for any ring homomorphism $\\phi$.',
+    keyIdeas: [
+      'rings as number-system-like structures without guaranteed commutativity or invertibility',
+      'ideals as the ring-theoretic analogue of normal subgroups',
+      'quotient rings and the isomorphism theorems',
+      'integral domains, units, and zero divisors',
+      'polynomial and matrix rings as leading examples of commutative and noncommutative rings',
+    ],
+    whyItMatters:
+      'Richard Dedekind introduced ideals specifically to repair unique factorization in rings of algebraic integers, where ordinary elements can factor into irreducibles in genuinely different ways; ideals restore a clean factorization theory (into prime ideals) that individual elements cannot always provide, and this single fix underlies both modern algebraic number theory and algebraic geometry.',
+    prerequisites: ['algebra:groups'],
+    related: ['algebra:fields', 'algebra:modules', 'commutative-algebra:ideals'],
+    historicalContext:
+      "Richard Dedekind introduced the concept of an ideal in his 1871 supplement to Dirichlet's Vorlesungen über Zahlentheorie, to repair the failure of unique factorization in rings of algebraic integers — famously, in $\\mathbb{Z}[\\sqrt{-5}]$, $6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5})$ gives two genuinely different factorizations into irreducibles. David Hilbert's Zahlbericht (1897) organized the emerging theory of algebraic numbers, and Emmy Noether's foundational 1921 paper Idealtheorie in Ringbereichen isolated the ascending chain condition — the 'Noetherian' property — as the right finiteness hypothesis for ideal theory, launching abstract, axiomatic ring theory as a subject independent of number theory.",
+    contributorIds: ['person:richard-dedekind', 'person:emmy-noether', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $\\mathbb{Z}[\\sqrt{-5}]$ is not a unique factorization domain by exhibiting two genuinely different factorizations of $6$.',
+      "Prove the First Isomorphism Theorem for rings: $R/\\ker(\\phi)\\cong\\text{im}(\\phi)$.",
+      'Determine whether the ideal $(x^2+1)$ is prime or maximal in $\\mathbb{R}[x]$, and in $\\mathbb{C}[x]$.',
+    ],
+    applications: [
+      'algebraic number theory, factoring ideals rather than elements in rings of integers',
+      'coding theory: rings of polynomials modulo a fixed polynomial defining cyclic codes',
+      'computer algebra and Gröbner basis computation in polynomial rings',
+      'ring-based post-quantum cryptography (ring learning-with-errors schemes)',
+    ],
+    researchDirections: [
+      'noncommutative ring theory and noncommutative algebraic geometry',
+      'homological methods (Ext and Tor) for classifying modules over a ring',
+      'ring-based lattice cryptography and its security assumptions',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives an extensive treatment of ring theory, from Euclidean domains through to Noetherian rings and unique factorization.',
+      },
+      {
+        title: 'Topics in Algebra',
+        authors: ['I. N. Herstein'],
+        edition: '2nd',
+        year: 1975,
+        why: 'A classic, terse, and highly regarded treatment of ring theory that remains widely recommended for its elegant proofs.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Michael Artin'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Motivates rings and ideals through concrete examples in number theory and geometry before developing the general theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Distributive laws', latex: 'a(b+c)=ab+ac,\\qquad (a+b)c=ac+bc' },
+      { label: 'First Isomorphism Theorem', latex: 'R/\\ker(\\phi)\\cong \\operatorname{im}(\\phi)' },
+      { label: 'Non-unique factorization example', latex: '6=2\\cdot 3=(1+\\sqrt{-5})(1-\\sqrt{-5}) \\text{ in } \\mathbb{Z}[\\sqrt{-5}]' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ring', url: 'https://encyclopediaofmath.org/wiki/Ring', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Associative rings and algebras', url: 'https://encyclopediaofmath.org/wiki/Associative_rings_and_algebras', kind: 'encyclopedia' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+    ],
+  },
+  'algebra:fields': {
+    overview:
+      'A field is a ring in which every nonzero element has a multiplicative inverse, so all four arithmetic operations behave as expected. Fields are the natural setting for solving equations and doing linear algebra, and the structure of their extensions encodes exactly which geometric constructions and polynomial equations are solvable.',
+    formal:
+      'A field is a commutative ring $F$ with $1\\neq 0$ in which every nonzero element has a multiplicative inverse. A field extension $F\\subseteq K$ has degree $[K:F]=\\dim_F K$ as an $F$-vector space, and the tower law states $[K:F]=[K:E][E:F]$ for any tower $F\\subseteq E\\subseteq K$. The Fundamental Theorem of Galois Theory sets up an order-reversing bijection between the subgroups of the Galois group $\\text{Gal}(K/F)$ of a finite Galois extension and the intermediate fields $F\\subseteq E\\subseteq K$.',
+    keyIdeas: [
+      'fields as the setting where all four arithmetic operations behave as expected',
+      'field extensions and degree, governed by the multiplicative tower law',
+      'algebraic versus transcendental extensions, and splitting fields',
+      'the Galois group of an extension and the Fundamental Theorem of Galois Theory',
+      'classical straightedge-and-compass constructions recast as questions about degree-2 field extensions',
+    ],
+    whyItMatters:
+      'Field theory settles, once and for all, exactly which classical construction problems are impossible — doubling the cube, trisecting an arbitrary angle, squaring the circle — by translating each into a simple degree-counting statement about field extensions, and the Fundamental Theorem of Galois Theory converts hard questions about polynomial equations into questions about finite groups, which are usually far easier to answer.',
+    prerequisites: ['algebra:rings'],
+    related: ['algebra:polynomials', 'abstract-algebra:galois-theory', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "Évariste Galois's 1831 memoir implicitly used field extensions to organize the symmetries of a polynomial's roots, but the modern axiomatic definition of an abstract field came later, from Heinrich Weber's 1893 paper and especially Ernst Steinitz's 1910 paper Algebraische Theorie der Körper ('Algebraic Theory of Fields'), which gave the first fully general axiomatic treatment of fields — including infinite fields and fields of positive characteristic — and is often regarded as the starting point of modern abstract algebra. Emil Artin's 1930s reformulation of Galois theory in terms of automorphism groups, rather than Galois's original language of permutations and resolvent equations, produced the clean statement of the Fundamental Theorem of Galois Theory used today.",
+    contributorIds: ['person:evariste-galois', 'person:ernst-steinitz'],
+    workIds: ['work:memoire-sur-les-conditions-de-resolubilite-des-equations-par-radicaux'],
+    exampleProblems: [
+      'Prove that doubling the cube is impossible with straightedge and compass by showing it requires a degree-3 extension of $\\mathbb{Q}$.',
+      'Compute the Galois group of $x^4-2$ over $\\mathbb{Q}$ and list its subgroups.',
+      'Show that a finite field has $p^n$ elements for a prime $p$ and positive integer $n$, and that any two finite fields of the same order are isomorphic.',
+    ],
+    applications: [
+      'finite fields (Galois fields) underlying Reed-Solomon and BCH error-correcting codes',
+      'finite-field arithmetic as the basis of AES encryption and elliptic-curve cryptography',
+      'algebraic number theory, where number fields generalize the rational numbers',
+      'resolving classical straightedge-and-compass construction problems from Greek geometry',
+    ],
+    researchDirections: [
+      'the inverse Galois problem: determining which finite groups occur as Galois groups over $\\mathbb{Q}$',
+      'explicit class field theory and its conjectural generalizations in the Langlands program',
+      'computational Galois theory and fast algorithms over finite fields',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Contains one of the most thorough and widely used treatments of field theory and Galois theory at the advanced-undergraduate/graduate level.',
+      },
+      {
+        title: 'Galois Theory',
+        authors: ['Ian Stewart'],
+        edition: '4th',
+        year: 2015,
+        why: 'A dedicated, consistently recommended standalone text focused entirely on field extensions and the Fundamental Theorem of Galois Theory.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Michael Artin'],
+        edition: '2nd',
+        year: 2010,
+        why: "Presents Galois theory in the automorphism-group formulation due to Emil Artin, Michael Artin's father, who helped create it.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Tower law', latex: '[K:F]=[K:E][E:F]' },
+      { label: 'Fundamental Theorem of Galois Theory', latex: '\\{\\text{subgroups of } \\text{Gal}(K/F)\\} \\longleftrightarrow \\{\\text{intermediate fields } F\\subseteq E\\subseteq K\\}' },
+      { label: 'Order of a finite field', latex: '|F| = p^n \\text{ for prime } p' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Field (mathematics)', url: 'https://en.wikipedia.org/wiki/Field_(mathematics)', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Steinitz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Steinitz/', kind: 'reference' },
+      { label: 'Wikipedia: Fundamental theorem of Galois theory', url: 'https://en.wikipedia.org/wiki/Fundamental_theorem_of_Galois_theory', kind: 'encyclopedia' },
+    ],
+  },
+  'algebra:modules': {
+    overview:
+      'A module generalizes a vector space by allowing scalars to come from a ring instead of a field. Giving up the guarantee that every nonzero scalar is invertible produces a much richer and more varied theory, since modules over general rings need not have a basis or even a well-defined notion of dimension.',
+    formal:
+      'A left module over a ring $R$ is an abelian group $M$ with an action $R\\times M\\to M$ satisfying $r(m+n)=rm+rn$, $(r+s)m=rm+sm$, $(rs)m=r(sm)$, and $1m=m$. $M$ is free if it has a basis (is isomorphic to $R^{(I)}$ for some index set $I$). The Structure Theorem for finitely generated modules over a PID states that every such module decomposes as $R^n\\oplus R/(d_1)\\oplus\\cdots\\oplus R/(d_k)$ with $d_1\\mid d_2\\mid\\cdots\\mid d_k$, which specializes to both the classification of finitely generated abelian groups (taking $R=\\mathbb{Z}$) and the Jordan/rational canonical forms of a linear operator (taking $R=F[x]$).',
+    keyIdeas: [
+      'modules as vector spaces over a ring instead of a field',
+      'free modules, generators, and the failure of a well-defined dimension over general rings',
+      'submodules, quotient modules, and exact sequences',
+      'the Structure Theorem for finitely generated modules over a principal ideal domain',
+      'modules as the natural language of representation theory and homological algebra',
+    ],
+    whyItMatters:
+      "The Structure Theorem for finitely generated modules over a PID is a single theorem that simultaneously classifies all finitely generated abelian groups and explains why every matrix over a field has a Jordan or rational canonical form — both facts turn out to be exactly the same theorem in disguise, once a matrix is viewed as defining an $F[x]$-module.",
+    prerequisites: ['algebra:rings'],
+    related: ['linear-algebra:vector-spaces', 'abstract-algebra:homological-algebra', 'algebra:representations'],
+    historicalContext:
+      "Richard Dedekind's 1870s work on ideals implicitly treated ideals as modules over a ring of integers, and David Hilbert's 1890 Basissatz (basis theorem) proved finiteness results now understood as statements about modules over polynomial rings. Emmy Noether's 1921 paper Idealtheorie in Ringbereichen and her subsequent Göttingen lectures recast ideal theory explicitly in module-theoretic terms built on the ascending and descending chain conditions, establishing the module-centric viewpoint that dominates modern algebra. Bartel van der Waerden's textbook Moderne Algebra (1930-31), based directly on lectures by Noether and Emil Artin, then popularized this formulation for a generation of algebraists.",
+    contributorIds: ['person:emmy-noether', 'person:richard-dedekind', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Classify all finitely generated abelian groups of order 360 using the Structure Theorem for modules over a PID.',
+      'Show that a vector space is precisely a module over a field, and explain why modules over $\\mathbb{Z}$ (abelian groups) generally fail to be free while every vector space is.',
+      'Use the Structure Theorem applied to $F[x]$-modules to explain why every matrix over an algebraically closed field has a Jordan canonical form.',
+    ],
+    applications: [
+      'classification of finitely generated abelian groups in number theory and topology',
+      'canonical forms (Jordan, rational) of matrices in linear algebra',
+      'homological algebra, where Ext and Tor groups measure obstructions built from modules',
+      'representation theory, where a group representation is exactly a module over the group ring',
+    ],
+    researchDirections: [
+      'homological algebra and derived categories of modules',
+      'module categories in noncommutative ring theory and noncommutative geometry',
+      'modules over group rings in modular representation theory',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives a thorough treatment of module theory, from free modules through to the Structure Theorem over a PID and its applications to canonical forms.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Serge Lang'],
+        edition: '3rd',
+        year: 2002,
+        why: 'A comprehensive graduate reference with an especially systematic treatment of modules, tensor products, and homological constructions.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Thomas W. Hungerford'],
+        year: 1974,
+        why: 'A standard graduate text particularly well regarded for its careful, general development of module theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Module axioms', latex: 'r(m+n)=rm+rn,\\quad (rs)m=r(sm),\\quad 1m=m' },
+      { label: 'Structure theorem for f.g. modules over a PID', latex: 'M \\cong R^n \\oplus R/(d_1) \\oplus \\cdots \\oplus R/(d_k),\\quad d_1\\mid\\cdots\\mid d_k' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Module', url: 'https://encyclopediaofmath.org/wiki/Module', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+    ],
+  },
+  'algebra:representations': {
+    overview:
+      'A representation of a group realizes its abstract elements as matrices (or linear maps), turning group theory into linear algebra. This is often the most practical way to actually compute with a group, and is indispensable wherever symmetry meets linear structure, from quantum mechanics to chemistry.',
+    formal:
+      'A representation of a group $G$ on a vector space $V$ over a field $F$ is a group homomorphism $\\rho:G\\to GL(V)$. Its character is $\\chi(g)=\\operatorname{tr}(\\rho(g))$. Maschke\'s theorem guarantees that for a finite group $G$ and $F=\\mathbb{C}$ (or any field whose characteristic does not divide $|G|$), every representation decomposes as a direct sum of irreducible representations, and the characters of the irreducible representations satisfy the orthogonality relations $\\frac{1}{|G|}\\sum_{g\\in G}\\chi_i(g)\\overline{\\chi_j(g)}=\\delta_{ij}$, which forces the number of irreducible representations of $G$ to equal the number of conjugacy classes of $G$.',
+    keyIdeas: [
+      'representations as homomorphisms from a group into invertible matrices/linear maps',
+      "Maschke's theorem: every finite-group representation over $\\mathbb{C}$ decomposes into irreducibles",
+      'characters as a trace-based fingerprint that determines a representation up to isomorphism',
+      'orthogonality relations among irreducible characters',
+      'representations as modules over the group ring $F[G]$',
+    ],
+    whyItMatters:
+      "Representation theory is what lets abstract symmetry make quantitative predictions: the allowed energy levels and spectroscopic transitions of an atom or molecule are dictated by which irreducible representations of its symmetry group appear, and character tables — a compact summary of a group's representation theory — are a standard working tool across chemistry, physics, and pure mathematics.",
+    prerequisites: ['algebra:groups'],
+    related: ['abstract-algebra:representation-theory', 'lie-theory:representation-of-lie-groups', 'linear-algebra:eigenvalues'],
+    historicalContext:
+      "Ferdinand Georg Frobenius founded representation and character theory of finite groups in a series of papers beginning in 1896, initially prompted by a question about group determinants posed to him by Richard Dedekind. William Burnside developed the theory further and used it to prove that every group of order $p^aq^b$ is solvable (Burnside's $p^aq^b$ theorem, 1904), while Issai Schur, Frobenius's student, proved Schur's lemma and developed the theory of projective representations in the early 1900s. Hermann Weyl extended representation theory from finite groups to compact and semisimple Lie groups in the 1920s, tying it directly to quantum mechanics and modern mathematical physics.",
+    contributorIds: ['person:ferdinand-georg-frobenius', 'person:hermann-weyl'],
+    workIds: [],
+    exampleProblems: [
+      'Construct the character table of the symmetric group $S_3$ and verify the orthogonality relations.',
+      "Use Maschke's theorem to explain why representation theory of finite groups over $\\mathbb{C}$ is semisimple, and why this can fail in characteristic $p$ dividing $|G|$.",
+      'Show, using the $S_3$ character table, that the number of irreducible representations of a finite group equals its number of conjugacy classes.',
+    ],
+    applications: [
+      'selection rules and energy-level splitting in quantum mechanics and spectroscopy',
+      'molecular vibration analysis in chemistry via character tables',
+      'Fourier analysis as the representation theory of abelian groups, used in signal processing',
+      'classification of elementary particles via representations of Lie groups in particle physics',
+    ],
+    researchDirections: [
+      'modular representation theory (characteristic dividing the group order), still incompletely understood even for many finite simple groups',
+      'the Langlands program, relating Galois representations to automorphic representations',
+      'geometric representation theory, using algebraic geometry and category theory',
+    ],
+    textbooks: [
+      {
+        title: 'Linear Representations of Finite Groups',
+        authors: ['Jean-Pierre Serre'],
+        year: 1977,
+        why: 'The classic, extremely compact standard reference for representation and character theory of finite groups.',
+      },
+      {
+        title: 'Representation Theory: A First Course',
+        authors: ['William Fulton', 'Joe Harris'],
+        year: 1991,
+        why: 'The standard graduate course text, covering finite groups, Lie groups, and Lie algebras in a unified, example-driven way.',
+      },
+      {
+        title: 'Representations and Characters of Groups',
+        authors: ['Gordon James', 'Martin Liebeck'],
+        edition: '2nd',
+        year: 2001,
+        why: 'A gentler, widely used undergraduate-friendly introduction that builds up to the same core theorems as Serre.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Representation homomorphism', latex: '\\rho: G \\to GL(V)' },
+      { label: 'Character', latex: '\\chi(g) = \\operatorname{tr}(\\rho(g))' },
+      { label: 'Character orthogonality relations', latex: '\\frac{1}{|G|}\\sum_{g\\in G}\\chi_i(g)\\overline{\\chi_j(g)}=\\delta_{ij}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Character of a representation of a group', url: 'https://encyclopediaofmath.org/wiki/Character_of_a_representation_of_a_group', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ferdinand Georg Frobenius', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frobenius/', kind: 'reference' },
+      { label: 'Wikipedia: Group representation', url: 'https://en.wikipedia.org/wiki/Group_representation', kind: 'encyclopedia' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -2477,6 +2893,8 @@ const personRows = [
   ['Maurice Frechet', '1878-1973', 'France', 'analysis', 'abstract metric spaces and point-set topology'],
   ['Emile Borel', '1871-1956', 'France', 'analysis', 'countably additive measure and the Borel hierarchy'],
   ['Henri Lebesgue', '1875-1941', 'France', 'analysis', 'the Lebesgue integral and modern measure theory'],
+  ['Ernst Steinitz', '1871-1928', 'Germany', 'algebra', 'the abstract axiomatic theory of fields'],
+  ['Ferdinand Georg Frobenius', '1849-1917', 'Germany', 'algebra', 'representation theory and character theory of finite groups'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -2500,14 +2918,20 @@ const personTopicOverrides: Record<string, string[]> = {
     'analysis:continuity',
     'analysis:differentiation',
   ],
-  'person:arthur-cayley': ['linear-algebra:matrices'],
+  'person:arthur-cayley': ['linear-algebra:matrices', 'algebra:groups'],
   'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
   'person:hermann-grassmann': ['linear-algebra:vector-spaces'],
   'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
-  'person:camille-jordan': ['linear-algebra:singular-value-decomposition', 'linear-algebra:eigenvalues'],
+  'person:camille-jordan': ['linear-algebra:singular-value-decomposition', 'linear-algebra:eigenvalues', 'algebra:groups'],
   'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
-  'person:david-hilbert': ['foundations:axiomatic-method', 'linear-algebra:eigenvalues', 'linear-algebra:inner-product-spaces'],
+  'person:david-hilbert': [
+    'foundations:axiomatic-method',
+    'linear-algebra:eigenvalues',
+    'linear-algebra:inner-product-spaces',
+    'algebra:rings',
+    'algebra:modules',
+  ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
   'person:bernhard-riemann': ['analysis:sequences-and-series', 'analysis:integration', 'differential-geometry:riemannian-metrics'],
   'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces'],
@@ -2517,6 +2941,12 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:emile-borel': ['analysis:measure-theory'],
   'person:henri-lebesgue': ['analysis:measure-theory'],
   'person:andrey-kolmogorov': ['probability:sample-spaces', 'analysis:measure-theory'],
+  'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
+  'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules'],
+  'person:richard-dedekind': ['set-theory:naive-set-theory', 'algebra:rings', 'algebra:modules'],
+  'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
+  'person:ernst-steinitz': ['algebra:fields'],
+  'person:ferdinand-georg-frobenius': ['algebra:representations'],
 };
 
 export const people: Person[] = personRows.map(
@@ -2640,6 +3070,12 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:die-lineale-ausdehnungslehre': ['linear-algebra:vector-spaces'],
   'work:linear-algebra-and-its-applications': ['linear-algebra:vector-spaces'],
   'work:numerical-linear-algebra': ['numerical-analysis:floating-point-arithmetic', 'linear-algebra:singular-value-decomposition'],
+  'work:memoire-sur-les-conditions-de-resolubilite-des-equations-par-radicaux': [
+    'abstract-algebra:galois-theory',
+    'algebra:polynomials',
+    'algebra:fields',
+    'algebra:groups',
+  ],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
