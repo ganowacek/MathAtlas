@@ -34,7 +34,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] algebraic-geometry
 - [x] geometry
 - [x] differential-geometry
-- [ ] real-analysis
+- [x] real-analysis
 - [ ] complex-analysis
 - [ ] functional-analysis
 - [ ] differential-equations

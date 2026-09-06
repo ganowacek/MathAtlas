@@ -7432,6 +7432,420 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
     ],
   },
+  'real-analysis:real-numbers': {
+    overview:
+      'The real numbers are the complete ordered field that makes calculus rigorous: an ordered set of numbers with no "gaps," so that every bounded set has a least upper bound. Constructing them precisely from the rationals — rather than assuming their existence intuitively — was the central achievement that turned 19th-century analysis into a fully rigorous subject.',
+    formal:
+      'The real numbers $\\mathbb{R}$ form a complete ordered field: a field satisfying the least upper bound property, that every nonempty subset $S\\subseteq\\mathbb{R}$ bounded above has a supremum $\\sup S\\in\\mathbb{R}$. Dedekind constructed $\\mathbb{R}$ from $\\mathbb{Q}$ via cuts: a Dedekind cut is a partition $(A,B)$ of $\\mathbb{Q}$ with $A$ having no maximum and every element of $A$ less than every element of $B$; each real number is identified with such a cut. Cantor gave an equivalent construction using equivalence classes of Cauchy sequences of rationals, $(a_n)\\sim(b_n)$ iff $a_n-b_n\\to 0$.',
+    keyIdeas: [
+      'the least upper bound (completeness) property as what distinguishes $\\mathbb{R}$ from $\\mathbb{Q}$',
+      "Dedekind cuts: constructing real numbers as partitions of the rationals",
+      'Cauchy sequences of rationals as an equivalent construction of $\\mathbb{R}$',
+      'the Archimedean property and density of $\\mathbb{Q}$ in $\\mathbb{R}$',
+      'nested interval and Bolzano-Weierstrass theorems as consequences of completeness',
+    ],
+    whyItMatters:
+      'Every foundational theorem of calculus — that a continuous function on a closed interval attains a maximum, that a bounded monotone sequence converges, that the intermediate value theorem holds — is false over $\\mathbb{Q}$ and depends entirely on the completeness of $\\mathbb{R}$. Making this construction precise, rather than relying on geometric intuition about "the number line," is what let 19th-century mathematicians replace appeals to intuition with proof.',
+    prerequisites: ['calculus:limits'],
+    related: ['analysis:sequences-and-series', 'real-analysis:epsilon-delta-limits', 'set-theory:cardinals'],
+    historicalContext:
+      "Bernard Bolzano gave an early rigorous treatment of continuity and the intermediate value theorem in the 1810s-1820s, well ahead of his time but largely unread. The crisis came to a head in 1858 when Richard Dedekind, teaching calculus, realized he had no rigorous foundation for the claim that a bounded monotone sequence converges; he resolved this with his theory of cuts, published as Stetigkeit und irrationale Zahlen (1872). In the same year, Georg Cantor and Charles Méray independently published constructions via Cauchy sequences of rationals, and Karl Weierstrass had already been giving a construction via bounded series in his Berlin lectures since the 1860s. These three essentially equivalent constructions completed the arithmetization of analysis, removing the last unexamined geometric assumption from calculus.",
+    contributorIds: ['person:richard-dedekind', 'person:georg-cantor', 'person:bernard-bolzano'],
+    workIds: [],
+    exampleProblems: [
+      'Construct the Dedekind cut corresponding to $\\sqrt{2}$ and verify it is not a rational cut, i.e. that $\\sqrt2\\notin\\mathbb{Q}$.',
+      'Show directly from the least upper bound property that every Cauchy sequence of real numbers converges (i.e. $\\mathbb{R}$ is complete in the metric sense).',
+      'Prove the Archimedean property — for any real $x>0$ there is a natural number $n$ with $n>x$ — from the least upper bound axiom.',
+    ],
+    applications: [
+      'the rigorous foundation underlying every limit, derivative, and integral in calculus',
+      'numerical analysis, where floating-point arithmetic approximates the completeness of $\\mathbb{R}$',
+      'the real number line as the model for physical continuous quantities in physics and engineering',
+    ],
+    researchDirections: [
+      'constructive and computable analysis, which real numbers are effectively presentable',
+      'non-standard analysis and the hyperreal numbers as an alternative foundation for calculus',
+      'surreal numbers and other extensions of the real number system',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: "The classic ('baby Rudin') construction of the reals via Dedekind cuts, opening the standard undergraduate real analysis sequence.",
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: 'A gentler, motivation-first introduction to the construction and completeness of the reals, popular for a first rigorous analysis course.',
+      },
+      {
+        title: 'A Course of Pure Mathematics',
+        authors: ['G. H. Hardy'],
+        edition: '10th',
+        year: 1952,
+        why: 'A historically influential and still-readable classic that carefully develops the real number system from first principles.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Least upper bound property', latex: '\\forall S\\subseteq\\mathbb{R},\\ S\\ne\\emptyset,\\ S \\text{ bounded above} \\implies \\exists \\sup S \\in \\mathbb{R}' },
+      { label: 'Archimedean property', latex: '\\forall x\\in\\mathbb{R}\\,\\exists n\\in\\mathbb{N}: n>x' },
+      { label: 'Dedekind cut', latex: 'A\\cup B=\\mathbb{Q},\\ A\\cap B=\\emptyset,\\ \\forall a\\in A\\,\\forall b\\in B: a<b' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Real number', url: 'https://encyclopediaofmath.org/wiki/Real_number', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Dedekind cut', url: 'https://encyclopediaofmath.org/wiki/Dedekind_cut', kind: 'encyclopedia' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:epsilon-delta-limits': {
+    overview:
+      'The epsilon-delta definition of limit replaces the intuitive but imprecise idea of a function "approaching" a value with a fully quantified statement: for every tolerance $\\varepsilon$ on the output, there is a tolerance $\\delta$ on the input that guarantees it. This definition is what finally made calculus a rigorous deductive subject rather than a collection of successful but logically shaky techniques.',
+    formal:
+      '$\\lim_{x\\to a} f(x) = L$ means: for every $\\varepsilon>0$ there exists $\\delta>0$ such that for all $x$, $0<|x-a|<\\delta$ implies $|f(x)-L|<\\varepsilon$. Continuity of $f$ at $a$ is the same statement without excluding $x=a$: for every $\\varepsilon>0$ there is $\\delta>0$ such that $|x-a|<\\delta$ implies $|f(x)-f(a)|<\\varepsilon$.',
+    keyIdeas: [
+      'quantifier order: $\\delta$ is chosen after and depending on $\\varepsilon$, never the reverse',
+      'uniform versus pointwise notions built from the same $\\varepsilon$-$\\delta$ template (uniform continuity, uniform convergence)',
+      'the definition applies equally to limits of sequences, functions, and (with the same logical shape) to derivatives and integrals',
+      "Weierstrass's construction of a nowhere-differentiable continuous function as a warning against relying on geometric intuition",
+    ],
+    whyItMatters:
+      "The epsilon-delta definition ended nearly 150 years of unease about the logical foundations of calculus. Newton and Leibniz's infinitesimals worked in practice but could not be defined consistently, and even Cauchy's improved but still informal notion of limit ('a quantity approaches a fixed value as closely as one wishes') left room for error. Weierstrass's fully quantified reformulation eliminated the ambiguity, letting mathematicians finally prove — rather than just believe — statements like the intermediate value theorem or that a convergent series can be integrated term by term.",
+    prerequisites: ['calculus:limits', 'real-analysis:real-numbers'],
+    related: ['analysis:continuity', 'analysis:sequences-and-series', 'calculus:limits'],
+    historicalContext:
+      "Augustin-Louis Cauchy's Cours d'Analyse (1821) gave the first widely-used rigorous-sounding definition of limit and continuity in terms of infinitely small quantities becoming arbitrarily small, a major advance over Newton and Leibniz but still not fully formalized. Bernard Bolzano had independently anticipated a more precise treatment in the 1810s. Karl Weierstrass, lecturing at Berlin from the 1850s onward, gave the definition its modern fully quantified $\\varepsilon$-$\\delta$ form, banishing all remaining appeals to infinitesimals or motion from the definition of limit. This 'arithmetization of analysis' let Weierstrass and his students rigorously construct pathological objects, like his 1872 continuous but nowhere-differentiable function, that geometric intuition alone would never have anticipated.",
+    contributorIds: ['person:karl-weierstrass', 'person:augustin-louis-cauchy', 'person:bernard-bolzano'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Using the $\\varepsilon$-$\\delta$ definition directly, prove that $\\lim_{x\\to 2} x^2 = 4$.',
+      'Explain why $f(x)=1/x$ has no limit as $x\\to 0$ by showing no single $\\delta$ works for a given small $\\varepsilon$.',
+      'Distinguish pointwise continuity from uniform continuity by finding a function continuous on $(0,1)$ that is not uniformly continuous there.',
+    ],
+    applications: [
+      'rigorous justification for every derivative and integral computed in calculus',
+      'error and tolerance analysis in numerical methods, which is exactly an $\\varepsilon$-$\\delta$-style guarantee',
+      'control theory and engineering stability analysis, where bounding output error given bounded input error is the central design question',
+    ],
+    researchDirections: [
+      'non-standard analysis, which reintroduces rigorous infinitesimals as an alternative to $\\varepsilon$-$\\delta$',
+      'constructive analysis, which reexamines which $\\varepsilon$-$\\delta$ arguments can be made computationally effective',
+      'reverse mathematics, calibrating exactly which set-existence axioms are needed to prove classical $\\varepsilon$-$\\delta$ theorems',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: 'The canonical treatment of rigorous limits and continuity in the epsilon-delta tradition, still the standard reference.',
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: 'Explicitly built around motivating why the epsilon-delta definition is necessary before presenting it formally.',
+      },
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'A calculus text that treats epsilon-delta arguments with full rigor from the start, bridging computational and proof-based calculus.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Epsilon-delta limit', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0:\\ 0<|x-a|<\\delta \\implies |f(x)-L|<\\varepsilon' },
+      { label: 'Epsilon-delta continuity', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0:\\ |x-a|<\\delta \\implies |f(x)-f(a)|<\\varepsilon' },
+      { label: 'Uniform continuity', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0\\,\\forall x,y:\\ |x-y|<\\delta \\implies |f(x)-f(y)|<\\varepsilon' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Limit', url: 'https://encyclopediaofmath.org/wiki/Limit', kind: 'encyclopedia' },
+      { label: 'MacTutor: Karl Weierstrass', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:lebesgue-integration': {
+    overview:
+      'Lebesgue integration reformulates the integral by partitioning the range of a function rather than its domain, measuring how large the set is where the function takes each range of values. This single change fixes the Riemann integral\'s worst defects, letting far more functions be integrated and letting limits and integrals be interchanged under mild hypotheses.',
+    formal:
+      'For a nonnegative measurable function $f:X\\to[0,\\infty]$ on a measure space $(X,\\mathcal{M},\\mu)$, the Lebesgue integral is defined via simple functions: for a simple function $s=\\sum_{i=1}^n c_i \\mathbf{1}_{A_i}$, $\\int s\\,d\\mu = \\sum_{i=1}^n c_i\\,\\mu(A_i)$, and $\\int f\\,d\\mu = \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s \\text{ simple}\\}$. A general measurable $f$ is integrable if $\\int |f|\\,d\\mu <\\infty$, and then $\\int f\\,d\\mu = \\int f^+\\,d\\mu - \\int f^-\\,d\\mu$.',
+    keyIdeas: [
+      'partitioning the range (Lebesgue) instead of the domain (Riemann)',
+      'simple functions as building blocks, approximated from below by an increasing sequence',
+      'measurability of a function as the precise requirement for the construction to make sense',
+      'the Monotone and Dominated Convergence Theorems, which routinely justify swapping limits and integrals',
+      'every Riemann-integrable function is Lebesgue integrable with the same value, but not conversely',
+    ],
+    whyItMatters:
+      "The Riemann integral cannot integrate the indicator function of the rationals, and worse, a pointwise limit of Riemann-integrable functions need not itself be Riemann integrable. The Lebesgue integral fixes both defects: it integrates vastly more functions, and the Dominated Convergence Theorem gives a simple, widely applicable criterion for interchanging limits and integrals. This makes it the integral used throughout modern probability theory, Fourier analysis, and functional analysis.",
+    prerequisites: ['analysis:measure-theory', 'real-analysis:real-numbers'],
+    related: ['analysis:measure-theory', 'real-analysis:differentiation-theorems', 'probability:expectation'],
+    historicalContext:
+      "Henri Lebesgue introduced his integral in his 1902 doctoral thesis Intégrale, longueur, aire, building on Émile Borel's earlier work on countably additive measure, and gave a fuller systematic account in Leçons sur l'intégration et la recherche des fonctions primitives (1904). Lebesgue's own famous description of the idea contrasted it with Riemann's approach: rather than adding up a disorganized pile of coins in the order encountered (Riemann, partitioning the domain), sort the coins by denomination first and count each pile (Lebesgue, partitioning the range). The theory was rapidly absorbed into functional analysis by Frigyes Riesz and others, and became indispensable when Andrey Kolmogorov built the axiomatic foundations of probability theory directly on Lebesgue measure in 1933.",
+    contributorIds: ['person:henri-lebesgue', 'person:emile-borel'],
+    workIds: ['work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives'],
+    exampleProblems: [
+      'Compute $\\int_0^1 \\mathbf{1}_{\\mathbb{Q}}(x)\\,dx$ as a Lebesgue integral and explain why the Riemann integral fails to exist for this function.',
+      'Use the Dominated Convergence Theorem to justify $\\lim_{n\\to\\infty}\\int_0^1 \\frac{nx}{1+n^2x^2}\\,dx = 0$.',
+      'Show that a bounded function on $[a,b]$ that is Riemann integrable is also Lebesgue integrable, with the same value.',
+    ],
+    applications: [
+      'the rigorous definition of expectation in probability theory as $\\mathbb{E}[X]=\\int X\\,d\\mathbb{P}$',
+      'Fourier analysis and $L^p$ space theory, both requiring Lebesgue integration to be complete',
+      'quantum mechanics, where wavefunctions live in the Lebesgue space $L^2$',
+    ],
+    researchDirections: [
+      'the Henstock-Kurzweil integral, which integrates a strictly larger class of functions using domain partitions',
+      'stochastic integration (Itô calculus), extending integration theory to random, non-differentiable paths',
+      'integration on infinite-dimensional and abstract measure spaces in probability and analysis',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'A standard graduate treatment building the Lebesgue integral from measure theory with an eye toward Fourier analysis.',
+      },
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'One of the most widely used graduate real analysis texts, with a careful, classical construction of the Lebesgue integral.',
+      },
+      {
+        title: 'Measure Theory and Fine Properties of Functions',
+        authors: ['Lawrence C. Evans', 'Ronald F. Gariepy'],
+        edition: 'Revised',
+        year: 2015,
+        why: 'Goes further into the fine structure of Lebesgue-integrable functions, useful once the basic theory is mastered.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lebesgue integral of a simple function', latex: '\\int \\left(\\sum_{i=1}^n c_i \\mathbf{1}_{A_i}\\right) d\\mu = \\sum_{i=1}^n c_i\\,\\mu(A_i)' },
+      { label: 'Monotone Convergence Theorem', latex: '0\\le f_n \\uparrow f \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+      { label: 'Dominated Convergence Theorem', latex: 'f_n\\to f \\text{ a.e.},\\ |f_n|\\le g\\in L^1 \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lebesgue integral', url: 'https://encyclopediaofmath.org/wiki/Lebesgue_integral', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+      { label: 'MacTutor: Émile Borel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Borel/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:differentiation-theorems': {
+    overview:
+      'Differentiation theorems in real analysis characterize exactly which functions are differentiable almost everywhere and relate differentiation back to integration in full generality. They resolve the delicate question of when the Fundamental Theorem of Calculus continues to hold once functions are allowed to be as irregular as measure theory permits.',
+    formal:
+      "Lebesgue's differentiation theorem: if $f\\in L^1_{loc}(\\mathbb{R}^n)$, then for almost every $x$, $\\lim_{r\\to 0}\\frac{1}{|B(x,r)|}\\int_{B(x,r)} |f(y)-f(x)|\\,dy = 0$. A closely related result: every function $f$ of bounded variation on $[a,b]$ (equivalently, a difference of two monotone functions) is differentiable almost everywhere, and if $f$ is additionally absolutely continuous, the Fundamental Theorem of Calculus holds in full generality, $f(b)-f(a)=\\int_a^b f'(x)\\,dx$.",
+    keyIdeas: [
+      'functions of bounded variation as differences of monotone functions, differentiable almost everywhere',
+      'absolute continuity as the precise condition recovering the Fundamental Theorem of Calculus',
+      'the Vitali covering lemma as the key combinatorial tool behind almost-everywhere differentiation results',
+      'the Cantor function (devil\'s staircase) as a continuous, monotone function with zero derivative almost everywhere yet not constant',
+      'singular versus absolutely continuous parts in the Lebesgue decomposition of a measure',
+    ],
+    whyItMatters:
+      'These theorems pin down exactly how far the ordinary rules of calculus extend once "function" is allowed to mean any Lebesgue-measurable function rather than a smooth curve. They show both a positive result (monotone and bounded-variation functions are almost everywhere differentiable) and a cautionary one (the Cantor function shows a.e. differentiability with zero derivative does not imply the function is constant, unless absolute continuity is also assumed), which is essential for correctly generalizing the Fundamental Theorem of Calculus to Lebesgue integration.',
+    prerequisites: ['real-analysis:lebesgue-integration', 'analysis:differentiation'],
+    related: ['real-analysis:lebesgue-integration', 'analysis:differentiation', 'real-analysis:l-p-spaces'],
+    historicalContext:
+      "Giuseppe Vitali proved his covering lemma in 1908 and used it to show that absolute continuity is exactly the condition needed for the Fundamental Theorem of Calculus to hold with the Lebesgue integral, also constructing the first example of a non-measurable set that same year using the axiom of choice. Henri Lebesgue had already shown in his thesis that monotone functions are differentiable almost everywhere. Their combined results, refined by Constantin Carathéodory and others in the following decades, gave the complete real-variable theory of when a function can be recovered from its derivative by integration.",
+    contributorIds: ['person:giuseppe-vitali', 'person:henri-lebesgue'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the Cantor function is continuous, monotone increasing, has derivative $0$ almost everywhere, yet increases from $0$ to $1$ — reconciling this with the Fundamental Theorem of Calculus.',
+      'Show that a Lipschitz function on $[a,b]$ is absolutely continuous, hence satisfies the Fundamental Theorem of Calculus with its Lebesgue integrable derivative.',
+      'State the Vitali covering lemma and sketch how it is used to prove that monotone functions are differentiable almost everywhere.',
+    ],
+    applications: [
+      'geometric measure theory, where covering lemmas control the structure of sets and measures',
+      'probability theory, via the Radon-Nikodym derivative of one measure with respect to another',
+      'signal processing, where bounded-variation models capture piecewise-smooth signals with jumps',
+    ],
+    researchDirections: [
+      'geometric measure theory and rectifiable sets built on refinements of the Vitali and Besicovitch covering lemmas',
+      'BV (bounded variation) function spaces in the calculus of variations and image processing',
+      'differentiation theory in more general metric measure spaces beyond $\\mathbb{R}^n$',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'Covers the Lebesgue differentiation theorem and functions of bounded variation with a clean, modern exposition.',
+      },
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'Contains the classical real-variable treatment of monotone functions, bounded variation, and absolute continuity.',
+      },
+      {
+        title: 'Measure Theory and Fine Properties of Functions',
+        authors: ['Lawrence C. Evans', 'Ronald F. Gariepy'],
+        edition: 'Revised',
+        year: 2015,
+        why: 'Develops the Vitali covering lemma and differentiation theory in depth, connecting to geometric measure theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lebesgue differentiation theorem', latex: '\\lim_{r\\to 0}\\frac{1}{|B(x,r)|}\\int_{B(x,r)}|f(y)-f(x)|\\,dy=0 \\text{ a.e.}' },
+      { label: 'Fundamental Theorem of Calculus (Lebesgue form)', latex: 'f(b)-f(a)=\\int_a^b f\'(x)\\,dx \\quad (f \\text{ absolutely continuous})' },
+      { label: 'Total variation', latex: 'V_a^b(f)=\\sup_{P}\\sum_{i}|f(x_i)-f(x_{i-1})|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Function of bounded variation', url: 'https://encyclopediaofmath.org/wiki/Function_of_bounded_variation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Giuseppe Vitali', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Vitali/', kind: 'reference' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:l-p-spaces': {
+    overview:
+      '$L^p$ spaces organize functions into normed vector spaces graded by an integrability exponent $p$, unifying the idea of "size" of a function used throughout analysis, probability, and Fourier theory. The case $p=2$, a Hilbert space, is the natural home for Fourier series and quantum mechanics; general $p$ interpolates between different notions of how a function can be large.',
+    formal:
+      'For $1\\le p<\\infty$, $L^p(X,\\mu) = \\{f \\text{ measurable} : \\|f\\|_p < \\infty\\}$ where $\\|f\\|_p = \\left(\\int_X |f|^p\\,d\\mu\\right)^{1/p}$ (functions equal almost everywhere identified). Hölder\'s inequality states $\\|fg\\|_1 \\le \\|f\\|_p\\|g\\|_q$ for conjugate exponents $\\frac1p+\\frac1q=1$, and Minkowski\'s inequality $\\|f+g\\|_p\\le\\|f\\|_p+\\|g\\|_p$ makes $\\|\\cdot\\|_p$ a norm. The Riesz-Fischer theorem states that $L^p$ is complete (a Banach space) for every $1\\le p\\le\\infty$, and a Hilbert space when $p=2$.',
+    keyIdeas: [
+      'the $p$-norm $\\|f\\|_p$ as a family of measures of the "size" of a function, generalizing Euclidean length',
+      "Hölder's and Minkowski's inequalities as the algebraic backbone of the theory",
+      'completeness (the Riesz-Fischer theorem): every Cauchy sequence in $L^p$ converges in $L^p$',
+      '$L^2$ as a Hilbert space, the natural setting for orthogonal expansions such as Fourier series',
+      'duality: the dual space of $L^p$ is $L^q$ for conjugate exponents when $1\\le p<\\infty$',
+    ],
+    whyItMatters:
+      'Without completeness, an $L^p$ space would be useless for the limiting arguments that analysis depends on — a Cauchy sequence of functions might converge to something outside the space. The Riesz-Fischer theorem guarantees this cannot happen, which is precisely what makes $L^2$ a Hilbert space capable of supporting Fourier series, least-squares approximation, and quantum mechanical wavefunctions, and makes $L^p$ theory generally the natural function-space setting for harmonic analysis and PDE.',
+    prerequisites: ['real-analysis:lebesgue-integration', 'linear-algebra:inner-product-spaces'],
+    related: ['functional-analysis:hilbert-spaces', 'functional-analysis:normed-spaces', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Frigyes Riesz and, independently, Ernst Fischer proved in 1907 that the space of square-integrable functions is complete — the Riesz-Fischer theorem — showing that Fourier coefficient sequences in $\\ell^2$ correspond exactly to functions in $L^2$. Riesz went on through the 1910s to develop the general $L^p$ theory, including Hölder's and Minkowski's inequalities (named for earlier related inequalities by Otto Hölder and Hermann Minkowski) and the duality between $L^p$ and $L^q$. This work, alongside Maurice Fréchet's and David Hilbert's parallel development of abstract space theory, became one of the founding pillars of functional analysis.",
+    contributorIds: ['person:frigyes-riesz'],
+    workIds: [],
+    exampleProblems: [
+      "Prove Hölder's inequality for $p=q=2$ (the Cauchy-Schwarz inequality) directly from the definition of $\\|\\cdot\\|_2$.",
+      'Give an example of a Cauchy sequence of continuous functions in the $L^2$ norm that converges to a discontinuous limit, illustrating why completeness requires working in $L^2$ rather than $C[0,1]$.',
+      'Show that $L^p[0,1]\\subseteq L^q[0,1]$ whenever $p\\ge q$ on a finite measure space, and that the reverse inclusion can fail.',
+    ],
+    applications: [
+      'Fourier series and signal processing, built on the Hilbert space structure of $L^2$',
+      'quantum mechanics, where physical states are unit vectors in an $L^2$ Hilbert space',
+      'PDE theory and Sobolev spaces, which measure both a function and its derivatives in $L^p$ norms',
+      'statistics and machine learning, where $L^2$ loss (least squares) and $L^1$ loss (robust regression) correspond to different $p$',
+    ],
+    researchDirections: [
+      'Sobolev spaces and their embeddings, central to modern PDE theory',
+      'interpolation theory between $L^p$ spaces (Riesz-Thorin, Marcinkiewicz theorems)',
+      'weighted and variable-exponent $L^p$ spaces in harmonic analysis',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'Develops $L^p$ space theory, including Hölder, Minkowski, and duality, as a core chapter of modern real analysis.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The standard graduate treatment placing $L^p$ spaces within the broader theory of Banach and Hilbert spaces.',
+      },
+      {
+        title: 'Real and Complex Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1987,
+        why: "Rudin's classic dual treatment connecting $L^p$ theory to complex analysis and measure theory.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'p-norm', latex: '\\|f\\|_p = \\left(\\int_X |f|^p\\,d\\mu\\right)^{1/p}' },
+      { label: 'Holder inequality', latex: '\\|fg\\|_1 \\le \\|f\\|_p\\|g\\|_q,\\quad \\tfrac1p+\\tfrac1q=1' },
+      { label: 'Minkowski inequality', latex: '\\|f+g\\|_p \\le \\|f\\|_p+\\|g\\|_p' },
+      { label: 'Riesz-Fischer completeness', latex: 'L^p \\text{ is complete for } 1\\le p \\le \\infty' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lebesgue space', url: 'https://encyclopediaofmath.org/wiki/Lebesgue_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+      { label: 'MacTutor: Vitali function', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Vitali/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:fourier-series': {
+    overview:
+      'Fourier series express a periodic function as an infinite sum of sines and cosines, decomposing an arbitrary signal into pure frequencies. This idea — audacious enough at the time to be doubted by leading mathematicians — turned into one of the most productive tools in mathematics, ultimately requiring Lebesgue integration and $L^2$ theory to make fully rigorous.',
+    formal:
+      'For a $2\\pi$-periodic function $f\\in L^2[-\\pi,\\pi]$, the Fourier series is $f(x)\\sim \\frac{a_0}{2}+\\sum_{n=1}^{\\infty}\\left(a_n\\cos(nx)+b_n\\sin(nx)\\right)$, with coefficients $a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\cos(nx)\\,dx$, $b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\sin(nx)\\,dx$. By the Riesz-Fischer theorem the partial sums converge to $f$ in the $L^2$ norm for every $f\\in L^2$, while pointwise and uniform convergence require additional regularity of $f$.',
+    keyIdeas: [
+      'expanding a function in an orthogonal basis of sines and cosines, analogous to expressing a vector in coordinates',
+      'convergence in $L^2$ norm (always, for $L^2$ functions) versus pointwise convergence (requires extra regularity)',
+      "the Gibbs phenomenon: overshoot near jump discontinuities that persists no matter how many terms are taken",
+      "Dirichlet's and later Carleson's theorems on when Fourier series converge pointwise, almost everywhere",
+      'Parseval\'s identity: the Fourier coefficients preserve the $L^2$ norm, $\\|f\\|_2^2 = \\frac{|a_0|^2}{2}+\\sum_{n\\ge1}(|a_n|^2+|b_n|^2)$ (suitably normalized)',
+    ],
+    whyItMatters:
+      "Fourier's audacious 1807 claim that any function could be expanded in a trigonometric series was initially rejected by referees including Lagrange, yet turned out to be the seed of modern harmonic analysis, PDE theory, and signal processing. Making the claim precise — exactly which functions have Fourier series that converge, and in what sense — drove the development of set theory (Cantor's work on sets of divergence originated in Fourier series), measure theory, and $L^p$ space theory, making Fourier series one of the most historically productive problems in all of analysis.",
+    prerequisites: ['real-analysis:l-p-spaces', 'linear-algebra:inner-product-spaces'],
+    related: ['linear-algebra:inner-product-spaces', 'real-analysis:l-p-spaces', 'analysis:sequences-and-series'],
+    historicalContext:
+      "Joseph Fourier introduced trigonometric series expansions in his 1807 memoir on heat conduction, later published as Théorie analytique de la chaleur (1822), to solve the heat equation. His claim that arbitrary functions could be so expanded was controversial: Lagrange objected to an early version of the paper, and it took decades to clarify exactly when the series converges. Peter Gustav Lejeune Dirichlet proved the first rigorous pointwise convergence theorem in 1829 for piecewise monotone functions. Bernhard Riemann's Habilitationsschrift (1854) on trigonometric series motivated his definition of the Riemann integral, and Georg Cantor's attempts to characterize sets where Fourier series could fail to converge led him directly to the invention of set theory. The question of pointwise convergence for general $L^2$ functions remained open until Lennart Carleson proved it in 1966, one of the landmark results of 20th-century analysis.",
+    contributorIds: ['person:joseph-fourier', 'person:bernhard-riemann', 'person:georg-cantor'],
+    workIds: ['work:theorie-analytique-de-la-chaleur'],
+    exampleProblems: [
+      'Compute the Fourier series of the sawtooth function $f(x)=x$ on $(-\\pi,\\pi)$ and use it to evaluate $\\sum_{n=1}^\\infty \\frac{(-1)^{n+1}}{n}$.',
+      "Verify Parseval's identity numerically for the Fourier series of $f(x)=x^2$ on $(-\\pi,\\pi)$, using it to sum $\\sum_{n=1}^\\infty 1/n^4$.",
+      'Explain the Gibbs phenomenon by examining the partial sums of the Fourier series of a square wave near its jump discontinuity.',
+    ],
+    applications: [
+      'signal processing and audio/image compression, via the discrete and fast Fourier transforms',
+      'solving the heat, wave, and Laplace equations by separation of variables',
+      'quantum mechanics, where energy eigenstates form a Fourier-like orthogonal basis',
+      'analyzing periodic phenomena in astronomy, acoustics, and electrical engineering',
+    ],
+    researchDirections: [
+      'Carleson-Hunt theorem and its extensions on almost-everywhere convergence of Fourier series',
+      'harmonic analysis on groups, generalizing Fourier series to non-abelian and non-periodic settings',
+      'wavelets and time-frequency analysis as alternatives capturing localized as well as periodic structure',
+    ],
+    textbooks: [
+      {
+        title: 'Fourier Analysis: An Introduction',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: "The first volume of Princeton's celebrated analysis series, motivating Fourier series historically before developing the theory rigorously.",
+      },
+      {
+        title: 'Fourier Series',
+        authors: ['Georgi P. Tolstov'],
+        year: 1962,
+        why: 'A classic, accessible introduction focused specifically on the classical convergence theory of Fourier series.',
+      },
+      {
+        title: 'Trigonometric Series',
+        authors: ['Antoni Zygmund'],
+        edition: '3rd',
+        year: 2002,
+        why: 'The definitive advanced reference on Fourier series, covering convergence theory in exhaustive depth.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fourier series', latex: 'f(x)\\sim \\frac{a_0}{2}+\\sum_{n=1}^{\\infty}\\left(a_n\\cos(nx)+b_n\\sin(nx)\\right)' },
+      { label: 'Fourier cosine coefficients', latex: 'a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\cos(nx)\\,dx' },
+      { label: 'Parseval identity', latex: '\\|f\\|_2^2 = \\frac{|a_0|^2}{2}+\\sum_{n=1}^{\\infty}\\left(|a_n|^2+|b_n|^2\\right)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Fourier series', url: 'https://encyclopediaofmath.org/wiki/Fourier_series', kind: 'encyclopedia' },
+      { label: 'MacTutor: Joseph Fourier', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fourier/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -7693,6 +8107,9 @@ const personRows = [
   ['Hermann Minkowski', '1864-1909', 'Germany', 'geometry', 'the geometry of numbers and convex bodies'],
   ['Elie Cartan', '1869-1951', 'France', 'differential-geometry', 'moving frames, connections, and curvature'],
   ['Charles Ehresmann', '1905-1979', 'France', 'differential-geometry', 'the modern definition of fiber bundles and connections'],
+  ['Joseph Fourier', '1768-1830', 'France', 'real-analysis', 'Fourier series and the mathematical theory of heat'],
+  ['Giuseppe Vitali', '1875-1932', 'Italy', 'real-analysis', 'the Vitali covering lemma and non-measurable sets'],
+  ['Frigyes Riesz', '1880-1956', 'Hungary', 'real-analysis', 'the Riesz-Fischer theorem and the foundations of $L^p$ space theory'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -7702,8 +8119,8 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
   'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
   'person:brook-taylor': ['calculus:taylor-series'],
-  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness'],
-  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity'],
+  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness', 'real-analysis:real-numbers'],
+  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity', 'real-analysis:epsilon-delta-limits'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
   'person:augustin-louis-cauchy': [
     'calculus:limits',
@@ -7762,12 +8179,21 @@ const personTopicOverrides: Record<string, string[]> = {
     'set-theory:continuum-hypothesis',
     'analysis:metric-spaces',
     'topology:point-set-topology',
+    'real-analysis:real-numbers',
   ],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
   'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
   'person:emile-borel': ['analysis:measure-theory', 'topology:compactness'],
-  'person:henri-lebesgue': ['analysis:measure-theory', 'topology:compactness'],
+  'person:henri-lebesgue': [
+    'analysis:measure-theory',
+    'topology:compactness',
+    'real-analysis:lebesgue-integration',
+    'real-analysis:differentiation-theorems',
+  ],
+  'person:joseph-fourier': ['real-analysis:fourier-series'],
+  'person:giuseppe-vitali': ['real-analysis:differentiation-theorems'],
+  'person:frigyes-riesz': ['real-analysis:l-p-spaces'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
@@ -7793,6 +8219,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:modules',
     'number-theory:algebraic-number-theory',
     'commutative-algebra:ideals',
+    'real-analysis:real-numbers',
   ],
   'person:hermann-weyl': [
     'mathematical-physics:classical-mechanics',
@@ -8009,12 +8436,16 @@ const workRows = [
   ['Naive Set Theory', 'Paul Halmos', 1960, 'set-theory', 'A concise set theory introduction.'],
   ['Model Theory', 'C. C. Chang and H. J. Keisler', 1973, 'logic', 'A standard model theory reference.'],
   ['Introduction to Lie Algebras and Representation Theory', 'James Humphreys', 1972, 'lie-theory', 'A compact Lie theory reference.'],
+  ['Theorie analytique de la chaleur', 'Joseph Fourier', 1822, 'real-analysis', 'Introduced Fourier series to solve the heat equation, launching harmonic analysis.'],
+  ['Lecons sur lintegration et la recherche des fonctions primitives', 'Henri Lebesgue', 1904, 'real-analysis', 'The first systematic treatment of the Lebesgue integral and modern measure-based integration.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
 // topic" placement with the topic(s) a work actually belongs to.
 const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'analysis:sequences-and-series', 'analysis:continuity'],
+  'work:theorie-analytique-de-la-chaleur': ['real-analysis:fourier-series'],
+  'work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives': ['real-analysis:lebesgue-integration'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
