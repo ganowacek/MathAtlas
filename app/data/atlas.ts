@@ -1556,14 +1556,18 @@ const personRows = [
   ['Bernard Bolzano', '1781-1848', 'Bohemia', 'real-analysis', 'early rigorous limit concepts and the intermediate value theorem'],
   ['Augustin-Louis Cauchy', '1789-1857', 'France', 'complex-analysis', 'rigor in analysis and complex functions'],
   ['Nikolai Lobachevsky', '1792-1856', 'Russia', 'geometry', 'non-Euclidean geometry'],
+  ['Hermann Grassmann', '1809-1877', 'Germany', 'linear-algebra', 'abstract vector spaces and exterior algebra'],
   ['Niels Henrik Abel', '1802-1829', 'Norway', 'abstract-algebra', 'elliptic functions and unsolvability of quintics'],
   ['Evariste Galois', '1811-1832', 'France', 'abstract-algebra', 'Galois theory'],
+  ['James Joseph Sylvester', '1814-1897', 'England/USA', 'linear-algebra', 'coining the term "matrix" and invariant theory'],
   ['George Boole', '1815-1864', 'England', 'logic', 'Boolean algebra'],
   ['Karl Weierstrass', '1815-1897', 'Germany', 'real-analysis', 'the modern epsilon-delta definition of limit and rigorous analysis'],
   ['George Gabriel Stokes', '1819-1903', 'Ireland/England', 'calculus', "Stokes' theorem and mathematical physics"],
   ['Arthur Cayley', '1821-1895', 'England', 'linear-algebra', 'matrices and abstract groups'],
   ['Bernhard Riemann', '1826-1866', 'Germany', 'differential-geometry', 'Riemann surfaces and geometry'],
   ['Richard Dedekind', '1831-1916', 'Germany', 'set-theory', 'real numbers and ideals'],
+  ['Eugenio Beltrami', '1835-1900', 'Italy', 'linear-algebra', 'early singular value decomposition and non-Euclidean geometry models'],
+  ['Camille Jordan', '1838-1922', 'France', 'linear-algebra', 'the Jordan normal form and early singular value decomposition'],
   ['Georg Cantor', '1845-1918', 'Germany', 'set-theory', 'set theory and transfinite numbers'],
   ['Felix Klein', '1849-1925', 'Germany', 'geometry', 'Erlangen program'],
   ['Sofia Kovalevskaya', '1850-1891', 'Russia/Sweden', 'differential-equations', 'PDE and rigid body motion'],
@@ -1648,7 +1652,23 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:bernard-bolzano': ['calculus:limits'],
   'person:karl-weierstrass': ['calculus:limits'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
-  'person:augustin-louis-cauchy': ['calculus:limits', 'calculus:integrals', 'complex-analysis:cauchy-integral-theorem'],
+  'person:augustin-louis-cauchy': [
+    'calculus:limits',
+    'calculus:integrals',
+    'complex-analysis:cauchy-integral-theorem',
+    'linear-algebra:determinants',
+    'linear-algebra:eigenvalues',
+    'linear-algebra:inner-product-spaces',
+  ],
+  'person:arthur-cayley': ['linear-algebra:matrices'],
+  'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
+  'person:hermann-grassmann': ['linear-algebra:vector-spaces'],
+  'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
+  'person:camille-jordan': ['linear-algebra:singular-value-decomposition', 'linear-algebra:eigenvalues'],
+  'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
+  'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues'],
+  'person:david-hilbert': ['foundations:axiomatic-method', 'linear-algebra:eigenvalues', 'linear-algebra:inner-product-spaces'],
+  'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
 };
 
 export const people: Person[] = personRows.map(
@@ -1698,6 +1718,7 @@ const workRows = [
   ['Disquisitiones Arithmeticae', 'Carl Friedrich Gauss', 1801, 'number-theory', 'Founded modern number theory.'],
   ['Cours dAnalyse', 'Augustin-Louis Cauchy', 1821, 'real-analysis', 'A milestone in rigorous analysis.'],
   ['The Mathematical Analysis of Logic', 'George Boole', 1847, 'logic', 'A foundation for Boolean algebra.'],
+  ['A Memoir on the Theory of Matrices', 'Arthur Cayley', 1858, 'linear-algebra', 'The first treatment of matrices as independent algebraic objects, defining matrix addition, multiplication, and inverses.'],
   ['Uber die Hypothesen welche der Geometrie zu Grunde liegen', 'Bernhard Riemann', 1854, 'differential-geometry', 'Introduced Riemannian geometry.'],
   ['Memoire sur les conditions de resolubilite des equations par radicaux', 'Evariste Galois', 1846, 'abstract-algebra', 'Founded Galois theory.'],
   ['Beitrage zur Begrundung der transfiniten Mengenlehre', 'Georg Cantor', 1895, 'set-theory', 'Established transfinite set theory.'],
@@ -1766,6 +1787,9 @@ const workRows = [
 const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits'],
   'work:introductio-in-analysin-infinitorum': ['calculus:taylor-series', 'analysis:sequences-and-series'],
+  'work:a-memoir-on-the-theory-of-matrices': ['linear-algebra:matrices'],
+  'work:linear-algebra-and-its-applications': ['linear-algebra:vector-spaces'],
+  'work:numerical-linear-algebra': ['numerical-analysis:floating-point-arithmetic', 'linear-algebra:singular-value-decomposition'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
