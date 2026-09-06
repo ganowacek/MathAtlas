@@ -1810,11 +1810,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       'Any sufficiently expressive consistent formal system cannot prove every arithmetical truth expressible in its language.',
     keyIdeas: ['self-reference', 'arithmetization of syntax', 'consistency', 'formal limits'],
   },
-  'number-theory:modular-forms': {
-    formal:
-      'A modular form is a holomorphic function on the upper half-plane satisfying a transformation law under a modular group and growth conditions at cusps.',
-    keyIdeas: ['symmetry', 'q-expansions', 'L-functions', 'arithmetic geometry'],
-  },
   'cryptography:zero-knowledge-proofs': {
     formal:
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
@@ -3473,6 +3468,413 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Grigori Perelman', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Perelman/', kind: 'reference' },
     ],
   },
+  'number-theory:prime-numbers': {
+    overview:
+      'Prime numbers — integers greater than 1 divisible only by 1 and themselves — are the multiplicative building blocks of the integers. Questions about how primes are distributed, how large the gaps between them can be, and whether certain patterns among them repeat forever have driven number theory since antiquity.',
+    formal:
+      'The Fundamental Theorem of Arithmetic states every integer $n>1$ factors uniquely, up to order, as a product of primes, $n=p_1^{a_1}\\cdots p_k^{a_k}$. Euclid\'s theorem states there are infinitely many primes. The Prime Number Theorem, conjectured by Gauss and Legendre and proved independently by Hadamard and de la Vallée Poussin in 1896, states $\\pi(x)\\sim x/\\ln x$ as $x\\to\\infty$, where $\\pi(x)$ counts the primes up to $x$.',
+    keyIdeas: [
+      'the Fundamental Theorem of Arithmetic: unique factorization into primes',
+      "Euclid's proof that there are infinitely many primes",
+      'the Prime Number Theorem and the asymptotic density of primes',
+      'the distribution of prime gaps and the still-unproven twin prime conjecture',
+      'the Riemann Hypothesis as the deepest open question about the fine distribution of primes',
+    ],
+    whyItMatters:
+      'Primes are simultaneously the most elementary objects in mathematics — every schoolchild can define one — and the source of some of its hardest open problems, and this combination of simplicity and depth is exactly what makes large primes practically useful: the presumed difficulty of factoring a large number into primes is the security foundation of RSA encryption used across the modern internet.',
+    prerequisites: [],
+    related: ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory', 'cryptography:rsa'],
+    historicalContext:
+      "Euclid's Elements, Book IX, Proposition 20 (c. 300 BCE) gave the first proof that there are infinitely many primes, using a short argument by contradiction still taught today. Eratosthenes's sieve (3rd century BCE) gave the first systematic algorithm for finding all primes up to a bound. Carl Friedrich Gauss and Adrien-Marie Legendre independently conjectured the Prime Number Theorem around 1792-1798 — as a teenager, in Gauss's case — after studying tables of primes, but a proof required the analytic machinery of the Riemann zeta function and was not achieved until Jacques Hadamard and Charles-Jean de la Vallée Poussin independently proved it in 1896.",
+    contributorIds: ['person:euclid', 'person:carl-friedrich-gauss'],
+    workIds: ['work:disquisitiones-arithmeticae'],
+    exampleProblems: [
+      'Reprove Euclid\'s theorem that there are infinitely many primes, and explain why the argument does not directly produce new primes efficiently.',
+      'Use the Sieve of Eratosthenes to list all primes below 100.',
+      'Use the Prime Number Theorem to estimate the number of primes less than $10^6$, and compare it to the true count.',
+    ],
+    applications: [
+      'RSA and other public-key cryptosystems, whose security rests on the difficulty of factoring large numbers',
+      'hash functions and pseudorandom number generation',
+      'primality testing algorithms (Miller-Rabin, AKS) used throughout computational number theory',
+      'error-correcting codes and combinatorial designs built from prime-power structures',
+    ],
+    researchDirections: [
+      'the Riemann Hypothesis, whose resolution would give the sharpest possible bound on the error term in the Prime Number Theorem',
+      'the twin prime conjecture, with major partial progress by Yitang Zhang (2013) and the Polymath project bounding gaps between consecutive primes',
+      'the distribution of primes in arithmetic progressions and short intervals',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to the Theory of Numbers',
+        authors: ['G. H. Hardy', 'E. M. Wright'],
+        edition: '6th',
+        year: 2008,
+        why: 'The classic, most widely cited introductory number theory text, with an extensive treatment of primes and their distribution.',
+      },
+      {
+        title: 'Introduction to Analytic Number Theory',
+        authors: ['Tom M. Apostol'],
+        year: 1976,
+        why: 'A standard undergraduate bridge to the analytic methods (including a full proof of the Prime Number Theorem) used to study primes.',
+      },
+      {
+        title: 'A Classical Introduction to Modern Number Theory',
+        authors: ['Kenneth Ireland', 'Michael Rosen'],
+        edition: '2nd',
+        year: 1990,
+        why: 'Connects elementary facts about primes to the more structural, algebraic viewpoint used in modern number theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fundamental Theorem of Arithmetic', latex: 'n = p_1^{a_1}\\cdots p_k^{a_k}' },
+      { label: 'Prime Number Theorem', latex: '\\pi(x) \\sim \\frac{x}{\\ln x}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Prime number', url: 'https://encyclopediaofmath.org/wiki/Prime_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Carl Friedrich Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/', kind: 'reference' },
+      { label: 'Wikipedia: Prime number theorem', url: 'https://en.wikipedia.org/wiki/Prime_number_theorem', kind: 'encyclopedia' },
+    ],
+  },
+  'number-theory:modular-arithmetic': {
+    overview:
+      'Modular arithmetic treats numbers as equivalent whenever they differ by a multiple of a fixed modulus, turning the infinite integers into a finite, wrap-around number system — like a clock face — where addition, subtraction, and multiplication still make sense.',
+    formal:
+      "For a fixed modulus $m$, integers $a,b$ are congruent, written $a\\equiv b\\pmod m$, if $m\\mid(a-b)$. Congruence is an equivalence relation compatible with addition and multiplication, making $\\mathbb{Z}/m\\mathbb{Z}$ a ring; it is a field iff $m$ is prime. Euler's theorem generalizes Fermat's Little Theorem: if $\\gcd(a,m)=1$, then $a^{\\varphi(m)}\\equiv 1\\pmod m$, where $\\varphi$ is Euler's totient function. The Chinese Remainder Theorem states that a system of congruences $x\\equiv a_i\\pmod{m_i}$ with pairwise coprime moduli has a unique solution modulo $\\prod m_i$.",
+    keyIdeas: [
+      'congruence modulo $m$ as an equivalence relation compatible with arithmetic',
+      'the ring $\\mathbb{Z}/m\\mathbb{Z}$, and why it is a field exactly when $m$ is prime',
+      "Fermat's Little Theorem and its generalization, Euler's theorem",
+      'the Chinese Remainder Theorem for solving simultaneous congruences',
+      'modular exponentiation as the computational engine behind modern cryptography',
+    ],
+    whyItMatters:
+      'Modular arithmetic is the concrete algebraic machinery underneath both ancient number-theoretic puzzles and modern digital security: RSA encryption is, at its computational core, nothing more than modular exponentiation, made secure by Euler\'s theorem and the presumed difficulty of factoring the modulus.',
+    prerequisites: ['number-theory:prime-numbers'],
+    related: ['algebra:rings', 'cryptography:rsa', 'number-theory:diophantine-equations'],
+    historicalContext:
+      "The Chinese Remainder Theorem's earliest known form appears in the Sunzi Suanjing (3rd-5th century CE), solving simultaneous congruence problems, and Qin Jiushao gave a general algorithm for it in his Shushu Jiuzhang (1247). Pierre de Fermat stated his 'Little Theorem' in a 1640 letter without proof; Leonhard Euler gave the first proof in 1736 and later generalized it to arbitrary moduli via his totient function in 1763. Carl Friedrich Gauss's Disquisitiones Arithmeticae (1801) introduced the modern congruence notation $a\\equiv b\\pmod m$ still used today and systematically developed modular arithmetic as a unified theory for the first time.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:pierre-de-fermat', 'person:leonhard-euler'],
+    workIds: ['work:disquisitiones-arithmeticae'],
+    exampleProblems: [
+      'Use Fermat\'s Little Theorem to compute $7^{222} \\bmod 11$.',
+      'Solve the system $x\\equiv 2\\pmod 3,\\ x\\equiv 3\\pmod 5,\\ x\\equiv 2\\pmod 7$ using the Chinese Remainder Theorem.',
+      'Explain why $\\mathbb{Z}/n\\mathbb{Z}$ is a field if and only if $n$ is prime, by exhibiting a zero divisor when $n$ is composite.',
+    ],
+    applications: [
+      'RSA public-key cryptography, built directly on modular exponentiation and Euler\'s theorem',
+      'check-digit and error-detecting codes (ISBNs, credit card numbers)',
+      'hash tables and pseudorandom number generators in computer science',
+      'fast modular computation via the Chinese Remainder Theorem (residue number systems)',
+    ],
+    researchDirections: [
+      'post-quantum cryptography, seeking replacements for RSA-style schemes vulnerable to quantum factoring algorithms',
+      'computational number theory algorithms for fast modular exponentiation and primality testing',
+      'generalizations of modular arithmetic to rings of algebraic integers',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to the Theory of Numbers',
+        authors: ['G. H. Hardy', 'E. M. Wright'],
+        edition: '6th',
+        year: 2008,
+        why: 'Gives the classical, thorough treatment of congruences, primitive roots, and quadratic residues.',
+      },
+      {
+        title: 'A Classical Introduction to Modern Number Theory',
+        authors: ['Kenneth Ireland', 'Michael Rosen'],
+        edition: '2nd',
+        year: 1990,
+        why: 'Builds from congruences up to the algebraic number theory that generalizes them.',
+      },
+      {
+        title: 'A Course in Number Theory and Cryptography',
+        authors: ['Neal Koblitz'],
+        edition: '2nd',
+        year: 1994,
+        why: 'The standard bridge text connecting modular arithmetic directly to its cryptographic applications.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Congruence', latex: 'a \\equiv b \\pmod{m} \\iff m \\mid (a-b)' },
+      { label: "Fermat's Little Theorem", latex: 'a^{p-1} \\equiv 1 \\pmod{p} \\quad (p \\nmid a)' },
+      { label: "Euler's theorem", latex: 'a^{\\varphi(m)} \\equiv 1 \\pmod{m} \\quad (\\gcd(a,m)=1)' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Modular arithmetic', url: 'https://en.wikipedia.org/wiki/Modular_arithmetic', kind: 'encyclopedia' },
+      { label: 'MacTutor: Pierre de Fermat', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fermat/', kind: 'reference' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+    ],
+  },
+  'number-theory:diophantine-equations': {
+    overview:
+      'A Diophantine equation is a polynomial equation for which only integer or rational solutions are sought. The deceptively simple-looking question of which such equations have solutions, and how many, has generated some of the deepest results and hardest open problems in mathematics.',
+    formal:
+      'A Diophantine equation is a polynomial equation $f(x_1,\\ldots,x_n)=0$ with integer coefficients, for which integer or rational solutions are sought. The Pythagorean equation $x^2+y^2=z^2$ has infinitely many solutions, parametrized by $x=k(m^2-n^2),\\,y=2kmn,\\,z=k(m^2+n^2)$. Fermat\'s Last Theorem — that $x^n+y^n=z^n$ has no positive integer solutions for $n>2$ — was proved by Andrew Wiles in 1994 via the modularity of elliptic curves. Matiyasevich\'s theorem (1970), resolving Hilbert\'s Tenth Problem, shows there is no general algorithm to decide whether an arbitrary Diophantine equation has an integer solution.',
+    keyIdeas: [
+      'Diophantine equations as polynomial equations solved over the integers or rationals',
+      'Pythagorean triples as the classical, fully solved example',
+      "Fermat's Last Theorem and the path to Wiles's proof via elliptic curves and modularity",
+      "Hilbert's Tenth Problem and Matiyasevich's theorem: no general algorithm decides solvability",
+      'Diophantine geometry: recasting integer-solution questions as questions about rational points on varieties',
+    ],
+    whyItMatters:
+      "Diophantine equations sit exactly at the boundary between elementary number theory and deep modern mathematics: Fermat's Last Theorem looks like a schoolchild's exercise but its resolution required inventing much of the machinery of the Langlands program, and Matiyasevich's theorem shows that, in general, no algorithm can even decide whether such an equation is solvable at all.",
+    prerequisites: ['number-theory:modular-arithmetic'],
+    related: ['number-theory:algebraic-number-theory', 'number-theory:modular-forms', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      "Diophantus of Alexandria's Arithmetica (c. 250 CE) collected and solved hundreds of specific equations in rational numbers, giving the field its name. Pierre de Fermat's marginal note in his copy of Arithmetica, claiming a proof — almost certainly mistaken — that $x^n+y^n=z^n$ has no positive solutions for $n>2$, launched over 350 years of effort. Ernst Kummer's 1840s work on cyclotomic fields, undertaken specifically to attack Fermat's Last Theorem, led him to introduce 'ideal numbers' to repair failed unique factorization, founding algebraic number theory in the process. Andrew Wiles finally proved Fermat's Last Theorem in 1994, with Richard Taylor, by proving a large case of the modularity conjecture linking elliptic curves to modular forms.",
+    contributorIds: ['person:diophantus', 'person:pierre-de-fermat', 'person:andrew-wiles'],
+    workIds: ['work:arithmetica'],
+    exampleProblems: [
+      'Find all Pythagorean triples $(x,y,z)$ with $z \\le 20$ using the standard parametrization.',
+      'Show that the Pell equation $x^2-2y^2=1$ has infinitely many positive integer solutions.',
+      "Explain, in outline, the logical strategy of Wiles's proof of Fermat's Last Theorem via elliptic curves and modularity.",
+    ],
+    applications: [
+      'elliptic-curve cryptography, built on Diophantine equations defining elliptic curves',
+      'coding theory via algebraic curves over finite fields',
+      'computer algebra and automated theorem proving for solving specific Diophantine systems',
+      'arithmetic geometry\'s study of rational points on algebraic varieties',
+    ],
+    researchDirections: [
+      "the Birch and Swinnerton-Dyer conjecture, relating the rank of an elliptic curve's rational points to its L-function",
+      'the abc conjecture and its many Diophantine consequences',
+      "arithmetic geometry and the Langlands program's ongoing extension of the methods used to prove Fermat's Last Theorem",
+    ],
+    textbooks: [
+      {
+        title: 'Diophantine Equations',
+        authors: ['L. J. Mordell'],
+        year: 1969,
+        why: 'A classic, comprehensive survey of specific Diophantine equations and the techniques for solving them.',
+      },
+      {
+        title: 'A Course in Arithmetic',
+        authors: ['Jean-Pierre Serre'],
+        year: 1973,
+        why: 'A compact, elegant treatment connecting quadratic forms and Diophantine questions to modular forms.',
+      },
+      {
+        title: 'A Classical Introduction to Modern Number Theory',
+        authors: ['Kenneth Ireland', 'Michael Rosen'],
+        edition: '2nd',
+        year: 1990,
+        why: 'Bridges classical Diophantine problems to the modern algebraic number theory used to attack them.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Pythagorean parametrization', latex: 'x=k(m^2-n^2),\\ y=2kmn,\\ z=k(m^2+n^2)' },
+      { label: "Fermat's Last Theorem", latex: 'x^n+y^n=z^n \\text{ has no positive integer solutions for } n>2' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Diophantine equations', url: 'https://encyclopediaofmath.org/wiki/Diophantine_equations', kind: 'encyclopedia' },
+      { label: 'MacTutor: Pierre de Fermat', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fermat/', kind: 'reference' },
+      { label: 'MacTutor: Andrew Wiles', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Wiles/', kind: 'reference' },
+    ],
+  },
+  'number-theory:algebraic-number-theory': {
+    overview:
+      'Algebraic number theory studies number fields — finite extensions of the rational numbers — and their rings of integers, where the familiar primes of ordinary arithmetic can split, stay prime, or ramify in surprising ways, and where unique factorization of elements can fail but is always restored at the level of ideals.',
+    formal:
+      "A number field $K$ is a finite extension of $\\mathbb{Q}$; its ring of integers $\\mathcal{O}_K$ consists of the elements of $K$ satisfying a monic integer polynomial. Although $\\mathcal{O}_K$ need not be a unique factorization domain, every nonzero ideal factors uniquely as a product of prime ideals, $I=\\mathfrak{p}_1^{e_1}\\cdots\\mathfrak{p}_k^{e_k}$ (Dedekind's theorem). The failure of unique factorization at the level of elements is measured by the class group $\\text{Cl}(K)$, a finite abelian group whose size — the class number — is $1$ exactly when $\\mathcal{O}_K$ is a principal ideal domain.",
+    keyIdeas: [
+      'number fields as finite extensions of $\\mathbb{Q}$, and their rings of integers',
+      'unique factorization of ideals into prime ideals, even when elements fail to factor uniquely',
+      'the class group and class number as a measure of the failure of unique factorization',
+      'splitting, inertia, and ramification of rational primes in a number field',
+      'units in the ring of integers and the Dirichlet unit theorem',
+    ],
+    whyItMatters:
+      'Algebraic number theory exists because Ernst Kummer discovered that, unlike ordinary integers, algebraic integers in general do not factor uniquely, and his fix — replacing "numbers" with "ideals," which always factor uniquely — turned out to be one of the most productive ideas in 19th-century mathematics, providing the language in which modern arithmetic geometry and the proof of Fermat\'s Last Theorem are written.',
+    prerequisites: ['number-theory:diophantine-equations'],
+    related: ['algebra:fields', 'algebra:rings', 'number-theory:modular-forms'],
+    historicalContext:
+      "Carl Friedrich Gauss's study of Gaussian integers $\\mathbb{Z}[i]$ in the context of biquadratic reciprocity (1832) began the systematic arithmetic study of number rings beyond $\\mathbb{Z}$. Ernst Kummer, attempting to prove Fermat's Last Theorem via cyclotomic fields $\\mathbb{Q}(\\zeta_p)$ in the 1840s, discovered that unique factorization fails there and introduced 'ideal numbers' to repair it. Richard Dedekind reformulated Kummer's ideal numbers as actual sets — ideals, in the modern sense — in the 1870s, and David Hilbert's Zahlbericht (1897) synthesized and reorganized the whole subject, becoming the standard reference for a generation.",
+    contributorIds: ['person:ernst-kummer', 'person:richard-dedekind', 'person:david-hilbert'],
+    workIds: ['work:disquisitiones-arithmeticae'],
+    exampleProblems: [
+      'Show that unique factorization of elements fails in $\\mathbb{Z}[\\sqrt{-5}]$, but that the ideal $(2,1+\\sqrt{-5})$ is prime and factors 6 correctly at the ideal level.',
+      'Determine how the prime 5 splits in the Gaussian integers $\\mathbb{Z}[i]$.',
+      'Compute the class number of $\\mathbb{Q}(\\sqrt{-5})$ and relate it to the failure of unique factorization observed above.',
+    ],
+    applications: [
+      'post-quantum cryptography schemes based on ideal lattices in number rings',
+      'coding theory using algebraic number fields',
+      "the arithmetic geometry underlying the proof of Fermat's Last Theorem and the Birch and Swinnerton-Dyer conjecture",
+      'class field theory\'s description of abelian extensions of number fields',
+    ],
+    researchDirections: [
+      'the Langlands program, vastly generalizing class field theory\'s correspondence between number-theoretic and automorphic objects',
+      'explicit computation of class groups and class numbers for large number fields',
+      'Iwasawa theory, studying towers of number fields and their class groups',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Number Theory',
+        authors: ['Jürgen Neukirch'],
+        year: 1999,
+        why: 'The standard modern graduate reference, comprehensive and rigorous, widely used in graduate courses worldwide.',
+      },
+      {
+        title: 'Number Fields',
+        authors: ['Daniel A. Marcus'],
+        year: 1977,
+        why: 'The standard first textbook in algebraic number theory, known for its extensive and well-designed exercises.',
+      },
+      {
+        title: 'A Course in Arithmetic',
+        authors: ['Jean-Pierre Serre'],
+        year: 1973,
+        why: 'A compact classic covering p-adic fields and quadratic forms as a bridge into algebraic number theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Unique factorization of ideals', latex: 'I = \\mathfrak{p}_1^{e_1}\\cdots\\mathfrak{p}_k^{e_k}' },
+      { label: 'Class group', latex: '\\text{Cl}(K) = I(K)/P(K)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Algebraic number', url: 'https://encyclopediaofmath.org/wiki/Algebraic_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Kummer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kummer/', kind: 'reference' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+    ],
+  },
+  'number-theory:analytic-number-theory': {
+    overview:
+      'Analytic number theory uses tools from calculus and complex analysis — infinite series, complex functions, contour integration — to answer questions about whole numbers, most famously about how the primes are distributed among the integers.',
+    formal:
+      'The Riemann zeta function $\\zeta(s)=\\sum_{n=1}^\\infty n^{-s}$, for $\\text{Re}(s)>1$, extends to a meromorphic function on $\\mathbb{C}$ with a simple pole at $s=1$, and Euler\'s product formula $\\zeta(s)=\\prod_p (1-p^{-s})^{-1}$ links it directly to the primes. The Prime Number Theorem, $\\pi(x)\\sim x/\\ln x$, is equivalent to the non-vanishing of $\\zeta(s)$ on the line $\\text{Re}(s)=1$. The Riemann Hypothesis conjectures that every non-trivial zero of $\\zeta(s)$ has real part exactly $1/2$.',
+    keyIdeas: [
+      "the Riemann zeta function and Euler's product formula linking it to the primes",
+      'the Prime Number Theorem as a statement about zeros of the zeta function',
+      'the Riemann Hypothesis and its consequences for the fine-grained distribution of primes',
+      'Dirichlet L-functions and primes in arithmetic progressions',
+      'sieve methods for bounding the number of primes, or prime-like numbers, in a set',
+    ],
+    whyItMatters:
+      'Analytic number theory is the field where continuous mathematics — calculus, complex analysis — is bent to answer discrete questions about integers and primes, and the resulting cross-pollination has produced some of the most celebrated results and open problems in mathematics, none more famous than the Riemann Hypothesis, one of the seven Clay Millennium Prize Problems.',
+    prerequisites: ['number-theory:prime-numbers'],
+    related: ['complex-analysis:holomorphic-functions', 'number-theory:modular-forms', 'probabilistic-method:random-graphs'],
+    historicalContext:
+      'Leonhard Euler discovered the product formula for what is now called the zeta function in 1737, connecting an analytic series to the primes for the first time and using it to reprove the infinitude of primes. Peter Gustav Lejeune Dirichlet introduced L-functions in 1837 to prove that arithmetic progressions with common difference coprime to their first term contain infinitely many primes. Bernhard Riemann\'s single 1859 paper Über die Anzahl der Primzahlen unter einer gegebenen Grösse extended the zeta function to a complex variable, proved its functional equation, and formulated the Riemann Hypothesis; Jacques Hadamard and Charles-Jean de la Vallée Poussin then independently used these zeta-function methods to prove the Prime Number Theorem in 1896.',
+    contributorIds: ['person:leonhard-euler', 'person:bernhard-riemann'],
+    workIds: ['work:introductio-in-analysin-infinitorum'],
+    exampleProblems: [
+      "Derive Euler's product formula for the zeta function from the Fundamental Theorem of Arithmetic.",
+      'Explain why the non-vanishing of $\\zeta(s)$ on $\\text{Re}(s)=1$ implies the Prime Number Theorem, without giving the full proof.',
+      'Use a Dirichlet L-function heuristically to explain why there should be infinitely many primes congruent to 1 mod 4.',
+    ],
+    applications: [
+      'cryptography, where the conjectural difficulty of factoring is intertwined with analytic estimates on prime distribution',
+      'random matrix theory, whose eigenvalue statistics conjecturally match the distribution of zeta zeros',
+      'algorithms for primality testing and integer factorization relying on analytic estimates',
+      'analysis of algorithms whose running time depends on prime-counting estimates',
+    ],
+    researchDirections: [
+      'the Riemann Hypothesis, still unproved and among the most important open problems in mathematics',
+      "the theory of automorphic L-functions, vastly generalizing Riemann's and Dirichlet's zeta and L-functions",
+      'sieve theory advances toward bounded gaps between primes, following Zhang and the Polymath project',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Analytic Number Theory',
+        authors: ['Tom M. Apostol'],
+        year: 1976,
+        why: 'The standard undergraduate introduction, with a complete elementary proof of the Prime Number Theorem.',
+      },
+      {
+        title: 'Multiplicative Number Theory',
+        authors: ['Harold Davenport'],
+        edition: '3rd',
+        year: 2000,
+        why: 'The standard graduate text on the zeta function, L-functions, and their use in prime distribution results.',
+      },
+      {
+        title: 'The Theory of the Riemann Zeta-Function',
+        authors: ['E. C. Titchmarsh'],
+        edition: '2nd',
+        year: 1986,
+        why: 'The classic, encyclopedic reference on the zeta function and the Riemann Hypothesis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann zeta function', latex: '\\zeta(s) = \\sum_{n=1}^{\\infty} n^{-s}' },
+      { label: 'Euler product', latex: '\\zeta(s) = \\prod_{p \\text{ prime}} \\left(1-p^{-s}\\right)^{-1}' },
+      { label: 'Riemann Hypothesis', latex: '\\zeta(s) = 0,\\ 0 < \\text{Re}(s) < 1 \\implies \\text{Re}(s) = \\tfrac{1}{2}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Analytic number theory', url: 'https://encyclopediaofmath.org/wiki/Analytic_number_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
+  'number-theory:modular-forms': {
+    overview:
+      'A modular form is a highly symmetric complex-analytic function on the upper half-plane, invariant — up to a controlled scaling factor — under a large discrete group of transformations. Despite this rigid symmetry, modular forms encode deep arithmetic information and were the key that unlocked the proof of Fermat\'s Last Theorem.',
+    formal:
+      'A modular form of weight $k$ for $SL_2(\\mathbb{Z})$ is a holomorphic function $f$ on the upper half-plane $\\mathbb{H}$ satisfying $f\\!\\left(\\frac{a\\tau+b}{c\\tau+d}\\right)=(c\\tau+d)^k f(\\tau)$ for all $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in SL_2(\\mathbb{Z})$, and holomorphic at infinity. Such an $f$ has a Fourier (q-)expansion $f(\\tau)=\\sum_{n=0}^\\infty a_n q^n$ with $q=e^{2\\pi i \\tau}$. The modularity theorem, proved by Wiles, Taylor, and others (1994-2001), states that every elliptic curve over $\\mathbb{Q}$ arises from a modular form.',
+    keyIdeas: [
+      'the transformation law making a modular form invariant, up to weight, under a discrete symmetry group',
+      'q-expansions (Fourier coefficients) as the arithmetic content of a modular form',
+      'the modularity theorem linking every elliptic curve over $\\mathbb{Q}$ to a modular form',
+      'L-functions attached to modular forms, generalizing the Riemann zeta function',
+      'modular forms as sections of line bundles on the modular curve, connecting analysis, algebra, and geometry',
+    ],
+    whyItMatters:
+      'The modularity theorem — that every elliptic curve is "secretly" a modular form — is one of the great unifications in modern mathematics, and it was precisely this bridge that let Andrew Wiles convert Fermat\'s Last Theorem, a Diophantine statement, into a question about modular forms that could actually be attacked and solved.',
+    prerequisites: ['number-theory:algebraic-number-theory'],
+    related: ['number-theory:analytic-number-theory', 'number-theory:diophantine-equations', 'complex-analysis:riemann-surfaces'],
+    historicalContext:
+      'Modular forms emerged in the 19th century from the study of elliptic functions by Carl Gustav Jacobi and others, and Felix Klein and Robert Fricke\'s systematic treatises (1890s) organized the classical theory. Srinivasa Ramanujan\'s early 20th-century work on the partition function and the tau function — coefficients of the modular discriminant $\\Delta$ — revealed startling arithmetic patterns that inspired decades of further research, including Pierre Deligne\'s later proof of the Ramanujan conjecture as a consequence of the Weil conjectures. Goro Shimura and Yutaka Taniyama conjectured in 1955-57 that every elliptic curve over $\\mathbb{Q}$ is modular, and Andrew Wiles\'s 1994 proof of enough of this conjecture (completed with Richard Taylor) to deduce Fermat\'s Last Theorem was extended to the full modularity theorem by Christophe Breuil, Brian Conrad, Fred Diamond, and Taylor in 2001.',
+    contributorIds: ['person:srinivasa-ramanujan', 'person:andrew-wiles'],
+    workIds: ['work:a-course-in-arithmetic'],
+    exampleProblems: [
+      'Verify that the weight-12 discriminant form $\\Delta(\\tau)=q\\prod_n(1-q^n)^{24}$ has integer Fourier coefficients (Ramanujan\'s tau function) for the first few terms.',
+      'Explain, in outline, what it means for an elliptic curve to "correspond to" a modular form under the modularity theorem.',
+      'Describe why the space of modular forms of a fixed weight for $SL_2(\\mathbb{Z})$ is finite-dimensional, and why this makes them computationally tractable.',
+    ],
+    applications: [
+      "the proof of Fermat's Last Theorem via the modularity of elliptic curves",
+      'the Langlands program\'s broader framework connecting number theory, representation theory, and automorphic forms',
+      'the theoretical underpinnings of elliptic-curve cryptography',
+      'moonshine phenomena connecting modular forms to the representation theory of finite simple groups',
+    ],
+    researchDirections: [
+      'the Langlands program, generalizing the modularity theorem to higher-dimensional and non-abelian settings',
+      'explicit and computational aspects of modular forms (databases such as the LMFDB)',
+      'generalized moonshine connecting modular forms to sporadic finite groups and string theory',
+    ],
+    textbooks: [
+      {
+        title: 'A First Course in Modular Forms',
+        authors: ['Fred Diamond', 'Jerry Shurman'],
+        year: 2005,
+        why: 'The standard modern graduate introduction, building modular forms up to and including the modularity theorem.',
+      },
+      {
+        title: 'A Course in Arithmetic',
+        authors: ['Jean-Pierre Serre'],
+        year: 1973,
+        why: 'A classic, compact treatment with a celebrated chapter introducing modular forms via theta functions.',
+      },
+      {
+        title: 'Introduction to Elliptic Curves and Modular Forms',
+        authors: ['Neal Koblitz'],
+        edition: '2nd',
+        year: 1993,
+        why: 'A widely used bridge text connecting modular forms directly to elliptic curves and their arithmetic.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Modular transformation law', latex: 'f\\!\\left(\\frac{a\\tau+b}{c\\tau+d}\\right) = (c\\tau+d)^k f(\\tau)' },
+      { label: 'q-expansion', latex: 'f(\\tau) = \\sum_{n=0}^{\\infty} a_n q^n,\\quad q = e^{2\\pi i \\tau}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Modular form', url: 'https://encyclopediaofmath.org/wiki/Modular_form', kind: 'encyclopedia' },
+      { label: 'MacTutor: Srinivasa Ramanujan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Ramanujan/', kind: 'reference' },
+      { label: 'MacTutor: Andrew Wiles', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Wiles/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -3708,6 +4110,7 @@ const personRows = [
   ['Abraham de Moivre', '1667-1754', 'France/England', 'probability', 'the first central limit theorem for the binomial distribution'],
   ['Andrei Markov', '1856-1922', 'Russia', 'probability', 'Markov chains and dependent sequences of trials'],
   ['Felix Hausdorff', '1868-1942', 'Germany', 'topology', 'the axiomatic theory of topological and metric spaces'],
+  ['Ernst Kummer', '1810-1893', 'Germany', 'number-theory', 'ideal numbers and cyclotomic fields'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -3749,6 +4152,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'linear-algebra:inner-product-spaces',
     'algebra:rings',
     'algebra:modules',
+    'number-theory:algebraic-number-theory',
   ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
   'person:bernhard-riemann': [
@@ -3772,7 +4176,12 @@ const personTopicOverrides: Record<string, string[]> = {
   ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
   'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules', 'topology:homology'],
-  'person:richard-dedekind': ['set-theory:naive-set-theory', 'algebra:rings', 'algebra:modules'],
+  'person:richard-dedekind': [
+    'set-theory:naive-set-theory',
+    'algebra:rings',
+    'algebra:modules',
+    'number-theory:algebraic-number-theory',
+  ],
   'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
   'person:ernst-steinitz': ['algebra:fields'],
   'person:ferdinand-georg-frobenius': ['algebra:representations'],
@@ -3787,6 +4196,14 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
   'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'topology:homotopy'],
   'person:grigori-perelman': ['topology:manifolds'],
+  'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers'],
+  'person:carl-friedrich-gauss': ['number-theory:prime-numbers', 'number-theory:modular-arithmetic'],
+  'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
+  'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
+  'person:diophantus': ['number-theory:diophantine-equations'],
+  'person:andrew-wiles': ['number-theory:diophantine-equations', 'number-theory:modular-forms'],
+  'person:srinivasa-ramanujan': ['number-theory:modular-forms'],
+  'person:ernst-kummer': ['number-theory:diophantine-equations', 'number-theory:algebraic-number-theory'],
 };
 
 export const people: Person[] = personRows.map(
@@ -3905,7 +4322,11 @@ const workRows = [
 // topic" placement with the topic(s) a work actually belongs to.
 const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'analysis:sequences-and-series', 'analysis:continuity'],
-  'work:introductio-in-analysin-infinitorum': ['calculus:taylor-series', 'analysis:sequences-and-series'],
+  'work:introductio-in-analysin-infinitorum': [
+    'calculus:taylor-series',
+    'analysis:sequences-and-series',
+    'number-theory:analytic-number-theory',
+  ],
   'work:a-memoir-on-the-theory-of-matrices': ['linear-algebra:matrices', 'linear-algebra:determinants', 'linear-algebra:eigenvalues'],
   'work:die-lineale-ausdehnungslehre': ['linear-algebra:vector-spaces'],
   'work:linear-algebra-and-its-applications': ['linear-algebra:vector-spaces'],
@@ -3923,6 +4344,13 @@ const workTopicOverrides: Record<string, string[]> = {
     'differential-geometry:smooth-manifolds',
     'topology:manifolds',
   ],
+  'work:disquisitiones-arithmeticae': [
+    'number-theory:prime-numbers',
+    'number-theory:modular-arithmetic',
+    'number-theory:algebraic-number-theory',
+  ],
+  'work:arithmetica': ['number-theory:diophantine-equations'],
+  'work:a-course-in-arithmetic': ['number-theory:modular-forms'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

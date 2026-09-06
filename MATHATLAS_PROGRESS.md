@@ -10,6 +10,9 @@ Legend: `[x]` fully researched, `[~]` partially done, `[ ]` still template-gener
 Priority order per task brief: calculus, linear-algebra, analysis, algebra,
 probability, topology, number-theory, then remaining 40 fields.
 
+All 7 priority fields are now complete (42 of 282 topics researched).
+Next: work through the remaining 40 fields in any reasonable order.
+
 ## Priority fields
 
 - [x] calculus — Limits, Derivatives, Integrals, Taylor series, Multivariable calculus, Vector calculus
@@ -18,7 +21,7 @@ probability, topology, number-theory, then remaining 40 fields.
 - [x] algebra — Polynomials, Groups, Rings, Fields, Modules, Representations
 - [x] probability — Sample spaces, Random variables, Expectation, Law of large numbers, Central limit theorem, Markov chains
 - [x] topology — Point-set topology, Compactness, Connectedness, Homotopy, Homology, Manifolds
-- [ ] number-theory — Prime numbers, Modular arithmetic, Diophantine equations, Algebraic number theory, Analytic number theory, Modular forms
+- [x] number-theory — Prime numbers, Modular arithmetic, Diophantine equations, Algebraic number theory, Analytic number theory, Modular forms
 
 ## Remaining fields (40)
 
