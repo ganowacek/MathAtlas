@@ -85,13 +85,22 @@ export default function MathAtlasApp() {
 
   const selectRecord = useCallback((next: Selection) => {
     setHistory(current => [selection, ...current.filter(item => item.id !== selection.id)].slice(0, 8));
-    setSelection(next); setDetailsOpen(true); setExplorerOpen(false);
-    const fieldId = next.kind === 'topic' ? getTopic(next.id)?.fieldId : next.kind === 'region' ? next.id : undefined;
+    setSelection(next); setDetailsOpen(true); setExplorerOpen(false); setQuery('');
+    // People, works, and applications aren't 3D objects themselves, but each links to
+    // topics that are, so route through their first associated topic to bring the
+    // atlas to a relevant field instead of leaving the 3D view untouched.
+    const fieldId =
+      next.kind === 'topic' ? getTopic(next.id)?.fieldId
+      : next.kind === 'region' ? next.id
+      : next.kind === 'person' ? getTopic(getPerson(next.id)?.associatedTopicIds[0] ?? '')?.fieldId
+      : next.kind === 'work' ? getTopic(getWork(next.id)?.associatedTopicIds[0] ?? '')?.fieldId
+      : next.kind === 'application' ? getTopic(applications.find(a => a.id === next.id)?.topicIds[0] ?? '')?.fieldId
+      : next.kind === 'era' ? regions.find(r => r.eraId === next.id)?.id
+      : undefined;
     if (fieldId) {
       setDimensionId(dimensionForField(fieldId)?.id ?? null);
       setFilters(current => ({ ...current, fieldId }));
-      setSpread(next.kind === 'topic' ? 1 : 0);
-      setQuery('');
+      setSpread(next.kind === 'region' || next.kind === 'era' ? 0 : 1);
     }
   }, [selection]);
 
