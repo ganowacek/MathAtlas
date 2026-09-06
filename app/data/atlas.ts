@@ -1830,6 +1830,424 @@ const topicExtras: Record<string, Partial<Topic>> = {
       'Homology assigns algebraic invariants to spaces by taking cycles modulo boundaries in a chain complex.',
     keyIdeas: ['holes', 'chain complexes', 'functoriality', 'topological invariants'],
   },
+  'analysis:sequences-and-series': {
+    overview:
+      'A sequence converges if its terms eventually cluster arbitrarily close to a limit, and a series converges if its sequence of partial sums does. This topic develops convergence in the general setting of metric and normed spaces rather than just the real line: completeness, absolute versus conditional convergence, and the sharp tests that decide when an infinite sum has a well-defined value at all.',
+    formal:
+      'In a metric space $(X,d)$, a sequence $(x_n)$ is Cauchy if $\\forall\\varepsilon>0\\ \\exists N:\\ m,n>N\\implies d(x_m,x_n)<\\varepsilon$, and $X$ is complete if every Cauchy sequence converges in $X$. For a series $\\sum a_n$ of real or complex numbers, the ratio test says $\\sum a_n$ converges absolutely if $\\limsup_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|<1$ and diverges if this limit exceeds $1$. Riemann\'s rearrangement theorem states that if $\\sum a_n$ converges conditionally (converges, but $\\sum|a_n|=\\infty$), then for any $L\\in\\mathbb{R}\\cup\\{\\pm\\infty\\}$ there is a rearrangement of the terms whose partial sums converge to $L$.',
+    keyIdeas: [
+      'Cauchy sequences and completeness of a metric or normed space',
+      'absolute convergence versus merely conditional convergence',
+      'convergence tests: comparison, ratio, root, integral, and alternating series tests',
+      'uniform versus pointwise convergence of sequences of functions',
+      "Riemann's rearrangement theorem: a conditionally convergent series has no order-independent sum",
+    ],
+    whyItMatters:
+      "Convergence tests are what make power series, Fourier series, and iterative numerical algorithms trustworthy rather than just formally suggestive, and Riemann's rearrangement theorem is a sharp warning that infinite sums do not automatically inherit the commutativity of finite sums — a series must converge absolutely before its terms can be reordered safely.",
+    prerequisites: [],
+    related: ['analysis:continuity', 'calculus:taylor-series', 'real-analysis:l-p-spaces'],
+    historicalContext:
+      "Zeno's paradoxes (5th century BCE) first posed the puzzle of summing infinitely many terms, and 17th-18th century mathematicians including Newton, Leibniz, and Euler manipulated infinite series freely with little regard for convergence — Euler notoriously assigned $1-1+1-1+\\cdots$ the value $1/2$ by formal averaging. Augustin-Louis Cauchy's Cours d'Analyse (1821) supplied the first rigorous convergence criteria, including the ratio test and the Cauchy criterion for sequences, and Niels Henrik Abel complained in an 1826 letter that 'divergent series are, in general, something fatal, and it is a disgrace to base any proof on them.' Bernhard Riemann's 1854 Habilitationsschrift then proved the startling rearrangement theorem, showing that conditional convergence hides a genuine ambiguity that Cauchy's generation had not confronted.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:karl-weierstrass', 'person:bernhard-riemann'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Use the integral test to determine whether $\\sum_{n=2}^{\\infty}\\frac{1}{n\\ln n}$ converges.',
+      'Show that the alternating harmonic series $\\sum(-1)^{n+1}/n$ converges conditionally but not absolutely.',
+      'Prove that every Cauchy sequence of real numbers converges, using the Bolzano-Weierstrass theorem.',
+    ],
+    applications: [
+      'convergence guarantees for power series and Fourier series in engineering and physics',
+      'error control and convergence analysis of iterative numerical algorithms',
+      'summability methods (Abel, Cesàro) for divergent series in physics and combinatorics',
+      'convergence of infinite sums in probability (expectations of discrete random variables)',
+    ],
+    researchDirections: [
+      'divergent series and summability theory (Borel summation) applied to quantum field theory',
+      'convergence of random and stochastic series in probability theory',
+      'convergence rates and acceleration methods in numerical analysis and optimization',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: "Known as 'baby Rudin,' this is the most widely assigned text for a rigorous undergraduate analysis course and gives the canonical treatment of sequences, series, and convergence tests.",
+      },
+      {
+        title: 'Real Mathematical Analysis',
+        authors: ['Charles C. Pugh'],
+        edition: '2nd',
+        year: 2015,
+        why: 'A geometrically motivated alternative to Rudin, frequently recommended alongside it for building intuition about convergence before formalizing it.',
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: "Motivates the standard convergence tests by walking through the historical failures (Euler's divergent series, naive term-by-term reasoning) that made them necessary.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy criterion for sequences', latex: '\\forall\\varepsilon>0\\,\\exists N:\\ m,n>N\\implies |a_m-a_n|<\\varepsilon' },
+      { label: 'Ratio test', latex: 'L=\\limsup_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|,\\quad L<1\\implies \\text{converges absolutely}' },
+      { label: 'Geometric series', latex: '\\sum_{n=0}^{\\infty} r^n = \\frac{1}{1-r},\\qquad |r|<1' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Convergence, types of', url: 'https://encyclopediaofmath.org/wiki/Convergence,_types_of', kind: 'encyclopedia' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+      { label: 'Wikipedia: Riemann series theorem', url: 'https://en.wikipedia.org/wiki/Riemann_series_theorem', kind: 'encyclopedia' },
+    ],
+  },
+  'analysis:continuity': {
+    overview:
+      'Continuity says that small changes to the input of a function produce only small changes to its output. Framed in a general metric or topological space rather than just on the real line, continuity turns out to be exactly the condition that preimages of open sets are open — which is why compactness and connectedness, both purely topological properties, force strong consequences (attained extrema, intermediate values) on any continuous function.',
+    formal:
+      'A function $f:(X,d_X)\\to(Y,d_Y)$ is continuous at $x_0$ if $\\forall\\varepsilon>0\\ \\exists\\delta>0:\\ d_X(x,x_0)<\\delta\\implies d_Y(f(x),f(x_0))<\\varepsilon$; equivalently, $f$ is continuous on $X$ iff $f^{-1}(U)$ is open in $X$ for every open $U\\subseteq Y$. $f$ is uniformly continuous if $\\delta$ can be chosen independently of $x_0$. If $X$ is compact, every continuous $f:X\\to\\mathbb{R}$ is bounded and attains its maximum and minimum (the extreme value theorem), and is automatically uniformly continuous (the Heine-Cantor theorem); if $X$ is connected, $f(X)$ is connected, generalizing the intermediate value theorem.',
+    keyIdeas: [
+      'the topological (open-set) reformulation of continuity',
+      'uniform continuity versus pointwise continuity at each point',
+      'compactness forces continuous real functions to be bounded and attain extrema',
+      'connectedness and the intermediate value theorem',
+      'the Heine-Cantor theorem: continuous on a compact space implies uniformly continuous',
+    ],
+    whyItMatters:
+      'Recasting continuity as "preimages of open sets are open" strips away any reference to distance, which is exactly what lets the same continuity machinery apply to spaces with no natural metric at all, and it is the mechanism behind an enormous number of existence proofs — root-finding, optimization, and fixed-point theorems all ultimately rest on continuous functions being well-behaved on compact or connected domains.',
+    prerequisites: ['analysis:sequences-and-series'],
+    related: ['analysis:metric-spaces', 'topology:compactness', 'calculus:limits'],
+    historicalContext:
+      "Bernard Bolzano gave a rigorous proof of the intermediate value theorem in Rein analytischer Beweis (1817) using reasoning close to the modern epsilon-delta approach, decades before it was widely adopted, but his work went almost unnoticed. Cauchy's Cours d'Analyse (1821) offered a still-informal continuity definition in terms of infinitesimals, and Karl Weierstrass's Berlin lectures from the 1860s fixed the modern epsilon-delta definition of continuity at a point. Eduard Heine proved in 1872 that continuity on a closed bounded interval implies uniform continuity, a result now named for Heine and Georg Cantor, and Maurice Fréchet's 1906 thesis recast continuity in terms of open sets in an abstract metric space, the formulation that generalizes directly to topological spaces.",
+    contributorIds: ['person:bernard-bolzano', 'person:karl-weierstrass', 'person:maurice-frechet'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Prove using epsilon-delta that $f(x)=x^2$ is continuous but not uniformly continuous on $\\mathbb{R}$, yet is uniformly continuous on any bounded interval.',
+      'Use the intermediate value theorem to show $x^3-x-1=0$ has a root in $(1,2)$.',
+      'Give an example of a continuous bijection between metric spaces whose inverse is discontinuous, and explain why this cannot happen when the domain is compact.',
+    ],
+    applications: [
+      'root-finding algorithms (bisection, Newton\'s method) that rely on the intermediate value theorem',
+      'existence of equilibria in economics and game theory via fixed-point theorems',
+      'well-posedness and numerical stability of computational methods',
+      'existence of optimal solutions in optimization via the extreme value theorem',
+    ],
+    researchDirections: [
+      'regularity and continuity of functions on fractal or non-smooth domains',
+      'continuity of linear and nonlinear operators in functional analysis',
+      'computable analysis: which continuous functions can be evaluated algorithmically to any precision',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: 'Gives the standard rigorous development of continuity, uniform continuity, and their interaction with compactness and connectedness.',
+      },
+      {
+        title: 'Real Mathematical Analysis',
+        authors: ['Charles C. Pugh'],
+        edition: '2nd',
+        year: 2015,
+        why: 'Builds strong geometric intuition for why compactness and connectedness are the properties that make continuity powerful.',
+      },
+      {
+        title: 'Topology',
+        authors: ['James R. Munkres'],
+        edition: '2nd',
+        year: 2000,
+        why: 'The standard reference for the fully topological (open-set) formulation of continuity beyond metric spaces, used widely in graduate topology courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Epsilon-delta continuity', latex: '\\forall\\varepsilon>0\\,\\exists\\delta>0:\\ d_X(x,x_0)<\\delta \\implies d_Y(f(x),f(x_0))<\\varepsilon' },
+      { label: 'Open-set characterization', latex: 'f \\text{ continuous} \\iff f^{-1}(U) \\text{ open for every open } U' },
+      { label: 'Heine-Cantor theorem', latex: 'X \\text{ compact and } f \\text{ continuous} \\implies f \\text{ uniformly continuous}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Continuous function', url: 'https://encyclopediaofmath.org/wiki/Continuous_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernard Bolzano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bolzano/', kind: 'reference' },
+      { label: 'MacTutor: Maurice Fréchet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frechet/', kind: 'reference' },
+    ],
+  },
+  'analysis:differentiation': {
+    overview:
+      "This topic develops the structural consequences of differentiability, centered on the Mean Value Theorem: the fact that a function's average rate of change over an interval is achieved exactly by its instantaneous rate of change at some interior point. It is what turns local derivative information into global statements about a function's behavior.",
+    formal:
+      "Rolle's theorem: if $f:[a,b]\\to\\mathbb{R}$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a)=f(b)$, then there exists $c\\in(a,b)$ with $f'(c)=0$. The Mean Value Theorem generalizes this: there exists $c\\in(a,b)$ with $f'(c)=\\dfrac{f(b)-f(a)}{b-a}$. Cauchy's generalized Mean Value Theorem states that for $f,g$ differentiable on $(a,b)$ with $g'\\neq 0$, there is $c\\in(a,b)$ with $\\dfrac{f'(c)}{g'(c)}=\\dfrac{f(b)-f(a)}{g(b)-g(a)}$, which is the fact underlying L'Hôpital's rule for indeterminate limits.",
+    keyIdeas: [
+      "Rolle's theorem as the geometric seed of the Mean Value Theorem",
+      'the Mean Value Theorem: local derivative information forces global behavior',
+      "Cauchy's generalized Mean Value Theorem and L'Hôpital's rule",
+      "monotonicity and convexity criteria derived from the sign of $f'$ and $f''$",
+      'differentiability of vector-valued and multivariable functions',
+    ],
+    whyItMatters:
+      "The Mean Value Theorem is the bridge between 'derivative at a point' and 'behavior of a function on an interval': without it, one cannot even prove that a function with zero derivative everywhere must be constant, a fact used implicitly throughout the theory of differential equations, numerical error bounds, and optimization.",
+    prerequisites: ['analysis:continuity'],
+    related: ['calculus:derivatives', 'analysis:integration', 'differential-equations:existence-and-uniqueness'],
+    historicalContext:
+      "Michel Rolle stated a version of his theorem for polynomials in Méthode pour résoudre les égalitéz (1691) — ironically, Rolle was a public critic of the new calculus who doubted the rigor of infinitesimals. Joseph-Louis Lagrange gave the Mean Value Theorem essentially in its modern form in Théorie des fonctions analytiques (1797), and Augustin-Louis Cauchy generalized it to the ratio form used to justify L'Hôpital's rule in his 1823 Résumé des leçons, finally putting on rigorous footing a rule that Guillaume de l'Hôpital had published in 1696 (based on results communicated to him by Johann Bernoulli) without proof.",
+    contributorIds: ['person:michel-rolle', 'person:joseph-louis-lagrange', 'person:augustin-louis-cauchy'],
+    workIds: [],
+    exampleProblems: [
+      "Use Rolle's theorem to show that between any two roots of a differentiable function lies a root of its derivative.",
+      "Prove that a differentiable function with $f'(x)=0$ on an interval must be constant there, using the Mean Value Theorem.",
+      "Use Cauchy's generalized Mean Value Theorem to justify L'Hôpital's rule for the indeterminate form $0/0$.",
+    ],
+    applications: [
+      'error estimation in numerical approximation (Taylor remainder bounds derive from the Mean Value Theorem)',
+      'proving uniqueness and monotonicity results for solutions of differential equations',
+      'sensitivity and marginal analysis in economics and optimization',
+    ],
+    researchDirections: [
+      'mean value inequalities in infinite-dimensional Banach spaces, where no exact equality version holds',
+      "generalized derivatives (Clarke's generalized gradient) for nonsmooth analysis and optimization",
+      'numerical algorithms exploiting Taylor remainder bounds for certified error control',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: "Gives the standard rigorous proofs of Rolle's theorem, the Mean Value Theorem, and Cauchy's generalization in the real and vector-valued settings.",
+      },
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'Presents the same theorems with an emphasis on geometric motivation and full proofs, at a level accessible before graduate analysis.',
+      },
+      {
+        title: 'Real Mathematical Analysis',
+        authors: ['Charles C. Pugh'],
+        edition: '2nd',
+        year: 2015,
+        why: 'Places the Mean Value Theorem in context alongside convexity and monotonicity results with a strong geometric narrative.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Rolle's theorem", latex: "f(a)=f(b) \\implies \\exists c\\in(a,b):\\ f'(c)=0" },
+      { label: 'Mean Value Theorem', latex: "f'(c)=\\frac{f(b)-f(a)}{b-a}" },
+      { label: "Cauchy's generalized Mean Value Theorem", latex: "\\frac{f'(c)}{g'(c)}=\\frac{f(b)-f(a)}{g(b)-g(a)}" },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Mean value theorem', url: 'https://en.wikipedia.org/wiki/Mean_value_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Michel Rolle', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Rolle/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'analysis:integration': {
+    overview:
+      "The Riemann-Stieltjes integral generalizes the ordinary Riemann integral by integrating one function with respect to another, letting sums, weighted averages, and continuous integrals all be written in a single notation. It is the classical bridge between elementary Riemann integration and the full measure-theoretic (Lebesgue) theory.",
+    formal:
+      'For $f$ bounded on $[a,b]$ and $\\alpha$ monotonically increasing, the Riemann-Stieltjes integral $\\int_a^b f\\,d\\alpha$ is the common value of the upper and lower Riemann-Stieltjes sums $\\sum_i f(t_i)\\,[\\alpha(x_i)-\\alpha(x_{i-1})]$ as the partition mesh refines, whenever the upper and lower integrals agree. Taking $\\alpha(x)=x$ recovers the ordinary Riemann integral; taking $\\alpha$ a step function recovers a weighted (possibly infinite) sum, unifying discrete and continuous accumulation in one formula.',
+    keyIdeas: [
+      'integrating with respect to a general increasing (or bounded-variation) function',
+      'the Riemann-Stieltjes integral as a common generalization of sums and Riemann integrals',
+      'integration by parts for Stieltjes integrals',
+      'existence: continuity of $f$ together with bounded variation of $\\alpha$ suffices',
+      'the Riemann-Stieltjes integral as the natural language for expectation in probability',
+    ],
+    whyItMatters:
+      'Writing expectation as $E[X]=\\int x\\,dF(x)$ for a random variable with distribution function $F$ works uniformly for discrete, continuous, and mixed distributions precisely because it is a Riemann-Stieltjes integral — this single formalism is why probability theory does not need separate notations and separate theorems for the discrete and continuous cases.',
+    prerequisites: ['analysis:differentiation'],
+    related: ['real-analysis:lebesgue-integration', 'probability:expectation', 'analysis:measure-theory'],
+    historicalContext:
+      'Thomas Joannes Stieltjes introduced the integral bearing his name in Recherches sur les fractions continues (1894) while studying continued fractions and the distribution of mass along a line — a proto-measure-theoretic problem. The Riemann-Stieltjes integral became a standard part of the analysis curriculum through the early 20th century as a natural halfway point between Bernhard Riemann\'s 1854 definition of the ordinary integral and Henri Lebesgue\'s fully measure-theoretic integral of 1902, which subsumes it as the special case of integrating against the measure induced by $\\alpha$.',
+    contributorIds: ['person:thomas-joannes-stieltjes', 'person:bernhard-riemann'],
+    workIds: [],
+    exampleProblems: [
+      'Compute $\\int_0^2 x\\,d\\alpha(x)$ where $\\alpha$ is a step function with a single jump of size 1 at $x=1$.',
+      'Prove that if $f$ is continuous and $\\alpha$ has bounded variation on $[a,b]$, then $\\int_a^b f\\,d\\alpha$ exists.',
+      'Show how $E[X]=\\int x\\,dF(x)$ specializes to a sum for a discrete random variable and to $\\int x f(x)\\,dx$ for a continuous one with density $f$.',
+    ],
+    applications: [
+      'expectation and moments in probability theory, unifying discrete and continuous random variables',
+      'survival analysis and actuarial science, integrating against a distribution function',
+      'signal processing, integrating against measures with point masses representing impulses',
+    ],
+    researchDirections: [
+      'extending Stieltjes integration to full Lebesgue-Stieltjes and general measure-theoretic integration',
+      'stochastic (Itô) integration as a further generalization for integrating against random processes',
+      'numerical quadrature methods for Stieltjes-type integrals in actuarial and statistical computing',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: 'Gives the canonical rigorous treatment of the Riemann-Stieltjes integral, including existence theorems and integration by parts, that most analysis courses follow.',
+      },
+      {
+        title: 'Mathematical Analysis',
+        authors: ['Tom M. Apostol'],
+        edition: '2nd',
+        year: 1974,
+        why: 'A careful, classically styled development of Riemann-Stieltjes integration alongside its connections to functions of bounded variation.',
+      },
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'Picks up where the Riemann-Stieltjes integral leaves off, showing how it generalizes into full Lebesgue-Stieltjes and measure-theoretic integration.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann-Stieltjes integral (Riemann sum form)', latex: '\\int_a^b f\\,d\\alpha=\\lim_{\\|P\\|\\to 0}\\sum_i f(t_i)\\,[\\alpha(x_i)-\\alpha(x_{i-1})]' },
+      { label: 'Integration by parts', latex: '\\int_a^b f\\,d\\alpha + \\int_a^b \\alpha\\,df = f(b)\\alpha(b)-f(a)\\alpha(a)' },
+      { label: 'Expectation as a Stieltjes integral', latex: 'E[X]=\\int_{-\\infty}^{\\infty} x\\,dF(x)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Riemann-Stieltjes integral', url: 'https://encyclopediaofmath.org/wiki/Riemann-Stieltjes_integral', kind: 'encyclopedia' },
+      { label: 'MacTutor: Thomas Stieltjes', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Stieltjes/', kind: 'reference' },
+      { label: 'Wikipedia: Riemann-Stieltjes integral', url: 'https://en.wikipedia.org/wiki/Riemann%E2%80%93Stieltjes_integral', kind: 'encyclopedia' },
+    ],
+  },
+  'analysis:metric-spaces': {
+    overview:
+      'A metric space is a set equipped with a distance function obeying a few natural axioms — the minimal structure needed to talk about convergence, continuity, and completeness without reference to any particular ambient space like $\\mathbb{R}^n$. Once distance is axiomatized this way, the same machinery applies equally to numbers, functions, and probability distributions.',
+    formal:
+      'A metric on a set $X$ is a function $d:X\\times X\\to[0,\\infty)$ satisfying $d(x,y)=0\\iff x=y$, symmetry $d(x,y)=d(y,x)$, and the triangle inequality $d(x,z)\\le d(x,y)+d(y,z)$. $X$ is complete if every Cauchy sequence in $X$ converges to a point of $X$; a subset $K\\subseteq X$ is compact if every open cover of $K$ has a finite subcover, which in a metric space is equivalent to every sequence in $K$ having a subsequence converging to a point of $K$. The Baire category theorem states that in a complete metric space, a countable intersection of dense open sets is still dense.',
+    keyIdeas: [
+      'the triangle inequality as the essential axiom that makes distance behave sensibly',
+      'open and closed sets, and continuity re-expressed via preimages of open sets',
+      'completeness and Cauchy sequences',
+      'compactness: the open-cover and sequential characterizations coincide in metric spaces',
+      'the Baire category theorem as a nonconstructive existence tool',
+    ],
+    whyItMatters:
+      "Axiomatizing 'distance' lets the same fixed-point and compactness arguments proved once, abstractly, guarantee the existence and uniqueness of solutions to differential equations (via the contraction mapping theorem applied to a complete metric space of functions), the convergence of numerical iteration schemes, and the completions used to construct the real numbers and $L^p$ spaces.",
+    prerequisites: ['analysis:continuity'],
+    related: ['topology:point-set-topology', 'functional-analysis:banach-spaces', 'differential-equations:existence-and-uniqueness'],
+    historicalContext:
+      "Maurice Fréchet introduced the abstract metric space, which he called an 'écart,' in his 1906 doctoral thesis Sur quelques points du calcul fonctionnel, unifying earlier ad hoc distance notions used by Volterra, Hadamard, and Arzelà to study spaces of functions. Felix Hausdorff's Grundzüge der Mengenlehre (1914) then built the fully general topological framework that metric spaces sit inside as a special case. The Baire category theorem, proved by René-Louis Baire for the real line in his 1899 doctoral thesis, was extended to general complete metric spaces and became one of the most productive nonconstructive existence tools across 20th-century analysis.",
+    contributorIds: ['person:maurice-frechet', 'person:georg-cantor'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that $d(f,g)=\\sup_{x\\in[0,1]}|f(x)-g(x)|$ defines a metric on the continuous functions on $[0,1]$, and show this space is complete.',
+      'Prove that a compact metric space is complete and bounded, and give an example of a complete, bounded metric space that is not compact.',
+      'Use the Baire category theorem to show that $\\mathbb{R}$ cannot be written as a countable union of nowhere dense sets.',
+    ],
+    applications: [
+      'the Banach fixed-point theorem guaranteeing existence and uniqueness of solutions to ODEs and integral equations',
+      'convergence analysis of iterative numerical algorithms',
+      'completions of spaces, such as constructing $\\mathbb{R}$ as the completion of $\\mathbb{Q}$, or $L^p$ spaces as completions of continuous functions',
+      'metric embeddings and distance-based methods in machine learning',
+    ],
+    researchDirections: [
+      'metric and coarse geometry, including Gromov-Hausdorff convergence of metric spaces',
+      'computable and constructive analysis formulated over metric spaces',
+      'optimal transport distances (Wasserstein metrics) between probability measures',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: 'Chapters 2 and 7 give the standard rigorous treatment of metric space topology and the contraction/fixed-point results built on it.',
+      },
+      {
+        title: 'Real Mathematical Analysis',
+        authors: ['Charles C. Pugh'],
+        edition: '2nd',
+        year: 2015,
+        why: 'Offers an unusually geometric and visual treatment of metric spaces, compactness, and completeness.',
+      },
+      {
+        title: 'Topology',
+        authors: ['James R. Munkres'],
+        edition: '2nd',
+        year: 2000,
+        why: 'Places metric spaces inside the broader topological framework, the standard next step after a first course in metric-space analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Triangle inequality', latex: 'd(x,z)\\le d(x,y)+d(y,z)' },
+      { label: 'Cauchy sequence', latex: '\\forall\\varepsilon>0\\,\\exists N:\\ m,n>N \\implies d(x_m,x_n)<\\varepsilon' },
+      { label: 'Banach fixed-point theorem', latex: 'd(T(x),T(y))\\le k\\,d(x,y),\\ k<1 \\implies \\exists! x^*:\\ T(x^*)=x^*' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Metric space', url: 'https://encyclopediaofmath.org/wiki/Metric_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Maurice Fréchet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frechet/', kind: 'reference' },
+      { label: 'Wikipedia: Baire category theorem', url: 'https://en.wikipedia.org/wiki/Baire_category_theorem', kind: 'encyclopedia' },
+    ],
+  },
+  'analysis:measure-theory': {
+    overview:
+      'Measure theory extends the intuitive notions of length, area, and volume to a vast class of sets, and underlies the Lebesgue integral, which repairs serious limitations of the Riemann integral — most importantly, letting limits and integrals be interchanged far more often than classical Riemann theory allows.',
+    formal:
+      'A $\\sigma$-algebra $\\mathcal{M}$ on a set $X$ is a collection of subsets containing $\\emptyset$, closed under complements, and closed under countable unions. A measure $\\mu:\\mathcal{M}\\to[0,\\infty]$ satisfies $\\mu(\\emptyset)=0$ and countable additivity, $\\mu\\!\\left(\\bigcup_{n=1}^{\\infty}A_n\\right)=\\sum_{n=1}^{\\infty}\\mu(A_n)$ for pairwise disjoint $A_n\\in\\mathcal{M}$. Carathéodory\'s extension theorem shows that a countably additive set function on an algebra of sets (such as lengths of intervals) extends uniquely to a measure on the generated $\\sigma$-algebra, which is how Lebesgue measure on $\\mathbb{R}$ is rigorously constructed.',
+    keyIdeas: [
+      '$\\sigma$-algebras as the domains on which "size" can be consistently assigned',
+      'countable additivity versus merely finite additivity',
+      "Carathéodory's extension theorem: from a measure on simple sets to a full measure space",
+      'null sets and properties holding "almost everywhere"',
+      'the monotone and dominated convergence theorems governing when limits and integrals commute',
+    ],
+    whyItMatters:
+      "Measure theory repairs the Riemann integral's biggest weakness — a pointwise limit of Riemann-integrable functions need not be Riemann integrable, and swapping limits with integrals often fails — through the Lebesgue integral's monotone and dominated convergence theorems, and it supplies the rigorous common foundation for modern probability theory (Kolmogorov's 1933 axioms are built directly on measure theory) and functional analysis.",
+    prerequisites: ['analysis:metric-spaces'],
+    related: ['real-analysis:lebesgue-integration', 'probability:sample-spaces', 'functional-analysis:normed-spaces'],
+    historicalContext:
+      "Émile Borel's Leçons sur la théorie des fonctions (1898) introduced countably additive measure on what are now called Borel sets, extending the earlier finitely-additive notions of content due to Peano and Jordan. Henri Lebesgue's 1902 doctoral thesis Intégrale, longueur, aire built the full Lebesgue measure and integral on the real line, resolving pathologies of the Riemann integral (the indicator function of the rationals, not Riemann integrable, becomes trivially Lebesgue integrable with integral zero). Constantin Carathéodory's 1918 extension theorem gave a general method for constructing measures from simpler set functions, and Andrey Kolmogorov's Grundbegriffe der Wahrscheinlichkeitsrechnung (1933) then built modern probability theory entirely on this measure-theoretic foundation.",
+    contributorIds: ['person:henri-lebesgue', 'person:emile-borel', 'person:andrey-kolmogorov'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the indicator function of the rationals is Lebesgue measurable with measure zero, hence Lebesgue integrable with integral 0, despite not being Riemann integrable.',
+      "Use Carathéodory's extension theorem informally to explain how Lebesgue measure on intervals extends to all Borel sets.",
+      'State the Dominated Convergence Theorem and use it to justify interchanging a limit and an integral in a case where term-by-term reasoning alone is not obviously valid.',
+    ],
+    applications: [
+      'rigorous foundations of probability theory via the Kolmogorov axioms',
+      'Fourier analysis and $L^p$ space theory, both built on Lebesgue integration',
+      'stochastic calculus in mathematical finance, resting on measure-theoretic probability',
+      'information theory and signal processing, which rely on measurable functions and integrals',
+    ],
+    researchDirections: [
+      'geometric measure theory: rectifiability, minimal surfaces, and currents',
+      'measure-theoretic probability and stochastic analysis (martingales, stochastic integration)',
+      'ergodic theory and invariant measures for dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'One of the most widely assigned graduate real analysis and measure theory texts, covering the Carathéodory construction through to $L^p$ spaces.',
+      },
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: "MIT's standard graduate real analysis text, praised for connecting abstract measure theory directly to Fourier analysis and probability.",
+      },
+      {
+        title: 'Real and Complex Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1987,
+        why: "Known as 'papa Rudin,' a classic and demanding graduate reference that develops measure theory before building complex analysis and functional analysis on top of it.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Countable additivity', latex: '\\mu\\!\\left(\\bigcup_{n=1}^{\\infty}A_n\\right)=\\sum_{n=1}^{\\infty}\\mu(A_n)\\quad (A_n \\text{ disjoint})' },
+      { label: 'Monotone Convergence Theorem', latex: '0\\le f_n \\uparrow f \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+      { label: 'Dominated Convergence Theorem', latex: 'f_n\\to f \\text{ a.e.},\\ |f_n|\\le g\\in L^1 \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Carathéodory measure', url: 'https://encyclopediaofmath.org/wiki/Carath%C3%A9odory_measure', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+      { label: 'MacTutor: Émile Borel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Borel/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -2054,6 +2472,11 @@ const personRows = [
   ['Stephen Kleene', '1909-1994', 'USA', 'logic', 'recursion theory'],
   ['Stephen Cook', '1939-', 'USA/Canada', 'theoretical-cs', 'NP-completeness'],
   ['Richard Karp', '1935-', 'USA', 'theoretical-cs', 'NP-completeness and algorithms'],
+  ['Michel Rolle', '1652-1719', 'France', 'analysis', "Rolle's theorem and early Gaussian elimination"],
+  ['Thomas Joannes Stieltjes', '1856-1894', 'Netherlands/France', 'analysis', 'the Riemann-Stieltjes integral and continued fractions'],
+  ['Maurice Frechet', '1878-1973', 'France', 'analysis', 'abstract metric spaces and point-set topology'],
+  ['Emile Borel', '1871-1956', 'France', 'analysis', 'countably additive measure and the Borel hierarchy'],
+  ['Henri Lebesgue', '1875-1941', 'France', 'analysis', 'the Lebesgue integral and modern measure theory'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -2063,8 +2486,8 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
   'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
   'person:brook-taylor': ['calculus:taylor-series'],
-  'person:bernard-bolzano': ['calculus:limits'],
-  'person:karl-weierstrass': ['calculus:limits'],
+  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity'],
+  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
   'person:augustin-louis-cauchy': [
     'calculus:limits',
@@ -2073,6 +2496,9 @@ const personTopicOverrides: Record<string, string[]> = {
     'linear-algebra:determinants',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
+    'analysis:sequences-and-series',
+    'analysis:continuity',
+    'analysis:differentiation',
   ],
   'person:arthur-cayley': ['linear-algebra:matrices'],
   'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
@@ -2080,9 +2506,17 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
   'person:camille-jordan': ['linear-algebra:singular-value-decomposition', 'linear-algebra:eigenvalues'],
   'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
-  'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues'],
+  'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
   'person:david-hilbert': ['foundations:axiomatic-method', 'linear-algebra:eigenvalues', 'linear-algebra:inner-product-spaces'],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
+  'person:bernhard-riemann': ['analysis:sequences-and-series', 'analysis:integration', 'differential-geometry:riemannian-metrics'],
+  'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces'],
+  'person:michel-rolle': ['analysis:differentiation'],
+  'person:thomas-joannes-stieltjes': ['analysis:integration'],
+  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity'],
+  'person:emile-borel': ['analysis:measure-theory'],
+  'person:henri-lebesgue': ['analysis:measure-theory'],
+  'person:andrey-kolmogorov': ['probability:sample-spaces', 'analysis:measure-theory'],
 };
 
 export const people: Person[] = personRows.map(
@@ -2200,7 +2634,7 @@ const workRows = [
 // Same idea as personTopicOverrides: replaces the default "field's first
 // topic" placement with the topic(s) a work actually belongs to.
 const workTopicOverrides: Record<string, string[]> = {
-  'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits'],
+  'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'analysis:sequences-and-series', 'analysis:continuity'],
   'work:introductio-in-analysin-infinitorum': ['calculus:taylor-series', 'analysis:sequences-and-series'],
   'work:a-memoir-on-the-theory-of-matrices': ['linear-algebra:matrices', 'linear-algebra:determinants', 'linear-algebra:eigenvalues'],
   'work:die-lineale-ausdehnungslehre': ['linear-algebra:vector-spaces'],

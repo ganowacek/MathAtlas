@@ -14,7 +14,7 @@ probability, topology, number-theory, then remaining 40 fields.
 
 - [x] calculus — Limits, Derivatives, Integrals, Taylor series, Multivariable calculus, Vector calculus
 - [x] linear-algebra — Vector spaces, Matrices, Determinants, Eigenvalues, Inner product spaces, Singular value decomposition
-- [ ] analysis — Sequences and series, Continuity, Differentiation, Integration, Metric spaces, Measure theory
+- [x] analysis — Sequences and series, Continuity, Differentiation, Integration, Metric spaces, Measure theory
 - [ ] algebra — Polynomials, Groups, Rings, Fields, Modules, Representations
 - [ ] probability — Sample spaces, Random variables, Expectation, Law of large numbers, Central limit theorem, Markov chains
 - [ ] topology — Point-set topology, Compactness, Connectedness, Homotopy, Homology, Manifolds
