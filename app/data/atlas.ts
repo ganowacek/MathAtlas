@@ -1820,11 +1820,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
     keyIdeas: ['completeness', 'soundness', 'privacy', 'interactive proofs'],
   },
-  'topology:homology': {
-    formal:
-      'Homology assigns algebraic invariants to spaces by taking cycles modulo boundaries in a chain complex.',
-    keyIdeas: ['holes', 'chain complexes', 'functoriality', 'topological invariants'],
-  },
   'analysis:sequences-and-series': {
     overview:
       'A sequence converges if its terms eventually cluster arbitrarily close to a limit, and a series converges if its sequence of partial sums does. This topic develops convergence in the general setting of metric and normed spaces rather than just the real line: completeness, absolute versus conditional convergence, and the sharp tests that decide when an infinite sum has a well-defined value at all.',
@@ -3076,6 +3071,408 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: Markov chain', url: 'https://en.wikipedia.org/wiki/Markov_chain', kind: 'encyclopedia' },
     ],
   },
+  'topology:point-set-topology': {
+    overview:
+      'Point-set (general) topology studies the most basic notion of "closeness" — which sets count as open — stripped of any reference to distance. This single, minimal structure is still enough to define continuity, convergence, and the boundary between shapes.',
+    formal:
+      'A topology on a set $X$ is a collection $\\tau$ of subsets of $X$ (the open sets) such that $\\emptyset, X\\in\\tau$, arbitrary unions of members of $\\tau$ lie in $\\tau$, and finite intersections of members of $\\tau$ lie in $\\tau$. A function $f:X\\to Y$ between topological spaces is continuous if $f^{-1}(U)$ is open for every open $U\\subseteq Y$. A base for $\\tau$ is a collection $\\mathcal{B}\\subseteq\\tau$ such that every open set is a union of members of $\\mathcal{B}$, and a space is Hausdorff if any two distinct points have disjoint open neighborhoods.',
+    keyIdeas: [
+      'a topology as a minimal axiomatic notion of "closeness," with no reference to distance',
+      'open sets, closed sets, and neighborhoods',
+      'bases and subbases generating a topology',
+      'separation axioms, especially the Hausdorff property',
+      'continuity re-expressed as the preimage of open sets being open',
+    ],
+    whyItMatters:
+      'General topology supplies the common language — open sets, continuity, closure — used across every branch of mathematics that studies "shape" or "structure," from metric spaces and manifolds to the Zariski topology of algebraic geometry and the weak topologies of functional analysis.',
+    prerequisites: [],
+    related: ['analysis:metric-spaces', 'topology:compactness', 'topology:connectedness'],
+    historicalContext:
+      "Georg Cantor's work on the topology of the real line in the 1870s-80s, particularly his notions of limit points and derived sets, supplied the raw material. Maurice Fréchet's 1906 thesis introduced the more general metric space, and Felix Hausdorff's Grundzüge der Mengenlehre (1914) gave the first widely adopted abstract axiomatic definition of a topological space via neighborhoods, including the separation axiom now named for him. Kazimierz Kuratowski's 1922 closure-operator axioms gave an equivalent, influential alternative formulation, and by the 1930s the Bourbaki-style presentation built directly on open sets became the standard modern approach.",
+    contributorIds: ['person:felix-hausdorff', 'person:georg-cantor', 'person:maurice-frechet'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the collection of unions of open intervals defines a topology on $\\mathbb{R}$, and verify the axioms directly.',
+      'Give an example of a topological space that is not Hausdorff, and explain why limits of sequences can fail to be unique there.',
+      'Prove that a composition of continuous functions is continuous, using only the open-set definition.',
+    ],
+    applications: [
+      'the foundations of manifold theory and differential geometry',
+      'the Zariski topology underlying algebraic geometry',
+      'weak and weak-* topologies in functional analysis',
+      'general frameworks for convergence in analysis beyond metric spaces (nets and filters)',
+    ],
+    researchDirections: [
+      'set-theoretic topology, studying independence results and cardinal invariants of topological spaces',
+      'point-free (locale) topology, replacing points with algebraic structures of open sets',
+      'topology in computer science (domain theory, the Scott topology) for modeling computation',
+    ],
+    textbooks: [
+      {
+        title: 'Topology',
+        authors: ['James R. Munkres'],
+        edition: '2nd',
+        year: 2000,
+        why: 'The standard general topology text used in most undergraduate and beginning-graduate courses, praised for its clarity and pacing.',
+      },
+      {
+        title: 'Basic Topology',
+        authors: ['M. A. Armstrong'],
+        year: 1983,
+        why: 'A gentler, geometrically motivated introduction frequently recommended as a companion or alternative to Munkres.',
+      },
+      {
+        title: 'General Topology',
+        authors: ['Stephen Willard'],
+        year: 1970,
+        why: 'A comprehensive, encyclopedic reference (available as an inexpensive Dover reprint) for the finer points of point-set topology.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Topology axioms', latex: '\\emptyset, X \\in \\tau;\\quad \\bigcup_\\alpha U_\\alpha \\in \\tau;\\quad U_1\\cap\\cdots\\cap U_n \\in \\tau' },
+      { label: 'Continuity via open sets', latex: 'f \\text{ continuous} \\iff f^{-1}(U) \\text{ open for every open } U\\subseteq Y' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Topological space', url: 'https://encyclopediaofmath.org/wiki/Topological_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Felix Hausdorff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hausdorff/', kind: 'reference' },
+      { label: 'MacTutor: Maurice Fréchet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frechet/', kind: 'reference' },
+    ],
+  },
+  'topology:compactness': {
+    overview:
+      'Compactness captures, in a purely topological way, what it means for a space to be "small" or "closed off at infinity": every open cover of a compact space has a finite subcover, a property that turns out to make continuous functions on it exceptionally well-behaved.',
+    formal:
+      "A topological space $X$ is compact if every open cover $\\{U_\\alpha\\}$ of $X$ has a finite subcover. The Heine-Borel theorem characterizes compact subsets of $\\mathbb{R}^n$: $K\\subseteq\\mathbb{R}^n$ is compact iff it is closed and bounded. Tychonoff's theorem states that an arbitrary product of compact spaces is compact in the product topology — a deep result equivalent to the Axiom of Choice. Every continuous real-valued function on a compact space is bounded and attains its maximum and minimum.",
+    keyIdeas: [
+      'compactness via the finite-subcover property of open covers',
+      'the Heine-Borel theorem: compact in $\\mathbb{R}^n$ means closed and bounded',
+      "Tychonoff's theorem and its equivalence to the Axiom of Choice",
+      'compactness forces continuous real-valued functions to be bounded and to attain extrema',
+      'sequential compactness and its relationship to compactness in metric spaces',
+    ],
+    whyItMatters:
+      'Compactness is the single topological property most responsible for turning "it should work" arguments into actual proofs: it is the hidden ingredient behind the existence of maxima in optimization, the convergence of subsequences (Bolzano-Weierstrass), and the finite-dimensional behavior that infinite-dimensional spaces often lack.',
+    prerequisites: ['topology:point-set-topology'],
+    related: ['analysis:continuity', 'topology:connectedness', 'functional-analysis:banach-spaces'],
+    historicalContext:
+      'Émile Borel proved in 1895 that a countable open cover of a closed bounded interval has a finite subcover, and Henri Lebesgue extended this to arbitrary covers around 1904 while developing measure theory, giving the result now called the Heine-Borel theorem (after earlier related work by Eduard Heine on uniform continuity). Pavel Alexandrov and Pavel Urysohn\'s work of 1923-24 gave the modern general definition of compactness for topological spaces via open covers, generalizing far beyond subsets of $\\mathbb{R}^n$, and Andrey Tychonoff proved his eponymous theorem on products of compact spaces in 1930, later shown by John Kelley (1950) to be logically equivalent to the Axiom of Choice.',
+    contributorIds: ['person:emile-borel', 'person:henri-lebesgue'],
+    workIds: [],
+    exampleProblems: [
+      'Prove one direction of the Heine-Borel theorem: show that a closed, bounded subset of $\\mathbb{R}$ is compact, using the least-upper-bound property.',
+      'Give an example of a metric space in which a closed, bounded set fails to be compact.',
+      'Use compactness to prove that a continuous real-valued function on a compact space attains its maximum.',
+    ],
+    applications: [
+      'guaranteeing the existence of optimal solutions in optimization over compact feasible sets',
+      'the Arzelà-Ascoli theorem for compactness in spaces of functions',
+      'renormalization and compactification techniques in physics',
+      'compactness theorems for first-order logic, giving finite-model arguments',
+    ],
+    researchDirections: [
+      'compactifications (Stone-Čech, one-point) and their role in functional analysis',
+      'compactness in infinite-dimensional and non-metrizable spaces (weak-* compactness, the Banach-Alaoglu theorem)',
+      'generalized notions of compactness in set-theoretic topology',
+    ],
+    textbooks: [
+      {
+        title: 'Topology',
+        authors: ['James R. Munkres'],
+        edition: '2nd',
+        year: 2000,
+        why: 'Gives the standard treatment of compactness, from the Heine-Borel theorem through Tychonoff\'s theorem and its proof via the Axiom of Choice.',
+      },
+      {
+        title: 'General Topology',
+        authors: ['Stephen Willard'],
+        year: 1970,
+        why: 'Covers the full range of compactness-related properties (countable, sequential, local compactness) in systematic detail.',
+      },
+      {
+        title: 'General Topology',
+        authors: ['Ryszard Engelking'],
+        year: 1989,
+        why: 'The standard advanced reference for set-theoretic and general topology, including the finer classification of compactness properties.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Open-cover definition of compactness', latex: '\\forall \\{U_\\alpha\\} \\text{ open cover of } X,\\ \\exists \\text{ finite subcover}' },
+      { label: 'Heine-Borel theorem', latex: 'K \\subseteq \\mathbb{R}^n \\text{ compact} \\iff K \\text{ closed and bounded}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Compact space', url: 'https://encyclopediaofmath.org/wiki/Compact_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Émile Borel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Borel/', kind: 'reference' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+    ],
+  },
+  'topology:connectedness': {
+    overview:
+      'A space is connected if it cannot be split into two separate, non-overlapping open pieces — the topological way of saying it is "all in one piece." Connectedness and its stronger cousin, path-connectedness, are what let theorems like the Intermediate Value Theorem generalize far beyond the real line.',
+    formal:
+      "A topological space $X$ is connected if it cannot be written as $X=U\\cup V$ for disjoint nonempty open sets $U,V$. $X$ is path-connected if any two points can be joined by a continuous path $\\gamma:[0,1]\\to X$; path-connectedness implies connectedness but not conversely (the topologist's sine curve is the standard counterexample). The continuous image of a connected space is connected, which is the topological content behind the Intermediate Value Theorem.",
+    keyIdeas: [
+      'connectedness: a space that cannot be split into two disjoint nonempty open pieces',
+      'path-connectedness, and why it is strictly stronger than connectedness',
+      "the topologist's sine curve as the standard connected-but-not-path-connected example",
+      'connected components as the maximal connected subsets',
+      'connectedness as a topological invariant, generalizing the Intermediate Value Theorem',
+    ],
+    whyItMatters:
+      'Connectedness is one of the most basic topological invariants used to distinguish spaces from each other — the letter Y is not homeomorphic to a circle because removing a point can disconnect one but not the other — and it is the precise property that makes the Intermediate Value Theorem, and much qualitative reasoning about continuous processes, work.',
+    prerequisites: ['topology:compactness'],
+    related: ['topology:homotopy', 'analysis:continuity', 'geometry:incidence-geometry'],
+    historicalContext:
+      "Bernard Bolzano's 1817 proof of the intermediate value theorem implicitly used connectedness-like reasoning about the real line decades before the concept was formalized. Camille Jordan's 1893 Cours d'analyse gave an early rigorous treatment of connected regions in the plane in the context of the Jordan curve theorem. The general topological definition of connectedness, via the impossibility of splitting a space into disjoint open sets, was established in the point-set topology of the 1900s-1920s, and the topologist's sine curve, distinguishing connectedness from path-connectedness, became a standard counterexample in topology texts from the early 20th century onward.",
+    contributorIds: ['person:bernard-bolzano', 'person:camille-jordan'],
+    workIds: [],
+    exampleProblems: [
+      'Prove that the continuous image of a connected space is connected, and deduce the Intermediate Value Theorem as a special case.',
+      'Show that the topologist\'s sine curve is connected but not path-connected.',
+      'Determine the connected components of the rational numbers $\\mathbb{Q}$ with its usual topology.',
+    ],
+    applications: [
+      'proving existence results via the Intermediate Value Theorem (root-finding, fixed points)',
+      'the Jordan curve theorem, with applications to planar graph theory and complex analysis',
+      'circuit and network design, where connectivity of a graph or space matters directly',
+      'image segmentation in computer vision, identifying connected regions',
+    ],
+    researchDirections: [
+      'higher connectivity notions in algebraic topology (n-connectedness, simple connectivity) as inputs to homotopy theory',
+      'connectivity properties of random graphs and networks (percolation theory)',
+      'local connectivity and its role in complex dynamics (Julia sets and the Mandelbrot set)',
+    ],
+    textbooks: [
+      {
+        title: 'Topology',
+        authors: ['James R. Munkres'],
+        edition: '2nd',
+        year: 2000,
+        why: 'Develops connectedness and path-connectedness alongside compactness as the two pillars of elementary point-set topology.',
+      },
+      {
+        title: 'Basic Topology',
+        authors: ['M. A. Armstrong'],
+        year: 1983,
+        why: 'Presents connectedness with strong geometric motivation and leads naturally into the fundamental group.',
+      },
+      {
+        title: 'Topology and Geometry',
+        authors: ['Glen E. Bredon'],
+        year: 1993,
+        why: 'A standard graduate reference connecting elementary connectedness results to their role in algebraic topology.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Connectedness (no separation)', latex: '\\nexists\\, U,V \\text{ open, disjoint, nonempty}: X = U \\cup V' },
+      { label: 'Path-connectedness', latex: '\\forall x,y\\in X\\, \\exists \\gamma:[0,1]\\to X,\\ \\gamma(0)=x,\\ \\gamma(1)=y' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Connectivity', url: 'https://encyclopediaofmath.org/wiki/Connectivity', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernard Bolzano', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bolzano/', kind: 'reference' },
+      { label: 'MacTutor: Camille Jordan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Jordan/', kind: 'reference' },
+    ],
+  },
+  'topology:homotopy': {
+    overview:
+      'Two continuous maps are homotopic if one can be continuously deformed into the other. Homotopy theory studies spaces "up to squishing and stretching but not tearing," and its most basic invariant, the fundamental group, counts the essentially different loops a space contains.',
+    formal:
+      'A homotopy between continuous maps $f,g:X\\to Y$ is a continuous map $H:X\\times[0,1]\\to Y$ with $H(x,0)=f(x)$ and $H(x,1)=g(x)$. The fundamental group $\\pi_1(X,x_0)$ consists of homotopy classes of loops based at $x_0$, with concatenation as the group operation; a space is simply connected if $\\pi_1(X,x_0)$ is trivial. Higher homotopy groups $\\pi_n(X,x_0)$ generalize this to maps from the $n$-sphere.',
+    keyIdeas: [
+      'homotopy: continuous deformation of one map into another',
+      'the fundamental group $\\pi_1$ as homotopy classes of loops',
+      'simply connected spaces, and covering space theory as the geometric counterpart of $\\pi_1$',
+      'higher homotopy groups $\\pi_n$ and their surprising computational difficulty (even for spheres)',
+      'homotopy equivalence as a coarser notion of "sameness" than homeomorphism',
+    ],
+    whyItMatters:
+      'Homotopy invariants let topologists prove that two spaces are genuinely different, not just different-looking, using algebra rather than direct geometric argument — the fact that the fundamental group of a circle is $\\mathbb{Z}$ but that of a disk is trivial is, in a precise sense, the reason a disk has no hole and a circle does, and this style of argument scales up to prove deep results like the Brouwer fixed-point theorem.',
+    prerequisites: ['topology:connectedness'],
+    related: ['topology:homology', 'category-theory:natural-transformations', 'algebraic-geometry:cohomology'],
+    historicalContext:
+      'Henri Poincaré founded algebraic topology in Analysis Situs (1895) and its five supplements, introducing the fundamental group (his "groupe fondamental") to distinguish spaces that earlier, cruder invariants could not tell apart, and posing what became the Poincaré conjecture. L. E. J. Brouwer proved his celebrated fixed-point theorem in 1911 using degree-theoretic, proto-homotopy methods. Witold Hurewicz introduced the higher homotopy groups $\\pi_n$ in 1935, and their computation turned out to be vastly harder than for homology — even the homotopy groups of spheres are still not completely known today, a stark contrast to the comparatively tractable homology groups.',
+    contributorIds: ['person:henri-poincare', 'person:l-e-j-brouwer'],
+    workIds: ['work:algebraic-topology'],
+    exampleProblems: [
+      'Show that the fundamental group of the circle $S^1$ is isomorphic to $\\mathbb{Z}$, using the covering map $\\mathbb{R}\\to S^1$.',
+      'Use the fundamental group to prove that $\\mathbb{R}^2$ is not homeomorphic to $\\mathbb{R}^2$ minus a point.',
+      'Explain the role of the fundamental group in the statement of the (now-proved) Poincaré conjecture.',
+    ],
+    applications: [
+      'the Brouwer fixed-point theorem, with applications to the existence of equilibria in economics and game theory',
+      'robotics and configuration-space topology for motion planning around obstacles',
+      'classification of topological defects in condensed matter physics via homotopy groups',
+      'topological data analysis, via persistent homology/homotopy methods',
+    ],
+    researchDirections: [
+      'computing homotopy groups of spheres, one of the longest-standing open computational problems in topology',
+      'homotopy type theory, using homotopy-theoretic ideas as a foundation for constructive mathematics and formalized proof',
+      'motivic homotopy theory, transporting homotopy-theoretic methods into algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Topology',
+        authors: ['Allen Hatcher'],
+        year: 2002,
+        why: 'The modern standard graduate text, freely available online, with an unusually geometric and intuitive treatment of homotopy theory.',
+      },
+      {
+        title: 'A Concise Course in Algebraic Topology',
+        authors: ['J. Peter May'],
+        year: 1999,
+        why: 'A terser, more categorical treatment widely used as a second course after Hatcher.',
+      },
+      {
+        title: 'Algebraic Topology',
+        authors: ['Edwin H. Spanier'],
+        year: 1966,
+        why: 'A classic, encyclopedic graduate reference still consulted for its comprehensive coverage of homotopy theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Homotopy', latex: 'H:X\\times[0,1]\\to Y,\\quad H(\\cdot,0)=f,\\ H(\\cdot,1)=g' },
+      { label: 'Fundamental group of the circle', latex: '\\pi_1(S^1) \\cong \\mathbb{Z}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Homotopy', url: 'https://encyclopediaofmath.org/wiki/Homotopy', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+      { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
+    ],
+  },
+  'topology:homology': {
+    overview:
+      'Homology assigns a sequence of abelian groups to a space that count its "holes" in each dimension — one for connected components, one for loops that fail to bound a disk, one for cavities enclosed by a surface, and so on — and unlike the homotopy groups, these groups are usually straightforward to compute.',
+    formal:
+      'Given a chain complex of free abelian groups $(C_n,\\partial_n)$ built from a space\'s simplices, with $\\partial_n\\circ\\partial_{n+1}=0$, the $n$-th homology group is $H_n(X)=\\ker(\\partial_n)/\\text{im}(\\partial_{n+1})$ — "cycles modulo boundaries." Homology is a functor: a continuous map $f:X\\to Y$ induces homomorphisms $f_*:H_n(X)\\to H_n(Y)$, and homotopic maps induce the same map on homology, making $H_n$ a homotopy invariant.',
+    keyIdeas: [
+      'chain complexes: sequences of groups connected by boundary maps with $\\partial^2=0$',
+      'homology as "cycles modulo boundaries," a precise algebraic notion of a hole',
+      'homology as a functor, turning continuous maps into group homomorphisms',
+      'the Euler characteristic as an alternating sum of the ranks of the homology groups',
+      'homology versus homotopy: homology is usually computable, homotopy groups usually are not',
+    ],
+    whyItMatters:
+      'Homology converts an often-intractable geometric question — "does this space have a hole here?" — into a linear-algebra computation (the rank of a quotient of free abelian groups), which is why it is one of the most practically computable invariants in topology, used everywhere from classifying surfaces to modern topological data analysis.',
+    prerequisites: ['topology:homotopy'],
+    related: ['abstract-algebra:homological-algebra', 'algebraic-geometry:cohomology', 'category-theory:limits-and-colimits'],
+    historicalContext:
+      'Henri Poincaré introduced Betti numbers (counting independent cycles in each dimension, building on earlier work of Enrico Betti) and a precursor of homology in Analysis Situs (1895), though without the modern group-theoretic formulation. Emmy Noether, in remarks and lectures around 1925-1928, is widely credited with recasting homology from Betti numbers and torsion coefficients into the language of homology groups, an algebraic reformulation that Heinz Hopf and others quickly adopted. Samuel Eilenberg and Norman Steenrod\'s Foundations of Algebraic Topology (1952) then axiomatized homology theory itself, isolating exactly which properties characterize "a homology theory" independent of any specific construction.',
+    contributorIds: ['person:henri-poincare', 'person:emmy-noether'],
+    workIds: ['work:algebraic-topology'],
+    exampleProblems: [
+      'Compute the homology groups of the circle $S^1$ directly from a simplicial chain complex.',
+      'Use the Euler characteristic, as an alternating sum of Betti numbers, to distinguish a sphere from a torus.',
+      'Explain why homology groups, unlike homotopy groups, are generally straightforward to compute via linear algebra.',
+    ],
+    applications: [
+      'classification of surfaces and manifolds via their homology',
+      'topological data analysis, using persistent homology to detect structure in high-dimensional data',
+      'sensor network coverage verification using homological methods',
+      'algebraic geometry and complex analysis via de Rham and singular cohomology',
+    ],
+    researchDirections: [
+      'persistent homology and topological data analysis as an active bridge between topology and applied data science',
+      'generalized (extraordinary) cohomology theories (K-theory, cobordism) in algebraic topology',
+      'computational and algorithmic homology for large-scale simplicial complexes',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Topology',
+        authors: ['Allen Hatcher'],
+        year: 2002,
+        why: 'The modern standard text for homology theory, with a thorough treatment of simplicial, singular, and cellular homology.',
+      },
+      {
+        title: 'Elements of Algebraic Topology',
+        authors: ['James R. Munkres'],
+        year: 1984,
+        why: 'A careful, detailed treatment of simplicial and singular homology, complementary to the same author\'s general topology text.',
+      },
+      {
+        title: 'Topology and Geometry',
+        authors: ['Glen E. Bredon'],
+        year: 1993,
+        why: 'A comprehensive graduate reference connecting homology to cohomology, manifolds, and characteristic classes.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Homology group', latex: 'H_n(X) = \\ker(\\partial_n) / \\operatorname{im}(\\partial_{n+1})' },
+      { label: 'Boundary-squared-zero', latex: '\\partial_n \\circ \\partial_{n+1} = 0' },
+      { label: 'Euler characteristic', latex: '\\chi(X) = \\sum_n (-1)^n \\operatorname{rank}(H_n(X))' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Homology theory', url: 'https://encyclopediaofmath.org/wiki/Homology_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'topology:manifolds': {
+    overview:
+      'A manifold is a space that looks locally like ordinary Euclidean space, even though it may be curved or connected up in complicated ways globally — a sphere and a torus both look flat if you zoom in far enough, even though neither is literally flat. Manifolds are the natural setting for doing calculus on curved spaces.',
+    formal:
+      'A topological $n$-manifold is a Hausdorff, second-countable space $M$ in which every point has an open neighborhood homeomorphic to an open subset of $\\mathbb{R}^n$. A smooth manifold additionally has an atlas of charts whose transition maps are $C^\\infty$, making it possible to differentiate functions on $M$. Compact connected 2-manifolds are classified completely by genus and orientability, but the Poincaré conjecture — that a simply connected, closed 3-manifold is homeomorphic to the 3-sphere — remained open for a century before Grigori Perelman proved it in 2002-2003.',
+    keyIdeas: [
+      'a manifold as a space that is locally Euclidean',
+      'atlases, charts, and smooth transition maps for doing calculus on a manifold',
+      'the classification of compact surfaces (2-manifolds) by genus and orientability',
+      'the dramatically greater difficulty of classifying manifolds in dimension 3 and above',
+      "the Poincaré conjecture and Perelman's proof via Ricci flow",
+    ],
+    whyItMatters:
+      'Manifolds are the right mathematical model of "curved space": spacetime in general relativity, the configuration space of a mechanical system, and the state space of a dynamical system are all manifolds, and the classification of manifolds is one of the deepest and most technically demanding programs in mathematics, exemplified by the century-long quest to prove the Poincaré conjecture.',
+    prerequisites: ['topology:homology'],
+    related: ['differential-geometry:smooth-manifolds', 'differential-geometry:riemannian-metrics', 'algebraic-geometry:schemes'],
+    historicalContext:
+      "Bernhard Riemann's 1854 Habilitationsschrift Über die Hypothesen, welche der Geometrie zu Grunde liegen introduced the concept of an $n$-dimensional manifold (Mannigfaltigkeit) equipped with a notion of curvature, generalizing surfaces to arbitrary dimension for the first time. Henri Poincaré's Analysis Situs (1895) began the systematic topological study of manifolds and posed the Poincaré conjecture. The conjecture resisted proof for nearly a century until Grigori Perelman, building on Richard Hamilton's Ricci flow program, posted a proof in 2002-2003 that was verified over the following years, for which Perelman was awarded — and declined — the Fields Medal in 2006.",
+    contributorIds: ['person:bernhard-riemann', 'person:henri-poincare', 'person:grigori-perelman'],
+    workIds: ['work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen'],
+    exampleProblems: [
+      'Verify that the sphere $S^2$ is a 2-manifold by exhibiting an explicit atlas of charts (e.g. stereographic projection).',
+      'Classify, up to homeomorphism, all compact connected orientable surfaces of genus 0, 1, and 2.',
+      'Explain, in outline, what the Poincaré conjecture states and why the 3-dimensional case was so much harder than the higher-dimensional cases proved earlier by Stephen Smale.',
+    ],
+    applications: [
+      'general relativity, modeling spacetime as a 4-dimensional Lorentzian manifold',
+      'robotics, where configuration spaces of jointed mechanisms are manifolds',
+      'computer graphics, representing and processing curved surfaces as manifold meshes',
+      'manifold learning in data science, assuming high-dimensional data lies near a low-dimensional manifold',
+    ],
+    researchDirections: [
+      'geometrization and Ricci flow methods for classifying 3-manifolds beyond the Poincaré conjecture',
+      'exotic smooth structures on manifolds (exotic $\\mathbb{R}^4$s, exotic spheres), showing smooth and topological classification can differ',
+      'manifold learning and topological methods in machine learning for high-dimensional data',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Topological Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2011,
+        why: 'The standard modern introduction to manifold theory at the topological level, before adding smooth structure.',
+      },
+      {
+        title: 'Introduction to Smooth Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The standard graduate text for smooth manifolds, widely adopted as the sequel to Lee\'s topological manifolds text.',
+      },
+      {
+        title: 'Differential Topology',
+        authors: ['Victor Guillemin', 'Alan Pollack'],
+        year: 1974,
+        why: 'A classic, geometrically intuitive introduction to manifolds and differential topology, still widely assigned.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Local Euclidean property', latex: '\\forall p \\in M,\\ \\exists U \\ni p:\\ U \\cong \\text{open subset of } \\mathbb{R}^n' },
+      { label: 'Euler characteristic-genus relation (orientable surfaces)', latex: '\\chi = 2 - 2g' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Manifold', url: 'https://en.wikipedia.org/wiki/Manifold', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+      { label: 'MacTutor: Grigori Perelman', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Perelman/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -3310,6 +3707,7 @@ const personRows = [
   ['Pafnuty Chebyshev', '1821-1894', 'Russia', 'probability', "Chebyshev's inequality and the explicit treatment of expectation"],
   ['Abraham de Moivre', '1667-1754', 'France/England', 'probability', 'the first central limit theorem for the binomial distribution'],
   ['Andrei Markov', '1856-1922', 'Russia', 'probability', 'Markov chains and dependent sequences of trials'],
+  ['Felix Hausdorff', '1868-1942', 'Germany', 'topology', 'the axiomatic theory of topological and metric spaces'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -3319,7 +3717,7 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
   'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
   'person:brook-taylor': ['calculus:taylor-series'],
-  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity'],
+  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness'],
   'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
   'person:augustin-louis-cauchy': [
@@ -3337,7 +3735,12 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
   'person:hermann-grassmann': ['linear-algebra:vector-spaces'],
   'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
-  'person:camille-jordan': ['linear-algebra:singular-value-decomposition', 'linear-algebra:eigenvalues', 'algebra:groups'],
+  'person:camille-jordan': [
+    'linear-algebra:singular-value-decomposition',
+    'linear-algebra:eigenvalues',
+    'algebra:groups',
+    'topology:connectedness',
+  ],
   'person:giuseppe-peano': ['logic:propositional-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
   'person:david-hilbert': [
@@ -3348,13 +3751,18 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:modules',
   ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
-  'person:bernhard-riemann': ['analysis:sequences-and-series', 'analysis:integration', 'differential-geometry:riemannian-metrics'],
-  'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces'],
+  'person:bernhard-riemann': [
+    'analysis:sequences-and-series',
+    'analysis:integration',
+    'differential-geometry:riemannian-metrics',
+    'topology:manifolds',
+  ],
+  'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces', 'topology:point-set-topology'],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
-  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity'],
-  'person:emile-borel': ['analysis:measure-theory'],
-  'person:henri-lebesgue': ['analysis:measure-theory'],
+  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
+  'person:emile-borel': ['analysis:measure-theory', 'topology:compactness'],
+  'person:henri-lebesgue': ['analysis:measure-theory', 'topology:compactness'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
@@ -3363,7 +3771,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'probability:markov-chains',
   ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
-  'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules'],
+  'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules', 'topology:homology'],
   'person:richard-dedekind': ['set-theory:naive-set-theory', 'algebra:rings', 'algebra:modules'],
   'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
   'person:ernst-steinitz': ['algebra:fields'],
@@ -3375,6 +3783,10 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
+  'person:felix-hausdorff': ['topology:point-set-topology'],
+  'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
+  'person:l-e-j-brouwer': ['foundations:constructive-mathematics', 'topology:homotopy'],
+  'person:grigori-perelman': ['topology:manifolds'],
 };
 
 export const people: Person[] = personRows.map(
@@ -3506,6 +3918,11 @@ const workTopicOverrides: Record<string, string[]> = {
   ],
   'work:de-ratiociniis-in-ludo-aleae': ['probability:sample-spaces', 'probability:expectation'],
   'work:ars-conjectandi': ['probability:law-of-large-numbers'],
+  'work:algebraic-topology': ['topology:homotopy', 'topology:homology'],
+  'work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen': [
+    'differential-geometry:smooth-manifolds',
+    'topology:manifolds',
+  ],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

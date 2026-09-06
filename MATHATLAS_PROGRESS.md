@@ -17,7 +17,7 @@ probability, topology, number-theory, then remaining 40 fields.
 - [x] analysis — Sequences and series, Continuity, Differentiation, Integration, Metric spaces, Measure theory
 - [x] algebra — Polynomials, Groups, Rings, Fields, Modules, Representations
 - [x] probability — Sample spaces, Random variables, Expectation, Law of large numbers, Central limit theorem, Markov chains
-- [ ] topology — Point-set topology, Compactness, Connectedness, Homotopy, Homology, Manifolds
+- [x] topology — Point-set topology, Compactness, Connectedness, Homotopy, Homology, Manifolds
 - [ ] number-theory — Prime numbers, Modular arithmetic, Diophantine equations, Algebraic number theory, Analytic number theory, Modular forms
 
 ## Remaining fields (40)
