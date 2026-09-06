@@ -7033,6 +7033,405 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
     ],
   },
+  'differential-geometry:smooth-manifolds': {
+    overview:
+      'A smooth manifold is a space that looks locally like Euclidean space and comes equipped with enough extra structure — compatible smooth coordinate charts — to do calculus on it: differentiate functions, define vector fields, and integrate, even though the space as a whole may be curved or topologically complicated.',
+    formal:
+      'A smooth $n$-manifold is a topological manifold $M$ equipped with a maximal atlas of charts $\\varphi_\\alpha:U_\\alpha\\to\\mathbb{R}^n$ whose transition maps $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ are all $C^\\infty$ wherever defined. A map $f:M\\to N$ between smooth manifolds is smooth if its coordinate representations are smooth in the usual Euclidean sense. Whitney\'s embedding theorem (1936, sharpened 1944) shows every smooth $n$-manifold embeds smoothly into $\\mathbb{R}^{2n}$.',
+    keyIdeas: [
+      'an atlas of compatible smooth charts as the structure that makes calculus on a manifold well-defined',
+      'smooth maps between manifolds via smooth coordinate representations',
+      "Whitney's embedding theorem: every smooth manifold sits inside some Euclidean space",
+      'diffeomorphisms as the natural notion of "sameness" for smooth manifolds',
+      'partitions of unity, letting local constructions be patched together globally',
+    ],
+    whyItMatters:
+      'The atlas-of-charts definition is what lets the differential calculus developed for $\\mathbb{R}^n$ — derivatives, vector fields, differential equations — be transported wholesale to curved and topologically exotic spaces, which is why every geometric theory of physical space, from the curved spacetime of general relativity to the configuration spaces of robotics, is built on smooth manifolds.',
+    prerequisites: [],
+    related: ['topology:manifolds', 'differential-geometry:tangent-spaces', 'differential-geometry:riemannian-metrics'],
+    historicalContext:
+      'Bernhard Riemann\'s 1854 Habilitationsschrift first proposed the idea of an $n$-dimensional manifold informally, generalizing surfaces without a rigorous foundation. Hassler Whitney\'s 1936 paper Differentiable Manifolds gave the first fully rigorous, modern definition via atlases of charts and proved his embedding theorem, definitively answering whether abstract manifolds were "really" just subsets of Euclidean space. Whitney\'s later work through the 1940s-50s on singularities and stratified spaces further developed the differential-topological toolkit smooth manifold theory relies on today.',
+    contributorIds: ['person:hassler-whitney', 'person:bernhard-riemann'],
+    workIds: ['work:topology-from-the-differentiable-viewpoint'],
+    exampleProblems: [
+      'Construct an explicit atlas of two charts for the sphere $S^2$ using stereographic projection, and verify the transition map is smooth.',
+      'Show that the smooth structures on $\\mathbb{R}$ given by the identity chart and by $x\\mapsto x^3$ are not compatible, yet are diffeomorphic as manifolds.',
+      'Explain what Whitney\'s embedding theorem guarantees and why it does not mean "manifolds are nothing new."',
+    ],
+    applications: [
+      'general relativity, modeling spacetime as a 4-dimensional smooth (pseudo-Riemannian) manifold',
+      'robotics, where configuration spaces of mechanical systems are smooth manifolds',
+      'computer graphics, representing curved surfaces via manifold-based mesh and parametrization techniques',
+    ],
+    researchDirections: [
+      "exotic smooth structures on topological manifolds (exotic $\\mathbb{R}^4$s, exotic spheres), showing smooth and topological classification can differ",
+      'manifold learning in data science, modeling high-dimensional data as lying near a low-dimensional smooth manifold',
+      'higher and derived generalizations of manifolds in modern geometry (orbifolds, derived manifolds)',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Smooth Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The standard graduate text for smooth manifold theory, comprehensive and widely adopted.',
+      },
+      {
+        title: 'Differential Geometry of Curves and Surfaces',
+        authors: ['Manfredo do Carmo'],
+        edition: '2nd',
+        year: 2016,
+        why: 'A classic, geometrically motivated introduction before tackling the abstract manifold setting.',
+      },
+      {
+        title: 'A Comprehensive Introduction to Differential Geometry, Vol. 1',
+        authors: ['Michael Spivak'],
+        edition: '3rd',
+        year: 1999,
+        why: 'A legendary, encyclopedic multi-volume treatment prized for its rigor and historical care.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Smooth transition maps', latex: '\\varphi_\\beta \\circ \\varphi_\\alpha^{-1} \\in C^\\infty' },
+      { label: "Whitney embedding dimension", latex: 'M^n \\hookrightarrow \\mathbb{R}^{2n}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Differentiable manifold', url: 'https://en.wikipedia.org/wiki/Differentiable_manifold', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:tangent-spaces': {
+    overview:
+      'The tangent space at a point of a manifold is the best linear approximation to the manifold near that point — the set of all possible "velocity vectors" of curves passing through it — giving a vector space where the tools of linear algebra can be applied at each point of an otherwise curved space.',
+    formal:
+      'The tangent space $T_pM$ at a point $p$ of a smooth $n$-manifold can be defined via equivalence classes of curves through $p$ under "same velocity," or as the vector space of derivations at $p$: linear maps $v:C^\\infty(M)\\to\\mathbb{R}$ satisfying $v(fg)=f(p)v(g)+g(p)v(f)$. In either definition $T_pM$ is $n$-dimensional, and $TM=\\bigsqcup_p T_pM$ forms the tangent bundle, itself a smooth $2n$-manifold. The differential $df_p:T_pM\\to T_{f(p)}N$ generalizes the Jacobian matrix to arbitrary manifolds.',
+    keyIdeas: [
+      'the tangent space as the best linear (first-order) approximation to a manifold at a point',
+      'equivalent definitions via curves, derivations, or coordinate-dependent tuples transforming correctly',
+      'the tangent bundle TM, assembling all tangent spaces into a single smooth manifold',
+      'the differential of a smooth map as the coordinate-free generalization of the Jacobian',
+      'vector fields as smooth choices of tangent vector at every point',
+    ],
+    whyItMatters:
+      "The tangent space is what makes it possible to linearize, and hence compute with via linear algebra, an intrinsically curved and nonlinear object, which is exactly the trick that lets Newton's laws, formulated for flat space, be adapted to curved configuration spaces and lets differential equations be posed and solved directly on manifolds.",
+    prerequisites: ['differential-geometry:smooth-manifolds'],
+    related: ['differential-geometry:riemannian-metrics', 'topology:homotopy', 'optimization:gradient-descent'],
+    historicalContext:
+      'The informal idea of a tangent plane to a surface dates to classical differential geometry (Euler, Gauss, Monge), but the coordinate-free, intrinsic definition of a tangent space attached abstractly to a point of a manifold emerged alongside Hermann Weyl\'s and Hassler Whitney\'s rigorous formulations of manifolds in the 1910s-30s. The equivalent "derivation" definition of tangent vectors, now standard in modern texts, became prevalent through the mid-20th-century algebraic reformulation of differential geometry, emphasizing tangent vectors as operators on functions rather than as geometric arrows.',
+    contributorIds: ['person:hassler-whitney', 'person:hermann-weyl'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the tangent space to the sphere $S^2$ at the north pole directly, as the set of velocity vectors of curves through that point.',
+      'Verify that the derivation definition of a tangent vector satisfies the Leibniz rule, using a specific smooth function.',
+      'Compute the differential of $f(x,y)=(x^2-y^2,2xy)$ at a point, and interpret it as a linear map between tangent spaces.',
+    ],
+    applications: [
+      'physics, where tangent vectors represent velocities and the tangent bundle is the natural setting for classical (Lagrangian) mechanics',
+      'computer graphics and robotics, using tangent spaces for surface normals, motion planning, and local linearization',
+      'optimization on manifolds, using tangent spaces to define gradients and descent directions on curved parameter spaces',
+    ],
+    researchDirections: [
+      'Riemannian and sub-Riemannian geometry\'s use of tangent spaces with extra metric or bracket structure',
+      'optimization algorithms generalized to manifolds via Riemannian gradient descent on tangent spaces',
+      'higher tangent bundles and jet spaces in the study of differential equations and variational problems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Smooth Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2012,
+        why: 'Develops the multiple equivalent definitions of tangent vectors with unusual clarity.',
+      },
+      {
+        title: 'A Comprehensive Introduction to Differential Geometry, Vol. 1',
+        authors: ['Michael Spivak'],
+        edition: '3rd',
+        year: 1999,
+        why: 'Gives a careful historical and technical treatment of tangent spaces and their many equivalent formulations.',
+      },
+      {
+        title: 'Differential Geometry of Curves and Surfaces',
+        authors: ['Manfredo do Carmo'],
+        edition: '2nd',
+        year: 2016,
+        why: 'Builds tangent-plane intuition concretely for curves and surfaces before full generality.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Tangent vector as a derivation', latex: 'v(fg) = f(p)v(g) + g(p)v(f)' },
+      { label: 'Differential of a map', latex: 'df_p : T_pM \\to T_{f(p)}N' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Tangent space', url: 'https://en.wikipedia.org/wiki/Tangent_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+      { label: 'MacTutor: search for Weyl', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Weyl', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:riemannian-metrics': {
+    overview:
+      'A Riemannian metric equips a smooth manifold with a smoothly varying way to measure lengths of tangent vectors and angles between them at every point, turning an abstract manifold into a genuine geometric space where distances, angles, areas, and volumes all make sense.',
+    formal:
+      'A Riemannian metric on $M$ is a smooth assignment of a positive-definite inner product $g_p:T_pM\\times T_pM\\to\\mathbb{R}$ to each point, written in coordinates as $ds^2=g_{ij}(x)\\,dx^i dx^j$. The length of a curve $\\gamma:[a,b]\\to M$ is $L(\\gamma)=\\int_a^b\\sqrt{g_{\\gamma(t)}(\\dot\\gamma(t),\\dot\\gamma(t))}\\,dt$, and the Riemannian distance is the infimum of lengths of connecting curves. The Nash embedding theorem shows every Riemannian manifold can be isometrically embedded in some high-dimensional Euclidean space.',
+    keyIdeas: [
+      'a Riemannian metric as a smoothly varying inner product on tangent spaces',
+      'the length and distance functions induced by the metric',
+      'isometries as the metric-preserving maps between Riemannian manifolds',
+      "the Nash embedding theorem: every abstract Riemannian manifold sits isometrically inside some Euclidean space",
+      'pseudo-Riemannian (Lorentzian) metrics generalizing the theory to spacetime',
+    ],
+    whyItMatters:
+      'The Riemannian metric is the single piece of extra structure that turns bare smooth manifolds, which have no notion of distance or angle, into genuine geometric spaces, and choosing different metrics on the same manifold can produce wildly different geometries, which is exactly the flexibility general relativity exploits to represent gravity as curved geometry.',
+    prerequisites: ['differential-geometry:tangent-spaces'],
+    related: ['geometry:non-euclidean-geometry', 'differential-geometry:curvature', 'mathematical-physics:relativity'],
+    historicalContext:
+      "Bernhard Riemann's 1854 Habilitationsschrift Über die Hypothesen, welche der Geometrie zu Grunde liegen introduced the general notion of a metric $ds^2=\\sum g_{ij}dx^idx^j$ on an $n$-dimensional manifold, unifying and vastly generalizing Gauss's surface theory. Gregorio Ricci-Curbastro and Tullio Levi-Civita developed the tensor calculus needed to compute with Riemannian metrics systematically in their 1900 paper Méthodes de calcul différentiel absolu, and Einstein's adoption of this 'absolute differential calculus' for general relativity (1915-16) vindicated and popularized Riemannian geometry as physically fundamental.",
+    contributorIds: ['person:bernhard-riemann'],
+    workIds: ['work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen'],
+    exampleProblems: [
+      'Compute the length of a great-circle arc on the sphere using the round metric in spherical coordinates.',
+      'Show that the hyperbolic metric $ds^2=(dx^2+dy^2)/y^2$ on the upper half-plane gives it infinite diameter, unlike the Euclidean metric.',
+      'Explain why a Riemannian metric always exists on any smooth manifold, using partitions of unity, while this is not automatic for pseudo-Riemannian metrics.',
+    ],
+    applications: [
+      "general relativity, where spacetime's Lorentzian metric encodes gravity as curvature",
+      'computer graphics, using Riemannian metrics for geodesic distance computations on meshes',
+      'machine learning, using Riemannian metrics to define distances in curved data spaces (information geometry)',
+    ],
+    researchDirections: [
+      'geometric analysis, studying manifolds via metrics evolving under geometric flows (Ricci flow)',
+      'the existence and classification of Einstein metrics on manifolds',
+      'sub-Riemannian geometry, generalizing Riemannian metrics to settings with constrained directions of motion',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'The classic standard graduate introduction to Riemannian metrics and their geometry.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern, widely used companion to Lee\'s smooth manifolds text, extending it to the Riemannian setting.',
+      },
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic advanced reference, especially strong on connections and the structural theory of metrics.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Line element', latex: 'ds^2 = g_{ij}(x)\\,dx^i dx^j' },
+      { label: 'Length functional', latex: 'L(\\gamma) = \\int_a^b \\sqrt{g_{\\gamma(t)}(\\dot\\gamma(t),\\dot\\gamma(t))}\\,dt' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Riemannian metric', url: 'https://encyclopediaofmath.org/wiki/Riemannian_metric', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Riemannian geometry', url: 'https://encyclopediaofmath.org/wiki/Riemannian_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:curvature': {
+    overview:
+      'Curvature measures precisely how much a curved space deviates from being flat — how much parallel-transporting a vector around a small loop rotates it, or how much a triangle\'s angles fail to sum to 180 degrees — turning an intuitive visual notion into a precise, computable tensor.',
+    formal:
+      'The Riemann curvature tensor is $R(X,Y)Z=\\nabla_X\\nabla_YZ-\\nabla_Y\\nabla_XZ-\\nabla_{[X,Y]}Z$, measuring the failure of second covariant derivatives to commute; the manifold is flat exactly where $R\\equiv 0$. Contracting $R$ gives the Ricci tensor and, further, the scalar curvature. The Gauss-Bonnet theorem for a closed surface $\\Sigma$ states $\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)$, relating total curvature to topology.',
+    keyIdeas: [
+      'the Riemann curvature tensor as the failure of covariant derivatives to commute',
+      'Ricci and scalar curvature as successive contractions carrying less refined but more computable information',
+      'sectional curvature generalizing Gaussian curvature to higher-dimensional manifolds',
+      'the Gauss-Bonnet theorem linking curvature (geometry) to Euler characteristic (topology)',
+      'Einstein manifolds and constant-curvature spaces as the most symmetric curvature profiles',
+    ],
+    whyItMatters:
+      'Curvature is the precise measurement separating intrinsically flat spaces from genuinely curved ones, and the Gauss-Bonnet theorem\'s conclusion — that the total curvature of a surface is a topological invariant, unaffected by how you bend or stretch it — is the prototype for an entire family of index theorems linking local geometric data to global topological structure.',
+    prerequisites: ['differential-geometry:riemannian-metrics'],
+    related: ['topology:homology', 'mathematical-physics:relativity', 'differential-geometry:geodesics'],
+    historicalContext:
+      "Carl Friedrich Gauss's Theorema Egregium (1827) proved that Gaussian curvature of a surface is intrinsic, computable from measurements within the surface alone, a foundational discovery for differential geometry. Bernhard Riemann generalized curvature to arbitrary dimensions in 1854, and Ricci-Curbastro and Levi-Civita's tensor calculus (1900) gave the modern computational apparatus for the full Riemann curvature tensor. Élie Cartan's 1920s reformulation of curvature via moving frames and connections gave a more conceptual, coordinate-free approach that dominates modern differential geometry, and Einstein's general relativity (1915) made the Ricci curvature tensor physically central by identifying it with the distribution of mass and energy.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:elie-cartan'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the Gaussian curvature of a sphere of radius $R$ and verify the Gauss-Bonnet theorem for the whole sphere.',
+      'Show that the flat torus $\\mathbb{R}^2/\\mathbb{Z}^2$ has zero Gaussian curvature everywhere, and reconcile this with its nontrivial topology.',
+      'Explain, in outline, what the Einstein field equations say about the relationship between Ricci curvature and matter/energy.',
+    ],
+    applications: [
+      'general relativity, where the Einstein field equations equate a combination of curvature with the distribution of mass-energy',
+      'geometric analysis and the study of manifolds via curvature-driven flows (Ricci flow, mean curvature flow)',
+      'computer vision and shape analysis, using curvature to characterize and compare surfaces',
+    ],
+    researchDirections: [
+      'Ricci flow and its use, by Perelman, in proving the Poincaré and geometrization conjectures',
+      'scalar curvature rigidity and positive mass theorems in geometric analysis',
+      'curvature bounds and comparison geometry (Alexandrov spaces, CAT(k) spaces)',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'Develops curvature and the Gauss-Bonnet theorem rigorously as the core of Riemannian geometry.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern treatment with unusually careful exposition of the curvature tensor and its contractions.',
+      },
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic reference for curvature via connections, in Cartan\'s moving-frame spirit.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann curvature tensor', latex: 'R(X,Y)Z = \\nabla_X\\nabla_Y Z - \\nabla_Y\\nabla_X Z - \\nabla_{[X,Y]}Z' },
+      { label: 'Gauss-Bonnet theorem', latex: '\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Riemannian geometry', url: 'https://encyclopediaofmath.org/wiki/Riemannian_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Élie Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan/', kind: 'reference' },
+      { label: 'MacTutor: search for Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Gauss', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:geodesics': {
+    overview:
+      'A geodesic is the curved-space generalization of a straight line: locally the shortest path between nearby points, and the trajectory a free particle follows when no force acts on it except the constraint of staying on the manifold, unifying "shortest path" with "natural, unforced motion."',
+    formal:
+      'A geodesic on a Riemannian manifold is a curve $\\gamma(t)$ satisfying $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$, equivalently a critical point of the energy functional $E(\\gamma)=\\frac12\\int\\|\\dot\\gamma(t)\\|^2\\,dt$. The Hopf-Rinow theorem states a Riemannian manifold is geodesically complete if and only if it is complete as a metric space, in which case any two points are joined by a length-minimizing geodesic. In general relativity, freely falling particles and light rays follow geodesics of the spacetime metric.',
+    keyIdeas: [
+      'geodesics as curves of zero intrinsic acceleration (parallel velocity)',
+      'geodesics as critical points of the energy functional, via the calculus of variations',
+      'the Hopf-Rinow theorem connecting geodesic and metric completeness',
+      'the exponential map, using geodesics to identify a neighborhood of the tangent space with a neighborhood of the manifold',
+      'geodesics in general relativity as the paths of free-falling matter and light',
+    ],
+    whyItMatters:
+      "Geodesics let 'moving in a straight line' make sense on a curved space at all, and Einstein's radical reinterpretation of gravity — that objects in free fall are simply following geodesics of curved spacetime rather than being pushed by a force — is one of the most consequential applications of pure differential geometry in the history of physics.",
+    prerequisites: ['differential-geometry:curvature'],
+    related: ['calculus-of-variations:euler-lagrange-equation', 'mathematical-physics:relativity', 'dynamical-systems:ergodic-theory'],
+    historicalContext:
+      "The problem of finding shortest paths on curved surfaces was studied by Johann Bernoulli and Euler in the 18th century in special cases, and Gauss's differential-geometric work on surfaces (1827) treated geodesics systematically for the first time using intrinsic curvature. Riemann's 1854 generalization extended geodesics beyond surfaces, and Levi-Civita's 1917 concept of parallel transport gave the precise modern formulation of a geodesic as a curve with vanishing covariant acceleration. Einstein's general relativity (1915) then made geodesics physically central, identifying the paths of freely falling objects with geodesics of the spacetime metric.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:bernhard-riemann'],
+    workIds: ['work:morse-theory'],
+    exampleProblems: [
+      'Show that great circles are exactly the geodesics of the round sphere, using the fact that geodesics have zero geodesic curvature.',
+      'Use the Hopf-Rinow theorem to explain why the punctured plane $\\mathbb{R}^2\\setminus\\{0\\}$ is not geodesically complete.',
+      'Explain, in outline, why gravitational lensing is a geodesic effect in general relativity rather than a force acting on light.',
+    ],
+    applications: [
+      'general relativity, where planetary orbits and light bending are computed as geodesics of the spacetime metric',
+      'robotics and motion planning, using geodesics to find efficient paths on curved configuration spaces',
+      'computer graphics, computing geodesic distances on meshes for texture mapping and shape analysis',
+    ],
+    researchDirections: [
+      "Morse theory's use of geodesics to relate the topology of a manifold to critical points of the energy functional",
+      'the geometry and dynamics of geodesic flows, connecting to ergodic theory and dynamical systems',
+      'numerical methods for computing geodesics efficiently on discrete surfaces and high-dimensional data manifolds',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'Gives the standard rigorous treatment of geodesics via both the connection and variational definitions.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern, clear development of geodesics, completeness, and the Hopf-Rinow theorem.',
+      },
+      {
+        title: 'Morse Theory',
+        authors: ['John Milnor'],
+        year: 1963,
+        why: 'The classic text connecting geodesics to the topology of the underlying manifold via critical point theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Geodesic equation', latex: '\\nabla_{\\dot\\gamma}\\dot\\gamma = 0' },
+      { label: 'Energy functional', latex: 'E(\\gamma) = \\frac{1}{2}\\int_a^b \\|\\dot\\gamma(t)\\|^2\\,dt' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Geodesic line', url: 'https://encyclopediaofmath.org/wiki/Geodesic_line', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Gauss', kind: 'reference' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:fiber-bundles': {
+    overview:
+      'A fiber bundle is a space that looks locally like a simple product of a base space and a fixed fiber, but may be twisted globally in a way a plain product never is — the Möbius strip, locally just a strip times an interval but globally twisted, is the simplest example — giving geometry a systematic language for spaces varying continuously over a base.',
+    formal:
+      'A fiber bundle consists of spaces $E$ (total space), $B$ (base), $F$ (fiber), and a projection $\\pi:E\\to B$ such that every point of $B$ has a neighborhood $U$ with $\\pi^{-1}(U)\\cong U\\times F$, compatibly glued via transition functions valued in a structure group $G$ acting on $F$. A connection on a bundle specifies "horizontal" directions, letting a path in the base be lifted to a unique path in the total space; the tangent bundle, cotangent bundle, and principal bundles are all fundamental examples.',
+    keyIdeas: [
+      'local triviality: a fiber bundle looks like a product locally, but may be globally twisted',
+      'structure groups and transition functions encoding how fibers are glued together',
+      'principal bundles, where the fiber is the structure group itself, acting freely and transitively',
+      'connections on a bundle, providing a notion of parallel transport and curvature',
+      'characteristic classes as topological obstructions to a bundle being globally trivial',
+    ],
+    whyItMatters:
+      'Fiber bundles give a rigorous mathematical framework for quantities that come attached to every point of a space but can be globally twisted, and this framework turned out to be exactly the right language for gauge theory in physics, where the fundamental forces are all described as connections on principal bundles.',
+    prerequisites: ['differential-geometry:geodesics'],
+    related: ['lie-theory:lie-groups', 'mathematical-physics:gauge-theory', 'algebraic-geometry:cohomology'],
+    historicalContext:
+      "Herbert Seifert and Heinz Hopf's work on fibered spaces in the 1930s, and Hassler Whitney's systematic study of sphere bundles and characteristic classes in the same decade, developed early special cases. Charles Ehresmann gave the modern general definition of a fiber bundle with structure group and introduced the fundamental notion of a connection in a series of papers in the 1940s-50s, and Norman Steenrod's 1951 book The Topology of Fibre Bundles systematized the theory. The theory found a second life in theoretical physics from the 1970s onward, when Yang-Mills gauge theories describing fundamental particle physics were recognized as connections on principal bundles.",
+    contributorIds: ['person:charles-ehresmann', 'person:hassler-whitney'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the Möbius strip is a nontrivial fiber bundle over the circle with fiber an interval, by exhibiting a nontrivial transition function.',
+      'Explain the difference between the tangent bundle of $S^2$ (nontrivial, by the hairy ball theorem) and the tangent bundle of the torus (trivial).',
+      'Describe, at a high level, how a connection on a principal bundle lets a path in the base be lifted to the total space.',
+    ],
+    applications: [
+      'gauge theory in theoretical physics, where the electromagnetic, weak, and strong forces are connections on principal bundles',
+      'characteristic classes (Chern classes, Stiefel-Whitney classes) used to detect when a bundle is nontrivial',
+      'robotics, where configuration and phase spaces of constrained mechanical systems often have a natural fiber bundle structure',
+    ],
+    researchDirections: [
+      'gauge theory and its applications to 4-manifold topology (Donaldson and Seiberg-Witten theory)',
+      'higher and derived generalizations of fiber bundles (gerbes, higher stacks) in modern geometry',
+      'index theory (the Atiyah-Singer index theorem), relating analytic and topological invariants of bundles',
+    ],
+    textbooks: [
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic advanced reference for principal bundles and connections in the geometric tradition.',
+      },
+      {
+        title: 'The Topology of Fibre Bundles',
+        authors: ['Norman Steenrod'],
+        year: 1951,
+        why: 'The founding systematic treatment, still cited for its rigor and its role in algebraic topology.',
+      },
+      {
+        title: 'Fibre Bundles',
+        authors: ['Dale Husemoller'],
+        edition: '3rd',
+        year: 1994,
+        why: 'A widely used modern graduate text bridging the topological and geometric perspectives.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Local triviality', latex: '\\pi^{-1}(U) \\cong U \\times F' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bundle', url: 'https://encyclopediaofmath.org/wiki/Bundle', kind: 'encyclopedia' },
+      { label: 'MacTutor: Charles Ehresmann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Ehresmann/', kind: 'reference' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -7292,6 +7691,8 @@ const personRows = [
   ['Janos Bolyai', '1802-1860', 'Hungary', 'geometry', 'the independent discovery of hyperbolic geometry'],
   ['Jean-Victor Poncelet', '1788-1867', 'France', 'geometry', 'the systematic revival of projective geometry'],
   ['Hermann Minkowski', '1864-1909', 'Germany', 'geometry', 'the geometry of numbers and convex bodies'],
+  ['Elie Cartan', '1869-1951', 'France', 'differential-geometry', 'moving frames, connections, and curvature'],
+  ['Charles Ehresmann', '1905-1979', 'France', 'differential-geometry', 'the modern definition of fiber bundles and connections'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -7349,6 +7750,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'analysis:sequences-and-series',
     'analysis:integration',
     'differential-geometry:riemannian-metrics',
+    'differential-geometry:geodesics',
     'topology:manifolds',
     'algebraic-geometry:projective-varieties',
     'algebraic-geometry:moduli-spaces',
@@ -7392,7 +7794,18 @@ const personTopicOverrides: Record<string, string[]> = {
     'number-theory:algebraic-number-theory',
     'commutative-algebra:ideals',
   ],
-  'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
+  'person:hermann-weyl': [
+    'mathematical-physics:classical-mechanics',
+    'algebra:representations',
+    'differential-geometry:tangent-spaces',
+  ],
+  'person:hassler-whitney': [
+    'differential-geometry:smooth-manifolds',
+    'differential-geometry:tangent-spaces',
+    'differential-geometry:fiber-bundles',
+  ],
+  'person:elie-cartan': ['differential-geometry:curvature'],
+  'person:charles-ehresmann': ['differential-geometry:fiber-bundles'],
   'person:ernst-steinitz': ['algebra:fields', 'abstract-algebra:field-theory'],
   'person:ferdinand-georg-frobenius': ['algebra:representations', 'abstract-algebra:representation-theory'],
   'person:blaise-pascal': ['probability:sample-spaces'],
@@ -7413,7 +7826,12 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:grigori-perelman': ['topology:manifolds'],
   'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers', 'foundations:axiomatic-method'],
   'person:nikolai-lobachevsky': ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method'],
-  'person:carl-friedrich-gauss': ['number-theory:prime-numbers', 'number-theory:modular-arithmetic'],
+  'person:carl-friedrich-gauss': [
+    'number-theory:prime-numbers',
+    'number-theory:modular-arithmetic',
+    'differential-geometry:curvature',
+    'differential-geometry:geodesics',
+  ],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
   'person:diophantus': ['number-theory:diophantine-equations'],
@@ -7616,9 +8034,10 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:ars-conjectandi': ['probability:law-of-large-numbers'],
   'work:algebraic-topology': ['topology:homotopy', 'topology:homology'],
   'work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen': [
-    'differential-geometry:smooth-manifolds',
+    'differential-geometry:riemannian-metrics',
     'topology:manifolds',
   ],
+  'work:morse-theory': ['differential-geometry:geodesics'],
   'work:disquisitiones-arithmeticae': [
     'number-theory:prime-numbers',
     'number-theory:modular-arithmetic',
