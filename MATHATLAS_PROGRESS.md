@@ -39,7 +39,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] functional-analysis
 - [x] differential-equations
 - [x] dynamical-systems
-- [ ] statistics
+- [x] statistics
 - [ ] discrete-math
 - [ ] combinatorics
 - [ ] graph-theory

@@ -9493,6 +9493,418 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Stephen Smale', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Smale/', kind: 'reference' },
     ],
   },
+  'statistics:estimation': {
+    overview:
+      'Estimation is the problem of inferring the value of an unknown quantity — a population mean, a disease rate, a physical constant — from a limited, noisy sample of data. It is the bridge between abstract probability theory and every practical use of data, turning observations into concrete numbers with quantified uncertainty.',
+    formal:
+      'Given data $X_1,\\dots,X_n$ drawn from a distribution with unknown parameter $\\theta$, an estimator $\\hat\\theta = \\hat\\theta(X_1,\\dots,X_n)$ is any function of the data. The maximum likelihood estimator maximizes the likelihood function, $\\hat\\theta_{MLE} = \\arg\\max_\\theta L(\\theta) = \\arg\\max_\\theta \\prod_{i=1}^n f(X_i;\\theta)$. An estimator is unbiased if $\\mathbb{E}[\\hat\\theta]=\\theta$, and the Cramér-Rao bound gives a lower limit on the variance of any unbiased estimator, $\\operatorname{Var}(\\hat\\theta) \\ge 1/I(\\theta)$, where $I(\\theta)$ is the Fisher information.',
+    keyIdeas: [
+      'point estimation versus interval estimation: a single best-guess number versus a range of plausible values',
+      'the maximum likelihood principle: choose the parameter value that makes the observed data most probable',
+      'bias, variance, and the bias-variance tradeoff in comparing candidate estimators',
+      'consistency: an estimator that converges to the true value as sample size grows without bound',
+      'the Cramér-Rao bound and Fisher information as fundamental limits on estimator precision',
+    ],
+    whyItMatters:
+      'Every empirical science ultimately reduces to estimation: a physicist estimating a fundamental constant, an epidemiologist estimating an infection rate, a pollster estimating a vote share, are all doing the same mathematical task with different subject matter. Fisher\'s maximum likelihood framework, developed in the 1910s-1920s, gave the subject a single unifying principle that is both computationally practical and, thanks to the Cramér-Rao bound, provably close to the best any method can achieve — turning what had been an ad hoc collection of estimation tricks into a coherent mathematical theory.',
+    prerequisites: ['probability:random-variables', 'probability:expectation'],
+    related: ['statistics:hypothesis-testing', 'statistics:bayesian-inference', 'probability:law-of-large-numbers'],
+    historicalContext:
+      "Carl Friedrich Gauss and Adrien-Marie Legendre developed the method of least squares around 1795-1805 to estimate orbital parameters from noisy astronomical observations, the first systematic estimation procedure with a rigorous justification (Gauss showed it agreed with maximum likelihood estimation for normally distributed errors). Ronald Fisher, in a series of papers from 1912 to 1925, developed the general theory of maximum likelihood estimation, along with the concepts of sufficiency, efficiency, and Fisher information that let estimators be compared and, in a precise sense, judged optimal — transforming estimation from Gauss's special case into a unified general theory.",
+    contributorIds: ['person:ronald-fisher', 'person:carl-friedrich-gauss'],
+    workIds: [],
+    exampleProblems: [
+      'Derive the maximum likelihood estimator for the mean $\\mu$ of a normal distribution with known variance, given i.i.d. samples $X_1,\\dots,X_n$.',
+      'Show that the sample mean $\\bar X$ is an unbiased estimator of the population mean, and compute its variance in terms of $n$.',
+      'Use the Cramér-Rao bound to determine whether the maximum likelihood estimator for the parameter of an exponential distribution achieves the minimum possible variance.',
+    ],
+    applications: [
+      'astronomy and geodesy, where least squares was first developed to estimate orbits and survey measurements from noisy data',
+      'epidemiology, estimating disease prevalence and transmission rates from sample data',
+      'econometrics, estimating parameters of economic models from observational data',
+      'machine learning, where training many models is literally maximum likelihood or related estimation at scale',
+    ],
+    researchDirections: [
+      'robust estimation, designing estimators that resist distortion from outliers or model misspecification',
+      'high-dimensional estimation, where the number of parameters can exceed the number of observations',
+      'semiparametric and nonparametric estimation, relaxing the assumption of a known parametric family',
+    ],
+    textbooks: [
+      {
+        title: 'Statistical Inference',
+        authors: ['George Casella', 'Roger L. Berger'],
+        edition: '2nd',
+        year: 2002,
+        why: 'The standard graduate text developing maximum likelihood estimation, sufficiency, and the Cramér-Rao bound rigorously.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'A concise, modern, and broad introduction connecting classical estimation theory to statistical learning.',
+      },
+      {
+        title: 'Theoretical Statistics',
+        authors: ['D. R. Cox', 'D. V. Hinkley'],
+        year: 1974,
+        why: 'A classic advanced treatment of the theory underlying estimation and inference, still widely cited.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Maximum likelihood estimator', latex: '\\hat\\theta_{MLE} = \\arg\\max_\\theta \\prod_{i=1}^n f(X_i;\\theta)' },
+      { label: 'Unbiasedness', latex: '\\mathbb{E}[\\hat\\theta] = \\theta' },
+      { label: 'Cramer-Rao bound', latex: '\\operatorname{Var}(\\hat\\theta) \\ge \\frac{1}{I(\\theta)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Maximum-likelihood method', url: 'https://encyclopediaofmath.org/wiki/Maximum-likelihood_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+      { label: 'MacTutor: Carl Friedrich Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/', kind: 'reference' },
+    ],
+  },
+  'statistics:hypothesis-testing': {
+    overview:
+      'Hypothesis testing gives a formal procedure for deciding whether observed data provide enough evidence to reject a specific claim (the null hypothesis) in favor of an alternative, while controlling the rate of false alarms. It is the mathematical machinery behind the phrase "statistically significant" used throughout science.',
+    formal:
+      'A test compares a null hypothesis $H_0$ against an alternative $H_1$ using a test statistic $T(X)$, rejecting $H_0$ when $T(X)$ falls in a rejection region chosen so the significance level (Type I error rate) is $\\alpha = P(\\text{reject } H_0 \\mid H_0 \\text{ true})$. The Neyman-Pearson lemma shows that for testing a simple hypothesis against a simple alternative, the likelihood-ratio test $\\Lambda(X) = L(\\theta_0)/L(\\theta_1)$ is the uniformly most powerful test at any given significance level, minimizing the Type II error rate $\\beta = P(\\text{fail to reject } H_0 \\mid H_1 \\text{ true})$ subject to that constraint.',
+    keyIdeas: [
+      'the null and alternative hypotheses as the two competing claims a test adjudicates between',
+      'Type I error (false positive) and Type II error (false negative), and the significance level $\\alpha$ that bounds the former',
+      'the Neyman-Pearson lemma: the likelihood-ratio test is the most powerful test at a given significance level',
+      'the p-value as the probability, under the null hypothesis, of data at least as extreme as observed',
+      'statistical power, and the sample-size calculations needed to reliably detect a real effect',
+    ],
+    whyItMatters:
+      "Hypothesis testing supplies the formal decision rule behind claims of 'statistical significance' across essentially all of experimental science — a new drug's effect, a physics discovery, an A/B test result — by fixing in advance how often false alarms are tolerated and then optimizing the chance of detecting a real effect. The Neyman-Pearson framework, completed in 1933, replaced Fisher's earlier significance-testing approach with mathematically optimal decision procedures, though the tension between the two philosophies (testing a single hypothesis for evidence versus choosing between two hypotheses with controlled error rates) persists in statistical practice today.",
+    prerequisites: ['probability:random-variables', 'statistics:estimation'],
+    related: ['statistics:estimation', 'statistics:experimental-design', 'probability:central-limit-theorem'],
+    historicalContext:
+      "Ronald Fisher popularized significance testing and the p-value in Statistical Methods for Research Workers (1925), proposing to reject a null hypothesis when the observed data would be sufficiently rare under it. Jerzy Neyman and Egon Pearson, in a series of papers from 1928 to 1933, reformulated the problem as a decision between two explicit hypotheses with controlled long-run error rates, proving the Neyman-Pearson lemma that identifies the most powerful possible test — a formulation Fisher himself disputed throughout his career, and the resulting Fisher/Neyman-Pearson divide over the philosophical interpretation of a hypothesis test remains a live methodological debate in statistics.",
+    contributorIds: ['person:jerzy-neyman', 'person:egon-pearson'],
+    workIds: [],
+    exampleProblems: [
+      "Using the Neyman-Pearson lemma, derive the most powerful test of $H_0: \\mu=0$ against $H_1: \\mu=1$ for a normal distribution with known variance, based on a sample of size $n$.",
+      'Compute the p-value for a one-sample t-test given a sample mean, standard deviation, and sample size, and interpret what the p-value does and does not tell you.',
+      'Explain the difference between Type I and Type II error in the context of a medical screening test, and discuss the tradeoff in choosing a significance level.',
+    ],
+    applications: [
+      'clinical trials, testing whether a new treatment significantly outperforms a placebo or standard treatment',
+      'A/B testing in technology companies, deciding whether a product change significantly affects a metric',
+      'quality control in manufacturing, testing whether a production process meets specifications',
+      'scientific research broadly, providing the standard (if contested) threshold for declaring a result "significant"',
+    ],
+    researchDirections: [
+      'the replication crisis and reform of significance testing practice (e.g. lowering conventional thresholds, pre-registration)',
+      'multiple testing correction, controlling error rates when many hypotheses are tested simultaneously',
+      'Bayesian alternatives and hybrid approaches to classical Neyman-Pearson hypothesis testing',
+    ],
+    textbooks: [
+      {
+        title: 'Testing Statistical Hypotheses',
+        authors: ['E. L. Lehmann', 'Joseph P. Romano'],
+        edition: '3rd',
+        year: 2005,
+        why: 'The definitive graduate-level treatment of the Neyman-Pearson theory of hypothesis testing.',
+      },
+      {
+        title: 'Statistical Inference',
+        authors: ['George Casella', 'Roger L. Berger'],
+        edition: '2nd',
+        year: 2002,
+        why: 'A widely used graduate text with a clear, rigorous development of hypothesis testing theory.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'A concise, accessible introduction connecting classical hypothesis testing to modern statistical practice.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Significance level', latex: '\\alpha = P(\\text{reject } H_0 \\mid H_0 \\text{ true})' },
+      { label: 'Likelihood ratio test statistic', latex: '\\Lambda(X) = L(\\theta_0)/L(\\theta_1)' },
+      { label: 'p-value', latex: 'p = P(T(X) \\text{ at least as extreme as observed} \\mid H_0)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Statistical hypotheses, verification of', url: 'https://encyclopediaofmath.org/wiki/Statistical_hypotheses,_verification_of', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jerzy Neyman', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Neyman/', kind: 'reference' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+    ],
+  },
+  'statistics:regression': {
+    overview:
+      'Regression models how one variable changes on average as another variable changes, fitting a line or curve through noisy data to summarize and predict a relationship. It is the most widely used tool in applied statistics, turning a scatter of points into an interpretable, quantitative trend.',
+    formal:
+      'Simple linear regression models $Y_i = \\beta_0 + \\beta_1 X_i + \\varepsilon_i$, with the ordinary least squares estimator minimizing the sum of squared residuals, $(\\hat\\beta_0,\\hat\\beta_1) = \\arg\\min_{\\beta_0,\\beta_1} \\sum_{i=1}^n (Y_i - \\beta_0 - \\beta_1 X_i)^2$, giving $\\hat\\beta_1 = \\frac{\\sum_i (X_i-\\bar X)(Y_i-\\bar Y)}{\\sum_i (X_i-\\bar X)^2}$. Multiple regression extends this to several predictors, $Y=X\\beta+\\varepsilon$, with the least squares solution $\\hat\\beta = (X^TX)^{-1}X^TY$.',
+    keyIdeas: [
+      'least squares as the criterion selecting the line (or hyperplane) minimizing total squared prediction error',
+      'the correlation coefficient, quantifying the strength and direction of a linear relationship between two variables',
+      '"regression to the mean": extreme values of a noisy variable tend to be followed by less extreme ones on average, not because of any real underlying trend',
+      'residual analysis and diagnostics, checking whether the assumed linear model actually fits the data',
+      'the extension from linear to logistic, polynomial, and other regression models for different response types',
+    ],
+    whyItMatters:
+      'Regression is probably the single most-used statistical technique across the sciences, business, and public policy, because "how does Y change with X" is close to the most common question one can ask of data. Galton\'s discovery of regression to the mean is also a crucial cautionary lesson: apparent trends (a tall parent\'s child being shorter, a sports star\'s slump after an amazing season) can arise purely from random variation reverting toward an average, without any real causal explanation — a subtlety that continues to cause misinterpretation of data outside statistics.',
+    prerequisites: ['probability:random-variables', 'linear-algebra:matrices'],
+    related: ['statistics:estimation', 'statistics:causal-inference', 'machine-learning-theory:generalization-bounds'],
+    historicalContext:
+      "Francis Galton, studying the heights of parents and their adult children in the 1870s-1880s, discovered that children of very tall or very short parents tended to be closer to the average height than their parents were — a phenomenon he named 'regression toward mediocrity' (now regression to the mean) in his 1886 paper and 1889 book Natural Inheritance. Karl Pearson, Galton's student and intellectual heir, put the method on a rigorous mathematical footing in the 1890s, defining the correlation coefficient and developing the least-squares machinery of regression essentially into its modern form, while also founding the broader discipline of mathematical statistics (biometrics) that Galton had only sketched.",
+    contributorIds: ['person:francis-galton', 'person:karl-pearson'],
+    workIds: [],
+    exampleProblems: [
+      'Derive the least squares formula for the slope $\\hat\\beta_1$ of a simple linear regression by minimizing the sum of squared residuals.',
+      "Explain Galton's regression-to-the-mean phenomenon using a simple probabilistic model where an observed value is the sum of a true value and independent noise.",
+      'Compute the correlation coefficient for a small dataset and interpret its sign and magnitude.',
+    ],
+    applications: [
+      'economics and finance, modeling relationships between economic indicators or asset returns',
+      'medicine, quantifying how a risk factor relates to a health outcome while controlling for confounders',
+      'machine learning, where linear and logistic regression remain foundational predictive models',
+      'social science, studying relationships between demographic, economic, or behavioral variables',
+    ],
+    researchDirections: [
+      'high-dimensional regression (LASSO, ridge regression), handling more predictors than observations',
+      'nonparametric and nonlinear regression methods (splines, kernel regression, regression trees)',
+      'causal versus merely predictive interpretation of regression coefficients, connecting to causal inference',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Statistical Learning',
+        authors: ['Gareth James', 'Daniela Witten', 'Trevor Hastie', 'Robert Tibshirani'],
+        edition: '2nd',
+        year: 2021,
+        why: 'A highly accessible modern introduction to regression and its extensions, widely used in applied courses.',
+      },
+      {
+        title: 'Applied Linear Statistical Models',
+        authors: ['Michael H. Kutner', 'Christopher J. Nachtsheim', 'John Neter', 'William Li'],
+        edition: '5th',
+        year: 2004,
+        why: 'A comprehensive, classic applied treatment of linear regression theory and diagnostics.',
+      },
+      {
+        title: 'The Elements of Statistical Learning',
+        authors: ['Trevor Hastie', 'Robert Tibshirani', 'Jerome Friedman'],
+        edition: '2nd',
+        year: 2009,
+        why: 'Places regression within the broader modern framework of statistical learning and regularization.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Simple linear regression model', latex: 'Y_i = \\beta_0 + \\beta_1 X_i + \\varepsilon_i' },
+      { label: 'Least squares slope', latex: '\\hat\\beta_1 = \\frac{\\sum_i (X_i-\\bar X)(Y_i-\\bar Y)}{\\sum_i (X_i-\\bar X)^2}' },
+      { label: 'Multiple regression solution', latex: '\\hat\\beta = (X^TX)^{-1}X^TY' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Regression analysis', url: 'https://encyclopediaofmath.org/wiki/Regression_analysis', kind: 'encyclopedia' },
+      { label: 'MacTutor: Francis Galton', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Galton/', kind: 'reference' },
+      { label: 'MacTutor: Karl Pearson', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Pearson/', kind: 'reference' },
+    ],
+  },
+  'statistics:bayesian-inference': {
+    overview:
+      'Bayesian inference treats unknown parameters as random quantities with their own probability distribution, updating a prior belief into a posterior belief as data arrive. This offers a mathematically direct answer to the everyday question "what should I now believe, given what I\'ve observed?" as opposed to the more indirect guarantees of classical (frequentist) statistics.',
+    formal:
+      'Given a prior distribution $\\pi(\\theta)$ over the unknown parameter and a likelihood $L(\\theta) = f(x\\mid\\theta)$ for observed data $x$, Bayes\' theorem gives the posterior distribution $\\pi(\\theta\\mid x) = \\frac{L(\\theta)\\pi(\\theta)}{\\int L(\\theta\')\\pi(\\theta\')\\,d\\theta\'} \\propto L(\\theta)\\pi(\\theta)$. Point estimates (posterior mean, mode) and interval estimates (credible intervals) are then read directly off this posterior distribution.',
+    keyIdeas: [
+      'the prior distribution, encoding belief about a parameter before seeing data, updated into a posterior after seeing it',
+      'Bayes\' theorem as the single mechanical rule connecting prior, likelihood, and posterior',
+      'credible intervals (a direct probability statement about where the parameter lies) versus classical confidence intervals (a statement about the procedure\'s long-run coverage)',
+      'conjugate priors, chosen so the posterior has the same functional form as the prior, simplifying computation',
+      'Markov chain Monte Carlo methods, making Bayesian inference computationally practical for complex, high-dimensional models',
+    ],
+    whyItMatters:
+      "Bayesian inference answers exactly the question most people intuitively want answered — 'given the data, how likely is each possible value of the parameter?' — whereas classical statistics can only make indirect statements about the long-run behavior of a procedure. For nearly two centuries this directness was outweighed by the difficulty of computing the posterior distribution and philosophical objections to needing a prior at all, but the arrival of practical Markov chain Monte Carlo algorithms in the 1990s made Bayesian methods computationally tractable for realistic, complex models, and they are now standard throughout modern statistics and machine learning.",
+    prerequisites: ['probability:random-variables', 'statistics:estimation'],
+    related: ['statistics:estimation', 'probability:markov-chains', 'machine-learning-theory:generalization-bounds'],
+    historicalContext:
+      "Thomas Bayes derived what is now Bayes' theorem in a manuscript on inverse probability, published posthumously by his friend Richard Price in 1763 as An Essay towards Solving a Problem in the Doctrine of Chances. Pierre-Simon Laplace independently rediscovered and greatly extended the method starting in 1774, applying it to problems from astronomy to demography and using it far more extensively than Bayes himself had. Bayesian methods fell out of favor through the early-to-mid 20th century as Fisher's and the Neyman-Pearson school's frequentist methods came to dominate mathematical statistics, before a substantial revival beginning in the 1990s once Markov chain Monte Carlo computation made complex Bayesian models practically usable.",
+    contributorIds: ['person:thomas-bayes', 'person:pierre-simon-laplace'],
+    workIds: ['work:an-essay-towards-solving-a-problem-in-the-doctrine-of-chances'],
+    exampleProblems: [
+      'Starting from a Beta$(\\alpha,\\beta)$ prior for a coin\'s bias $p$, derive the posterior distribution after observing $k$ heads in $n$ flips, and identify why Beta is a convenient (conjugate) choice.',
+      'Compute a 95% credible interval for a normal mean given a normal prior and normal likelihood, and contrast its interpretation with a classical confidence interval.',
+      'Explain, using Bayes\' theorem, why a positive result on a rare-disease test with 99% accuracy can still be more likely a false positive than a true positive.',
+    ],
+    applications: [
+      'medical diagnosis, updating the probability of a disease given test results and known base rates',
+      'machine learning, via Bayesian neural networks, Gaussian processes, and probabilistic graphical models',
+      'spam filtering, using naive Bayes classifiers to update the probability an email is spam given its words',
+      'A/B testing and sequential decision-making, using Bayesian methods to update beliefs as data accumulate',
+    ],
+    researchDirections: [
+      'scalable Bayesian computation (variational inference, modern MCMC) for very large models and datasets',
+      'nonparametric Bayesian methods (Dirichlet processes, Gaussian processes) that let model complexity grow with data',
+      'the foundations debate between Bayesian and frequentist interpretations of probability and inference',
+    ],
+    textbooks: [
+      {
+        title: 'Bayesian Data Analysis',
+        authors: ['Andrew Gelman', 'John B. Carlin', 'Hal S. Stern', 'David B. Dunson', 'Aki Vehtari', 'Donald B. Rubin'],
+        edition: '3rd',
+        year: 2013,
+        why: 'The standard comprehensive graduate reference for modern applied Bayesian statistics.',
+      },
+      {
+        title: 'Probability Theory: The Logic of Science',
+        authors: ['E. T. Jaynes'],
+        year: 2003,
+        why: 'An influential, opinionated case for the Bayesian interpretation of probability from first principles.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'Presents Bayesian inference alongside classical methods in a single concise, modern reference.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Bayes' theorem (parameter form)", latex: '\\pi(\\theta\\mid x) \\propto L(\\theta)\\,\\pi(\\theta)' },
+      { label: 'Posterior normalizing constant', latex: 'p(x) = \\int L(\\theta)\\pi(\\theta)\\,d\\theta' },
+      { label: 'Posterior mean estimator', latex: '\\hat\\theta_{Bayes} = \\mathbb{E}[\\theta \\mid x] = \\int \\theta\\, \\pi(\\theta\\mid x)\\,d\\theta' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bayesian approach', url: 'https://encyclopediaofmath.org/wiki/Bayesian_approach', kind: 'encyclopedia' },
+      { label: 'MacTutor: Thomas Bayes', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bayes/', kind: 'reference' },
+      { label: 'MacTutor: Pierre-Simon Laplace', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Laplace/', kind: 'reference' },
+    ],
+  },
+  'statistics:experimental-design': {
+    overview:
+      "Experimental design is the science of arranging an experiment before any data are collected so that its results will support valid, efficient statistical conclusions. Done well, it turns a fixed, limited amount of experimentation into the maximum possible statistical evidence; done poorly, no amount of clever analysis afterward can rescue a flawed design.",
+    formal:
+      "In a randomized experiment, treatments are assigned to experimental units via a random mechanism, guaranteeing that (in expectation) treatment groups are balanced on both observed and unobserved confounding variables. A basic one-way ANOVA model, $Y_{ij} = \\mu + \\tau_i + \\varepsilon_{ij}$, decomposes total variability into a between-treatments effect $\\tau_i$ and within-treatment noise $\\varepsilon_{ij}$, with an F-test used to assess whether treatment effects $\\tau_i$ differ significantly from zero. Blocking further reduces noise by grouping units into more homogeneous blocks before randomizing within each block.",
+    keyIdeas: [
+      'randomization as the mechanism that, on average, balances both known and unknown confounding factors across treatment groups',
+      'replication, providing enough repeated observations to distinguish a real effect from random noise',
+      'blocking, controlling for a known source of variability by grouping similar units before randomizing',
+      'factorial designs, testing multiple factors simultaneously and their interactions far more efficiently than testing one factor at a time',
+      'the analysis of variance (ANOVA), partitioning observed variability into components attributable to different design factors',
+    ],
+    whyItMatters:
+      "Before Fisher's work at the Rothamsted Experimental Station in the 1920s, agricultural and scientific experiments were typically arranged by intuition, with no way to distinguish a genuine treatment effect from the incidental variation between experimental plots or subjects. Fisher's insight that randomization, replication, and blocking could be combined into a mathematically justified design let statisticians extract valid causal conclusions and honest uncertainty estimates from experiments run with limited resources, and the same logic underlies every modern randomized controlled trial, from medicine to technology A/B testing.",
+    prerequisites: ['statistics:hypothesis-testing', 'statistics:estimation'],
+    related: ['statistics:hypothesis-testing', 'statistics:causal-inference', 'probability:sample-spaces'],
+    historicalContext:
+      "Ronald Fisher, working at the Rothamsted Experimental Station on agricultural field trials starting in 1919, developed randomization, blocking, and the analysis of variance as tools for extracting reliable conclusions from necessarily noisy, resource-limited agricultural experiments, publishing the foundational synthesis in his 1935 book The Design of Experiments. The book's famous 'lady tasting tea' example, in which Fisher designed a rigorous randomized test of a colleague's claim to taste whether milk or tea was poured first, is often cited as the first modern randomized experiment with a formally specified null hypothesis and significance test built directly into the design.",
+    contributorIds: ['person:ronald-fisher'],
+    workIds: ['work:the-design-of-experiments'],
+    exampleProblems: [
+      'Explain why randomly assigning subjects to treatment and control groups controls for confounding variables that the experimenter did not even think to measure.',
+      'Design a randomized block experiment comparing three fertilizers across fields with varying soil quality, and explain why blocking by soil quality improves the design.',
+      'Set up the one-way ANOVA F-test for comparing the means of three treatment groups and describe how the F-statistic is constructed from between- and within-group variability.',
+    ],
+    applications: [
+      'randomized controlled trials in medicine, the gold standard for establishing that a treatment causes an observed outcome',
+      'agricultural field trials, the original motivating application for Fisher\'s design methods',
+      'technology A/B testing, randomizing users to different product variants to measure causal effects on engagement',
+      'manufacturing and industrial experimentation (Taguchi methods), optimizing processes with factorial designs',
+    ],
+    researchDirections: [
+      'adaptive and sequential experimental designs, adjusting treatment assignment as data accumulate',
+      'optimal design theory, choosing designs that maximize statistical information for a given experimental budget',
+      'design of experiments for complex modern settings such as online platforms and multi-armed bandit problems',
+    ],
+    textbooks: [
+      {
+        title: 'Design and Analysis of Experiments',
+        authors: ['Douglas C. Montgomery'],
+        edition: '10th',
+        year: 2019,
+        why: 'The standard, widely used applied textbook covering randomization, blocking, factorial designs, and ANOVA.',
+      },
+      {
+        title: 'Statistics for Experimenters',
+        authors: ['George E. P. Box', 'J. Stuart Hunter', 'William G. Hunter'],
+        edition: '2nd',
+        year: 2005,
+        why: 'A classic, practically oriented treatment connecting experimental design directly to real scientific and industrial problems.',
+      },
+      {
+        title: 'The Design of Experiments',
+        authors: ['Ronald A. Fisher'],
+        edition: '8th',
+        year: 1966,
+        why: "Fisher's own foundational text, including the famous 'lady tasting tea' example, still worth reading in the original.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'One-way ANOVA model', latex: 'Y_{ij} = \\mu + \\tau_i + \\varepsilon_{ij}' },
+      { label: 'F-statistic', latex: 'F = \\frac{\\text{Mean Square Between}}{\\text{Mean Square Within}}' },
+      { label: 'Randomization principle', latex: '\\mathbb{E}[\\text{confounder} \\mid \\text{treatment group}] = \\mathbb{E}[\\text{confounder}]' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Design of experiments', url: 'https://encyclopediaofmath.org/wiki/Design_of_experiments', kind: 'encyclopedia' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+    ],
+  },
+  'statistics:causal-inference': {
+    overview:
+      'Causal inference formalizes the difference between correlation and causation, providing mathematical tools to determine when a statistical association reflects a genuine causal effect and to estimate the size of that effect, even from observational data where a controlled experiment is impossible or unethical.',
+    formal:
+      "In the potential outcomes framework, each unit $i$ has two potential outcomes, $Y_i(1)$ under treatment and $Y_i(0)$ under control, and the individual causal effect is $Y_i(1)-Y_i(0)$ — the 'fundamental problem of causal inference' being that only one of these is ever observed for each unit. The average treatment effect $\\mathbb{E}[Y(1)-Y(0)]$ can be estimated from observational data under the ignorability assumption $\\{Y(0),Y(1)\\} \\perp T \\mid X$, adjusting for confounders $X$. Equivalently, Pearl's structural framework represents causal assumptions as a directed acyclic graph and defines the causal effect via an intervention operator $do(T=t)$, distinct from ordinary conditioning $P(Y\\mid T=t)$.",
+    keyIdeas: [
+      'the fundamental problem of causal inference: for any unit, only one potential outcome is ever observed, never the counterfactual',
+      'confounding: a variable affecting both treatment and outcome, which can create a spurious association mistaken for causation',
+      'randomization as the gold-standard solution, since it makes treatment assignment independent of all potential outcomes',
+      "Pearl's do-calculus, distinguishing the causal query $P(Y \\mid do(T=t))$ from the merely observational $P(Y\\mid T=t)$",
+      'identification strategies for observational data (instrumental variables, regression discontinuity, difference-in-differences) when randomization is not possible',
+    ],
+    whyItMatters:
+      '"Correlation does not imply causation" is a truism, but causal inference supplies the actual mathematics needed to determine when it does, letting researchers estimate causal effects credibly from real-world, non-experimental data — whether tobacco causes cancer, whether a policy reduces poverty, whether a drug improves outcomes — in situations where running a randomized trial is impossible, unethical, or has already happened only observationally. The convergence of two once-separate schools of thought, Rubin\'s potential outcomes framework from statistics and Pearl\'s graphical structural framework from computer science and philosophy, by the 2000s gave the field a shared, rigorous mathematical foundation.',
+    prerequisites: ['statistics:regression', 'probability:random-variables'],
+    related: ['statistics:regression', 'statistics:experimental-design', 'probability:markov-chains'],
+    historicalContext:
+      "Jerzy Neyman introduced the potential outcomes notation in 1923 for randomized experiments, but the framework lay dormant for decades until Donald Rubin generalized it to observational studies in a series of papers beginning in 1974, formalizing the ignorability assumption needed to estimate causal effects without randomization — now often called the Rubin causal model. Independently, Judea Pearl developed a graphical and structural approach beginning in the late 1980s, introducing causal directed acyclic graphs and the do-calculus in his 2000 book Causality, for which he received the 2011 Turing Award; by the 2000s, researchers including Pearl, Rubin, and James Robins had shown the potential-outcomes and graphical frameworks to be largely equivalent, unifying causal inference into a single coherent theory.",
+    contributorIds: ['person:judea-pearl', 'person:donald-rubin'],
+    workIds: [],
+    exampleProblems: [
+      'Explain the "fundamental problem of causal inference" using a concrete example, and describe why randomization solves the problem in expectation even though it never reveals an individual\'s counterfactual outcome.',
+      'Draw a simple causal DAG with a confounder affecting both treatment and outcome, and identify which variable(s) must be adjusted for to estimate the causal effect correctly.',
+      'Give an example where two variables are strongly correlated but neither causes the other, due to a common confounding cause.',
+    ],
+    applications: [
+      'epidemiology and public health, estimating the causal effect of exposures (smoking, pollution) on disease from observational data',
+      'economics (the "credibility revolution"), using instrumental variables and natural experiments to estimate causal effects of policies',
+      'technology, using causal inference to understand the true impact of product features beyond simple correlation',
+      'social science, disentangling causal effects of interventions (education, policy) from selection and confounding',
+    ],
+    researchDirections: [
+      'causal machine learning, integrating causal inference with high-dimensional predictive models',
+      'causal discovery, algorithmically learning causal graph structure from observational data alone',
+      'mediation analysis, decomposing a causal effect into direct and indirect (mediated) pathways',
+    ],
+    textbooks: [
+      {
+        title: 'Causal Inference: What If',
+        authors: ['Miguel A. Hernán', 'James M. Robins'],
+        year: 2020,
+        why: 'A rigorous, freely available modern text unifying the potential outcomes and structural approaches to causal inference.',
+      },
+      {
+        title: 'Causality: Models, Reasoning, and Inference',
+        authors: ['Judea Pearl'],
+        edition: '2nd',
+        year: 2009,
+        why: "Pearl's own foundational text on causal graphs, the do-calculus, and structural causal models.",
+      },
+      {
+        title: 'Causal Inference for Statistics, Social, and Biomedical Sciences',
+        authors: ['Guido W. Imbens', 'Donald B. Rubin'],
+        year: 2015,
+        why: 'The definitive treatment of the potential outcomes (Rubin causal model) approach, by one of its principal architects.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Individual causal effect', latex: '\\tau_i = Y_i(1) - Y_i(0)' },
+      { label: 'Average treatment effect', latex: '\\text{ATE} = \\mathbb{E}[Y(1)] - \\mathbb{E}[Y(0)]' },
+      { label: "Pearl's causal effect via intervention", latex: 'P(Y \\mid do(T=t)) \\ne P(Y\\mid T=t) \\text{ in general}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Causal inference', url: 'https://en.wikipedia.org/wiki/Causal_inference', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Judea Pearl', url: 'https://en.wikipedia.org/wiki/Judea_Pearl', kind: 'reference' },
+      { label: 'Wikipedia: Donald Rubin', url: 'https://en.wikipedia.org/wiki/Donald_Rubin', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -9772,6 +10184,11 @@ const personRows = [
   ['George David Birkhoff', '1884-1944', 'USA', 'dynamical-systems', "the ergodic theorem and proof of Poincare's last geometric theorem"],
   ['Stephen Smale', '1930-', 'USA', 'dynamical-systems', 'the horseshoe map and the classification of higher-dimensional dynamical systems'],
   ['Edward Lorenz', '1917-2008', 'USA', 'dynamical-systems', 'the Lorenz attractor and the discovery of deterministic chaos'],
+  ['Thomas Bayes', '1701-1761', 'England', 'statistics', "Bayes' theorem and inverse probability"],
+  ['Francis Galton', '1822-1911', 'England', 'statistics', 'regression to the mean and correlation'],
+  ['Karl Pearson', '1857-1936', 'England', 'statistics', 'the correlation coefficient, chi-squared test, and founding mathematical statistics'],
+  ['Judea Pearl', '1936-', 'Israel/USA', 'statistics', 'causal diagrams and the structural theory of causal inference'],
+  ['Donald Rubin', '1943-', 'USA', 'statistics', 'the potential outcomes framework for causal inference'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -9936,10 +10353,18 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:blaise-pascal': ['probability:sample-spaces'],
   'person:christiaan-huygens': ['probability:sample-spaces', 'probability:expectation'],
   'person:jacob-bernoulli': ['probability:law-of-large-numbers'],
-  'person:pierre-simon-laplace': ['probability:central-limit-theorem'],
+  'person:pierre-simon-laplace': ['probability:central-limit-theorem', 'statistics:bayesian-inference'],
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
+  'person:ronald-fisher': ['statistics:estimation', 'statistics:experimental-design'],
+  'person:jerzy-neyman': ['statistics:hypothesis-testing'],
+  'person:egon-pearson': ['statistics:hypothesis-testing'],
+  'person:thomas-bayes': ['statistics:bayesian-inference'],
+  'person:francis-galton': ['statistics:regression'],
+  'person:karl-pearson': ['statistics:regression'],
+  'person:judea-pearl': ['statistics:causal-inference'],
+  'person:donald-rubin': ['statistics:causal-inference'],
   'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
   'person:henri-poincare': [
     'topology:homotopy',
@@ -9965,6 +10390,7 @@ const personTopicOverrides: Record<string, string[]> = {
     'differential-geometry:curvature',
     'differential-geometry:geodesics',
     'complex-analysis:complex-numbers',
+    'statistics:estimation',
   ],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
@@ -10149,6 +10575,8 @@ const workRows = [
   ['Theorie des operations lineaires', 'Stefan Banach', 1932, 'functional-analysis', 'The founding systematic treatise of functional analysis, naming and characterizing Banach spaces.'],
   ['An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism', 'George Green', 1828, 'differential-equations', "Introduced the potential function and Green's theorem, and implicitly the Green's function method for solving boundary value problems."],
   ['Les methodes nouvelles de la mecanique celeste', 'Henri Poincare', 1892, 'dynamical-systems', 'Founded the qualitative theory of dynamical systems and contains the first mathematical description of chaotic behavior.'],
+  ['An Essay towards Solving a Problem in the Doctrine of Chances', 'Thomas Bayes', 1763, 'statistics', "Published posthumously, it contains what became known as Bayes' theorem, the basis of Bayesian inference."],
+  ['The Design of Experiments', 'Ronald Fisher', 1935, 'statistics', 'Introduced randomization, replication, and blocking as the foundations of modern experimental design.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -10161,6 +10589,8 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:theorie-des-operations-lineaires': ['functional-analysis:banach-spaces'],
   'work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism': ['differential-equations:green-functions'],
   'work:les-methodes-nouvelles-de-la-mecanique-celeste': ['dynamical-systems:chaos'],
+  'work:an-essay-towards-solving-a-problem-in-the-doctrine-of-chances': ['statistics:bayesian-inference'],
+  'work:the-design-of-experiments': ['statistics:experimental-design'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
