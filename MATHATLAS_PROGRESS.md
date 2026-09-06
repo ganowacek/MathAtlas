@@ -38,7 +38,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] complex-analysis
 - [x] functional-analysis
 - [x] differential-equations
-- [ ] dynamical-systems
+- [x] dynamical-systems
 - [ ] statistics
 - [ ] discrete-math
 - [ ] combinatorics

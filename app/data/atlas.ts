@@ -9080,6 +9080,419 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: George Green', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Green/', kind: 'reference' },
     ],
   },
+  'dynamical-systems:phase-portraits': {
+    overview:
+      'A phase portrait draws every possible trajectory of a dynamical system in its state space at once, turning an infinite family of solution curves into a single picture. Reading this picture — where trajectories converge, spiral, or diverge — reveals a system\'s long-term qualitative behavior without ever solving its equations explicitly.',
+    formal:
+      'For a system $\\dot x = f(x)$, $x\\in\\mathbb{R}^n$, the phase space is $\\mathbb{R}^n$ itself, and the phase portrait is the collection of all trajectories $\\{x(t) : t\\in\\mathbb{R}\\}$ for every initial condition, oriented by increasing $t$. For a planar linear system $\\dot x = Ax$, the phase portrait\'s qualitative type (node, saddle, center, spiral) is determined entirely by the eigenvalues of $A$: trajectories spiral inward if the eigenvalues have negative real part, outward if positive, and orbit periodically if purely imaginary.',
+    keyIdeas: [
+      'the phase space (or state space) as the set of all possible instantaneous states of a system',
+      'trajectories that never cross (for autonomous systems), by the uniqueness theorem for ODEs',
+      'classifying planar equilibria (node, saddle, center, spiral) directly from the eigenvalues of the linearization',
+      'nullclines and separatrices as the curves organizing the qualitative structure of a phase portrait',
+      'reading long-term behavior (convergence, divergence, oscillation) visually, without an explicit solution formula',
+    ],
+    whyItMatters:
+      "Most differential equations arising in practice have no closed-form solution, so the only realistic way to understand their behavior is qualitatively: where are the equilibria, are they attracting or repelling, do trajectories spiral or oscillate? The phase portrait answers exactly these questions at a glance, which is why Poincaré's insistence on this geometric, qualitative viewpoint — rather than the search for explicit formulas that dominated 18th and 19th century differential equations — became the foundation of the entire modern theory of dynamical systems.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:fixed-points', 'differential-equations:stability', 'dynamical-systems:bifurcations'],
+    historicalContext:
+      "Henri Poincaré introduced the qualitative, geometric study of differential equations in a series of papers beginning in 1881, Sur les courbes définies par une équation différentielle, explicitly proposing to understand the totality of a system's trajectories geometrically rather than searching for explicit formulas, which he showed was often impossible even for the three-body problem. This geometric viewpoint, further developed in his three-volume Les méthodes nouvelles de la mécanique céleste (1892-1899), founded the entire subject of qualitative dynamical systems theory that George David Birkhoff and later Stephen Smale would build on in the 20th century.",
+    contributorIds: ['person:henri-poincare'],
+    workIds: ['work:les-methodes-nouvelles-de-la-mecanique-celeste'],
+    exampleProblems: [
+      'Classify the equilibrium at the origin of $\\dot x = -x+y,\\ \\dot y=-x-y$ (node, saddle, center, or spiral) by computing the eigenvalues of the coefficient matrix.',
+      'Sketch the phase portrait of the pendulum equation $\\ddot\\theta+\\sin\\theta=0$ (as a first-order system) and identify its centers and saddle points.',
+      'Find the nullclines of the predator-prey system $\\dot x=x(1-y),\\ \\dot y=y(x-1)$ and use them to sketch the qualitative flow.',
+    ],
+    applications: [
+      'population ecology, visualizing predator-prey and competition dynamics without solving the equations explicitly',
+      'electrical engineering, analyzing nonlinear circuit behavior via phase-plane methods',
+      'mechanical engineering, understanding oscillator and pendulum-like systems geometrically',
+      'neuroscience, modeling neuron firing dynamics (e.g. the FitzHugh-Nagumo phase plane)',
+    ],
+    researchDirections: [
+      'higher-dimensional and infinite-dimensional phase spaces for PDEs and delay equations',
+      'computational and topological methods for automatically classifying phase portraits',
+      'the interplay between phase portrait geometry and bifurcation theory as parameters vary',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The most accessible and widely used introduction, built almost entirely around geometric phase-plane reasoning.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'A rigorous treatment developing the linear classification of phase portraits before nonlinear extensions.',
+      },
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'Presents Poincaré\'s geometric viewpoint on differential equations with exceptional clarity and insight.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Autonomous system', latex: '\\dot x = f(x),\\quad x\\in\\mathbb{R}^n' },
+      { label: 'Linearized classification', latex: '\\dot x = Ax \\implies \\text{type determined by eigenvalues of } A' },
+      { label: 'Trace-determinant classification (planar)', latex: '\\Delta = \\det A,\\ \\tau=\\operatorname{tr} A' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Phase space', url: 'https://encyclopediaofmath.org/wiki/Phase_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:fixed-points': {
+    overview:
+      "A fixed point (or equilibrium) is a state of a dynamical system that does not change under the system's own evolution — once there, the system stays there forever. Understanding whether nearby states are drawn toward or repelled from a fixed point is often the single most informative question one can ask about a dynamical system.",
+    formal:
+      'A fixed point of $\\dot x=f(x)$ is a point $x^*$ with $f(x^*)=0$; for a discrete map $x_{n+1}=g(x_n)$, it is a point with $g(x^*)=x^*$. Its stability is governed by linearization: for the continuous case, the eigenvalues of the Jacobian $Df(x^*)$ determine local behavior (stable if all have negative real part, unstable if any has positive real part, by the Hartman-Grobman theorem when $x^*$ is hyperbolic); for the discrete case, $x^*$ is stable if all eigenvalues of $Dg(x^*)$ lie strictly inside the unit circle.',
+    keyIdeas: [
+      'hyperbolic fixed points, where linearization correctly predicts local qualitative behavior (Hartman-Grobman theorem)',
+      'stable, unstable, and saddle-type equilibria, and their invariant stable/unstable manifolds',
+      'fixed points of iterated maps as a discrete-time analogue of equilibria of flows, with the unit circle replacing the imaginary axis',
+      'periodic points as fixed points of an iterated map (a period-$n$ point of $g$ is a fixed point of $g^n$)',
+      'the Poincaré-Birkhoff fixed point theorem, guaranteeing fixed points for certain area-preserving planar maps',
+    ],
+    whyItMatters:
+      "Long-term behavior of a dynamical system is overwhelmingly organized around its fixed points: a population model's equilibrium, an economy's steady state, a mechanical system's rest position. Linearizing at a fixed point turns an intractable nonlinear stability question into a linear algebra eigenvalue computation, and the Hartman-Grobman theorem justifies this shortcut by guaranteeing that, at hyperbolic fixed points, the linear approximation captures the true qualitative picture — one of the most-used theorems in applied dynamical systems.",
+    prerequisites: ['dynamical-systems:phase-portraits', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:phase-portraits', 'dynamical-systems:bifurcations', 'differential-equations:stability'],
+    historicalContext:
+      "Henri Poincaré's qualitative theory placed equilibria and periodic orbits at the center of dynamical systems from the start, and in 1912 he conjectured what became known as 'Poincaré's last geometric theorem,' guaranteeing fixed points for a certain class of area-preserving annulus maps arising from the restricted three-body problem, which he believed but could not prove before his death that year. George David Birkhoff proved the theorem later in 1913, establishing it as a foundational tool and beginning the modern study of fixed points in dynamical systems that would culminate decades later in Stephen Smale's classification results for higher-dimensional systems.",
+    contributorIds: ['person:henri-poincare', 'person:george-david-birkhoff'],
+    workIds: [],
+    exampleProblems: [
+      'Find all fixed points of the logistic map $x_{n+1}=rx_n(1-x_n)$ and determine, using the derivative, for which values of $r$ the nonzero fixed point is stable.',
+      'Classify the fixed point at the origin of $\\dot x = -x^3$ as stable or unstable, and explain why linearization alone (which gives eigenvalue $0$) is inconclusive here.',
+      'Verify the Hartman-Grobman theorem\'s hypothesis (hyperbolicity) fails at the origin for $\\dot x=y,\\ \\dot y=-x$ and explain what goes wrong if you try to use the linearization to conclude stability.',
+    ],
+    applications: [
+      'economics, where market or macroeconomic steady states are fixed points of a dynamic model',
+      'population biology, where carrying capacity is a stable fixed point of a growth model',
+      "control engineering, designing feedback so a system's operating point becomes a stable fixed point",
+      'iterative numerical algorithms, whose convergence is exactly the stability of a fixed point of the iteration map',
+    ],
+    researchDirections: [
+      'the classification and stability theory of fixed points in high-dimensional and infinite-dimensional systems',
+      'index theory and topological methods (Lefschetz fixed-point theorem) for counting fixed points',
+      'fixed points of random and stochastic dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'Introduces fixed-point stability analysis for both flows and maps with exceptional clarity.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Proves the Hartman-Grobman theorem and develops fixed-point theory with full mathematical rigor.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'A clear treatment of fixed and periodic points for iterated maps, bridging into chaos theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fixed point condition (flow)', latex: 'f(x^*) = 0' },
+      { label: 'Fixed point condition (map)', latex: 'g(x^*) = x^*' },
+      { label: 'Hyperbolicity condition', latex: '\\operatorname{Re}(\\lambda_i) \\ne 0 \\ \\forall \\text{ eigenvalues } \\lambda_i \\text{ of } Df(x^*)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Fixed point', url: 'https://encyclopediaofmath.org/wiki/Fixed_point', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Birkhoff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Birkhoff/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:bifurcations': {
+    overview:
+      "A bifurcation is a qualitative change in a system's behavior — the birth, death, or merging of equilibria or periodic orbits — that occurs as a parameter crosses a critical threshold. Bifurcation theory catalogs the small number of ways this can happen, turning the study of infinitely many possible parameter changes into a short, well-understood list.",
+    formal:
+      'A family of systems $\\dot x = f(x,\\mu)$ undergoes a bifurcation at $\\mu=\\mu_0$ if the qualitative structure (number or stability of equilibria) changes as $\\mu$ crosses $\\mu_0$. In a saddle-node bifurcation, $\\dot x = \\mu - x^2$, two equilibria collide and annihilate as $\\mu\\to 0^+$. In a pitchfork bifurcation, $\\dot x = \\mu x - x^3$, a single equilibrium splits into three. In a period-doubling bifurcation of a map $x_{n+1}=f(x_n,\\mu)$, a fixed point loses stability as an eigenvalue crosses $-1$, spawning a period-2 orbit.',
+    keyIdeas: [
+      'the classification of local bifurcations (saddle-node, transcritical, pitchfork, Hopf, period-doubling) as the basic vocabulary of qualitative change',
+      'a bifurcation diagram, plotting equilibria (or periodic orbits) against the parameter, as the standard way to visualize the whole family at once',
+      'the period-doubling route to chaos, where successive period-doubling bifurcations accumulate at a finite parameter value',
+      "Feigenbaum's universality: the ratio of successive period-doubling parameter intervals converges to the same constant $\\delta\\approx 4.669$ across a huge class of unrelated systems",
+      'bifurcation theory as the bridge between simple, well-understood dynamics and the onset of complexity or chaos',
+    ],
+    whyItMatters:
+      "Real systems depend on parameters (a population's growth rate, a fluid's Reynolds number, a laser's pump power), and understanding how behavior changes as these parameters are tuned is often more practically important than solving the system at any single parameter value. Mitchell Feigenbaum's 1975 discovery that the period-doubling route to chaos is quantitatively universal — the same constant $\\delta$ governs wildly different physical systems, from dripping faucets to population models — was one of the most startling results in 20th-century mathematical physics, revealing deep hidden structure beneath apparent complexity.",
+    prerequisites: ['dynamical-systems:fixed-points', 'dynamical-systems:phase-portraits'],
+    related: ['dynamical-systems:fixed-points', 'dynamical-systems:chaos', 'differential-equations:stability'],
+    historicalContext:
+      "Henri Poincaré studied what would now be called bifurcations of the equilibrium shapes of self-gravitating rotating fluid masses in the 1880s, identifying points where new families of solutions branch off from known ones. The systematic modern classification of local bifurcations developed through the 20th century via the work of Andronov's Soviet school on nonlinear oscillations. Mitchell Feigenbaum's 1975-1978 discovery, using a programmable calculator at Los Alamos, that the period-doubling cascade of the logistic map $x_{n+1}=rx_n(1-x_n)$ approaches chaos at a universal rate independent of the map's specific form was a landmark unifying bifurcation theory with the then-nascent theory of chaos.",
+    contributorIds: ['person:mitchell-feigenbaum', 'person:henri-poincare'],
+    workIds: [],
+    exampleProblems: [
+      'Find the bifurcation value $\\mu_0$ for the saddle-node bifurcation $\\dot x=\\mu-x^2$ and sketch the bifurcation diagram of equilibria versus $\\mu$.',
+      'Show that $\\dot x = \\mu x - x^3$ undergoes a pitchfork bifurcation at $\\mu=0$, and classify the stability of each branch for $\\mu>0$.',
+      'Numerically iterate the logistic map $x_{n+1}=rx_n(1-x_n)$ for $r=3.2$ and $r=3.5$ to observe the transition from a period-2 to a period-4 cycle.',
+    ],
+    applications: [
+      'laser physics, where the onset of lasing is a bifurcation as pump power crosses a threshold',
+      'fluid dynamics, where the transition from laminar to turbulent flow involves a cascade of bifurcations',
+      'population ecology, where a species\' extinction or coexistence can appear or disappear via a bifurcation as a parameter (harvesting rate, resource level) changes',
+      'neuroscience, modeling the onset of neuron spiking as a bifurcation of the resting state',
+    ],
+    researchDirections: [
+      'global bifurcation theory (homoclinic and heteroclinic bifurcations) beyond the local classification',
+      'bifurcations in infinite-dimensional systems (PDEs) such as pattern formation in reaction-diffusion equations',
+      'bifurcation theory for stochastic and randomly-forced dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The standard accessible reference for the classification of local bifurcations, with Feigenbaum universality covered in depth.',
+      },
+      {
+        title: 'Elements of Applied Bifurcation Theory',
+        authors: ['Yuri A. Kuznetsov'],
+        edition: '3rd',
+        year: 2004,
+        why: 'The definitive rigorous graduate reference on bifurcation theory and its computational analysis.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'Covers the period-doubling route to chaos and Feigenbaum universality with a clear, example-driven approach.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Saddle-node normal form', latex: '\\dot x = \\mu - x^2' },
+      { label: 'Pitchfork normal form', latex: '\\dot x = \\mu x - x^3' },
+      { label: 'Feigenbaum constant', latex: '\\delta = \\lim_{n\\to\\infty} \\frac{\\mu_n-\\mu_{n-1}}{\\mu_{n+1}-\\mu_n} \\approx 4.669' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bifurcation', url: 'https://encyclopediaofmath.org/wiki/Bifurcation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Mitchell Feigenbaum', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Feigenbaum/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:chaos': {
+    overview:
+      'Chaos is deterministic, yet practically unpredictable: a system with no randomness anywhere in its equations can still produce trajectories so sensitive to initial conditions that any measurement error, however small, grows to make long-term prediction impossible. This discovery upended the classical assumption that determinism implies predictability.',
+    formal:
+      'A system exhibits sensitive dependence on initial conditions if nearby trajectories separate at an exponential rate, measured by a positive largest Lyapunov exponent $\\lambda>0$: $|\\delta x(t)| \\approx |\\delta x(0)|\\, e^{\\lambda t}$. A chaotic attractor (strange attractor) combines this sensitivity with boundedness and topological transitivity (trajectories eventually visit every region), typically exhibiting a fractal (non-integer) dimension, as in the Lorenz attractor.',
+    keyIdeas: [
+      'sensitive dependence on initial conditions (the "butterfly effect"), quantified by a positive Lyapunov exponent',
+      'determinism without predictability: chaos arises from purely deterministic equations, with no randomness required',
+      'strange attractors, combining bounded, non-repeating trajectories with a fractal geometric structure',
+      'the period-doubling and other routes by which chaos emerges from simpler, non-chaotic dynamics as a parameter varies',
+      'topological transitivity and dense periodic orbits as an equivalent, more mathematical characterization of chaotic behavior',
+    ],
+    whyItMatters:
+      "Before the 1960s, determinism was widely equated with predictability: know the equations and the initial state precisely enough, and the future follows. Edward Lorenz's accidental 1961 discovery — that rounding a printed initial condition to fewer decimal places in his toy weather model produced a wildly different long-term forecast — showed this equation was false for a huge and important class of systems, with consequences for weather forecasting, orbital mechanics, and any field modeling nonlinear feedback, and it launched chaos theory as a major branch of applied mathematics and physics.",
+    prerequisites: ['dynamical-systems:bifurcations', 'differential-equations:stability'],
+    related: ['dynamical-systems:bifurcations', 'dynamical-systems:symbolic-dynamics', 'dynamical-systems:ergodic-theory'],
+    historicalContext:
+      "Henri Poincaré's study of the three-body problem in the 1890s already contained the first mathematical glimpse of chaotic behavior — trajectories so intricately tangled that he wrote their complexity defied illustration — though the modern concept and terminology did not yet exist. Edward Lorenz rediscovered the phenomenon independently and far more vividly in 1961-1963 while running a simplified 12-equation (later reduced to 3-equation) weather model on an early computer, coining the enduring image of the 'butterfly effect' and discovering the strange attractor that now bears his name. Benoit Mandelbrot's development of fractal geometry through the 1970s and 1980s then supplied the right geometric language for describing the intricate, self-similar structure of strange attractors like Lorenz's.",
+    contributorIds: ['person:edward-lorenz', 'person:benoit-mandelbrot'],
+    workIds: ['work:les-methodes-nouvelles-de-la-mecanique-celeste'],
+    exampleProblems: [
+      'Simulate the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z$ for two nearly identical initial conditions and observe how quickly the trajectories diverge.',
+      'Estimate the Lyapunov exponent of the logistic map $x_{n+1}=4x_n(1-x_n)$ numerically by tracking the separation of two nearby orbits.',
+      'Explain why a positive Lyapunov exponent implies that long-term numerical weather prediction faces a fundamental, not merely technological, limit.',
+    ],
+    applications: [
+      'weather and climate forecasting, where the Lorenz equations originated and where chaos bounds predictability to about two weeks',
+      'cryptography, using chaotic maps to generate pseudo-random sequences',
+      'cardiology, studying whether chaotic or non-chaotic heart rhythms indicate healthy versus pathological function',
+      'engineering, avoiding chaotic (unpredictable) regimes in the design of mechanical and electrical oscillators',
+    ],
+    researchDirections: [
+      'quantum chaos, studying the quantum-mechanical signatures of classically chaotic systems',
+      'control of chaos, using small, carefully-timed perturbations to stabilize a chaotic system onto a desired periodic orbit',
+      'high-dimensional and spatiotemporal chaos in extended systems and networks',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The definitive accessible introduction to chaos, covering the Lorenz system and Lyapunov exponents in depth.',
+      },
+      {
+        title: 'Chaos: Making a New Science',
+        authors: ['James Gleick'],
+        year: 1987,
+        why: 'The classic popular history of chaos theory\'s discovery, useful for the historical and conceptual narrative.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'A mathematically rigorous treatment defining chaos precisely via sensitivity, transitivity, and dense periodic points.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sensitive dependence', latex: '|\\delta x(t)| \\approx |\\delta x(0)|\\, e^{\\lambda t}' },
+      { label: 'Lorenz system', latex: '\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z' },
+      { label: 'Logistic map', latex: 'x_{n+1} = r x_n (1-x_n)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Strange attractor', url: 'https://encyclopediaofmath.org/wiki/Strange_attractor', kind: 'encyclopedia' },
+      { label: 'MacTutor: Edward Lorenz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lorenz_Edward/', kind: 'reference' },
+      { label: 'MacTutor: Benoit Mandelbrot', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Mandelbrot/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:ergodic-theory': {
+    overview:
+      'Ergodic theory studies when the time average of a quantity along a single trajectory equals its space average over the whole system — that is, when observing one typical trajectory for a long time reveals the same statistics as observing the whole space at one instant. This equivalence, when it holds, is what justifies replacing intractable dynamical questions with tractable statistical ones.',
+    formal:
+      'For a measure-preserving transformation $T$ on a probability space $(X,\\mathcal{B},\\mu)$, Birkhoff\'s ergodic theorem states that for $f\\in L^1(\\mu)$, the time average $\\lim_{n\\to\\infty} \\frac{1}{n}\\sum_{k=0}^{n-1} f(T^k x)$ exists for almost every $x$; if $T$ is ergodic (every invariant set has measure $0$ or $1$), this limit equals the space average $\\int_X f\\,d\\mu$ for almost every $x$.',
+    keyIdeas: [
+      'measure-preserving transformations as the basic objects of ergodic theory, generalizing the flow of a physical system',
+      "Birkhoff's ergodic theorem: time averages along almost every trajectory converge",
+      'ergodicity as the precise condition under which time averages equal the space average',
+      'mixing as a stronger property than ergodicity, capturing the intuitive idea that a system "forgets" its initial state over time',
+      'the ergodic hypothesis in statistical mechanics: whether a physical system\'s long-run behavior samples its entire energy surface',
+    ],
+    whyItMatters:
+      "Statistical mechanics rests on the assumption that a system's time-averaged behavior (what you'd measure by watching one system for a long time) matches its ensemble average (what you'd get averaging over many identical systems at one instant) — an assumption ergodic theory makes precise and identifies exactly when it is justified. Von Neumann's and Birkhoff's rigorous 1931-1932 ergodic theorems settled a question Boltzmann had left unresolved decades earlier, and the resulting framework now underlies not just physics but algorithms (Markov chain Monte Carlo, PageRank) that rely on a single long trajectory revealing global statistical structure.",
+    prerequisites: ['analysis:measure-theory', 'dynamical-systems:phase-portraits'],
+    related: ['probability:markov-chains', 'analysis:measure-theory', 'dynamical-systems:chaos'],
+    historicalContext:
+      "Ludwig Boltzmann's 1870s ergodic hypothesis in statistical mechanics — that a gas's trajectory eventually visits every state consistent with its energy — motivated the subject but was not made mathematically rigorous for over fifty years. John von Neumann proved the mean ergodic theorem (convergence in the $L^2$ norm) in 1931, and George David Birkhoff, hearing of von Neumann's unpublished result, quickly proved the stronger pointwise (almost-everywhere) ergodic theorem and published it first in 1931, leading to a priority dispute between the two. Andrey Kolmogorov and later Yakov Sinai extended the theory substantially in the 1950s-1960s, introducing entropy as an invariant that could distinguish non-isomorphic measure-preserving systems.",
+    contributorIds: ['person:george-david-birkhoff', 'person:andrey-kolmogorov'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that an irrational rotation of the circle, $Tx = x+\\alpha \\mod 1$ with $\\alpha$ irrational, is ergodic with respect to Lebesgue measure.',
+      "Use Birkhoff's ergodic theorem informally to explain why, for an ergodic system, almost every trajectory's long-run time-average position matches the space average.",
+      'Explain why the doubling map $Tx=2x \\mod 1$ is ergodic (in fact mixing) while a rational rotation of the circle is not ergodic.',
+    ],
+    applications: [
+      'statistical mechanics, justifying the equivalence of time averages and ensemble averages for physical systems',
+      'Markov chain Monte Carlo methods in computational statistics and Bayesian inference',
+      "Google's PageRank algorithm, which relies on the ergodic (stationary) behavior of a random walk on the web graph",
+      'number theory, using ergodic theory (e.g. Weyl equidistribution) to study the distribution of sequences modulo 1',
+    ],
+    researchDirections: [
+      'entropy theory and the classification of measure-preserving systems up to isomorphism',
+      'ergodic Ramsey theory, using ergodic-theoretic methods to prove combinatorial results (Furstenberg\'s proof of Szemerédi\'s theorem)',
+      'ergodic theory of infinite-dimensional and non-commutative (quantum) dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Ergodic Theory',
+        authors: ['Peter Walters'],
+        year: 1982,
+        why: 'The standard graduate introduction, developing the ergodic theorems and entropy with full rigor.',
+      },
+      {
+        title: 'Ergodic Theory: With a View Towards Number Theory',
+        authors: ['Manfred Einsiedler', 'Thomas Ward'],
+        year: 2011,
+        why: 'A modern text connecting ergodic theory to concrete number-theoretic applications.',
+      },
+      {
+        title: 'Ergodic Theory and Information',
+        authors: ['Patrick Billingsley'],
+        year: 1965,
+        why: 'A classic treatment linking ergodic theory tightly to information theory and entropy.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Birkhoff's ergodic theorem", latex: '\\lim_{n\\to\\infty} \\frac{1}{n}\\sum_{k=0}^{n-1} f(T^k x) = \\int_X f\\,d\\mu \\ \\text{a.e.}' },
+      { label: 'Measure-preserving condition', latex: '\\mu(T^{-1}A) = \\mu(A) \\ \\forall A\\in\\mathcal{B}' },
+      { label: 'Ergodicity condition', latex: 'T^{-1}A = A \\implies \\mu(A)\\in\\{0,1\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ergodic theory', url: 'https://encyclopediaofmath.org/wiki/Ergodic_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Birkhoff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Birkhoff/', kind: 'reference' },
+      { label: 'MacTutor: Andrey Kolmogorov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kolmogorov/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:symbolic-dynamics': {
+    overview:
+      "Symbolic dynamics replaces a complicated continuous dynamical system with an equivalent, purely combinatorial one: an infinite sequence of symbols, and the simple operation of shifting that sequence one place. Remarkably, this trade often loses no information, letting hard questions about chaotic flows be answered by counting and combinatorics instead of analysis.",
+    formal:
+      'The full shift on $N$ symbols is the space $\\Sigma_N$ of bi-infinite sequences $(\\dots,s_{-1},s_0,s_1,\\dots)$ with each $s_i\\in\\{0,\\dots,N-1\\}$, together with the shift map $\\sigma(s)_i = s_{i+1}$. A dynamical system $(X,f)$ is topologically conjugate to a subshift if there is a homeomorphism $h:X\\to \\Sigma$ with $h\\circ f = \\sigma\\circ h$; Smale\'s horseshoe map is conjugate to the full shift on two symbols restricted to the invariant set of points that never leave the horseshoe under iteration.',
+    keyIdeas: [
+      'coding a trajectory as an infinite sequence of symbols recording which region of phase space it visits at each time step',
+      'the shift map as an exactly solvable model for arbitrarily complicated recurrent, chaotic behavior',
+      "Smale's horseshoe map, showing that a simple geometric stretching-and-folding operation is topologically conjugate to the full shift",
+      'topological Markov chains (subshifts of finite type), encoding which symbol sequences are dynamically admissible',
+      'counting periodic orbits and computing topological entropy directly from the combinatorics of admissible sequences',
+    ],
+    whyItMatters:
+      "Continuous dynamical systems can be bewilderingly hard to analyze directly, but Stephen Smale showed that many chaotic systems are topologically conjugate to a shift on symbols, meaning every dynamical question (how many periodic orbits of a given length exist? Is a given itinerary achievable?) becomes an exactly solvable combinatorics problem on sequences. This conjugacy is the rigorous mathematical explanation for why chaotic systems contain a dense set of periodic orbits and countably infinitely many distinct periodic behaviors, despite arising from smooth, low-dimensional equations.",
+    prerequisites: ['dynamical-systems:chaos', 'dynamical-systems:fixed-points'],
+    related: ['dynamical-systems:chaos', 'dynamical-systems:ergodic-theory', 'theoretical-cs:automata-theory'],
+    historicalContext:
+      "Jacques Hadamard used a primitive form of symbolic coding in 1898 to study geodesics on surfaces of negative curvature, and Marston Morse and Gustav Hedlund formalized symbolic dynamics as an independent subject in a foundational 1938 paper. The subject was transformed by Stephen Smale's 1960s discovery of the horseshoe map: struggling to understand the complicated dynamics near a homoclinic point (a phenomenon Poincaré had flagged as bewilderingly complex), Smale constructed an explicit geometric map — stretch, fold, and re-embed a square — and proved it was topologically conjugate to the full shift on two symbols, giving the first rigorous, fully understood model of chaotic dynamics and directly inspiring his Fields Medal-winning classification work in dynamical systems.",
+    contributorIds: ['person:stephen-smale'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the shift map $\\sigma$ on $\\Sigma_2$ has exactly $2^n$ periodic points of period dividing $n$, and use this to compute its topological entropy.',
+      "Describe Smale's horseshoe map geometrically (stretch, fold, intersect with the original square) and explain why iterating it indefinitely produces a Cantor set of surviving points.",
+      'Construct the topological Markov chain (transition matrix) encoding which two-symbol sequences are admissible for a given subshift of finite type.',
+    ],
+    applications: [
+      'information theory, where topological entropy of a symbolic system parallels Shannon entropy of a communication channel',
+      'data compression and coding theory, using subshifts of finite type (constrained coding) in magnetic and optical storage',
+      'theoretical computer science, connecting symbolic dynamics to automata theory and formal language recognition',
+      'celestial mechanics, using symbolic itineraries to catalog complex orbit types in the restricted three-body problem',
+    ],
+    researchDirections: [
+      'higher-dimensional and multidimensional symbolic dynamics (tiling spaces, cellular automata)',
+      'the classification of subshifts of finite type up to conjugacy, using tools from algebra and K-theory',
+      'symbolic dynamics as a computational tool for rigorously verifying chaos in specific physical models',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Symbolic Dynamics and Coding',
+        authors: ['Douglas Lind', 'Brian Marcus'],
+        edition: '2nd',
+        year: 2021,
+        why: 'The standard modern textbook, developing subshifts of finite type and their applications to coding theory.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: "Introduces Smale's horseshoe and symbolic coding accessibly as the rigorous backbone of chaos.",
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: "Covers the horseshoe map and its symbolic dynamics from the perspective of one of the theory's founders.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Shift map', latex: '\\sigma(s)_i = s_{i+1}' },
+      { label: 'Topological conjugacy', latex: 'h\\circ f = \\sigma\\circ h' },
+      { label: 'Topological entropy of the full N-shift', latex: 'h_{top}(\\sigma) = \\log N' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Symbolic dynamics', url: 'https://encyclopediaofmath.org/wiki/Symbolic_dynamics', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stephen Smale', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Smale/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -9356,6 +9769,9 @@ const personRows = [
   ['Rudolf Lipschitz', '1832-1903', 'Germany', 'differential-equations', 'the Lipschitz condition guaranteeing unique solutions to differential equations'],
   ['Emile Picard', '1856-1941', 'France', 'differential-equations', 'the Picard-Lindelof existence theorem via successive approximations'],
   ['Aleksandr Lyapunov', '1857-1918', 'Russia', 'differential-equations', 'the modern mathematical theory of the stability of motion'],
+  ['George David Birkhoff', '1884-1944', 'USA', 'dynamical-systems', "the ergodic theorem and proof of Poincare's last geometric theorem"],
+  ['Stephen Smale', '1930-', 'USA', 'dynamical-systems', 'the horseshoe map and the classification of higher-dimensional dynamical systems'],
+  ['Edward Lorenz', '1917-2008', 'USA', 'dynamical-systems', 'the Lorenz attractor and the discovery of deterministic chaos'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -9469,12 +9885,18 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:rudolf-lipschitz': ['differential-equations:existence-and-uniqueness'],
   'person:emile-picard': ['differential-equations:existence-and-uniqueness'],
   'person:aleksandr-lyapunov': ['differential-equations:stability'],
+  'person:george-david-birkhoff': ['dynamical-systems:ergodic-theory', 'dynamical-systems:fixed-points'],
+  'person:stephen-smale': ['dynamical-systems:symbolic-dynamics'],
+  'person:edward-lorenz': ['dynamical-systems:chaos'],
+  'person:benoit-mandelbrot': ['dynamical-systems:chaos'],
+  'person:mitchell-feigenbaum': ['dynamical-systems:bifurcations'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
     'probability:random-variables',
     'probability:law-of-large-numbers',
     'probability:markov-chains',
+    'dynamical-systems:ergodic-theory',
   ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
   'person:emmy-noether': [
@@ -9519,7 +9941,15 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
   'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
-  'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds', 'differential-equations:stability'],
+  'person:henri-poincare': [
+    'topology:homotopy',
+    'topology:homology',
+    'topology:manifolds',
+    'differential-equations:stability',
+    'dynamical-systems:phase-portraits',
+    'dynamical-systems:fixed-points',
+    'dynamical-systems:bifurcations',
+  ],
   'person:l-e-j-brouwer': [
     'foundations:constructive-mathematics',
     'foundations:foundational-programs',
@@ -9718,6 +10148,7 @@ const workRows = [
   ['Grundlagen fur eine allgemeine Theorie der Functionen einer veranderlichen complexen Grosse', 'Bernhard Riemann', 1851, 'complex-analysis', 'Riemanns doctoral dissertation, which introduced Riemann surfaces and the geometric approach to complex function theory.'],
   ['Theorie des operations lineaires', 'Stefan Banach', 1932, 'functional-analysis', 'The founding systematic treatise of functional analysis, naming and characterizing Banach spaces.'],
   ['An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism', 'George Green', 1828, 'differential-equations', "Introduced the potential function and Green's theorem, and implicitly the Green's function method for solving boundary value problems."],
+  ['Les methodes nouvelles de la mecanique celeste', 'Henri Poincare', 1892, 'dynamical-systems', 'Founded the qualitative theory of dynamical systems and contains the first mathematical description of chaotic behavior.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
@@ -9729,6 +10160,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse': ['complex-analysis:riemann-surfaces'],
   'work:theorie-des-operations-lineaires': ['functional-analysis:banach-spaces'],
   'work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism': ['differential-equations:green-functions'],
+  'work:les-methodes-nouvelles-de-la-mecanique-celeste': ['dynamical-systems:chaos'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
