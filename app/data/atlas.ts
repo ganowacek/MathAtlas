@@ -5454,6 +5454,4457 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'Wikipedia: William Lawvere', url: 'https://en.wikipedia.org/wiki/William_Lawvere', kind: 'encyclopedia' },
     ],
   },
+  'abstract-algebra:group-theory': {
+    overview:
+      'Group theory at this level studies the internal structure of groups themselves: how a group decomposes into smaller pieces via subgroups, quotients, and group actions, culminating in deep structural results like the Sylow theorems and, ultimately, the complete classification of the finite simple groups — the atomic building blocks from which every finite group is assembled.',
+    formal:
+      "For a finite group $G$ with $|G|=p^a m$, $p$ prime, $p\\nmid m$, the Sylow theorems guarantee: (1) $G$ has a subgroup of order $p^a$; (2) all Sylow $p$-subgroups are conjugate; (3) the number of Sylow $p$-subgroups is $\\equiv 1\\pmod p$ and divides $m$. The Jordan-Hölder theorem states that any two composition series of a finite group have the same length and the same composition factors up to order and isomorphism, making simple groups the unique 'prime factors' of any finite group.",
+    keyIdeas: [
+      'the Sylow theorems as the primary tool for understanding the subgroup structure of a finite group',
+      "composition series and the Jordan-Hölder theorem: simple groups as the unique building blocks of any finite group",
+      'solvable and nilpotent groups as generalizations of abelian groups built from simple pieces',
+      'group actions, orbit-stabilizer, and the class equation',
+      'the classification of finite simple groups as one of the largest collaborative theorems in mathematical history',
+    ],
+    whyItMatters:
+      "The Jordan-Hölder theorem shows that every finite group, however complicated, is built from a unique multiset of simple groups, reducing 'understanding all finite groups' to two hard problems: classify the simple groups, and understand how they can be assembled. The classification of finite simple groups, completed around 1983-2004, is arguably the largest single theorem ever proved, spanning tens of thousands of journal pages by hundreds of mathematicians.",
+    prerequisites: ['algebra:groups'],
+    related: ['abstract-algebra:representation-theory', 'lie-theory:semisimple-lie-algebras', 'graph-theory:spectral-graph-theory'],
+    historicalContext:
+      "Peter Ludwig Sylow proved his eponymous theorems in 1872, giving the first general tool for finding subgroups of a prescribed order inside an arbitrary finite group. Camille Jordan's Traité des substitutions (1870) and Otto Hölder's 1889 refinement established the Jordan-Hölder theorem on composition series. The 20th-century classification of finite simple groups, a collaborative effort involving over 100 mathematicians initiated by Richard Brauer and Daniel Gorenstein among others, was substantially advanced by Walter Feit and John Thompson's 1963 proof that every group of odd order is solvable, and was declared complete in outline by 1983, with the quasithin case gap finally closed by Michael Aschbacher and Stephen Smith in 2004.",
+    contributorIds: ['person:ludwig-sylow', 'person:camille-jordan', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Sylow theorems to show that every group of order 15 is cyclic.',
+      'Find a composition series for the symmetric group $S_4$ and identify its composition factors.',
+      'Explain, in outline, why the Feit-Thompson theorem was a crucial step toward the classification of finite simple groups.',
+    ],
+    applications: [
+      'cryptographic protocols relying on the structure of specific finite groups (elliptic curve groups, discrete-log groups)',
+      'crystallography and chemistry, classifying symmetry groups of crystal structures',
+      'coding theory, using specific finite simple groups (e.g. Mathieu groups) to construct highly efficient error-correcting codes',
+    ],
+    researchDirections: [
+      'ongoing simplification and re-verification of the classification of finite simple groups proof',
+      'the study of infinite and profinite groups using structural techniques inspired by the finite case',
+      'computational group theory algorithms (GAP, Magma) for working with extremely large finite groups',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Covers the Sylow theorems, composition series, and solvable groups with extensive worked examples.',
+      },
+      {
+        title: 'Finite Group Theory',
+        authors: ['I. Martin Isaacs'],
+        year: 2008,
+        why: 'A standard graduate text going well beyond Sylow theory into the deeper structural results needed for the classification.',
+      },
+      {
+        title: 'A Course in the Theory of Groups',
+        authors: ['Derek J. S. Robinson'],
+        edition: '2nd',
+        year: 1996,
+        why: 'A comprehensive graduate reference covering both finite and infinite group theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Sylow's theorem (existence)", latex: '|G| = p^a m,\\ p\\nmid m \\implies \\exists H \\le G,\\ |H| = p^a' },
+      { label: "Jordan-Hölder theorem", latex: '\\text{composition factors of } G \\text{ are unique up to order and isomorphism}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Simple group', url: 'https://encyclopediaofmath.org/wiki/Simple_group', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ludwig Sylow', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylow/', kind: 'reference' },
+      { label: 'MacTutor: Camille Jordan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Jordan/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:ring-theory': {
+    overview:
+      'Ring theory at this level studies noncommutative and structurally intricate rings — matrix rings, group rings, division rings — through their modules and ideal structure, extending far beyond the commutative rings of elementary number theory into a theory with its own rich structural classification.',
+    formal:
+      'The Jacobson radical $J(R)$ of a ring $R$ is the intersection of all maximal left ideals, and $R$ is semisimple if $J(R)=0$ and $R$, as a module over itself, is a direct sum of simple modules. The Artin-Wedderburn theorem classifies semisimple rings completely: every semisimple ring is isomorphic to a finite product of matrix rings over division rings, $R\\cong M_{n_1}(D_1)\\times\\cdots\\times M_{n_k}(D_k)$. A ring is left Artinian if it satisfies the descending chain condition on left ideals; every Artinian ring modulo its Jacobson radical is semisimple.',
+    keyIdeas: [
+      'the Jacobson radical as the ring-theoretic obstruction to semisimplicity',
+      'the Artin-Wedderburn theorem: semisimple rings are exactly finite products of matrix rings over division rings',
+      'Noetherian versus Artinian chain conditions, and their role in structure theory',
+      'group rings as a bridge between ring theory and representation theory',
+      'division rings and noncommutative analogues of fields',
+    ],
+    whyItMatters:
+      "The Artin-Wedderburn theorem is the ring-theoretic analogue of the classification of finite simple groups — a complete structural description of an entire class of rings — and it directly explains why representation theory works the way it does, since the semisimplicity of a group algebra $\\mathbb{C}[G]$, guaranteed by Maschke's theorem, is exactly what Artin-Wedderburn needs to decompose it into matrix blocks corresponding to irreducible representations.",
+    prerequisites: ['algebra:rings'],
+    related: ['abstract-algebra:representation-theory', 'commutative-algebra:noetherian-rings', 'abstract-algebra:homological-algebra'],
+    historicalContext:
+      'Joseph Wedderburn classified semisimple algebras over a field in his 1907 paper "On Hypercomplex Numbers," building on earlier structural work by Theodor Molien and Élie Cartan on associative algebras. Emil Artin generalized Wedderburn\'s theorem from finite-dimensional algebras to the more general Artinian rings in 1927, giving the theorem its modern form and name. Emmy Noether\'s contemporaneous 1920s work established the general chain-condition framework, Noetherian and, by extension, Artinian rings, within which Artin\'s generalization naturally sits.',
+    contributorIds: ['person:emil-artin', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the ring of $n\\times n$ matrices over a field is simple, and identify its unique simple module.',
+      "Show that the group algebra $\\mathbb{C}[G]$ of a finite group $G$ is semisimple, using Maschke's theorem, and connect this to the Artin-Wedderburn decomposition.",
+      'Give an example of a Noetherian ring that is not Artinian, and explain which chain condition fails.',
+    ],
+    applications: [
+      'representation theory, where the semisimplicity of group algebras underlies the decomposition-into-irreducibles framework',
+      'coding theory, using group rings and their idempotents to construct and analyze codes',
+      'noncommutative algebraic geometry, extending geometric intuition to noncommutative rings via their module categories',
+    ],
+    researchDirections: [
+      'noncommutative Noetherian ring theory and its geometric applications',
+      'the representation theory of Artin algebras and quiver representations',
+      'ring-theoretic methods in operator algebras and noncommutative geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives an accessible route into Artinian and semisimple rings before more specialized noncommutative texts.',
+      },
+      {
+        title: 'A First Course in Noncommutative Rings',
+        authors: ['T. Y. Lam'],
+        edition: '2nd',
+        year: 2001,
+        why: 'The standard graduate text for the Jacobson radical, Artin-Wedderburn, and noncommutative ring structure theory.',
+      },
+      {
+        title: 'Noncommutative Rings',
+        authors: ['I. N. Herstein'],
+        year: 1968,
+        why: 'A concise classic that remains a widely recommended entry point into structural ring theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Artin-Wedderburn theorem', latex: 'R \\cong M_{n_1}(D_1)\\times\\cdots\\times M_{n_k}(D_k)' },
+      { label: 'Jacobson radical', latex: 'J(R) = \\bigcap \\{\\text{maximal left ideals of } R\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ring', url: 'https://encyclopediaofmath.org/wiki/Ring', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:field-theory': {
+    overview:
+      'Field theory at this level extends the study of field extensions into finer structural questions — separability, normality, transcendence degree, and the classification of fields with extra structure such as orderings or valuations — providing the technical foundation beneath Galois theory, algebraic geometry, and algebraic number theory alike.',
+    formal:
+      'An extension $K/F$ is separable if the minimal polynomial of every element of $K$ over $F$ has no repeated roots, automatic in characteristic 0. It is normal if it is the splitting field of a family of polynomials over $F$. A finitely generated field extension $K/F$ has a well-defined transcendence degree, the size of a maximal algebraically independent subset. Artin-Schreier theory classifies finite extensions of a field $F$ fixed by an automorphism group of prime order $p$ in terms of solutions to $x^p-x=a$.',
+    keyIdeas: [
+      'separable and normal extensions as the two conditions defining a Galois extension',
+      'transcendence degree as a notion of "dimension" for arbitrary field extensions',
+      'perfect fields, where every algebraic extension is automatically separable',
+      'formally real and ordered fields, and their role in real algebraic geometry',
+      'valued fields and completions, generalizing the construction of the p-adic numbers',
+    ],
+    whyItMatters:
+      'The finer distinctions of modern field theory — separability failing only in positive characteristic, transcendence degree measuring the size of function fields — are exactly what is needed to make Galois theory, algebraic geometry, and algebraic number theory work correctly over fields other than the rationals, reals, and complexes, including the finite and function fields central to modern cryptography and arithmetic geometry.',
+    prerequisites: ['algebra:fields'],
+    related: ['abstract-algebra:galois-theory', 'number-theory:algebraic-number-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      "Ernst Steinitz's 1910 paper Algebraische Theorie der Körper gave the first fully general axiomatic theory of fields, including the classification of fields by characteristic, the notion of a perfect field, and transcendence degree. Emil Artin and Otto Schreier's 1927 theory of formally real fields characterized exactly which fields can be ordered, and Artin resolved Hilbert's seventeenth problem on positive polynomials shortly afterward. Wolfgang Krull's 1930s work on valuation theory and Artin's later reformulation of Galois theory in his Notre Dame lecture notes rounded out the modern structural theory of fields.",
+    contributorIds: ['person:ernst-steinitz', 'person:emil-artin'],
+    workIds: [],
+    exampleProblems: [
+      'Give an example of an inseparable field extension in characteristic $p$, and explain why this cannot happen in characteristic 0.',
+      'Compute the transcendence degree of the field of rational functions $F(x,y)$ over $F$.',
+      'Explain what it means for a field to be formally real, and give an example of a field that is not.',
+    ],
+    applications: [
+      'finite field arithmetic (automatically separable) underlying coding theory and cryptography',
+      'function fields of algebraic curves in arithmetic geometry, where transcendence degree measures dimension',
+      'real algebraic geometry and semialgebraic sets, built on ordered and formally real fields',
+    ],
+    researchDirections: [
+      'the model theory of valued and ordered fields, such as the p-adics and real closed fields',
+      'higher-dimensional local fields and their arithmetic, extending classical valuation theory',
+      'the arithmetic of function fields over finite fields, paralleling number fields',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Covers separability, normality, and transcendence degree thoroughly before Galois theory itself.',
+      },
+      {
+        title: 'Field and Galois Theory',
+        authors: ['Patrick Morandi'],
+        year: 1996,
+        why: 'A dedicated, well-regarded text on the finer structural theory of fields.',
+      },
+      {
+        title: 'Algebra',
+        authors: ['Serge Lang'],
+        edition: '3rd',
+        year: 2002,
+        why: 'A comprehensive graduate reference with a thorough treatment of valuations and formally real fields.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Transcendence degree', latex: '\\text{trdeg}_F(K) = |\\{\\text{maximal algebraically independent subset}\\}|' },
+      { label: 'Artin-Schreier equation', latex: 'x^p - x = a' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Field', url: 'https://encyclopediaofmath.org/wiki/Field', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Steinitz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Steinitz/', kind: 'reference' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:galois-theory': {
+    overview: "Galois theory at this level develops the full Fundamental Theorem of Galois Theory in Emil Artin's automorphism-group formulation, and pushes it toward its modern applications: solvability by radicals, explicit computation of Galois groups, and the far-reaching inverse Galois problem.",
+    formal:
+      'For a finite Galois extension $K/F$, $\\text{Gal}(K/F)=\\text{Aut}(K/F)$ has order $[K:F]$, and there is an inclusion-reversing bijection between subgroups $H\\le\\text{Gal}(K/F)$ and intermediate fields $F\\subseteq E\\subseteq K$, given by $H\\mapsto K^H$ and $E\\mapsto\\text{Gal}(K/E)$. A polynomial is solvable by radicals over $F$ if and only if its Galois group is solvable; since $S_5$ is not solvable, the general quintic is not solvable by radicals.',
+    keyIdeas: [
+      "the Fundamental Theorem of Galois Theory in Artin's automorphism-group formulation",
+      'solvability by radicals as exactly equivalent to solvability of the Galois group',
+      'computing Galois groups of specific polynomials via resolvents and reduction mod p',
+      'the inverse Galois problem: which finite groups occur as Galois groups over $\\mathbb{Q}$',
+      "Galois's original insight reformulated: symmetry among a polynomial's roots controls solvability",
+    ],
+    whyItMatters:
+      'The Fundamental Theorem of Galois Theory converts a hard algebraic question — can this equation be solved by a formula? — into a purely group-theoretic question — is this group solvable? — and this translation between two very different-looking areas of mathematics is one of the most productive correspondences in the subject, inspiring parallel "Galois-theoretic" correspondences throughout modern mathematics.',
+    prerequisites: ['abstract-algebra:field-theory'],
+    related: ['algebra:fields', 'number-theory:algebraic-number-theory', 'abstract-algebra:group-theory'],
+    historicalContext:
+      "Évariste Galois's 1831 memoir first connected solvability by radicals to a group of permutations of a polynomial's roots, but his original formulation was difficult and not widely understood for decades. Emil Artin's reformulation in his 1938-44 lecture notes, published as Galois Theory (1944), recast the theory in terms of automorphism groups of field extensions and fixed fields, giving the clean, modern Fundamental Theorem still taught today. The still-open inverse Galois problem, posed implicitly by Hilbert around 1892 and made precise by Emmy Noether in 1918, continues to drive research connecting Galois theory to number theory and group theory.",
+    contributorIds: ['person:evariste-galois', 'person:emil-artin'],
+    workIds: ['work:memoire-sur-les-conditions-de-resolubilite-des-equations-par-radicaux'],
+    exampleProblems: [
+      'Compute the Galois group of $x^4-5x^2+6$ over $\\mathbb{Q}$ and identify all intermediate fields via the Galois correspondence.',
+      'Show that $S_5$ is not a solvable group, and use this to explain why the general quintic is not solvable by radicals.',
+      'Explain, at a high level, what the inverse Galois problem asks and why it remains open in general.',
+    ],
+    applications: [
+      'explicit computation of Galois groups in computer algebra systems, used in algorithmic number theory',
+      'cryptographic constructions relying on field extensions and their automorphism groups',
+      'the resolution of classical construction and solvability problems inherited from 19th-century algebra',
+    ],
+    researchDirections: [
+      "the inverse Galois problem, resolved for many specific classes of groups (e.g. solvable groups, by Shafarevich) but open in general",
+      "the Langlands program's vast generalization of the correspondence between Galois representations and automorphic forms",
+      'explicit and computational Galois theory for polynomials of high degree',
+    ],
+    textbooks: [
+      {
+        title: 'Abstract Algebra',
+        authors: ['David S. Dummit', 'Richard M. Foote'],
+        edition: '3rd',
+        year: 2004,
+        why: 'Gives a thorough advanced treatment of the Fundamental Theorem and its applications to solvability.',
+      },
+      {
+        title: 'Galois Theory',
+        authors: ['Emil Artin'],
+        year: 1944,
+        why: "The original lecture notes that gave the theory its modern automorphism-group formulation, still influential and in print.",
+      },
+      {
+        title: 'Galois Theory',
+        authors: ['Ian Stewart'],
+        edition: '4th',
+        year: 2015,
+        why: 'A consistently recommended dedicated text spanning classical results through the inverse Galois problem.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fundamental Theorem of Galois Theory', latex: '\\{\\text{subgroups}\\} \\longleftrightarrow \\{\\text{intermediate fields}\\}' },
+      { label: 'Solvability by radicals criterion', latex: 'f \\text{ solvable by radicals} \\iff \\text{Gal}(f) \\text{ is a solvable group}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Galois theory', url: 'https://en.wikipedia.org/wiki/Galois_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Évariste Galois', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Galois/', kind: 'reference' },
+      { label: 'MacTutor: Emil Artin', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Artin/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:homological-algebra': {
+    overview:
+      'Homological algebra studies exact sequences, chain complexes, and the derived functors Ext and Tor that measure the failure of otherwise well-behaved operations, like Hom and tensor product, to preserve exactness, turning obstructions throughout algebra and geometry into computable algebraic invariants.',
+    formal:
+      'A sequence of module homomorphisms $\\cdots\\to M_{n-1}\\to M_n\\to M_{n+1}\\to\\cdots$ is exact if the image of each map equals the kernel of the next. Given a short exact sequence $0\\to A\\to B\\to C\\to 0$, applying $\\text{Hom}(-,N)$ or $-\\otimes N$ generally fails to preserve exactness; the derived functors $\\text{Ext}^n(C,N)$ and $\\text{Tor}_n(C,N)$ measure this failure precisely, fitting into long exact sequences. Both are computed via projective or injective resolutions and are independent of the resolution chosen, up to canonical isomorphism.',
+    keyIdeas: [
+      'exact sequences as the basic bookkeeping device of homological algebra',
+      'Ext and Tor as derived functors measuring the failure of Hom and tensor product to preserve exactness',
+      'projective and injective resolutions as the computational tool for defining derived functors',
+      'long exact sequences relating the homology of an exact sequence of complexes',
+      'homological algebra as the common computational engine behind group cohomology, sheaf cohomology, and algebraic K-theory',
+    ],
+    whyItMatters:
+      'Ext and Tor turn obstruction questions across mathematics — does this extension of groups split? does this module decompose as a direct sum? — into concrete, computable algebraic invariants, which is why homological algebra, originally developed to organize algebraic topology, became indispensable throughout modern algebra, algebraic geometry, and number theory.',
+    prerequisites: ['abstract-algebra:ring-theory'],
+    related: ['topology:homology', 'algebraic-geometry:sheaves', 'category-theory:limits-and-colimits'],
+    historicalContext:
+      "Homological ideas emerged from algebraic topology in the 1930s-40s, particularly in the work of Heinz Hopf and Beno Eckmann on group cohomology. Henri Cartan and Samuel Eilenberg's landmark textbook Homological Algebra (1956) first systematically extracted the algebraic core of these topological techniques, defining Ext and Tor via projective and injective resolutions in complete generality. Alexander Grothendieck's 1957 'Tôhoku paper' then recast the entire theory in the language of abelian categories, generalizing it far beyond modules over a ring to sheaves and other settings essential for modern algebraic geometry.",
+    contributorIds: ['person:henri-cartan', 'person:samuel-eilenberg'],
+    workIds: ['work:homological-algebra'],
+    exampleProblems: [
+      'Compute $\\text{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/n\\mathbb{Z}, \\mathbb{Z})$ using a projective resolution, and interpret the result in terms of group extensions.',
+      'Show that $\\text{Tor}_1(\\mathbb{Z}/m\\mathbb{Z}, \\mathbb{Z}/n\\mathbb{Z})$ is nonzero exactly when $\\gcd(m,n)>1$, and interpret this in terms of torsion.',
+      'Derive the long exact sequence in Ext associated to a short exact sequence of modules, explaining where each connecting map comes from.',
+    ],
+    applications: [
+      'group cohomology, classifying group extensions and computing invariants in algebraic number theory (Galois cohomology)',
+      'sheaf cohomology in algebraic geometry, computing global sections and obstructions on varieties and schemes',
+      'algebraic K-theory and its applications to topology and number theory',
+    ],
+    researchDirections: [
+      'derived categories and triangulated categories as the modern organizing framework for homological algebra',
+      'spectral sequences for computing homology in increasingly complex settings',
+      'the interaction between homological algebra and homotopy theory in modern derived algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Homological Algebra',
+        authors: ['Charles A. Weibel'],
+        year: 1994,
+        why: 'The modern standard graduate text, covering derived functors through spectral sequences and derived categories.',
+      },
+      {
+        title: 'Homological Algebra',
+        authors: ['Henri Cartan', 'Samuel Eilenberg'],
+        year: 1956,
+        why: 'The founding text that first systematized Ext and Tor via projective and injective resolutions.',
+      },
+      {
+        title: 'A Course in Homological Algebra',
+        authors: ['Peter J. Hilton', 'Urs Stammbach'],
+        edition: '2nd',
+        year: 1997,
+        why: 'A widely used, more gradual introduction before tackling Weibel\'s comprehensive text.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Exactness', latex: '\\text{im}(f_{n-1}) = \\ker(f_n)' },
+      { label: 'Long exact sequence in Ext', latex: '0\\to \\text{Hom}(C,N)\\to \\text{Hom}(B,N)\\to \\text{Hom}(A,N)\\to \\text{Ext}^1(C,N)\\to \\cdots' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Homological algebra', url: 'https://encyclopediaofmath.org/wiki/Homological_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan_Henri/', kind: 'reference' },
+      { label: 'MacTutor: Samuel Eilenberg', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Eilenberg/', kind: 'reference' },
+    ],
+  },
+  'abstract-algebra:representation-theory': {
+    overview:
+      'Representation theory at this level studies modules over group algebras and other associative algebras systematically, unifying the character-theoretic study of finite groups with the broader machinery of ring and module theory, and extending naturally into the modular case where the classical theory breaks down.',
+    formal:
+      'A representation of a group $G$ over a field $F$ is equivalent to a module over the group algebra $F[G]$. When $\\text{char}(F)$ does not divide $|G|$, Maschke\'s theorem makes $F[G]$ semisimple, so by the Artin-Wedderburn theorem $F[G]\\cong\\prod_i M_{n_i}(D_i)$. When $\\text{char}(F)$ divides $|G|$ (the modular case), $F[G]$ is no longer semisimple, and modular representation theory instead studies its indecomposable modules and the block decomposition of $F[G]$ (Brauer\'s theory).',
+    keyIdeas: [
+      'representations as modules over the group algebra $F[G]$',
+      "the ordinary case (Maschke's theorem, Artin-Wedderburn) versus the modular case, where characteristic divides the group order",
+      'Brauer characters and block theory in modular representation theory',
+      'induced and restricted representations relating a group to its subgroups',
+      'representation theory of associative algebras more generally, via quivers and their representations',
+    ],
+    whyItMatters:
+      'Recasting representation theory in module-theoretic language is what let mathematicians extend it into modular representation theory, needed whenever the relevant characteristic divides the group order — a case central to the classification of finite simple groups, where modular representation-theoretic techniques, developed largely by Richard Brauer, were indispensable.',
+    prerequisites: ['abstract-algebra:homological-algebra'],
+    related: ['algebra:representations', 'lie-theory:representation-of-lie-groups', 'abstract-algebra:group-theory'],
+    historicalContext:
+      "Ferdinand Georg Frobenius founded ordinary character theory in 1896, and Emmy Noether's 1929 paper Hyperkomplexe Grössen und Darstellungstheorie recast representation theory explicitly in terms of modules over the group algebra, unifying it with the general theory of associative algebras developed by Wedderburn and Artin. Richard Brauer, starting in the 1930s and continuing for decades, developed modular representation theory essentially from scratch, including Brauer characters and block theory, motivated in large part by their eventual indispensable role in the classification of finite simple groups.",
+    contributorIds: ['person:ferdinand-georg-frobenius', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $F[G]$ is semisimple when $\\text{char}(F)$ does not divide $|G|$, using an averaging argument (a proof of Maschke\'s theorem).',
+      'Give an example of a representation of a cyclic group in characteristic $p$ dividing the group order that is indecomposable but not irreducible.',
+      'Explain the basic idea of Brauer characters and why they are needed once ordinary character theory breaks down.',
+    ],
+    applications: [
+      "modular representation theory's essential role in the classification of finite simple groups",
+      'representation theory of algebraic groups and Lie algebras, extending the finite-group case',
+      'quiver representations in the representation theory of algebras, with applications to cluster algebras and mathematical physics',
+    ],
+    researchDirections: [
+      'the representation theory of finite groups of Lie type, connecting to Deligne-Lusztig theory',
+      'categorification, lifting representation-theoretic identities to the level of categories',
+      'geometric representation theory, using algebraic geometry (perverse sheaves, geometric Satake) to study representations',
+    ],
+    textbooks: [
+      {
+        title: 'Representation Theory of Finite Groups and Associative Algebras',
+        authors: ['Charles W. Curtis', 'Irving Reiner'],
+        year: 1962,
+        why: 'The classic advanced reference unifying group representation theory with the theory of associative algebras.',
+      },
+      {
+        title: 'Linear Representations of Finite Groups',
+        authors: ['Jean-Pierre Serre'],
+        year: 1977,
+        why: 'The standard compact reference, including a chapter bridging to the module-theoretic viewpoint.',
+      },
+      {
+        title: 'Representation Theory: A First Course',
+        authors: ['William Fulton', 'Joe Harris'],
+        year: 1991,
+        why: 'Extends naturally from finite groups toward Lie groups and Lie algebras with the same module-theoretic language.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Representation as a module', latex: '\\rho: G \\to GL(V) \\ \\leftrightarrow\\ V \\text{ an } F[G]\\text{-module}' },
+      { label: 'Artin-Wedderburn for the group algebra', latex: 'F[G] \\cong \\prod_i M_{n_i}(D_i) \\quad (\\text{char}(F) \\nmid |G|)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Representation theory', url: 'https://encyclopediaofmath.org/wiki/Representation_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ferdinand Georg Frobenius', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frobenius/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:ideals': {
+    overview:
+      'An ideal is a special subset of a ring that behaves like a "multiple of a number," absorbing multiplication by any ring element. Ideals are exactly the objects whose quotients make sense, generalizing modular arithmetic and unique factorization to arbitrary commutative rings.',
+    formal:
+      'An ideal $I$ of a commutative ring $R$ is an additive subgroup with $rI\\subseteq I$ for all $r\\in R$. $I$ is prime if $R/I$ is an integral domain, and maximal if $R/I$ is a field. Every maximal ideal is prime, and in a Noetherian ring every ideal contains a product of finitely many prime ideals. The set of prime ideals of $R$, with the Zariski topology, forms the spectrum $\\text{Spec}(R)$, the geometric object underlying $R$ in modern algebraic geometry.',
+    keyIdeas: [
+      'ideals as the kernels of ring homomorphisms, generalizing normal subgroups',
+      'prime ideals (quotient is a domain) versus maximal ideals (quotient is a field)',
+      'the correspondence theorem: ideals of $R/I$ correspond to ideals of $R$ containing $I$',
+      'the spectrum $\\text{Spec}(R)$: prime ideals as the "points" of a ring, viewed geometrically',
+      'ideals as the mechanism restoring unique factorization where elements fail to factor uniquely',
+    ],
+    whyItMatters:
+      "Reinterpreting a ring's prime ideals as \"points\" of a geometric space, its spectrum, is the single idea that lets algebraic geometry and commutative algebra become two languages for the same subject, so a ring-theoretic fact about ideals translates directly into a geometric fact about the corresponding variety or scheme.",
+    prerequisites: [],
+    related: ['algebra:rings', 'algebraic-geometry:affine-varieties', 'commutative-algebra:noetherian-rings'],
+    historicalContext:
+      "Richard Dedekind introduced ideals in the 1870s specifically to repair unique factorization in rings of algebraic integers, and David Hilbert's Nullstellensatz (1893) established the precise dictionary between ideals of a polynomial ring and algebraic varieties, the seed of modern algebraic geometry. Emmy Noether's 1921 paper Idealtheorie in Ringbereichen then reformulated ideal theory abstractly for general Noetherian commutative rings, and Alexander Grothendieck's 1960s work on schemes completed the geometric reinterpretation by defining $\\text{Spec}(R)$ as a fully general geometric object attached to any commutative ring.",
+    contributorIds: ['person:richard-dedekind', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the ideal $(x)$ is prime but not maximal in $\\mathbb{Z}[x]$, by identifying the quotient ring.',
+      'Prove that every maximal ideal is prime, using the correspondence between ideals and quotient rings.',
+      'Describe $\\text{Spec}(\\mathbb{Z})$ as a topological space: what are its points, and which are closed?',
+    ],
+    applications: [
+      'algebraic geometry, where ideals of polynomial rings correspond to algebraic varieties via the Nullstellensatz',
+      'algebraic number theory, where prime ideals generalize prime numbers in rings of integers',
+      'Gröbner basis computation in computer algebra, giving an algorithmic handle on ideals in polynomial rings',
+    ],
+    researchDirections: [
+      'the theory of schemes, generalizing $\\text{Spec}(R)$ to glue together geometric spaces from rings',
+      'tropical geometry and its combinatorial reinterpretation of ideal-theoretic data',
+      'computational commutative algebra and Gröbner basis algorithms for large polynomial systems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'The classic, famously concise standard text that essentially every algebraic geometer and commutative algebraist learns from.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'A standard graduate reference offering more detail and generality than Atiyah-Macdonald.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'A comprehensive modern text explicitly connecting ideal theory to its geometric meaning throughout.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Ideal absorption property', latex: 'r \\in R,\\ x \\in I \\implies rx \\in I' },
+      { label: 'Prime ideal criterion', latex: 'ab \\in \\mathfrak{p} \\implies a \\in \\mathfrak{p} \\text{ or } b \\in \\mathfrak{p}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Maximal ideal', url: 'https://encyclopediaofmath.org/wiki/Maximal_ideal', kind: 'encyclopedia' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:noetherian-rings': {
+    overview:
+      'A Noetherian ring is one in which every ideal is finitely generated — equivalently, every ascending chain of ideals eventually stabilizes — a single finiteness condition that turns out to be exactly what is needed to make ideal theory, dimension theory, and much of algebraic geometry work smoothly.',
+    formal:
+      "A ring $R$ is Noetherian if it satisfies the ascending chain condition on ideals: every chain $I_1\\subseteq I_2\\subseteq\\cdots$ stabilizes, equivalently every ideal is finitely generated. Hilbert's Basis Theorem: if $R$ is Noetherian, then $R[x]$ is also Noetherian, so $F[x_1,\\ldots,x_n]$ is Noetherian for any field $F$. Every Noetherian ring is a Lasker ring: every ideal decomposes as a finite intersection of primary ideals.",
+    keyIdeas: [
+      'the ascending chain condition as equivalent to finite generation of every ideal',
+      "Hilbert's Basis Theorem: polynomial rings over Noetherian rings are Noetherian",
+      'the Lasker-Noether theorem: primary decomposition holds in every Noetherian ring',
+      'Noetherian induction as a proof technique exploiting the chain condition',
+      "Noetherian rings as the natural setting for algebraic geometry's coordinate rings",
+    ],
+    whyItMatters:
+      "Without the Noetherian condition, an ideal could require infinitely many generators and computations could genuinely never terminate. Hilbert's Basis Theorem guarantees that the coordinate rings of algebraic varieties are always Noetherian, which is precisely why classical and modern algebraic geometry can rely on finiteness throughout.",
+    prerequisites: ['commutative-algebra:ideals'],
+    related: ['commutative-algebra:primary-decomposition', 'commutative-algebra:dimension-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      "David Hilbert proved his Basis Theorem in 1888 while studying invariant theory, showing, to some contemporaries' initial dismay since the proof was non-constructive, that rings of invariants are always finitely generated. Emmy Noether's 1921 paper Idealtheorie in Ringbereichen isolated the ascending chain condition as the essential abstract hypothesis behind Hilbert's finiteness results, and proved the general primary decomposition theorem for what are now called Noetherian rings in her honor, building on Emanuel Lasker's earlier 1905 special case for polynomial rings.",
+    contributorIds: ['person:emmy-noether', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Prove Hilbert\'s Basis Theorem: if $R$ is Noetherian, then $R[x]$ is Noetherian.',
+      'Give an example of a non-Noetherian ring, and exhibit an infinite strictly ascending chain of ideals in it.',
+      'Show that a ring is Noetherian if and only if every nonempty collection of ideals has a maximal element.',
+    ],
+    applications: [
+      'algebraic geometry, where coordinate rings of varieties are Noetherian, guaranteeing finiteness of defining equations',
+      'Gröbner basis algorithms, which terminate precisely because polynomial rings are Noetherian',
+      "invariant theory, where Hilbert's original finiteness theorem guarantees finitely many generating invariants",
+    ],
+    researchDirections: [
+      "non-Noetherian commutative algebra and its use in valuation theory and arithmetic geometry",
+      "the study of Noetherian rings of infinite Krull dimension (Nagata's examples)",
+      'computational aspects of Noetherian induction in computer algebra systems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise proof of Hilbert\'s Basis Theorem and the basic theory of Noetherian rings.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops Noetherian ring theory in full generality with an eye toward its use in algebraic geometry.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Connects the finiteness of Noetherian rings directly to computational and geometric applications.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Ascending chain condition', latex: 'I_1 \\subseteq I_2 \\subseteq \\cdots \\implies \\exists N:\\ I_n = I_N\\ \\forall n \\ge N' },
+      { label: "Hilbert's Basis Theorem", latex: 'R \\text{ Noetherian} \\implies R[x] \\text{ Noetherian}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Hilbert theorem', url: 'https://encyclopediaofmath.org/wiki/Hilbert_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:localization': {
+    overview:
+      'Localization formally "inverts" a chosen set of ring elements, letting mathematicians zoom in on the local behavior of a ring near a prime ideal in exactly the way a fraction like 1/2 only makes sense once division is allowed. It is the algebraic tool that makes "looking at one point at a time" precise.',
+    formal:
+      'For a multiplicative set $S\\subseteq R$ (closed under products, containing 1), the localization $S^{-1}R$ consists of formal fractions $r/s$ with the usual arithmetic, characterized by the universal property that it is the initial ring in which every element of $S$ becomes invertible. Localizing at the complement of a prime ideal $\\mathfrak{p}$, written $R_\\mathfrak{p}$, produces a local ring with a unique maximal ideal, letting properties of $R$ be checked one prime at a time.',
+    keyIdeas: [
+      'localization as formally inverting a multiplicative set of ring elements',
+      'the universal property characterizing $S^{-1}R$ uniquely',
+      'local rings, obtained by localizing at a prime, having a unique maximal ideal',
+      'exactness of localization: it preserves exact sequences, making it a very well-behaved operation',
+      'local-to-global principles: many properties of a ring can be checked one prime at a time',
+    ],
+    whyItMatters:
+      'Localization is what lets algebraists and geometers study a ring "near one point," analogous to how a physicist might study a system near one location without worrying about the whole space, and this local-to-global philosophy is one of the most productive organizing principles in modern algebra and geometry.',
+    prerequisites: ['commutative-algebra:noetherian-rings'],
+    related: ['commutative-algebra:dimension-theory', 'algebraic-geometry:schemes', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "The idea of forming a field of fractions goes back implicitly to constructing the rationals from the integers, but the general ring-theoretic localization construction was developed in the 1920s-30s, particularly by Wolfgang Krull, as part of his broader program to build ideal theory and dimension theory for general commutative rings. Localization became indispensable once Oscar Zariski and later Jean-Pierre Serre and Alexander Grothendieck built algebraic geometry directly on commutative rings in the 1940s-60s, since the local ring at a point of a variety captures exactly its local geometric behavior.",
+    contributorIds: ['person:wolfgang-krull'],
+    workIds: [],
+    exampleProblems: [
+      'Construct the localization of $\\mathbb{Z}$ at the prime $(p)$, and identify its unique maximal ideal.',
+      'Show that localization is an exact functor by verifying it preserves a short exact sequence of modules.',
+      'Explain why a ring is an integral domain if and only if $0$ is a prime ideal, and describe its localization at $0$.',
+    ],
+    applications: [
+      'algebraic geometry, where the local ring at a point of a variety encodes its local behavior (smoothness, singularities)',
+      'algebraic number theory, where localizing at a prime produces local-global principles',
+      'commutative algebra\'s local-to-global techniques for verifying ring-theoretic properties',
+    ],
+    researchDirections: [
+      'completions of local rings and their role in deformation theory',
+      'the interaction between localization and homological invariants (local cohomology)',
+      'rigid and adic geometry, extending localization ideas to non-archimedean settings',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise treatment of localization and its universal property.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops local rings and localization in the depth needed for serious commutative algebra.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Connects localization explicitly to its geometric meaning at points of a variety.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Localization', latex: 'S^{-1}R = \\{r/s : r \\in R,\\ s \\in S\\}' },
+      { label: 'Local ring at a prime', latex: 'R_{\\mathfrak{p}} = (R\\setminus\\mathfrak{p})^{-1}R' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Localization in a commutative algebra', url: 'https://encyclopediaofmath.org/wiki/Localization_in_a_commutative_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: Wolfgang Krull', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Krull/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:primary-decomposition': {
+    overview:
+      'Primary decomposition generalizes the factorization of an integer into prime powers to ideals in any Noetherian ring, expressing every ideal as a finite intersection of "primary" ideals, each concentrated around a single prime, even when the ring itself lacks unique factorization of elements.',
+    formal:
+      'An ideal $Q$ is primary if $Q\\neq R$ and $xy\\in Q$ implies $x\\in Q$ or $y^n\\in Q$ for some $n$; the radical of a primary ideal is always prime. The Lasker-Noether theorem states that every ideal $I$ in a Noetherian ring can be written as a finite intersection $I=Q_1\\cap\\cdots\\cap Q_k$ of primary ideals; while the decomposition is not unique in general, the associated primes are uniquely determined by $I$ when the decomposition is irredundant.',
+    keyIdeas: [
+      'primary ideals as the correct generalization of prime-power factorization to ideals',
+      'the Lasker-Noether theorem: every ideal in a Noetherian ring is a finite intersection of primary ideals',
+      'associated primes as the well-defined invariants of a primary decomposition, even when the decomposition itself is not unique',
+      'embedded versus isolated (minimal) associated primes',
+      "primary decomposition's geometric meaning: decomposing a variety into its irreducible components, with multiplicity",
+    ],
+    whyItMatters:
+      'Primary decomposition is the precise algebraic tool underlying the geometric fact that a variety defined by several equations typically breaks up into several irreducible pieces, some possibly with multiplicity, and this decomposition is exactly how algebraic geometers make sense of "the zero set of these equations" when it is not itself irreducible.',
+    prerequisites: ['commutative-algebra:noetherian-rings'],
+    related: ['commutative-algebra:ideals', 'commutative-algebra:dimension-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      'Emanuel Lasker, better known as world chess champion from 1894 to 1921, proved the first version of primary decomposition for polynomial rings in his 1905 paper Zur Theorie der Moduln und Ideale, motivated by questions in invariant theory. Francis Macaulay\'s 1916 book The Algebraic Theory of Modular Systems developed the theory further for polynomial ideals, and Emmy Noether\'s 1921 paper Idealtheorie in Ringbereichen generalized primary decomposition to arbitrary Noetherian rings using only the ascending chain condition.',
+    contributorIds: ['person:emmy-noether', 'person:emanuel-lasker'],
+    workIds: [],
+    exampleProblems: [
+      'Find a primary decomposition of the ideal $(x^2,xy)$ in $F[x,y]$, and identify its associated primes.',
+      'Explain why a primary decomposition need not be unique, using a specific example with an embedded prime.',
+      'Show that the radical of a primary ideal is always prime.',
+    ],
+    applications: [
+      'algebraic geometry, where primary decomposition of a defining ideal identifies the irreducible components of a variety',
+      'computer algebra systems, which compute primary decompositions algorithmically via Gröbner bases',
+      "algebraic number theory's factorization of ideals, a special case where primary decomposition reduces to ordinary prime factorization",
+    ],
+    researchDirections: [
+      'algorithmic and computational primary decomposition for large polynomial ideals',
+      'connections between primary decomposition and local cohomology',
+      'generalizations of primary decomposition to non-Noetherian and non-commutative settings',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise proof of the Lasker-Noether theorem and the theory of associated primes.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Develops primary decomposition with a constant eye toward its geometric interpretation.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Treats primary decomposition rigorously alongside the broader theory of Noetherian rings.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Primary ideal', latex: 'xy \\in Q \\implies x \\in Q \\text{ or } y^n \\in Q \\text{ for some } n' },
+      { label: 'Lasker-Noether decomposition', latex: 'I = Q_1 \\cap \\cdots \\cap Q_k' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Primary decomposition', url: 'https://en.wikipedia.org/wiki/Primary_decomposition', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emanuel Lasker', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lasker/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:dimension-theory': {
+    overview:
+      'Krull dimension measures the "size" of a commutative ring geometrically, by counting the longest possible chain of strictly increasing prime ideals — a purely algebraic definition that, remarkably, recovers exactly the familiar geometric dimension when applied to the coordinate ring of a variety.',
+    formal:
+      'The Krull dimension of a ring $R$ is the supremum of lengths $n$ of chains of prime ideals $\\mathfrak{p}_0\\subsetneq\\mathfrak{p}_1\\subsetneq\\cdots\\subsetneq\\mathfrak{p}_n$. Krull\'s Principal Ideal Theorem states that in a Noetherian ring, every minimal prime over a principal ideal $(f)$ has height at most 1, and more generally, every minimal prime over an ideal generated by $n$ elements has height at most $n$. For a finitely generated algebra over a field, the Krull dimension equals the transcendence degree of its fraction field.',
+    keyIdeas: [
+      'Krull dimension: the length of the longest chain of strictly increasing prime ideals',
+      "Krull's Principal Ideal Theorem (Hauptidealsatz) bounding the height of primes over few generators",
+      'the agreement of Krull dimension with transcendence degree and geometric dimension for varieties',
+      'regular local rings as the algebraic analogue of smooth points',
+      'height and coheight of a prime ideal as local dimension invariants',
+    ],
+    whyItMatters:
+      'Krull dimension is the algebraic definition that makes "dimension" meaningful for rings with no obvious geometric picture at all, and its exact agreement with geometric notions of dimension when a geometric picture does exist is powerful evidence that commutative algebra has found the right abstract generalization of a concept that originated purely visually.',
+    prerequisites: ['commutative-algebra:localization'],
+    related: ['commutative-algebra:cohen-macaulay-rings', 'algebraic-geometry:affine-varieties', 'abstract-algebra:field-theory'],
+    historicalContext:
+      "Wolfgang Krull developed dimension theory for general commutative Noetherian rings through the 1920s-30s, proving the Principal Ideal Theorem in 1928, from which the finiteness of Krull dimension for Noetherian local rings follows, as part of his program to extend ideal theory beyond algebraic number rings and polynomial rings. Oscar Zariski and later Claude Chevalley and Jean-Pierre Serre in the 1940s-50s connected Krull's algebraic dimension theory rigorously to the classical, geometric notion of dimension for algebraic varieties.",
+    contributorIds: ['person:wolfgang-krull'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the Krull dimension of a field is 0, and the Krull dimension of $\\mathbb{Z}$ is 1, by exhibiting maximal chains of prime ideals.',
+      'Use Krull\'s Principal Ideal Theorem to explain why a single equation in $n$-space "should" cut out an $(n-1)$-dimensional variety.',
+      'Compute the Krull dimension of $F[x,y]/(y-x^2)$ and relate it to the transcendence degree of its fraction field.',
+    ],
+    applications: [
+      'algebraic geometry, where the Krull dimension of a coordinate ring matches the geometric dimension of the corresponding variety',
+      'the study of regular versus singular points of a variety via regular local rings',
+      'computational algebraic geometry, where dimension computations guide algorithm complexity',
+    ],
+    researchDirections: [
+      "the dimension theory of non-Noetherian and infinite-dimensional rings (Nagata's pathological examples)",
+      'connections between Krull dimension and homological (global) dimension of a ring',
+      'dimension theory in mixed-characteristic and arithmetic settings, relevant to modern arithmetic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise treatment of Krull dimension and the principal ideal theorem.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops dimension theory in full generality, including regular local rings.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Ties Krull dimension explicitly to geometric dimension throughout.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Krull dimension', latex: '\\dim(R) = \\sup\\{n : \\mathfrak{p}_0 \\subsetneq \\cdots \\subsetneq \\mathfrak{p}_n\\}' },
+      { label: "Krull's Principal Ideal Theorem", latex: '\\text{ht}(\\mathfrak{p}) \\le n \\quad (\\mathfrak{p} \\text{ minimal over an } n\\text{-generated ideal})' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Krull dimension', url: 'https://en.wikipedia.org/wiki/Krull_dimension', kind: 'encyclopedia' },
+      { label: 'MacTutor: Wolfgang Krull', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Krull/', kind: 'reference' },
+      { label: 'MacTutor: search for Zariski', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Zariski', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:cohen-macaulay-rings': {
+    overview:
+      'A Cohen-Macaulay ring is one where the algebraic notion of "depth" — measuring how many independent equations can be successively imposed without collapsing everything — matches the geometric notion of dimension exactly, a condition that characterizes precisely the well-behaved, unmixed varieties that avoid a host of pathologies.',
+    formal:
+      'For a commutative Noetherian local ring $(R,\\mathfrak{m})$, the depth of $R$ is the length of the longest regular sequence in $\\mathfrak{m}$; always $\\text{depth}(R)\\le\\dim(R)$. $R$ is Cohen-Macaulay if $\\text{depth}(R)=\\dim(R)$. Every regular local ring is Cohen-Macaulay, and Cohen-Macaulay rings satisfy the unmixedness theorem: every associated prime of an ideal generated by a full system of parameters has the expected dimension.',
+    keyIdeas: [
+      'depth as the length of the longest regular sequence, always at most the Krull dimension',
+      'Cohen-Macaulay rings as exactly those where depth equals dimension',
+      'the unmixedness theorem: Cohen-Macaulay rings have no unexpected embedded or excess components',
+      'regular local rings (smooth points) as a special case of Cohen-Macaulay rings',
+      'Cohen-Macaulay rings as the right generality for many results in intersection theory and duality',
+    ],
+    whyItMatters:
+      'The Cohen-Macaulay condition is exactly the right hypothesis under which a long list of otherwise fragile results in commutative algebra and algebraic geometry — dimension formulas for intersections, duality theorems, Bézout-style counting — hold without exception, which is why "Cohen-Macaulay" functions as a general-purpose certificate of good behavior.',
+    prerequisites: ['commutative-algebra:dimension-theory'],
+    related: ['abstract-algebra:homological-algebra', 'algebraic-geometry:cohomology', 'combinatorics:extremal-combinatorics'],
+    historicalContext:
+      'Francis Macaulay proved the unmixedness theorem for ideals in polynomial rings in his 1916 book The Algebraic Theory of Modular Systems, and Irvin Cohen extended the unmixedness theorem to formal power series rings in 1946. Jean-Pierre Serre and others in the 1950s-60s recognized that the depth-equals-dimension condition underlying both results was the right general notion, coining the term "Cohen-Macaulay ring," and the condition subsequently proved indispensable in intersection theory, local duality, and the theory of Gorenstein rings, a further refinement studied extensively afterward.',
+    contributorIds: ['person:francis-macaulay', 'person:irvin-cohen'],
+    workIds: [],
+    exampleProblems: [
+      'Show that a regular local ring is Cohen-Macaulay, using the fact that a regular system of parameters is automatically a regular sequence.',
+      'Give an example of a Noetherian local ring that is not Cohen-Macaulay, and identify why depth falls short of dimension.',
+      'Explain the unmixedness theorem\'s geometric meaning for a variety defined by a system of parameters.',
+    ],
+    applications: [
+      'intersection theory in algebraic geometry, where Cohen-Macaulay hypotheses guarantee expected-dimension intersections',
+      'local duality and canonical modules, central to modern algebraic geometry and commutative algebra',
+      'combinatorial commutative algebra, where Cohen-Macaulay simplicial complexes connect to shellability and face-ring theory',
+    ],
+    researchDirections: [
+      'combinatorial characterizations of Cohen-Macaulay simplicial complexes (Stanley-Reisner theory)',
+      'Cohen-Macaulay and Gorenstein properties of rings of invariants under group actions',
+      'the interaction of the Cohen-Macaulay property with singularities in birational geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Cohen-Macaulay Rings',
+        authors: ['Winfried Bruns', 'Jürgen Herzog'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The standard dedicated monograph, covering the theory from foundations through combinatorial applications.',
+      },
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the basic notions of depth and regular sequences needed before tackling Bruns-Herzog.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Develops the Cohen-Macaulay property with extensive geometric motivation and examples.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Depth-dimension inequality', latex: '\\text{depth}(R) \\le \\dim(R)' },
+      { label: 'Cohen-Macaulay condition', latex: '\\text{depth}(R) = \\dim(R)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cohen-Macaulay ring', url: 'https://encyclopediaofmath.org/wiki/Cohen-Macaulay_ring', kind: 'encyclopedia' },
+      { label: 'MacTutor: Francis Macaulay', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Macaulay/', kind: 'reference' },
+      { label: 'Wikipedia: Irvin Cohen', url: 'https://en.wikipedia.org/wiki/Irvin_Cohen', kind: 'encyclopedia' },
+    ],
+  },
+  'algebraic-geometry:affine-varieties': {
+    overview:
+      'An affine variety is the solution set of a system of polynomial equations in affine space, the most concrete starting object of algebraic geometry. The Nullstellensatz shows that these geometric solution sets correspond exactly, and reversibly, to certain ideals of a polynomial ring, making geometry and algebra two languages for the same thing.',
+    formal:
+      'For an algebraically closed field $k$ and polynomials $f_1,\\ldots,f_r\\in k[x_1,\\ldots,x_n]$, the affine variety $V(f_1,\\ldots,f_r)=\\{p\\in k^n : f_i(p)=0 \\text{ for all } i\\}$. Hilbert\'s Nullstellensatz establishes a bijection between affine varieties in $k^n$ and radical ideals of $k[x_1,\\ldots,x_n]$: $I(V(J))=\\sqrt{J}$. The coordinate ring $k[V]=k[x_1,\\ldots,x_n]/I(V)$ encodes the polynomial functions on $V$, and a variety is irreducible exactly when $I(V)$ is prime.',
+    keyIdeas: [
+      'affine varieties as common zero sets of polynomials in affine space',
+      'the Nullstellensatz: a dictionary between radical ideals and affine varieties',
+      'the coordinate ring of a variety, encoding its polynomial functions algebraically',
+      'irreducibility of a variety corresponding to primality of its ideal',
+      'morphisms of varieties as polynomial maps, dual to ring homomorphisms of coordinate rings',
+    ],
+    whyItMatters:
+      'The Nullstellensatz is the founding dictionary of algebraic geometry, translating every geometric question about a variety — does it contain this point? is it irreducible? what is its dimension? — into a purely algebraic question about its ideal, which is precisely what lets the machinery of commutative algebra be brought to bear on geometric problems.',
+    prerequisites: [],
+    related: ['commutative-algebra:ideals', 'algebraic-geometry:projective-varieties', 'algebra:polynomials'],
+    historicalContext:
+      "The study of curves and surfaces defined by polynomial equations dates to classical 19th-century algebraic geometry (Cayley, Riemann, Max Noether), but the modern algebraic formulation began with David Hilbert's Nullstellensatz (1893), proved using his Basis Theorem, which for the first time made the correspondence between ideals and varieties precise. Emmy Noether's 1920s abstraction of ideal theory to general commutative rings then supplied the algebraic language in which affine varieties could be studied rigorously over arbitrary fields.",
+    contributorIds: ['person:david-hilbert', 'person:emmy-noether'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Nullstellensatz to explain why algebraic closure of the field matters, contrasting $V(x^2+y^2+1)$ over $\\mathbb{R}$ and over $\\mathbb{C}$.',
+      'Show that the variety $V(xy)$ in the plane is reducible by exhibiting its two irreducible components.',
+      'Compute the coordinate ring of the variety $V(y-x^2)$ and show it is isomorphic to a polynomial ring in one variable.',
+    ],
+    applications: [
+      'computer-aided geometric design and robotics, using affine varieties to model configuration spaces and constraint surfaces',
+      'cryptography, where elliptic curves are affine (or projective) varieties',
+      'solving systems of polynomial equations algorithmically via Gröbner bases',
+    ],
+    researchDirections: [
+      'real algebraic geometry, studying varieties over the real numbers where the classical Nullstellensatz fails',
+      'computational algebraic geometry and effective methods for variety membership and dimension',
+      'tropical geometry\'s combinatorial degeneration of affine varieties',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'The standard graduate text, opening with a rigorous chapter on classical affine and projective varieties before schemes.',
+      },
+      {
+        title: 'Basic Algebraic Geometry 1',
+        authors: ['Igor R. Shafarevich'],
+        edition: '3rd',
+        year: 2013,
+        why: 'A classic, more gradual introduction to varieties, widely recommended before tackling Hartshorne.',
+      },
+      {
+        title: 'Algebraic Geometry: A First Course',
+        authors: ['Joe Harris'],
+        year: 1992,
+        why: 'An example-driven introduction that builds geometric intuition for varieties before full generality.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Hilbert's Nullstellensatz", latex: 'I(V(J)) = \\sqrt{J}' },
+      { label: 'Coordinate ring', latex: 'k[V] = k[x_1,\\ldots,x_n]/I(V)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Affine algebraic set', url: 'https://encyclopediaofmath.org/wiki/Affine_algebraic_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:projective-varieties': {
+    overview:
+      'A projective variety is the solution set of homogeneous polynomial equations in projective space, which adds "points at infinity" to affine space so that curves and surfaces behave more uniformly — for instance, so that any two distinct lines in the plane always meet in exactly one point, with no exception for parallel lines.',
+    formal:
+      "Projective space $\\mathbb{P}^n(k)$ is the set of lines through the origin in $k^{n+1}$, with homogeneous coordinates $[x_0:\\cdots:x_n]$ defined up to scalar multiple. A projective variety is the common zero locus of homogeneous polynomials in $k[x_0,\\ldots,x_n]$. Bézout's theorem states that two projective plane curves of degrees $d_1$ and $d_2$ with no common component meet in exactly $d_1 d_2$ points, counted with multiplicity, over an algebraically closed field.",
+    keyIdeas: [
+      'projective space as affine space compactified by adding points at infinity',
+      'homogeneous coordinates and homogeneous polynomials as the natural language for projective varieties',
+      "Bézout's theorem: intersection numbers become exact and uniform in projective space",
+      'projective varieties as always compact, in the classical topology over $\\mathbb{C}$, unlike general affine varieties',
+      'the projective closure of an affine variety, recovering points "at infinity"',
+    ],
+    whyItMatters:
+      "Working projectively removes the awkward exceptions that plague affine geometry — parallel lines that never meet, intersection counts that vary unpredictably — replacing them with clean, uniform statements like Bézout's theorem, which is why projective space, not affine space, is the natural home for most of classical and modern algebraic geometry.",
+    prerequisites: ['algebraic-geometry:affine-varieties'],
+    related: ['geometry:projective-geometry', 'algebraic-geometry:moduli-spaces', 'complex-analysis:riemann-surfaces'],
+    historicalContext:
+      "Projective geometry originates with Jean-Victor Poncelet's 1822 Traité des propriétés projectives des figures, developed from perspective drawing techniques used by Renaissance artists. Julius Plücker and others in the mid-19th century developed homogeneous coordinates, letting projective varieties be studied algebraically, and Étienne Bézout had already stated his eponymous intersection theorem in 1779, though a fully rigorous proof required the 19th-century development of intersection multiplicity. Max Noether and the Italian school of algebraic geometry (Castelnuovo, Enriques, Severi) developed the classical theory of projective varieties, especially surfaces, extensively through the late 19th and early 20th centuries.",
+    contributorIds: ['person:bernhard-riemann'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that two distinct lines in the projective plane $\\mathbb{P}^2$ always meet in exactly one point, including the case of "parallel" affine lines.',
+      "Use Bézout's theorem to find the number of intersection points, with multiplicity, of two conics in the projective plane.",
+      'Find the projective closure of the affine parabola $y=x^2$, and identify its point(s) at infinity.',
+    ],
+    applications: [
+      'computer vision and computer graphics, where projective geometry models perspective and camera transformations',
+      'coding theory, where projective spaces over finite fields define important classes of error-correcting codes',
+      'the classification of algebraic curves and surfaces in classical and modern algebraic geometry',
+    ],
+    researchDirections: [
+      'the classification of higher-dimensional projective varieties via the minimal model program',
+      'moduli of projective varieties (curves, surfaces, and beyond) as points of a moduli space',
+      'arithmetic questions about rational points on projective varieties over number fields',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Develops projective varieties rigorously alongside their affine counterparts as a foundation for schemes.',
+      },
+      {
+        title: 'Algebraic Geometry: A First Course',
+        authors: ['Joe Harris'],
+        year: 1992,
+        why: 'Gives an unusually rich collection of concrete projective examples (curves, surfaces, Grassmannians).',
+      },
+      {
+        title: 'Basic Algebraic Geometry 1',
+        authors: ['Igor R. Shafarevich'],
+        edition: '3rd',
+        year: 2013,
+        why: 'A classic, geometrically motivated treatment of projective varieties and their classical theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Homogeneous coordinates', latex: '[x_0:x_1:\\cdots:x_n] \\sim [\\lambda x_0:\\lambda x_1:\\cdots:\\lambda x_n]' },
+      { label: "Bézout's theorem", latex: '|C_1 \\cap C_2| = d_1 d_2 \\ \\text{(with multiplicity)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Projective algebraic set', url: 'https://encyclopediaofmath.org/wiki/Projective_algebraic_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: search for Poncelet', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Poncelet', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:schemes': {
+    overview:
+      'A scheme generalizes an algebraic variety far enough to unify algebraic geometry with commutative algebra and number theory completely: every commutative ring, not just those without nilpotents or defined over an algebraically closed field, gives rise to a scheme, letting geometric intuition apply to arithmetic objects like the integers themselves.',
+    formal:
+      'The spectrum $\\text{Spec}(R)$ of a commutative ring $R$ is the set of its prime ideals, equipped with the Zariski topology and a structure sheaf $\\mathcal{O}_{\\text{Spec}(R)}$; an affine scheme is $(\\text{Spec}(R), \\mathcal{O}_{\\text{Spec}(R)})$, and a general scheme is a topological space covered by affine schemes, glued compatibly. Every classical affine or projective variety over a field embeds as a special case, but schemes additionally allow nilpotent elements and bases other than a field, such as $\\text{Spec}(\\mathbb{Z})$.',
+    keyIdeas: [
+      'Spec(R): the prime spectrum of a ring as the points of a geometric space',
+      'the structure sheaf, attaching a ring of "functions" to every open subset',
+      'schemes gluing affine pieces together, generalizing how a manifold glues coordinate charts',
+      'nilpotents in the structure sheaf encoding infinitesimal geometric data invisible to classical varieties',
+      'Spec(Z) and arithmetic schemes, unifying number theory with geometry',
+    ],
+    whyItMatters:
+      "Schemes let a single geometric formalism describe both a classical algebraic curve over the complex numbers and the ring of integers $\\mathbb{Z}$ simultaneously, and this unification is precisely what let Grothendieck's school bring genuinely geometric techniques (sheaf cohomology, base change, deformation theory) to bear on deep arithmetic problems, culminating decades later in results like Wiles's proof of Fermat's Last Theorem.",
+    prerequisites: ['algebraic-geometry:projective-varieties'],
+    related: ['commutative-algebra:localization', 'algebraic-geometry:sheaves', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "Alexander Grothendieck introduced the modern general definition of a scheme in his and Jean Dieudonné's Éléments de géométrie algébrique (EGA), begun in 1960, building on earlier, more restrictive notions proposed by André Weil, Oscar Zariski, and Jean-Pierre Serre in the 1940s-50s. Grothendieck's scheme-theoretic reformulation, developed with collaborators through the 1960s Séminaire de Géométrie Algébrique (SGA), was explicitly designed to supply the machinery, étale cohomology in particular, needed to attack the Weil conjectures, and it is now the standard foundation for research-level algebraic geometry.",
+    contributorIds: ['person:alexander-grothendieck', 'person:jean-pierre-serre'],
+    workIds: ['work:ega'],
+    exampleProblems: [
+      'Describe $\\text{Spec}(\\mathbb{Z})$ explicitly: what are its points, and what does the structure sheaf assign to a basic open set?',
+      'Give an example of a non-reduced scheme, one whose structure sheaf has nilpotents, and explain its geometric meaning.',
+      'Explain why every classical affine variety over an algebraically closed field $k$ can be recovered as the closed points of $\\text{Spec}$ of its coordinate ring.',
+    ],
+    applications: [
+      'arithmetic geometry, where schemes over $\\mathbb{Z}$ or rings of integers unify number theory and geometry',
+      'moduli theory, where moduli spaces are most naturally constructed as schemes or algebraic stacks',
+      "modern proofs of deep arithmetic results, such as Fermat's Last Theorem and the Weil conjectures, relying on scheme-theoretic machinery",
+    ],
+    researchDirections: [
+      'derived algebraic geometry, extending schemes to allow homotopical and higher-categorical structure',
+      'the theory of algebraic stacks, generalizing schemes to handle moduli problems with automorphisms',
+      'p-adic and rigid-analytic geometry, adapting scheme-theoretic ideas to non-archimedean settings',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'The standard graduate introduction to schemes, still the most widely assigned text worldwide.',
+      },
+      {
+        title: 'The Geometry of Schemes',
+        authors: ['David Eisenbud', 'Joe Harris'],
+        year: 2000,
+        why: 'A more geometric, example-driven companion to Hartshorne, emphasizing intuition for scheme-theoretic constructions.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'Freely available modern lecture notes that have become a widely used alternative to Hartshorne.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Spectrum of a ring', latex: '\\text{Spec}(R) = \\{\\text{prime ideals of } R\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Algebraic geometry', url: 'https://encyclopediaofmath.org/wiki/Algebraic_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'MacTutor: search for Serre', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Serre', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:sheaves': {
+    overview:
+      'A sheaf systematically tracks data — functions, sections, or other algebraic structures — attached to the open sets of a space, in a way fully determined by local information: knowing the data on small enough pieces, and how they agree on overlaps, always determines the data on the whole. Sheaves are the technical device that lets "local" and "global" be related precisely.',
+    formal:
+      'A sheaf $\\mathcal{F}$ of abelian groups on a topological space $X$ assigns to each open set $U$ a group $\\mathcal{F}(U)$, with restriction maps to smaller opens, satisfying: (identity) sections agreeing locally on an open cover are equal, and (gluing) compatible local sections on an open cover glue to a unique global section. On a scheme, the structure sheaf $\\mathcal{O}_X$ assigns to each open set its ring of regular functions, and quasi-coherent sheaves, locally given by modules, are the natural class of sheaves for doing algebra on a scheme.',
+    keyIdeas: [
+      'a sheaf as data attached to open sets, subject to the identity and gluing axioms',
+      'the structure sheaf of a scheme, encoding its "functions" locally',
+      'quasi-coherent and coherent sheaves as the geometric analogue of modules',
+      'stalks of a sheaf, capturing purely local behavior near a point',
+      'sheafification: turning a presheaf that fails the sheaf axioms into the closest sheaf that satisfies them',
+    ],
+    whyItMatters:
+      'Sheaves solve a problem every geometer eventually confronts — how do you assemble consistent local data into a single global object, and precisely when does this fail — and the failure of local data to glue into global data, measured by sheaf cohomology, turns out to be one of the most productive sources of geometric invariants in modern mathematics.',
+    prerequisites: ['algebraic-geometry:schemes'],
+    related: ['abstract-algebra:homological-algebra', 'category-theory:topos-theory', 'algebraic-geometry:cohomology'],
+    historicalContext:
+      "Jean Leray invented sheaves during his internment in a German prisoner-of-war camp from 1940-1945, originally to study solutions of partial differential equations and develop what became the Leray spectral sequence, though he could not publish his ideas until after the war. Henri Cartan and Jean-Pierre Serre then adapted sheaf theory into the primary tool of the Cartan seminar in Paris in the early 1950s, and Serre's landmark 1955 paper Faisceaux algébriques cohérents (FAC) brought coherent algebraic sheaves and homological methods into algebraic geometry for the first time, directly inspiring Grothendieck's subsequent scheme-theoretic reformulation of the subject.",
+    contributorIds: ['person:jean-leray', 'person:henri-cartan'],
+    workIds: [],
+    exampleProblems: [
+      'Verify the sheaf axioms (identity and gluing) for the presheaf of continuous real-valued functions on a topological space.',
+      'Give an example of a presheaf that fails the gluing axiom, and describe its sheafification.',
+      'Explain the difference between a sheaf and its stalk at a point, using the sheaf of holomorphic functions on the complex plane as an example.',
+    ],
+    applications: [
+      'algebraic geometry, where quasi-coherent sheaves are the natural generalization of modules to schemes',
+      'complex analytic geometry, where sheaf theory organizes local holomorphic data into global structures',
+      'sensor networks and data fusion, using sheaf-theoretic methods to combine local measurements consistently',
+    ],
+    researchDirections: [
+      'perverse sheaves and their role in the geometric Langlands program and representation theory',
+      'condensed mathematics, reformulating sheaf theory to handle topological algebra more robustly',
+      'derived and infinity-categorical sheaf theory in modern algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Chapter II develops sheaves from scratch en route to schemes, the standard first exposure for most students.',
+      },
+      {
+        title: 'Sheaf Theory',
+        authors: ['Glen E. Bredon'],
+        edition: '2nd',
+        year: 1997,
+        why: 'A dedicated, thorough treatment of sheaf theory independent of any particular geometric application.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'A modern, freely available treatment building sheaves and schemes together with strong intuition.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sheaf gluing axiom', latex: 's_i|_{U_i\\cap U_j} = s_j|_{U_i\\cap U_j}\\ \\forall i,j \\implies \\exists! s \\in \\mathcal{F}(U):\\ s|_{U_i}=s_i' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Sheaf (mathematics)', url: 'https://en.wikipedia.org/wiki/Sheaf_(mathematics)', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean Leray', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Leray/', kind: 'reference' },
+      { label: 'MacTutor: Henri Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan_Henri/', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:cohomology': {
+    overview:
+      'Cohomology of sheaves measures the global obstructions to solving equations or gluing local data on a variety or scheme — how far local sections fail to extend to global ones — and computing these cohomology groups is one of the most powerful and widely used tools in modern algebraic geometry.',
+    formal:
+      'For a sheaf $\\mathcal{F}$ on a scheme $X$, the cohomology groups $H^i(X,\\mathcal{F})$ are the derived functors of the global sections functor, fitting into a long exact sequence for any short exact sequence of sheaves. Serre\'s finiteness and vanishing theorems show that for a coherent sheaf on a projective variety, all $H^i(X,\\mathcal{F})$ are finite-dimensional and vanish for $i$ larger than $\\dim X$; the Riemann-Roch theorem computes the Euler characteristic $\\chi(X,\\mathcal{F})=\\sum_i(-1)^i\\dim H^i(X,\\mathcal{F})$ explicitly.',
+    keyIdeas: [
+      'sheaf cohomology as the derived functors of global sections',
+      'the long exact sequence relating cohomology of sheaves in a short exact sequence',
+      "Serre's finiteness and vanishing theorems for coherent cohomology on projective varieties",
+      'the Riemann-Roch theorem computing Euler characteristics from topological data',
+      'étale cohomology, extending sheaf cohomology to settings where the Zariski topology is too coarse',
+    ],
+    whyItMatters:
+      "Sheaf cohomology converts geometric existence questions — does this section or deformation exist globally? — into computable linear-algebra invariants, and Grothendieck's étale cohomology, purpose-built to have the right properties in positive characteristic, supplied exactly the tool needed to prove the Weil conjectures, one of the towering achievements of 20th-century mathematics.",
+    prerequisites: ['algebraic-geometry:sheaves'],
+    related: ['abstract-algebra:homological-algebra', 'topology:homology', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "Jean-Pierre Serre's 1955 paper Faisceaux algébriques cohérents (FAC) first developed sheaf cohomology systematically for algebraic varieties, proving the finiteness and vanishing theorems that bear his name. Alexander Grothendieck's 1957 Tôhoku paper recast sheaf cohomology in the fully general language of derived functors on abelian categories, and through the 1960s SGA seminars Grothendieck and collaborators developed étale cohomology specifically to have good properties in all characteristics, which Pierre Deligne then used to complete the proof of the Weil conjectures in 1974.",
+    contributorIds: ['person:jean-pierre-serre', 'person:alexander-grothendieck'],
+    workIds: ['work:sga'],
+    exampleProblems: [
+      'Use the long exact sequence in cohomology to relate $H^0$ and $H^1$ of the ideal sheaf of a point on a curve to sections of the structure sheaf.',
+      'State the Riemann-Roch theorem for a curve and use it to compute the dimension of a space of meromorphic functions with prescribed poles.',
+      'Explain, in outline, why étale cohomology was needed, rather than ordinary sheaf cohomology, to prove the Weil conjectures in positive characteristic.',
+    ],
+    applications: [
+      'the Weil conjectures and modern arithmetic geometry, resting fundamentally on étale cohomology',
+      'deformation theory, where obstruction and tangent spaces are computed via sheaf cohomology',
+      'string theory and mirror symmetry in mathematical physics, using coherent sheaf cohomology on Calabi-Yau varieties',
+    ],
+    researchDirections: [
+      'the geometric Langlands program, using sheaf-theoretic and cohomological methods to relate number theory and representation theory',
+      'motivic cohomology, seeking a universal cohomology theory underlying all the others',
+      'p-adic Hodge theory and p-adic cohomology theories for arithmetic geometry in mixed characteristic',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1977,
+        why: 'Chapter III gives the standard first treatment of sheaf cohomology and Serre\'s theorems on projective varieties.',
+      },
+      {
+        title: 'Étale Cohomology',
+        authors: ['James S. Milne'],
+        year: 1980,
+        why: 'The standard reference for étale cohomology and its role in the proof of the Weil conjectures.',
+      },
+      {
+        title: 'The Geometry of Schemes',
+        authors: ['David Eisenbud', 'Joe Harris'],
+        year: 2000,
+        why: 'Builds cohomological intuition alongside concrete geometric examples.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Euler characteristic', latex: '\\chi(X,\\mathcal{F}) = \\sum_i (-1)^i \\dim H^i(X,\\mathcal{F})' },
+      { label: 'Riemann-Roch (curve case)', latex: '\\ell(D) - \\ell(K-D) = \\deg(D) + 1 - g' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Abstract algebraic geometry', url: 'https://encyclopediaofmath.org/wiki/Abstract_algebraic_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Alexander Grothendieck', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Grothendieck/', kind: 'reference' },
+      { label: 'MacTutor: search for Serre', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Serre', kind: 'reference' },
+    ],
+  },
+  'algebraic-geometry:moduli-spaces': {
+    overview:
+      'A moduli space is a geometric object whose points themselves represent all the ways a certain kind of mathematical structure — a curve, a vector bundle, a polynomial — can occur, up to some natural notion of equivalence, turning the problem of "classify all X" into the problem of understanding the geometry of one auxiliary space.',
+    formal:
+      'A moduli problem is a functor $\\mathcal{M}:(\\text{Schemes})^{op}\\to(\\text{Sets})$ sending a scheme $T$ to the set of families of the objects being classified over $T$; a fine moduli space represents this functor, meaning $\\mathcal{M}(T)\\cong\\text{Hom}(T,M)$ naturally. Many natural moduli problems are not representable by a scheme, requiring the more flexible notion of a moduli stack. Geometric Invariant Theory (GIT), developed by David Mumford, constructs moduli spaces as quotients of a parameter space by a group action, handling the technical difficulties caused by automorphisms and unstable objects.',
+    keyIdeas: [
+      'a moduli problem as a classification problem recast as a functor of families',
+      'fine versus coarse moduli spaces, depending on whether the functor is fully representable',
+      'Geometric Invariant Theory (GIT) as a systematic method for constructing moduli spaces via quotients',
+      'moduli stacks as the correct, automorphism-respecting generalization of moduli schemes',
+      'the moduli space of curves $\\mathcal{M}_g$ as the archetypal and most studied example',
+    ],
+    whyItMatters:
+      'Moduli spaces turn "classify all objects of type X" from an open-ended cataloguing exercise into a genuine geometric research program: once curves of genus $g$ are organized into a moduli space $\\mathcal{M}_g$, questions about "most" curves, or how curves degenerate, become questions about the geometry of $\\mathcal{M}_g$ itself.',
+    prerequisites: ['algebraic-geometry:cohomology'],
+    related: ['algebraic-geometry:projective-varieties', 'differential-geometry:riemannian-metrics', 'category-theory:topos-theory'],
+    historicalContext:
+      "Bernhard Riemann already showed in 1857 that the isomorphism classes of genus-$g$ Riemann surfaces depend on $3g-3$ continuous 'moduli,' giving the concept its name well before a rigorous construction existed. David Mumford's Geometric Invariant Theory (1965) gave the first systematic, rigorous method for constructing moduli spaces, handling the technical obstacles posed by automorphisms and unstable points via careful quotient constructions, for which Mumford was awarded the Fields Medal in 1974. Pierre Deligne and Mumford's 1969 paper then introduced the moduli stack $\\overline{\\mathcal{M}}_g$, a compactification of the moduli space of curves that remains one of the most intensively studied objects in modern algebraic geometry.",
+    contributorIds: ['person:david-mumford', 'person:bernhard-riemann'],
+    workIds: [],
+    exampleProblems: [
+      'Explain why the moduli space of elliptic curves is essentially one-dimensional, using the $j$-invariant to parametrize isomorphism classes.',
+      'Describe the difference between a fine and a coarse moduli space, using the moduli of elliptic curves (which has extra automorphisms at special points) as an example.',
+      'Explain, at a high level, what problem Geometric Invariant Theory solves when naively forming a quotient by a group action fails to produce a variety.',
+    ],
+    applications: [
+      'the classification of algebraic curves and surfaces via their moduli spaces',
+      'string theory and mathematical physics, where moduli spaces of curves appear in string perturbation theory',
+      'the study of vector bundles and sheaves on varieties via their moduli spaces, relevant to gauge theory',
+    ],
+    researchDirections: [
+      'the geometry (Kodaira dimension, cohomology, birational type) of moduli spaces of curves and higher-dimensional varieties',
+      "moduli of higher-dimensional varieties via the minimal model program's approach to compactified moduli",
+      'derived and stacky moduli problems in derived algebraic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Geometric Invariant Theory',
+        authors: ['David Mumford', 'John Fogarty', 'Frances Kirwan'],
+        edition: '3rd',
+        year: 1994,
+        why: 'The foundational text, by the theory\'s inventor, for constructing moduli spaces via quotient constructions.',
+      },
+      {
+        title: 'Moduli of Curves',
+        authors: ['Joe Harris', 'Ian Morrison'],
+        year: 1998,
+        why: 'The standard dedicated text on the geometry of $\\mathcal{M}_g$ and its compactification.',
+      },
+      {
+        title: 'The Rising Sea: Foundations of Algebraic Geometry',
+        authors: ['Ravi Vakil'],
+        year: 2017,
+        why: 'Provides the scheme-theoretic background (functors of points, representability) needed to state moduli problems precisely.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Moduli functor representability', latex: '\\mathcal{M}(T) \\cong \\text{Hom}(T, M)' },
+      { label: 'Dimension of the moduli of curves', latex: '\\dim \\mathcal{M}_g = 3g-3 \\quad (g \\ge 2)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Moduli problem', url: 'https://encyclopediaofmath.org/wiki/Moduli_problem', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Mumford', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Mumford/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
+  'geometry:euclidean-geometry': {
+    overview:
+      "Euclidean geometry is the geometry of flat space governed by Euclid's axioms, especially the parallel postulate, and it remained the unquestioned model of physical space for over two thousand years before 19th-century mathematicians discovered equally consistent alternatives.",
+    formal:
+      "Euclid's Elements builds plane and solid geometry from five postulates, most famously the parallel postulate: through a point not on a line, there is exactly one line parallel to it. David Hilbert's Grundlagen der Geometrie (1899) gave a complete, rigorous axiomatization using 20 axioms in five groups (incidence, order, congruence, parallels, continuity), proving the resulting system is consistent, relative to the real numbers, and categorical: any two models of the axioms are isomorphic.",
+    keyIdeas: [
+      "the parallel postulate and its historically central, uniquely troublesome role among Euclid's axioms",
+      "Hilbert's complete re-axiomatization, filling logical gaps in Euclid's original treatment",
+      'congruence, similarity, and the classical construction problems (compass and straightedge)',
+      'the real Euclidean plane and space as the essentially unique model satisfying the full axiom system',
+      'isometries (rotations, reflections, translations) as the symmetries preserving Euclidean structure',
+    ],
+    whyItMatters:
+      "Euclidean geometry was, for two thousand years, mathematics's flagship example of certain knowledge derived by pure reason from self-evident axioms, and the eventual discovery that its parallel postulate is logically independent — that equally consistent geometries exist without it — was one of the most conceptually revolutionary discoveries in the history of thought, redefining what an axiom even means.",
+    prerequisites: [],
+    related: ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method', 'geometry:projective-geometry'],
+    historicalContext:
+      "Euclid's Elements (c. 300 BCE) systematized centuries of prior Greek geometry (Thales, Pythagoras, Eudoxus) into a single deductive structure from five postulates. For two millennia, mathematicians tried and failed to prove the parallel postulate from the other four, until Gauss, Bolyai, and Lobachevsky independently realized in the 1820s-30s that denying it produces an equally consistent geometry. David Hilbert's Grundlagen der Geometrie (1899) then closed the remaining logical gaps in Euclid's original axioms, which relied on unstated assumptions about betweenness and continuity, giving Euclidean geometry, for the first time, a fully rigorous foundation.",
+    contributorIds: ['person:euclid', 'person:david-hilbert'],
+    workIds: ['work:elements'],
+    exampleProblems: [
+      'Using only compass and straightedge, construct a regular hexagon inscribed in a given circle.',
+      'Explain why "the sum of angles in a triangle is 180 degrees" depends logically on the parallel postulate.',
+      "Describe one axiom Hilbert added that Euclid's original system implicitly assumed without stating.",
+    ],
+    applications: [
+      'architecture, engineering, and design, where Euclidean measurements and constructions remain the practical standard',
+      'computer graphics and CAD software, built on Euclidean transformations and distances',
+      'physics at everyday, non-relativistic scales, where space is modeled as Euclidean to excellent approximation',
+    ],
+    researchDirections: [
+      'computational and algorithmic Euclidean geometry for graphics and robotics',
+      'the automated and formalized verification of classical Euclidean theorems in proof assistants',
+      "generalized and synthetic axiomatic geometries building on Hilbert's methodology",
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '2nd',
+        year: 1969,
+        why: 'A classic, wide-ranging text covering classical Euclidean geometry with exceptional clarity and breadth.',
+      },
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: "The standard text for seeing Euclid's axioms rebuilt rigorously and contrasted with their non-Euclidean alternatives.",
+      },
+      {
+        title: 'Euclid\'s Elements',
+        authors: ['Euclid', 'trans. Thomas L. Heath'],
+        edition: 'Green Lion Press',
+        year: 2002,
+        why: "Heath's classic annotated translation, still the standard way to read Euclid's original axiomatic method directly.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Parallel postulate (Playfair form)', latex: '\\text{through } P \\notin \\ell,\\ \\exists! \\text{ line parallel to } \\ell' },
+      { label: 'Pythagorean theorem', latex: 'a^2+b^2=c^2' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Euclidean geometry', url: 'https://encyclopediaofmath.org/wiki/Euclidean_geometry', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Hilbert system of axioms', url: 'https://encyclopediaofmath.org/wiki/Hilbert_system_of_axioms', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Euclid', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Euclid', kind: 'reference' },
+    ],
+  },
+  'geometry:non-euclidean-geometry': {
+    overview:
+      "Non-Euclidean geometries replace Euclid's parallel postulate with an alternative — either no parallels exist (elliptic/spherical geometry) or infinitely many do (hyperbolic geometry) — producing internally consistent geometric systems that describe curved rather than flat space.",
+    formal:
+      'In hyperbolic geometry, through a point not on a line there are infinitely many parallels, and the angle sum of a triangle is always less than $\\pi$, with the defect $\\pi-(\\alpha+\\beta+\\gamma)$ proportional to the triangle\'s area. In elliptic geometry, no parallels exist through an external point, and the angle sum exceeds $\\pi$. Eugenio Beltrami (1868) and later Henri Poincaré gave concrete models (the Klein disk, the Poincaré disk and half-plane) realizing hyperbolic geometry inside ordinary Euclidean space, proving it is exactly as consistent as Euclidean geometry itself.',
+    keyIdeas: [
+      "replacing Euclid's parallel postulate: zero parallels (elliptic) versus infinitely many (hyperbolic)",
+      'the angle-defect/excess of a triangle as a direct measure of curvature',
+      'models of hyperbolic geometry (Klein, Poincaré disk, upper half-plane) realized inside Euclidean space',
+      'constant negative curvature (hyperbolic) versus constant positive curvature (elliptic/spherical)',
+      'the relative consistency proof: non-Euclidean geometry is consistent if and only if Euclidean geometry is',
+    ],
+    whyItMatters:
+      "The discovery of non-Euclidean geometry proved that Euclid's parallel postulate is not a self-evident truth but a genuine, independent choice, definitively resolving a two-thousand-year-old open question and revealing that mathematical axioms describe possible structures rather than uniquely dictated truths about the physical world — a lesson vindicated dramatically when Einstein's general relativity described actual physical spacetime as curved.",
+    prerequisites: ['geometry:euclidean-geometry'],
+    related: ['differential-geometry:riemannian-metrics', 'differential-geometry:curvature', 'topology:manifolds'],
+    historicalContext:
+      "Carl Friedrich Gauss privately developed non-Euclidean geometry as early as the 1810s-20s but, fearing controversy, never published his findings. Nikolai Lobachevsky publicly presented his 'imaginary geometry' in 1826, published 1829-30, and János Bolyai independently discovered the same hyperbolic geometry, publishing it as an appendix to his father's book in 1832; Gauss's private correspondence later confirmed he had anticipated both. Eugenio Beltrami's 1868 paper gave the first concrete model proving hyperbolic geometry's consistency relative to Euclidean geometry, and Bernhard Riemann's 1854 lecture generalized the whole framework to arbitrary curved spaces, of which elliptic geometry is a special case.",
+    contributorIds: ['person:nikolai-lobachevsky', 'person:janos-bolyai', 'person:eugenio-beltrami'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the angle sum of a triangle in the Poincaré disk model is always less than $\\pi$, using a specific example.',
+      'Explain why "similar but non-congruent triangles" cannot exist in hyperbolic geometry, unlike in Euclidean geometry.',
+      'Describe how the Beltrami-Klein model represents hyperbolic lines as straight Euclidean chords of a disk.',
+    ],
+    applications: [
+      'general relativity, where spacetime is modeled as a pseudo-Riemannian manifold that is locally non-Euclidean',
+      'hyperbolic embeddings for modeling complex networks and hierarchical data in machine learning',
+      "art and design, such as M.C. Escher's hyperbolic tessellations",
+    ],
+    researchDirections: [
+      'geometric group theory, studying groups via hyperbolic and other non-Euclidean geometric actions',
+      "hyperbolic 3-manifolds and their classification, following Thurston's geometrization program",
+      'hyperbolic embeddings for hierarchical and network data in machine learning',
+    ],
+    textbooks: [
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: 'The standard text moving carefully from the axioms through to the classical non-Euclidean models.',
+      },
+      {
+        title: 'Non-Euclidean Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '6th',
+        year: 1998,
+        why: 'A classic dedicated treatment covering both hyperbolic and elliptic geometry in depth.',
+      },
+      {
+        title: 'Hyperbolic Geometry',
+        authors: ['James W. Anderson'],
+        edition: '2nd',
+        year: 2005,
+        why: 'A modern, accessible introduction focused specifically on hyperbolic geometry and its models.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Hyperbolic angle defect', latex: '\\text{Area} \\propto \\pi - (\\alpha+\\beta+\\gamma)' },
+      { label: 'Elliptic angle excess', latex: '\\alpha+\\beta+\\gamma > \\pi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Non-Euclidean geometries', url: 'https://encyclopediaofmath.org/wiki/Non-Euclidean_geometries', kind: 'encyclopedia' },
+      { label: 'MacTutor: János Bolyai', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bolyai/', kind: 'reference' },
+      { label: 'MacTutor: search for Lobachevsky', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Lobachevsky', kind: 'reference' },
+    ],
+  },
+  'geometry:projective-geometry': {
+    overview:
+      'Projective geometry studies properties that survive under projection — what stays true when a scene is viewed in perspective from a different vantage point — by treating points at infinity on the same footing as ordinary points, so that "parallel" disappears and only incidence remains fundamental.',
+    formal:
+      "The real projective plane $\\mathbb{RP}^2$ consists of lines through the origin in $\\mathbb{R}^3$; two distinct points determine a unique line, and, unlike the Euclidean plane, any two distinct lines meet in a unique point. Desargues's theorem: two triangles are perspective from a point if and only if they are perspective from a line. The principle of duality states that swapping 'point' and 'line' in any true statement of projective geometry produces another true statement.",
+    keyIdeas: [
+      'projective space as ordinary space plus points and a line/hyperplane "at infinity"',
+      'incidence as the sole fundamental relation, with no notion of parallel, length, or angle',
+      'the principle of duality between points and lines',
+      "Desargues's and Pappus's theorems as the classical foundational results",
+      'cross-ratio as the fundamental invariant of projective transformations',
+    ],
+    whyItMatters:
+      "Projective geometry's decision to treat points at infinity as ordinary points removes case distinctions, parallel versus intersecting lines, that clutter Euclidean geometry, and Felix Klein's Erlangen program (1872) later revealed projective geometry as the most general classical geometry, from which Euclidean, affine, and non-Euclidean geometries can all be recovered as the geometry of specific subgroups of projective transformations.",
+    prerequisites: ['geometry:non-euclidean-geometry'],
+    related: ['algebraic-geometry:projective-varieties', 'linear-algebra:vector-spaces', 'geometry:incidence-geometry'],
+    historicalContext:
+      "Girard Desargues developed the foundational ideas of projective geometry in a 1639 treatise on conic sections, introducing points and lines at infinity, though his idiosyncratic terminology meant the work was largely ignored for two centuries. Jean-Victor Poncelet revived and systematically developed the subject in his Traité des propriétés projectives des figures (1822), written partly while a prisoner of war in Russia, establishing the principle of duality and projective invariants as central organizing ideas. Felix Klein's 1872 Erlangen program then placed projective geometry at the top of a hierarchy of geometries, classified by which transformation group's invariants each studies.",
+    contributorIds: ['person:jean-victor-poncelet', 'person:felix-klein'],
+    workIds: [],
+    exampleProblems: [
+      "Verify Desargues's theorem for a specific pair of perspective triangles in the plane.",
+      "State the principle of duality and use it to derive the dual of Pappus's theorem.",
+      'Compute the cross-ratio of four collinear points and verify it is preserved under a specific projective transformation.',
+    ],
+    applications: [
+      'computer vision and photogrammetry, where projective transformations model how a camera maps 3D scenes to 2D images',
+      'computer graphics, using projective transformations for perspective rendering',
+      'coding theory, using projective spaces over finite fields to construct error-correcting codes',
+    ],
+    researchDirections: [
+      'finite projective geometries and their combinatorial structure, connecting to design theory and coding theory',
+      'the classification of projective varieties in algebraic geometry, generalizing classical projective geometry',
+      'computer vision\'s ongoing use of projective geometry for 3D reconstruction from multiple images',
+    ],
+    textbooks: [
+      {
+        title: 'Projective Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '2nd',
+        year: 1974,
+        why: 'The classic, widely used introduction to synthetic projective geometry.',
+      },
+      {
+        title: 'Perspectives on Projective Geometry',
+        authors: ['Jürgen Richter-Gebert'],
+        year: 2011,
+        why: 'A modern, richly illustrated treatment connecting classical results to computational and algebraic viewpoints.',
+      },
+      {
+        title: 'Foundations of Projective Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1967,
+        why: 'A classic axiomatic treatment linking projective geometry directly to the foundations of geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cross-ratio', latex: '(A,B;C,D) = \\frac{AC \\cdot BD}{AD \\cdot BC}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Projective space', url: 'https://encyclopediaofmath.org/wiki/Projective_space', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Collineation', url: 'https://encyclopediaofmath.org/wiki/Collineation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean-Victor Poncelet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poncelet/', kind: 'reference' },
+    ],
+  },
+  'geometry:convex-geometry': {
+    overview:
+      'Convex geometry studies convex sets — those containing the entire line segment between any two of their points — a simple-sounding condition that turns out to control an enormous range of behavior in geometry, optimization, and analysis, from the shape of soap bubbles to the feasible regions of linear programs.',
+    formal:
+      'A set $K\\subseteq\\mathbb{R}^n$ is convex if $tx+(1-t)y\\in K$ for all $x,y\\in K$ and $t\\in[0,1]$. Every convex body is the intersection of its supporting half-spaces, and the Brunn-Minkowski inequality relates the volume of a Minkowski sum $A+B=\\{a+b:a\\in A,b\\in B\\}$ to the volumes of $A$ and $B$: $\\text{vol}(A+B)^{1/n}\\ge\\text{vol}(A)^{1/n}+\\text{vol}(B)^{1/n}$. Minkowski\'s lattice point theorem states that a symmetric convex body of volume greater than $2^n$ in $\\mathbb{R}^n$ must contain a nonzero point of the integer lattice.',
+    keyIdeas: [
+      'convexity: containing the full segment between any two points',
+      'supporting hyperplanes and the representation of convex bodies as intersections of half-spaces',
+      'the Brunn-Minkowski inequality relating volumes of Minkowski sums',
+      "Minkowski's lattice point theorem, launching the geometry of numbers",
+      'convex duality and polarity, exchanging a convex body for a dual description via supporting hyperplanes',
+    ],
+    whyItMatters:
+      "Convexity is the single geometric property that makes optimization tractable — a convex function has no misleading local minima to get trapped in — which is why convex geometry sits directly underneath linear and convex programming, and Minkowski's convex-geometric methods in the geometry of numbers gave number theory a genuinely new, visual set of tools for proving results that had previously required only algebraic techniques.",
+    prerequisites: ['geometry:projective-geometry'],
+    related: ['optimization:convex-optimization', 'number-theory:algebraic-number-theory', 'geometry:discrete-geometry'],
+    historicalContext:
+      "Hermann Minkowski founded the systematic theory of convex bodies in his Geometrie der Zahlen (1896), proving his eponymous lattice point theorem and using convex-geometric arguments to derive new results in algebraic number theory, launching the field he called the geometry of numbers. Minkowski's work on convex bodies and volumes, developed further in the posthumously published Theorie der konvexen Körper, established supporting hyperplanes, mixed volumes, and the Brunn-Minkowski inequality, building on Hermann Brunn's 1887 special case, as the field's central tools.",
+    contributorIds: ['person:hermann-minkowski'],
+    workIds: [],
+    exampleProblems: [
+      'Prove that the intersection of any collection of convex sets is convex.',
+      "Use Minkowski's lattice point theorem to show that a symmetric convex region of area greater than 4 in the plane contains a nonzero integer lattice point.",
+      'Verify the Brunn-Minkowski inequality for two specific intervals on the real line.',
+    ],
+    applications: [
+      'linear and convex optimization, where feasible regions and objective functions rely fundamentally on convexity',
+      "the geometry of numbers, using convex bodies to prove results in algebraic number theory (Minkowski's bound on class numbers)",
+      'computer graphics and computational geometry, using convex hulls for collision detection and shape approximation',
+    ],
+    researchDirections: [
+      'high-dimensional convex geometry and concentration of measure phenomena',
+      'algorithmic convex geometry, including volume computation and sampling from high-dimensional convex bodies',
+      'connections between convex geometry and information theory via entropy and volume inequalities',
+    ],
+    textbooks: [
+      {
+        title: 'Convex Bodies: The Brunn-Minkowski Theory',
+        authors: ['Rolf Schneider'],
+        edition: '2nd',
+        year: 2013,
+        why: 'The standard advanced reference on the theory of convex bodies and their volume inequalities.',
+      },
+      {
+        title: 'A Course in Convexity',
+        authors: ['Alexander Barvinok'],
+        year: 2002,
+        why: 'An accessible, well-regarded graduate introduction connecting convex geometry to optimization.',
+      },
+      {
+        title: 'Convex Analysis',
+        authors: ['R. Tyrrell Rockafellar'],
+        year: 1970,
+        why: 'The classic foundational text on convex functions and sets, bridging geometry and optimization.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Convexity condition', latex: 'tx + (1-t)y \\in K \\quad \\forall x,y \\in K,\\ t \\in [0,1]' },
+      { label: 'Brunn-Minkowski inequality', latex: '\\text{vol}(A+B)^{1/n} \\ge \\text{vol}(A)^{1/n} + \\text{vol}(B)^{1/n}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Convex set', url: 'https://encyclopediaofmath.org/wiki/Convex_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hermann Minkowski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Minkowski/', kind: 'reference' },
+      { label: 'Wikipedia: Convex geometry', url: 'https://en.wikipedia.org/wiki/Convex_geometry', kind: 'encyclopedia' },
+    ],
+  },
+  'geometry:discrete-geometry': {
+    overview:
+      'Discrete geometry studies combinatorial questions about finite or discrete configurations of geometric objects — points, lines, circles, polytopes — such as how densely circles can be packed, or how a polytope\'s faces fit together, blending geometric intuition with combinatorial counting.',
+    formal:
+      "The Kepler conjecture, proved by Thomas Hales (1998, formally verified 2014), states that no packing of equal spheres in three-dimensional space exceeds the density of the face-centered cubic packing, $\\pi/\\sqrt{18}\\approx 0.7405$. Euler's polyhedron formula $V-E+F=2$ relates the vertices, edges, and faces of any convex polyhedron. Helly's theorem: if every $d+1$ of a finite collection of convex sets in $\\mathbb{R}^d$ have a common point, then all of them do.",
+    keyIdeas: [
+      'packing and covering problems: how densely can objects be arranged without overlap',
+      "Euler's formula V - E + F = 2 relating vertices, edges, and faces of polyhedra and planar graphs",
+      "Helly's theorem and its combinatorial cousins",
+      'combinatorics of polytopes: face counting, the upper bound theorem, and duality',
+      'the extremal, "how many/how few" style of question characteristic of discrete geometry',
+    ],
+    whyItMatters:
+      'Discrete geometry answers exactly the kind of question a physicist, chemist, or engineer actually needs — how should spheres be packed to store the most cargo, or atoms in a crystal — and the surprising difficulty of even stating such questions rigorously, let alone proving optimal packings (the Kepler conjecture took nearly 400 years to resolve), shows how much genuine mathematical depth hides in apparently simple physical arrangements.',
+    prerequisites: ['geometry:convex-geometry'],
+    related: ['combinatorics:extremal-combinatorics', 'geometry:incidence-geometry', 'graph-theory:planar-graphs'],
+    historicalContext:
+      'Johannes Kepler conjectured in 1611 that the familiar cannonball/orange-stacking arrangement gives the densest possible sphere packing, a claim that resisted proof for nearly four centuries. Leonhard Euler discovered his polyhedron formula around 1750, launching the systematic combinatorial study of polyhedra. The 20th century saw discrete geometry mature into a distinct field through the work of László Fejes Tóth on packing and covering from the 1940s onward, and Thomas Hales finally proved the Kepler conjecture in 1998 using an extensive computer-assisted case analysis, formally verified by the Flyspeck project in 2014.',
+    contributorIds: ['person:hermann-minkowski'],
+    workIds: [],
+    exampleProblems: [
+      "Verify Euler's formula V - E + F = 2 for a cube and for a tetrahedron.",
+      "Use Helly's theorem to show that if every three of several convex sets in the plane share a common point, then all of them do.",
+      'Explain, in outline, why proving the Kepler conjecture was so difficult despite the packing itself being familiar and easy to describe.',
+    ],
+    applications: [
+      'materials science and chemistry, where sphere packing models crystal structures',
+      'coding theory, where sphere packings in high-dimensional space correspond to error-correcting codes',
+      'computational geometry algorithms for mesh generation, collision detection, and geographic information systems',
+    ],
+    researchDirections: [
+      'high-dimensional sphere packing, following the recent resolutions of the packing problem in dimensions 8 and 24 by Maryna Viazovska',
+      'the combinatorics of polytopes in high dimensions and their face lattices',
+      'algorithmic and computational aspects of packing, covering, and arrangement problems',
+    ],
+    textbooks: [
+      {
+        title: 'Lectures on Discrete Geometry',
+        authors: ['Jiří Matoušek'],
+        year: 2002,
+        why: 'The standard modern graduate text, covering the full range of discrete geometry topics with a computational flavor.',
+      },
+      {
+        title: 'Combinatorial Geometry',
+        authors: ['János Pach', 'Pankaj K. Agarwal'],
+        year: 1995,
+        why: 'A widely cited text connecting discrete geometry to combinatorics and computational applications.',
+      },
+      {
+        title: 'Convex and Discrete Geometry',
+        authors: ['Peter M. Gruber'],
+        year: 2007,
+        why: 'A comprehensive reference bridging convex and discrete geometry in one volume.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Euler's polyhedron formula", latex: 'V - E + F = 2' },
+      { label: 'Kepler conjecture (density bound)', latex: '\\delta \\le \\frac{\\pi}{\\sqrt{18}} \\approx 0.7405' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Discrete geometry', url: 'https://en.wikipedia.org/wiki/Discrete_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hermann Minkowski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Minkowski/', kind: 'reference' },
+      { label: 'MacTutor: search for Kepler', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Kepler', kind: 'reference' },
+    ],
+  },
+  'geometry:incidence-geometry': {
+    overview:
+      'Incidence geometry strips geometry down to its barest bones — points, lines, and a relation of "lying on" between them — and asks purely combinatorial questions, most famously how many times a large collection of points and lines can possibly touch each other, questions that turn out to have surprisingly sharp and useful answers.',
+    formal:
+      'An incidence structure is a set of points $P$, a set of lines $L$, and an incidence relation $I\\subseteq P\\times L$. The Szemerédi-Trotter theorem bounds the maximum number of incidences between $n$ points and $m$ lines in the plane: $I(P,L)=O(n^{2/3}m^{2/3}+n+m)$, tight up to the constant. A finite projective plane of order $q$ has $q^2+q+1$ points and $q^2+q+1$ lines, each line containing exactly $q+1$ points and each point lying on exactly $q+1$ lines.',
+    keyIdeas: [
+      'incidence structures: points, lines, and a bare "lies on" relation, stripped of metric information',
+      'the Szemerédi-Trotter theorem as the sharp bound on point-line incidences',
+      'finite projective planes as combinatorial incidence structures, existing for every prime power order',
+      'the polynomial method as a modern technique for proving incidence bounds',
+      "incidence geometry's deep connections to combinatorics, additive number theory, and computer science",
+    ],
+    whyItMatters:
+      "The Szemerédi-Trotter incidence theorem looks like a narrow, technical combinatorial fact, but it is a genuinely load-bearing tool across mathematics, powering results in additive combinatorics (sum-product estimates), theoretical computer science (range searching lower bounds), and the study of distinct distances between points, all via essentially the same underlying counting argument.",
+    prerequisites: ['geometry:discrete-geometry'],
+    related: ['combinatorics:extremal-combinatorics', 'graph-theory:spectral-graph-theory', 'probabilistic-method:expander-graphs'],
+    historicalContext:
+      'Paul Erdős posed foundational extremal questions about point-line and point-distance configurations starting in the 1940s, including the famous distinct distances problem. Endre Szemerédi and William Trotter proved their eponymous incidence bound in 1983, and László Székely gave a strikingly short and influential proof via the crossing number inequality for graphs in 1997. Larry Guth and Nets Katz then introduced the polynomial method into incidence geometry in 2010, using algebraic geometry techniques to nearly resolve Erdős\'s distinct distances conjecture, opening an entirely new toolkit for the field.',
+    contributorIds: ['person:paul-erdos', 'person:david-hilbert'],
+    workIds: ['work:grundlagen-der-geometrie'],
+    exampleProblems: [
+      'Show that $n$ points and $n$ lines in the plane can achieve close to the Szemerédi-Trotter bound, using a grid configuration.',
+      'Verify that a finite projective plane of order 2, the Fano plane, has exactly 7 points and 7 lines.',
+      'Explain, in outline, how the Szemerédi-Trotter theorem can be used to bound the number of triangles formed by $n$ lines.',
+    ],
+    applications: [
+      'theoretical computer science, where incidence bounds underlie lower bounds for range searching and computational geometry data structures',
+      'additive combinatorics, where incidence geometry techniques prove sum-product estimates',
+      'coding and design theory, where finite projective planes construct combinatorial designs and codes',
+    ],
+    researchDirections: [
+      "the polynomial method's continuing applications to incidence geometry and related extremal problems",
+      'higher-dimensional and complex/finite-field analogues of the Szemerédi-Trotter theorem',
+      "the still not fully resolved distinct distances problem and related Erdős-style combinatorial geometry questions",
+    ],
+    textbooks: [
+      {
+        title: 'Combinatorial Geometry',
+        authors: ['János Pach', 'Pankaj K. Agarwal'],
+        year: 1995,
+        why: 'A widely cited standard text with a thorough treatment of incidence bounds and their applications.',
+      },
+      {
+        title: 'Lectures on Discrete Geometry',
+        authors: ['Jiří Matoušek'],
+        year: 2002,
+        why: 'Includes a clear, self-contained treatment of the Szemerédi-Trotter theorem and its proof via crossing numbers.',
+      },
+      {
+        title: 'Projective Geometries over Finite Fields',
+        authors: ['James Hirschfeld'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The standard reference for finite projective planes and their combinatorial incidence structure.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Szemerédi-Trotter theorem', latex: 'I(P,L) = O(n^{2/3}m^{2/3} + n + m)' },
+      { label: 'Finite projective plane parameters', latex: '|P| = |L| = q^2+q+1' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Incidence (geometry)', url: 'https://en.wikipedia.org/wiki/Incidence_(geometry)', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Erdős', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Erdos', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:smooth-manifolds': {
+    overview:
+      'A smooth manifold is a space that looks locally like Euclidean space and comes equipped with enough extra structure — compatible smooth coordinate charts — to do calculus on it: differentiate functions, define vector fields, and integrate, even though the space as a whole may be curved or topologically complicated.',
+    formal:
+      'A smooth $n$-manifold is a topological manifold $M$ equipped with a maximal atlas of charts $\\varphi_\\alpha:U_\\alpha\\to\\mathbb{R}^n$ whose transition maps $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ are all $C^\\infty$ wherever defined. A map $f:M\\to N$ between smooth manifolds is smooth if its coordinate representations are smooth in the usual Euclidean sense. Whitney\'s embedding theorem (1936, sharpened 1944) shows every smooth $n$-manifold embeds smoothly into $\\mathbb{R}^{2n}$.',
+    keyIdeas: [
+      'an atlas of compatible smooth charts as the structure that makes calculus on a manifold well-defined',
+      'smooth maps between manifolds via smooth coordinate representations',
+      "Whitney's embedding theorem: every smooth manifold sits inside some Euclidean space",
+      'diffeomorphisms as the natural notion of "sameness" for smooth manifolds',
+      'partitions of unity, letting local constructions be patched together globally',
+    ],
+    whyItMatters:
+      'The atlas-of-charts definition is what lets the differential calculus developed for $\\mathbb{R}^n$ — derivatives, vector fields, differential equations — be transported wholesale to curved and topologically exotic spaces, which is why every geometric theory of physical space, from the curved spacetime of general relativity to the configuration spaces of robotics, is built on smooth manifolds.',
+    prerequisites: [],
+    related: ['topology:manifolds', 'differential-geometry:tangent-spaces', 'differential-geometry:riemannian-metrics'],
+    historicalContext:
+      'Bernhard Riemann\'s 1854 Habilitationsschrift first proposed the idea of an $n$-dimensional manifold informally, generalizing surfaces without a rigorous foundation. Hassler Whitney\'s 1936 paper Differentiable Manifolds gave the first fully rigorous, modern definition via atlases of charts and proved his embedding theorem, definitively answering whether abstract manifolds were "really" just subsets of Euclidean space. Whitney\'s later work through the 1940s-50s on singularities and stratified spaces further developed the differential-topological toolkit smooth manifold theory relies on today.',
+    contributorIds: ['person:hassler-whitney', 'person:bernhard-riemann'],
+    workIds: ['work:topology-from-the-differentiable-viewpoint'],
+    exampleProblems: [
+      'Construct an explicit atlas of two charts for the sphere $S^2$ using stereographic projection, and verify the transition map is smooth.',
+      'Show that the smooth structures on $\\mathbb{R}$ given by the identity chart and by $x\\mapsto x^3$ are not compatible, yet are diffeomorphic as manifolds.',
+      'Explain what Whitney\'s embedding theorem guarantees and why it does not mean "manifolds are nothing new."',
+    ],
+    applications: [
+      'general relativity, modeling spacetime as a 4-dimensional smooth (pseudo-Riemannian) manifold',
+      'robotics, where configuration spaces of mechanical systems are smooth manifolds',
+      'computer graphics, representing curved surfaces via manifold-based mesh and parametrization techniques',
+    ],
+    researchDirections: [
+      "exotic smooth structures on topological manifolds (exotic $\\mathbb{R}^4$s, exotic spheres), showing smooth and topological classification can differ",
+      'manifold learning in data science, modeling high-dimensional data as lying near a low-dimensional smooth manifold',
+      'higher and derived generalizations of manifolds in modern geometry (orbifolds, derived manifolds)',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Smooth Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2012,
+        why: 'The standard graduate text for smooth manifold theory, comprehensive and widely adopted.',
+      },
+      {
+        title: 'Differential Geometry of Curves and Surfaces',
+        authors: ['Manfredo do Carmo'],
+        edition: '2nd',
+        year: 2016,
+        why: 'A classic, geometrically motivated introduction before tackling the abstract manifold setting.',
+      },
+      {
+        title: 'A Comprehensive Introduction to Differential Geometry, Vol. 1',
+        authors: ['Michael Spivak'],
+        edition: '3rd',
+        year: 1999,
+        why: 'A legendary, encyclopedic multi-volume treatment prized for its rigor and historical care.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Smooth transition maps', latex: '\\varphi_\\beta \\circ \\varphi_\\alpha^{-1} \\in C^\\infty' },
+      { label: "Whitney embedding dimension", latex: 'M^n \\hookrightarrow \\mathbb{R}^{2n}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Differentiable manifold', url: 'https://en.wikipedia.org/wiki/Differentiable_manifold', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:tangent-spaces': {
+    overview:
+      'The tangent space at a point of a manifold is the best linear approximation to the manifold near that point — the set of all possible "velocity vectors" of curves passing through it — giving a vector space where the tools of linear algebra can be applied at each point of an otherwise curved space.',
+    formal:
+      'The tangent space $T_pM$ at a point $p$ of a smooth $n$-manifold can be defined via equivalence classes of curves through $p$ under "same velocity," or as the vector space of derivations at $p$: linear maps $v:C^\\infty(M)\\to\\mathbb{R}$ satisfying $v(fg)=f(p)v(g)+g(p)v(f)$. In either definition $T_pM$ is $n$-dimensional, and $TM=\\bigsqcup_p T_pM$ forms the tangent bundle, itself a smooth $2n$-manifold. The differential $df_p:T_pM\\to T_{f(p)}N$ generalizes the Jacobian matrix to arbitrary manifolds.',
+    keyIdeas: [
+      'the tangent space as the best linear (first-order) approximation to a manifold at a point',
+      'equivalent definitions via curves, derivations, or coordinate-dependent tuples transforming correctly',
+      'the tangent bundle TM, assembling all tangent spaces into a single smooth manifold',
+      'the differential of a smooth map as the coordinate-free generalization of the Jacobian',
+      'vector fields as smooth choices of tangent vector at every point',
+    ],
+    whyItMatters:
+      "The tangent space is what makes it possible to linearize, and hence compute with via linear algebra, an intrinsically curved and nonlinear object, which is exactly the trick that lets Newton's laws, formulated for flat space, be adapted to curved configuration spaces and lets differential equations be posed and solved directly on manifolds.",
+    prerequisites: ['differential-geometry:smooth-manifolds'],
+    related: ['differential-geometry:riemannian-metrics', 'topology:homotopy', 'optimization:gradient-descent'],
+    historicalContext:
+      'The informal idea of a tangent plane to a surface dates to classical differential geometry (Euler, Gauss, Monge), but the coordinate-free, intrinsic definition of a tangent space attached abstractly to a point of a manifold emerged alongside Hermann Weyl\'s and Hassler Whitney\'s rigorous formulations of manifolds in the 1910s-30s. The equivalent "derivation" definition of tangent vectors, now standard in modern texts, became prevalent through the mid-20th-century algebraic reformulation of differential geometry, emphasizing tangent vectors as operators on functions rather than as geometric arrows.',
+    contributorIds: ['person:hassler-whitney', 'person:hermann-weyl'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the tangent space to the sphere $S^2$ at the north pole directly, as the set of velocity vectors of curves through that point.',
+      'Verify that the derivation definition of a tangent vector satisfies the Leibniz rule, using a specific smooth function.',
+      'Compute the differential of $f(x,y)=(x^2-y^2,2xy)$ at a point, and interpret it as a linear map between tangent spaces.',
+    ],
+    applications: [
+      'physics, where tangent vectors represent velocities and the tangent bundle is the natural setting for classical (Lagrangian) mechanics',
+      'computer graphics and robotics, using tangent spaces for surface normals, motion planning, and local linearization',
+      'optimization on manifolds, using tangent spaces to define gradients and descent directions on curved parameter spaces',
+    ],
+    researchDirections: [
+      'Riemannian and sub-Riemannian geometry\'s use of tangent spaces with extra metric or bracket structure',
+      'optimization algorithms generalized to manifolds via Riemannian gradient descent on tangent spaces',
+      'higher tangent bundles and jet spaces in the study of differential equations and variational problems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Smooth Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2012,
+        why: 'Develops the multiple equivalent definitions of tangent vectors with unusual clarity.',
+      },
+      {
+        title: 'A Comprehensive Introduction to Differential Geometry, Vol. 1',
+        authors: ['Michael Spivak'],
+        edition: '3rd',
+        year: 1999,
+        why: 'Gives a careful historical and technical treatment of tangent spaces and their many equivalent formulations.',
+      },
+      {
+        title: 'Differential Geometry of Curves and Surfaces',
+        authors: ['Manfredo do Carmo'],
+        edition: '2nd',
+        year: 2016,
+        why: 'Builds tangent-plane intuition concretely for curves and surfaces before full generality.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Tangent vector as a derivation', latex: 'v(fg) = f(p)v(g) + g(p)v(f)' },
+      { label: 'Differential of a map', latex: 'df_p : T_pM \\to T_{f(p)}N' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Tangent space', url: 'https://en.wikipedia.org/wiki/Tangent_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+      { label: 'MacTutor: search for Weyl', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Weyl', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:riemannian-metrics': {
+    overview:
+      'A Riemannian metric equips a smooth manifold with a smoothly varying way to measure lengths of tangent vectors and angles between them at every point, turning an abstract manifold into a genuine geometric space where distances, angles, areas, and volumes all make sense.',
+    formal:
+      'A Riemannian metric on $M$ is a smooth assignment of a positive-definite inner product $g_p:T_pM\\times T_pM\\to\\mathbb{R}$ to each point, written in coordinates as $ds^2=g_{ij}(x)\\,dx^i dx^j$. The length of a curve $\\gamma:[a,b]\\to M$ is $L(\\gamma)=\\int_a^b\\sqrt{g_{\\gamma(t)}(\\dot\\gamma(t),\\dot\\gamma(t))}\\,dt$, and the Riemannian distance is the infimum of lengths of connecting curves. The Nash embedding theorem shows every Riemannian manifold can be isometrically embedded in some high-dimensional Euclidean space.',
+    keyIdeas: [
+      'a Riemannian metric as a smoothly varying inner product on tangent spaces',
+      'the length and distance functions induced by the metric',
+      'isometries as the metric-preserving maps between Riemannian manifolds',
+      "the Nash embedding theorem: every abstract Riemannian manifold sits isometrically inside some Euclidean space",
+      'pseudo-Riemannian (Lorentzian) metrics generalizing the theory to spacetime',
+    ],
+    whyItMatters:
+      'The Riemannian metric is the single piece of extra structure that turns bare smooth manifolds, which have no notion of distance or angle, into genuine geometric spaces, and choosing different metrics on the same manifold can produce wildly different geometries, which is exactly the flexibility general relativity exploits to represent gravity as curved geometry.',
+    prerequisites: ['differential-geometry:tangent-spaces'],
+    related: ['geometry:non-euclidean-geometry', 'differential-geometry:curvature', 'mathematical-physics:relativity'],
+    historicalContext:
+      "Bernhard Riemann's 1854 Habilitationsschrift Über die Hypothesen, welche der Geometrie zu Grunde liegen introduced the general notion of a metric $ds^2=\\sum g_{ij}dx^idx^j$ on an $n$-dimensional manifold, unifying and vastly generalizing Gauss's surface theory. Gregorio Ricci-Curbastro and Tullio Levi-Civita developed the tensor calculus needed to compute with Riemannian metrics systematically in their 1900 paper Méthodes de calcul différentiel absolu, and Einstein's adoption of this 'absolute differential calculus' for general relativity (1915-16) vindicated and popularized Riemannian geometry as physically fundamental.",
+    contributorIds: ['person:bernhard-riemann'],
+    workIds: ['work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen'],
+    exampleProblems: [
+      'Compute the length of a great-circle arc on the sphere using the round metric in spherical coordinates.',
+      'Show that the hyperbolic metric $ds^2=(dx^2+dy^2)/y^2$ on the upper half-plane gives it infinite diameter, unlike the Euclidean metric.',
+      'Explain why a Riemannian metric always exists on any smooth manifold, using partitions of unity, while this is not automatic for pseudo-Riemannian metrics.',
+    ],
+    applications: [
+      "general relativity, where spacetime's Lorentzian metric encodes gravity as curvature",
+      'computer graphics, using Riemannian metrics for geodesic distance computations on meshes',
+      'machine learning, using Riemannian metrics to define distances in curved data spaces (information geometry)',
+    ],
+    researchDirections: [
+      'geometric analysis, studying manifolds via metrics evolving under geometric flows (Ricci flow)',
+      'the existence and classification of Einstein metrics on manifolds',
+      'sub-Riemannian geometry, generalizing Riemannian metrics to settings with constrained directions of motion',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'The classic standard graduate introduction to Riemannian metrics and their geometry.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern, widely used companion to Lee\'s smooth manifolds text, extending it to the Riemannian setting.',
+      },
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic advanced reference, especially strong on connections and the structural theory of metrics.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Line element', latex: 'ds^2 = g_{ij}(x)\\,dx^i dx^j' },
+      { label: 'Length functional', latex: 'L(\\gamma) = \\int_a^b \\sqrt{g_{\\gamma(t)}(\\dot\\gamma(t),\\dot\\gamma(t))}\\,dt' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Riemannian metric', url: 'https://encyclopediaofmath.org/wiki/Riemannian_metric', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Riemannian geometry', url: 'https://encyclopediaofmath.org/wiki/Riemannian_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:curvature': {
+    overview:
+      'Curvature measures precisely how much a curved space deviates from being flat — how much parallel-transporting a vector around a small loop rotates it, or how much a triangle\'s angles fail to sum to 180 degrees — turning an intuitive visual notion into a precise, computable tensor.',
+    formal:
+      'The Riemann curvature tensor is $R(X,Y)Z=\\nabla_X\\nabla_YZ-\\nabla_Y\\nabla_XZ-\\nabla_{[X,Y]}Z$, measuring the failure of second covariant derivatives to commute; the manifold is flat exactly where $R\\equiv 0$. Contracting $R$ gives the Ricci tensor and, further, the scalar curvature. The Gauss-Bonnet theorem for a closed surface $\\Sigma$ states $\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)$, relating total curvature to topology.',
+    keyIdeas: [
+      'the Riemann curvature tensor as the failure of covariant derivatives to commute',
+      'Ricci and scalar curvature as successive contractions carrying less refined but more computable information',
+      'sectional curvature generalizing Gaussian curvature to higher-dimensional manifolds',
+      'the Gauss-Bonnet theorem linking curvature (geometry) to Euler characteristic (topology)',
+      'Einstein manifolds and constant-curvature spaces as the most symmetric curvature profiles',
+    ],
+    whyItMatters:
+      'Curvature is the precise measurement separating intrinsically flat spaces from genuinely curved ones, and the Gauss-Bonnet theorem\'s conclusion — that the total curvature of a surface is a topological invariant, unaffected by how you bend or stretch it — is the prototype for an entire family of index theorems linking local geometric data to global topological structure.',
+    prerequisites: ['differential-geometry:riemannian-metrics'],
+    related: ['topology:homology', 'mathematical-physics:relativity', 'differential-geometry:geodesics'],
+    historicalContext:
+      "Carl Friedrich Gauss's Theorema Egregium (1827) proved that Gaussian curvature of a surface is intrinsic, computable from measurements within the surface alone, a foundational discovery for differential geometry. Bernhard Riemann generalized curvature to arbitrary dimensions in 1854, and Ricci-Curbastro and Levi-Civita's tensor calculus (1900) gave the modern computational apparatus for the full Riemann curvature tensor. Élie Cartan's 1920s reformulation of curvature via moving frames and connections gave a more conceptual, coordinate-free approach that dominates modern differential geometry, and Einstein's general relativity (1915) made the Ricci curvature tensor physically central by identifying it with the distribution of mass and energy.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:elie-cartan'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the Gaussian curvature of a sphere of radius $R$ and verify the Gauss-Bonnet theorem for the whole sphere.',
+      'Show that the flat torus $\\mathbb{R}^2/\\mathbb{Z}^2$ has zero Gaussian curvature everywhere, and reconcile this with its nontrivial topology.',
+      'Explain, in outline, what the Einstein field equations say about the relationship between Ricci curvature and matter/energy.',
+    ],
+    applications: [
+      'general relativity, where the Einstein field equations equate a combination of curvature with the distribution of mass-energy',
+      'geometric analysis and the study of manifolds via curvature-driven flows (Ricci flow, mean curvature flow)',
+      'computer vision and shape analysis, using curvature to characterize and compare surfaces',
+    ],
+    researchDirections: [
+      'Ricci flow and its use, by Perelman, in proving the Poincaré and geometrization conjectures',
+      'scalar curvature rigidity and positive mass theorems in geometric analysis',
+      'curvature bounds and comparison geometry (Alexandrov spaces, CAT(k) spaces)',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'Develops curvature and the Gauss-Bonnet theorem rigorously as the core of Riemannian geometry.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern treatment with unusually careful exposition of the curvature tensor and its contractions.',
+      },
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic reference for curvature via connections, in Cartan\'s moving-frame spirit.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann curvature tensor', latex: 'R(X,Y)Z = \\nabla_X\\nabla_Y Z - \\nabla_Y\\nabla_X Z - \\nabla_{[X,Y]}Z' },
+      { label: 'Gauss-Bonnet theorem', latex: '\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Riemannian geometry', url: 'https://encyclopediaofmath.org/wiki/Riemannian_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Élie Cartan', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cartan/', kind: 'reference' },
+      { label: 'MacTutor: search for Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Gauss', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:geodesics': {
+    overview:
+      'A geodesic is the curved-space generalization of a straight line: locally the shortest path between nearby points, and the trajectory a free particle follows when no force acts on it except the constraint of staying on the manifold, unifying "shortest path" with "natural, unforced motion."',
+    formal:
+      'A geodesic on a Riemannian manifold is a curve $\\gamma(t)$ satisfying $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$, equivalently a critical point of the energy functional $E(\\gamma)=\\frac12\\int\\|\\dot\\gamma(t)\\|^2\\,dt$. The Hopf-Rinow theorem states a Riemannian manifold is geodesically complete if and only if it is complete as a metric space, in which case any two points are joined by a length-minimizing geodesic. In general relativity, freely falling particles and light rays follow geodesics of the spacetime metric.',
+    keyIdeas: [
+      'geodesics as curves of zero intrinsic acceleration (parallel velocity)',
+      'geodesics as critical points of the energy functional, via the calculus of variations',
+      'the Hopf-Rinow theorem connecting geodesic and metric completeness',
+      'the exponential map, using geodesics to identify a neighborhood of the tangent space with a neighborhood of the manifold',
+      'geodesics in general relativity as the paths of free-falling matter and light',
+    ],
+    whyItMatters:
+      "Geodesics let 'moving in a straight line' make sense on a curved space at all, and Einstein's radical reinterpretation of gravity — that objects in free fall are simply following geodesics of curved spacetime rather than being pushed by a force — is one of the most consequential applications of pure differential geometry in the history of physics.",
+    prerequisites: ['differential-geometry:curvature'],
+    related: ['calculus-of-variations:euler-lagrange-equation', 'mathematical-physics:relativity', 'dynamical-systems:ergodic-theory'],
+    historicalContext:
+      "The problem of finding shortest paths on curved surfaces was studied by Johann Bernoulli and Euler in the 18th century in special cases, and Gauss's differential-geometric work on surfaces (1827) treated geodesics systematically for the first time using intrinsic curvature. Riemann's 1854 generalization extended geodesics beyond surfaces, and Levi-Civita's 1917 concept of parallel transport gave the precise modern formulation of a geodesic as a curve with vanishing covariant acceleration. Einstein's general relativity (1915) then made geodesics physically central, identifying the paths of freely falling objects with geodesics of the spacetime metric.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:bernhard-riemann'],
+    workIds: ['work:morse-theory'],
+    exampleProblems: [
+      'Show that great circles are exactly the geodesics of the round sphere, using the fact that geodesics have zero geodesic curvature.',
+      'Use the Hopf-Rinow theorem to explain why the punctured plane $\\mathbb{R}^2\\setminus\\{0\\}$ is not geodesically complete.',
+      'Explain, in outline, why gravitational lensing is a geodesic effect in general relativity rather than a force acting on light.',
+    ],
+    applications: [
+      'general relativity, where planetary orbits and light bending are computed as geodesics of the spacetime metric',
+      'robotics and motion planning, using geodesics to find efficient paths on curved configuration spaces',
+      'computer graphics, computing geodesic distances on meshes for texture mapping and shape analysis',
+    ],
+    researchDirections: [
+      "Morse theory's use of geodesics to relate the topology of a manifold to critical points of the energy functional",
+      'the geometry and dynamics of geodesic flows, connecting to ergodic theory and dynamical systems',
+      'numerical methods for computing geodesics efficiently on discrete surfaces and high-dimensional data manifolds',
+    ],
+    textbooks: [
+      {
+        title: 'Riemannian Geometry',
+        authors: ['Manfredo do Carmo'],
+        year: 1992,
+        why: 'Gives the standard rigorous treatment of geodesics via both the connection and variational definitions.',
+      },
+      {
+        title: 'Introduction to Riemannian Manifolds',
+        authors: ['John M. Lee'],
+        edition: '2nd',
+        year: 2018,
+        why: 'A modern, clear development of geodesics, completeness, and the Hopf-Rinow theorem.',
+      },
+      {
+        title: 'Morse Theory',
+        authors: ['John Milnor'],
+        year: 1963,
+        why: 'The classic text connecting geodesics to the topology of the underlying manifold via critical point theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Geodesic equation', latex: '\\nabla_{\\dot\\gamma}\\dot\\gamma = 0' },
+      { label: 'Energy functional', latex: 'E(\\gamma) = \\frac{1}{2}\\int_a^b \\|\\dot\\gamma(t)\\|^2\\,dt' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Geodesic line', url: 'https://encyclopediaofmath.org/wiki/Geodesic_line', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Gauss', kind: 'reference' },
+      { label: 'MacTutor: search for Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Riemann', kind: 'reference' },
+    ],
+  },
+  'differential-geometry:fiber-bundles': {
+    overview:
+      'A fiber bundle is a space that looks locally like a simple product of a base space and a fixed fiber, but may be twisted globally in a way a plain product never is — the Möbius strip, locally just a strip times an interval but globally twisted, is the simplest example — giving geometry a systematic language for spaces varying continuously over a base.',
+    formal:
+      'A fiber bundle consists of spaces $E$ (total space), $B$ (base), $F$ (fiber), and a projection $\\pi:E\\to B$ such that every point of $B$ has a neighborhood $U$ with $\\pi^{-1}(U)\\cong U\\times F$, compatibly glued via transition functions valued in a structure group $G$ acting on $F$. A connection on a bundle specifies "horizontal" directions, letting a path in the base be lifted to a unique path in the total space; the tangent bundle, cotangent bundle, and principal bundles are all fundamental examples.',
+    keyIdeas: [
+      'local triviality: a fiber bundle looks like a product locally, but may be globally twisted',
+      'structure groups and transition functions encoding how fibers are glued together',
+      'principal bundles, where the fiber is the structure group itself, acting freely and transitively',
+      'connections on a bundle, providing a notion of parallel transport and curvature',
+      'characteristic classes as topological obstructions to a bundle being globally trivial',
+    ],
+    whyItMatters:
+      'Fiber bundles give a rigorous mathematical framework for quantities that come attached to every point of a space but can be globally twisted, and this framework turned out to be exactly the right language for gauge theory in physics, where the fundamental forces are all described as connections on principal bundles.',
+    prerequisites: ['differential-geometry:geodesics'],
+    related: ['lie-theory:lie-groups', 'mathematical-physics:gauge-theory', 'algebraic-geometry:cohomology'],
+    historicalContext:
+      "Herbert Seifert and Heinz Hopf's work on fibered spaces in the 1930s, and Hassler Whitney's systematic study of sphere bundles and characteristic classes in the same decade, developed early special cases. Charles Ehresmann gave the modern general definition of a fiber bundle with structure group and introduced the fundamental notion of a connection in a series of papers in the 1940s-50s, and Norman Steenrod's 1951 book The Topology of Fibre Bundles systematized the theory. The theory found a second life in theoretical physics from the 1970s onward, when Yang-Mills gauge theories describing fundamental particle physics were recognized as connections on principal bundles.",
+    contributorIds: ['person:charles-ehresmann', 'person:hassler-whitney'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the Möbius strip is a nontrivial fiber bundle over the circle with fiber an interval, by exhibiting a nontrivial transition function.',
+      'Explain the difference between the tangent bundle of $S^2$ (nontrivial, by the hairy ball theorem) and the tangent bundle of the torus (trivial).',
+      'Describe, at a high level, how a connection on a principal bundle lets a path in the base be lifted to the total space.',
+    ],
+    applications: [
+      'gauge theory in theoretical physics, where the electromagnetic, weak, and strong forces are connections on principal bundles',
+      'characteristic classes (Chern classes, Stiefel-Whitney classes) used to detect when a bundle is nontrivial',
+      'robotics, where configuration and phase spaces of constrained mechanical systems often have a natural fiber bundle structure',
+    ],
+    researchDirections: [
+      'gauge theory and its applications to 4-manifold topology (Donaldson and Seiberg-Witten theory)',
+      'higher and derived generalizations of fiber bundles (gerbes, higher stacks) in modern geometry',
+      'index theory (the Atiyah-Singer index theorem), relating analytic and topological invariants of bundles',
+    ],
+    textbooks: [
+      {
+        title: 'Foundations of Differential Geometry, Vol. 1',
+        authors: ['Shoshichi Kobayashi', 'Katsumi Nomizu'],
+        year: 1963,
+        why: 'The classic advanced reference for principal bundles and connections in the geometric tradition.',
+      },
+      {
+        title: 'The Topology of Fibre Bundles',
+        authors: ['Norman Steenrod'],
+        year: 1951,
+        why: 'The founding systematic treatment, still cited for its rigor and its role in algebraic topology.',
+      },
+      {
+        title: 'Fibre Bundles',
+        authors: ['Dale Husemoller'],
+        edition: '3rd',
+        year: 1994,
+        why: 'A widely used modern graduate text bridging the topological and geometric perspectives.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Local triviality', latex: '\\pi^{-1}(U) \\cong U \\times F' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bundle', url: 'https://encyclopediaofmath.org/wiki/Bundle', kind: 'encyclopedia' },
+      { label: 'MacTutor: Charles Ehresmann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Ehresmann/', kind: 'reference' },
+      { label: 'MacTutor: Hassler Whitney', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Whitney/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:real-numbers': {
+    overview:
+      'The real numbers are the complete ordered field that makes calculus rigorous: an ordered set of numbers with no "gaps," so that every bounded set has a least upper bound. Constructing them precisely from the rationals — rather than assuming their existence intuitively — was the central achievement that turned 19th-century analysis into a fully rigorous subject.',
+    formal:
+      'The real numbers $\\mathbb{R}$ form a complete ordered field: a field satisfying the least upper bound property, that every nonempty subset $S\\subseteq\\mathbb{R}$ bounded above has a supremum $\\sup S\\in\\mathbb{R}$. Dedekind constructed $\\mathbb{R}$ from $\\mathbb{Q}$ via cuts: a Dedekind cut is a partition $(A,B)$ of $\\mathbb{Q}$ with $A$ having no maximum and every element of $A$ less than every element of $B$; each real number is identified with such a cut. Cantor gave an equivalent construction using equivalence classes of Cauchy sequences of rationals, $(a_n)\\sim(b_n)$ iff $a_n-b_n\\to 0$.',
+    keyIdeas: [
+      'the least upper bound (completeness) property as what distinguishes $\\mathbb{R}$ from $\\mathbb{Q}$',
+      "Dedekind cuts: constructing real numbers as partitions of the rationals",
+      'Cauchy sequences of rationals as an equivalent construction of $\\mathbb{R}$',
+      'the Archimedean property and density of $\\mathbb{Q}$ in $\\mathbb{R}$',
+      'nested interval and Bolzano-Weierstrass theorems as consequences of completeness',
+    ],
+    whyItMatters:
+      'Every foundational theorem of calculus — that a continuous function on a closed interval attains a maximum, that a bounded monotone sequence converges, that the intermediate value theorem holds — is false over $\\mathbb{Q}$ and depends entirely on the completeness of $\\mathbb{R}$. Making this construction precise, rather than relying on geometric intuition about "the number line," is what let 19th-century mathematicians replace appeals to intuition with proof.',
+    prerequisites: ['calculus:limits'],
+    related: ['analysis:sequences-and-series', 'real-analysis:epsilon-delta-limits', 'set-theory:cardinals'],
+    historicalContext:
+      "Bernard Bolzano gave an early rigorous treatment of continuity and the intermediate value theorem in the 1810s-1820s, well ahead of his time but largely unread. The crisis came to a head in 1858 when Richard Dedekind, teaching calculus, realized he had no rigorous foundation for the claim that a bounded monotone sequence converges; he resolved this with his theory of cuts, published as Stetigkeit und irrationale Zahlen (1872). In the same year, Georg Cantor and Charles Méray independently published constructions via Cauchy sequences of rationals, and Karl Weierstrass had already been giving a construction via bounded series in his Berlin lectures since the 1860s. These three essentially equivalent constructions completed the arithmetization of analysis, removing the last unexamined geometric assumption from calculus.",
+    contributorIds: ['person:richard-dedekind', 'person:georg-cantor', 'person:bernard-bolzano'],
+    workIds: [],
+    exampleProblems: [
+      'Construct the Dedekind cut corresponding to $\\sqrt{2}$ and verify it is not a rational cut, i.e. that $\\sqrt2\\notin\\mathbb{Q}$.',
+      'Show directly from the least upper bound property that every Cauchy sequence of real numbers converges (i.e. $\\mathbb{R}$ is complete in the metric sense).',
+      'Prove the Archimedean property — for any real $x>0$ there is a natural number $n$ with $n>x$ — from the least upper bound axiom.',
+    ],
+    applications: [
+      'the rigorous foundation underlying every limit, derivative, and integral in calculus',
+      'numerical analysis, where floating-point arithmetic approximates the completeness of $\\mathbb{R}$',
+      'the real number line as the model for physical continuous quantities in physics and engineering',
+    ],
+    researchDirections: [
+      'constructive and computable analysis, which real numbers are effectively presentable',
+      'non-standard analysis and the hyperreal numbers as an alternative foundation for calculus',
+      'surreal numbers and other extensions of the real number system',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: "The classic ('baby Rudin') construction of the reals via Dedekind cuts, opening the standard undergraduate real analysis sequence.",
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: 'A gentler, motivation-first introduction to the construction and completeness of the reals, popular for a first rigorous analysis course.',
+      },
+      {
+        title: 'A Course of Pure Mathematics',
+        authors: ['G. H. Hardy'],
+        edition: '10th',
+        year: 1952,
+        why: 'A historically influential and still-readable classic that carefully develops the real number system from first principles.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Least upper bound property', latex: '\\forall S\\subseteq\\mathbb{R},\\ S\\ne\\emptyset,\\ S \\text{ bounded above} \\implies \\exists \\sup S \\in \\mathbb{R}' },
+      { label: 'Archimedean property', latex: '\\forall x\\in\\mathbb{R}\\,\\exists n\\in\\mathbb{N}: n>x' },
+      { label: 'Dedekind cut', latex: 'A\\cup B=\\mathbb{Q},\\ A\\cap B=\\emptyset,\\ \\forall a\\in A\\,\\forall b\\in B: a<b' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Real number', url: 'https://encyclopediaofmath.org/wiki/Real_number', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Dedekind cut', url: 'https://encyclopediaofmath.org/wiki/Dedekind_cut', kind: 'encyclopedia' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:epsilon-delta-limits': {
+    overview:
+      'The epsilon-delta definition of limit replaces the intuitive but imprecise idea of a function "approaching" a value with a fully quantified statement: for every tolerance $\\varepsilon$ on the output, there is a tolerance $\\delta$ on the input that guarantees it. This definition is what finally made calculus a rigorous deductive subject rather than a collection of successful but logically shaky techniques.',
+    formal:
+      '$\\lim_{x\\to a} f(x) = L$ means: for every $\\varepsilon>0$ there exists $\\delta>0$ such that for all $x$, $0<|x-a|<\\delta$ implies $|f(x)-L|<\\varepsilon$. Continuity of $f$ at $a$ is the same statement without excluding $x=a$: for every $\\varepsilon>0$ there is $\\delta>0$ such that $|x-a|<\\delta$ implies $|f(x)-f(a)|<\\varepsilon$.',
+    keyIdeas: [
+      'quantifier order: $\\delta$ is chosen after and depending on $\\varepsilon$, never the reverse',
+      'uniform versus pointwise notions built from the same $\\varepsilon$-$\\delta$ template (uniform continuity, uniform convergence)',
+      'the definition applies equally to limits of sequences, functions, and (with the same logical shape) to derivatives and integrals',
+      "Weierstrass's construction of a nowhere-differentiable continuous function as a warning against relying on geometric intuition",
+    ],
+    whyItMatters:
+      "The epsilon-delta definition ended nearly 150 years of unease about the logical foundations of calculus. Newton and Leibniz's infinitesimals worked in practice but could not be defined consistently, and even Cauchy's improved but still informal notion of limit ('a quantity approaches a fixed value as closely as one wishes') left room for error. Weierstrass's fully quantified reformulation eliminated the ambiguity, letting mathematicians finally prove — rather than just believe — statements like the intermediate value theorem or that a convergent series can be integrated term by term.",
+    prerequisites: ['calculus:limits', 'real-analysis:real-numbers'],
+    related: ['analysis:continuity', 'analysis:sequences-and-series', 'calculus:limits'],
+    historicalContext:
+      "Augustin-Louis Cauchy's Cours d'Analyse (1821) gave the first widely-used rigorous-sounding definition of limit and continuity in terms of infinitely small quantities becoming arbitrarily small, a major advance over Newton and Leibniz but still not fully formalized. Bernard Bolzano had independently anticipated a more precise treatment in the 1810s. Karl Weierstrass, lecturing at Berlin from the 1850s onward, gave the definition its modern fully quantified $\\varepsilon$-$\\delta$ form, banishing all remaining appeals to infinitesimals or motion from the definition of limit. This 'arithmetization of analysis' let Weierstrass and his students rigorously construct pathological objects, like his 1872 continuous but nowhere-differentiable function, that geometric intuition alone would never have anticipated.",
+    contributorIds: ['person:karl-weierstrass', 'person:augustin-louis-cauchy', 'person:bernard-bolzano'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Using the $\\varepsilon$-$\\delta$ definition directly, prove that $\\lim_{x\\to 2} x^2 = 4$.',
+      'Explain why $f(x)=1/x$ has no limit as $x\\to 0$ by showing no single $\\delta$ works for a given small $\\varepsilon$.',
+      'Distinguish pointwise continuity from uniform continuity by finding a function continuous on $(0,1)$ that is not uniformly continuous there.',
+    ],
+    applications: [
+      'rigorous justification for every derivative and integral computed in calculus',
+      'error and tolerance analysis in numerical methods, which is exactly an $\\varepsilon$-$\\delta$-style guarantee',
+      'control theory and engineering stability analysis, where bounding output error given bounded input error is the central design question',
+    ],
+    researchDirections: [
+      'non-standard analysis, which reintroduces rigorous infinitesimals as an alternative to $\\varepsilon$-$\\delta$',
+      'constructive analysis, which reexamines which $\\varepsilon$-$\\delta$ arguments can be made computationally effective',
+      'reverse mathematics, calibrating exactly which set-existence axioms are needed to prove classical $\\varepsilon$-$\\delta$ theorems',
+    ],
+    textbooks: [
+      {
+        title: 'Principles of Mathematical Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1976,
+        why: 'The canonical treatment of rigorous limits and continuity in the epsilon-delta tradition, still the standard reference.',
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: 'Explicitly built around motivating why the epsilon-delta definition is necessary before presenting it formally.',
+      },
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'A calculus text that treats epsilon-delta arguments with full rigor from the start, bridging computational and proof-based calculus.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Epsilon-delta limit', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0:\\ 0<|x-a|<\\delta \\implies |f(x)-L|<\\varepsilon' },
+      { label: 'Epsilon-delta continuity', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0:\\ |x-a|<\\delta \\implies |f(x)-f(a)|<\\varepsilon' },
+      { label: 'Uniform continuity', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0\\,\\forall x,y:\\ |x-y|<\\delta \\implies |f(x)-f(y)|<\\varepsilon' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Limit', url: 'https://encyclopediaofmath.org/wiki/Limit', kind: 'encyclopedia' },
+      { label: 'MacTutor: Karl Weierstrass', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:lebesgue-integration': {
+    overview:
+      'Lebesgue integration reformulates the integral by partitioning the range of a function rather than its domain, measuring how large the set is where the function takes each range of values. This single change fixes the Riemann integral\'s worst defects, letting far more functions be integrated and letting limits and integrals be interchanged under mild hypotheses.',
+    formal:
+      'For a nonnegative measurable function $f:X\\to[0,\\infty]$ on a measure space $(X,\\mathcal{M},\\mu)$, the Lebesgue integral is defined via simple functions: for a simple function $s=\\sum_{i=1}^n c_i \\mathbf{1}_{A_i}$, $\\int s\\,d\\mu = \\sum_{i=1}^n c_i\\,\\mu(A_i)$, and $\\int f\\,d\\mu = \\sup\\{\\int s\\,d\\mu : 0\\le s\\le f,\\ s \\text{ simple}\\}$. A general measurable $f$ is integrable if $\\int |f|\\,d\\mu <\\infty$, and then $\\int f\\,d\\mu = \\int f^+\\,d\\mu - \\int f^-\\,d\\mu$.',
+    keyIdeas: [
+      'partitioning the range (Lebesgue) instead of the domain (Riemann)',
+      'simple functions as building blocks, approximated from below by an increasing sequence',
+      'measurability of a function as the precise requirement for the construction to make sense',
+      'the Monotone and Dominated Convergence Theorems, which routinely justify swapping limits and integrals',
+      'every Riemann-integrable function is Lebesgue integrable with the same value, but not conversely',
+    ],
+    whyItMatters:
+      "The Riemann integral cannot integrate the indicator function of the rationals, and worse, a pointwise limit of Riemann-integrable functions need not itself be Riemann integrable. The Lebesgue integral fixes both defects: it integrates vastly more functions, and the Dominated Convergence Theorem gives a simple, widely applicable criterion for interchanging limits and integrals. This makes it the integral used throughout modern probability theory, Fourier analysis, and functional analysis.",
+    prerequisites: ['analysis:measure-theory', 'real-analysis:real-numbers'],
+    related: ['analysis:measure-theory', 'real-analysis:differentiation-theorems', 'probability:expectation'],
+    historicalContext:
+      "Henri Lebesgue introduced his integral in his 1902 doctoral thesis Intégrale, longueur, aire, building on Émile Borel's earlier work on countably additive measure, and gave a fuller systematic account in Leçons sur l'intégration et la recherche des fonctions primitives (1904). Lebesgue's own famous description of the idea contrasted it with Riemann's approach: rather than adding up a disorganized pile of coins in the order encountered (Riemann, partitioning the domain), sort the coins by denomination first and count each pile (Lebesgue, partitioning the range). The theory was rapidly absorbed into functional analysis by Frigyes Riesz and others, and became indispensable when Andrey Kolmogorov built the axiomatic foundations of probability theory directly on Lebesgue measure in 1933.",
+    contributorIds: ['person:henri-lebesgue', 'person:emile-borel'],
+    workIds: ['work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives'],
+    exampleProblems: [
+      'Compute $\\int_0^1 \\mathbf{1}_{\\mathbb{Q}}(x)\\,dx$ as a Lebesgue integral and explain why the Riemann integral fails to exist for this function.',
+      'Use the Dominated Convergence Theorem to justify $\\lim_{n\\to\\infty}\\int_0^1 \\frac{nx}{1+n^2x^2}\\,dx = 0$.',
+      'Show that a bounded function on $[a,b]$ that is Riemann integrable is also Lebesgue integrable, with the same value.',
+    ],
+    applications: [
+      'the rigorous definition of expectation in probability theory as $\\mathbb{E}[X]=\\int X\\,d\\mathbb{P}$',
+      'Fourier analysis and $L^p$ space theory, both requiring Lebesgue integration to be complete',
+      'quantum mechanics, where wavefunctions live in the Lebesgue space $L^2$',
+    ],
+    researchDirections: [
+      'the Henstock-Kurzweil integral, which integrates a strictly larger class of functions using domain partitions',
+      'stochastic integration (Itô calculus), extending integration theory to random, non-differentiable paths',
+      'integration on infinite-dimensional and abstract measure spaces in probability and analysis',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'A standard graduate treatment building the Lebesgue integral from measure theory with an eye toward Fourier analysis.',
+      },
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'One of the most widely used graduate real analysis texts, with a careful, classical construction of the Lebesgue integral.',
+      },
+      {
+        title: 'Measure Theory and Fine Properties of Functions',
+        authors: ['Lawrence C. Evans', 'Ronald F. Gariepy'],
+        edition: 'Revised',
+        year: 2015,
+        why: 'Goes further into the fine structure of Lebesgue-integrable functions, useful once the basic theory is mastered.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lebesgue integral of a simple function', latex: '\\int \\left(\\sum_{i=1}^n c_i \\mathbf{1}_{A_i}\\right) d\\mu = \\sum_{i=1}^n c_i\\,\\mu(A_i)' },
+      { label: 'Monotone Convergence Theorem', latex: '0\\le f_n \\uparrow f \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+      { label: 'Dominated Convergence Theorem', latex: 'f_n\\to f \\text{ a.e.},\\ |f_n|\\le g\\in L^1 \\implies \\int f_n\\,d\\mu \\to \\int f\\,d\\mu' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lebesgue integral', url: 'https://encyclopediaofmath.org/wiki/Lebesgue_integral', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+      { label: 'MacTutor: Émile Borel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Borel/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:differentiation-theorems': {
+    overview:
+      'Differentiation theorems in real analysis characterize exactly which functions are differentiable almost everywhere and relate differentiation back to integration in full generality. They resolve the delicate question of when the Fundamental Theorem of Calculus continues to hold once functions are allowed to be as irregular as measure theory permits.',
+    formal:
+      "Lebesgue's differentiation theorem: if $f\\in L^1_{loc}(\\mathbb{R}^n)$, then for almost every $x$, $\\lim_{r\\to 0}\\frac{1}{|B(x,r)|}\\int_{B(x,r)} |f(y)-f(x)|\\,dy = 0$. A closely related result: every function $f$ of bounded variation on $[a,b]$ (equivalently, a difference of two monotone functions) is differentiable almost everywhere, and if $f$ is additionally absolutely continuous, the Fundamental Theorem of Calculus holds in full generality, $f(b)-f(a)=\\int_a^b f'(x)\\,dx$.",
+    keyIdeas: [
+      'functions of bounded variation as differences of monotone functions, differentiable almost everywhere',
+      'absolute continuity as the precise condition recovering the Fundamental Theorem of Calculus',
+      'the Vitali covering lemma as the key combinatorial tool behind almost-everywhere differentiation results',
+      'the Cantor function (devil\'s staircase) as a continuous, monotone function with zero derivative almost everywhere yet not constant',
+      'singular versus absolutely continuous parts in the Lebesgue decomposition of a measure',
+    ],
+    whyItMatters:
+      'These theorems pin down exactly how far the ordinary rules of calculus extend once "function" is allowed to mean any Lebesgue-measurable function rather than a smooth curve. They show both a positive result (monotone and bounded-variation functions are almost everywhere differentiable) and a cautionary one (the Cantor function shows a.e. differentiability with zero derivative does not imply the function is constant, unless absolute continuity is also assumed), which is essential for correctly generalizing the Fundamental Theorem of Calculus to Lebesgue integration.',
+    prerequisites: ['real-analysis:lebesgue-integration', 'analysis:differentiation'],
+    related: ['real-analysis:lebesgue-integration', 'analysis:differentiation', 'real-analysis:l-p-spaces'],
+    historicalContext:
+      "Giuseppe Vitali proved his covering lemma in 1908 and used it to show that absolute continuity is exactly the condition needed for the Fundamental Theorem of Calculus to hold with the Lebesgue integral, also constructing the first example of a non-measurable set that same year using the axiom of choice. Henri Lebesgue had already shown in his thesis that monotone functions are differentiable almost everywhere. Their combined results, refined by Constantin Carathéodory and others in the following decades, gave the complete real-variable theory of when a function can be recovered from its derivative by integration.",
+    contributorIds: ['person:giuseppe-vitali', 'person:henri-lebesgue'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that the Cantor function is continuous, monotone increasing, has derivative $0$ almost everywhere, yet increases from $0$ to $1$ — reconciling this with the Fundamental Theorem of Calculus.',
+      'Show that a Lipschitz function on $[a,b]$ is absolutely continuous, hence satisfies the Fundamental Theorem of Calculus with its Lebesgue integrable derivative.',
+      'State the Vitali covering lemma and sketch how it is used to prove that monotone functions are differentiable almost everywhere.',
+    ],
+    applications: [
+      'geometric measure theory, where covering lemmas control the structure of sets and measures',
+      'probability theory, via the Radon-Nikodym derivative of one measure with respect to another',
+      'signal processing, where bounded-variation models capture piecewise-smooth signals with jumps',
+    ],
+    researchDirections: [
+      'geometric measure theory and rectifiable sets built on refinements of the Vitali and Besicovitch covering lemmas',
+      'BV (bounded variation) function spaces in the calculus of variations and image processing',
+      'differentiation theory in more general metric measure spaces beyond $\\mathbb{R}^n$',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'Covers the Lebesgue differentiation theorem and functions of bounded variation with a clean, modern exposition.',
+      },
+      {
+        title: 'Real Analysis',
+        authors: ['H. L. Royden', 'P. M. Fitzpatrick'],
+        edition: '4th',
+        year: 2010,
+        why: 'Contains the classical real-variable treatment of monotone functions, bounded variation, and absolute continuity.',
+      },
+      {
+        title: 'Measure Theory and Fine Properties of Functions',
+        authors: ['Lawrence C. Evans', 'Ronald F. Gariepy'],
+        edition: 'Revised',
+        year: 2015,
+        why: 'Develops the Vitali covering lemma and differentiation theory in depth, connecting to geometric measure theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lebesgue differentiation theorem', latex: '\\lim_{r\\to 0}\\frac{1}{|B(x,r)|}\\int_{B(x,r)}|f(y)-f(x)|\\,dy=0 \\text{ a.e.}' },
+      { label: 'Fundamental Theorem of Calculus (Lebesgue form)', latex: 'f(b)-f(a)=\\int_a^b f\'(x)\\,dx \\quad (f \\text{ absolutely continuous})' },
+      { label: 'Total variation', latex: 'V_a^b(f)=\\sup_{P}\\sum_{i}|f(x_i)-f(x_{i-1})|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Function of bounded variation', url: 'https://encyclopediaofmath.org/wiki/Function_of_bounded_variation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Giuseppe Vitali', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Vitali/', kind: 'reference' },
+      { label: 'MacTutor: Henri Lebesgue', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lebesgue/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:l-p-spaces': {
+    overview:
+      '$L^p$ spaces organize functions into normed vector spaces graded by an integrability exponent $p$, unifying the idea of "size" of a function used throughout analysis, probability, and Fourier theory. The case $p=2$, a Hilbert space, is the natural home for Fourier series and quantum mechanics; general $p$ interpolates between different notions of how a function can be large.',
+    formal:
+      'For $1\\le p<\\infty$, $L^p(X,\\mu) = \\{f \\text{ measurable} : \\|f\\|_p < \\infty\\}$ where $\\|f\\|_p = \\left(\\int_X |f|^p\\,d\\mu\\right)^{1/p}$ (functions equal almost everywhere identified). Hölder\'s inequality states $\\|fg\\|_1 \\le \\|f\\|_p\\|g\\|_q$ for conjugate exponents $\\frac1p+\\frac1q=1$, and Minkowski\'s inequality $\\|f+g\\|_p\\le\\|f\\|_p+\\|g\\|_p$ makes $\\|\\cdot\\|_p$ a norm. The Riesz-Fischer theorem states that $L^p$ is complete (a Banach space) for every $1\\le p\\le\\infty$, and a Hilbert space when $p=2$.',
+    keyIdeas: [
+      'the $p$-norm $\\|f\\|_p$ as a family of measures of the "size" of a function, generalizing Euclidean length',
+      "Hölder's and Minkowski's inequalities as the algebraic backbone of the theory",
+      'completeness (the Riesz-Fischer theorem): every Cauchy sequence in $L^p$ converges in $L^p$',
+      '$L^2$ as a Hilbert space, the natural setting for orthogonal expansions such as Fourier series',
+      'duality: the dual space of $L^p$ is $L^q$ for conjugate exponents when $1\\le p<\\infty$',
+    ],
+    whyItMatters:
+      'Without completeness, an $L^p$ space would be useless for the limiting arguments that analysis depends on — a Cauchy sequence of functions might converge to something outside the space. The Riesz-Fischer theorem guarantees this cannot happen, which is precisely what makes $L^2$ a Hilbert space capable of supporting Fourier series, least-squares approximation, and quantum mechanical wavefunctions, and makes $L^p$ theory generally the natural function-space setting for harmonic analysis and PDE.',
+    prerequisites: ['real-analysis:lebesgue-integration', 'linear-algebra:inner-product-spaces'],
+    related: ['functional-analysis:hilbert-spaces', 'functional-analysis:normed-spaces', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Frigyes Riesz and, independently, Ernst Fischer proved in 1907 that the space of square-integrable functions is complete — the Riesz-Fischer theorem — showing that Fourier coefficient sequences in $\\ell^2$ correspond exactly to functions in $L^2$. Riesz went on through the 1910s to develop the general $L^p$ theory, including Hölder's and Minkowski's inequalities (named for earlier related inequalities by Otto Hölder and Hermann Minkowski) and the duality between $L^p$ and $L^q$. This work, alongside Maurice Fréchet's and David Hilbert's parallel development of abstract space theory, became one of the founding pillars of functional analysis.",
+    contributorIds: ['person:frigyes-riesz'],
+    workIds: [],
+    exampleProblems: [
+      "Prove Hölder's inequality for $p=q=2$ (the Cauchy-Schwarz inequality) directly from the definition of $\\|\\cdot\\|_2$.",
+      'Give an example of a Cauchy sequence of continuous functions in the $L^2$ norm that converges to a discontinuous limit, illustrating why completeness requires working in $L^2$ rather than $C[0,1]$.',
+      'Show that $L^p[0,1]\\subseteq L^q[0,1]$ whenever $p\\ge q$ on a finite measure space, and that the reverse inclusion can fail.',
+    ],
+    applications: [
+      'Fourier series and signal processing, built on the Hilbert space structure of $L^2$',
+      'quantum mechanics, where physical states are unit vectors in an $L^2$ Hilbert space',
+      'PDE theory and Sobolev spaces, which measure both a function and its derivatives in $L^p$ norms',
+      'statistics and machine learning, where $L^2$ loss (least squares) and $L^1$ loss (robust regression) correspond to different $p$',
+    ],
+    researchDirections: [
+      'Sobolev spaces and their embeddings, central to modern PDE theory',
+      'interpolation theory between $L^p$ spaces (Riesz-Thorin, Marcinkiewicz theorems)',
+      'weighted and variable-exponent $L^p$ spaces in harmonic analysis',
+    ],
+    textbooks: [
+      {
+        title: 'Real Analysis: Modern Techniques and Their Applications',
+        authors: ['Gerald B. Folland'],
+        edition: '2nd',
+        year: 1999,
+        why: 'Develops $L^p$ space theory, including Hölder, Minkowski, and duality, as a core chapter of modern real analysis.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The standard graduate treatment placing $L^p$ spaces within the broader theory of Banach and Hilbert spaces.',
+      },
+      {
+        title: 'Real and Complex Analysis',
+        authors: ['Walter Rudin'],
+        edition: '3rd',
+        year: 1987,
+        why: "Rudin's classic dual treatment connecting $L^p$ theory to complex analysis and measure theory.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'p-norm', latex: '\\|f\\|_p = \\left(\\int_X |f|^p\\,d\\mu\\right)^{1/p}' },
+      { label: 'Holder inequality', latex: '\\|fg\\|_1 \\le \\|f\\|_p\\|g\\|_q,\\quad \\tfrac1p+\\tfrac1q=1' },
+      { label: 'Minkowski inequality', latex: '\\|f+g\\|_p \\le \\|f\\|_p+\\|g\\|_p' },
+      { label: 'Riesz-Fischer completeness', latex: 'L^p \\text{ is complete for } 1\\le p \\le \\infty' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lebesgue space', url: 'https://encyclopediaofmath.org/wiki/Lebesgue_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+      { label: 'MacTutor: Vitali function', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Vitali/', kind: 'reference' },
+    ],
+  },
+  'real-analysis:fourier-series': {
+    overview:
+      'Fourier series express a periodic function as an infinite sum of sines and cosines, decomposing an arbitrary signal into pure frequencies. This idea — audacious enough at the time to be doubted by leading mathematicians — turned into one of the most productive tools in mathematics, ultimately requiring Lebesgue integration and $L^2$ theory to make fully rigorous.',
+    formal:
+      'For a $2\\pi$-periodic function $f\\in L^2[-\\pi,\\pi]$, the Fourier series is $f(x)\\sim \\frac{a_0}{2}+\\sum_{n=1}^{\\infty}\\left(a_n\\cos(nx)+b_n\\sin(nx)\\right)$, with coefficients $a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\cos(nx)\\,dx$, $b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\sin(nx)\\,dx$. By the Riesz-Fischer theorem the partial sums converge to $f$ in the $L^2$ norm for every $f\\in L^2$, while pointwise and uniform convergence require additional regularity of $f$.',
+    keyIdeas: [
+      'expanding a function in an orthogonal basis of sines and cosines, analogous to expressing a vector in coordinates',
+      'convergence in $L^2$ norm (always, for $L^2$ functions) versus pointwise convergence (requires extra regularity)',
+      "the Gibbs phenomenon: overshoot near jump discontinuities that persists no matter how many terms are taken",
+      "Dirichlet's and later Carleson's theorems on when Fourier series converge pointwise, almost everywhere",
+      'Parseval\'s identity: the Fourier coefficients preserve the $L^2$ norm, $\\|f\\|_2^2 = \\frac{|a_0|^2}{2}+\\sum_{n\\ge1}(|a_n|^2+|b_n|^2)$ (suitably normalized)',
+    ],
+    whyItMatters:
+      "Fourier's audacious 1807 claim that any function could be expanded in a trigonometric series was initially rejected by referees including Lagrange, yet turned out to be the seed of modern harmonic analysis, PDE theory, and signal processing. Making the claim precise — exactly which functions have Fourier series that converge, and in what sense — drove the development of set theory (Cantor's work on sets of divergence originated in Fourier series), measure theory, and $L^p$ space theory, making Fourier series one of the most historically productive problems in all of analysis.",
+    prerequisites: ['real-analysis:l-p-spaces', 'linear-algebra:inner-product-spaces'],
+    related: ['linear-algebra:inner-product-spaces', 'real-analysis:l-p-spaces', 'analysis:sequences-and-series'],
+    historicalContext:
+      "Joseph Fourier introduced trigonometric series expansions in his 1807 memoir on heat conduction, later published as Théorie analytique de la chaleur (1822), to solve the heat equation. His claim that arbitrary functions could be so expanded was controversial: Lagrange objected to an early version of the paper, and it took decades to clarify exactly when the series converges. Peter Gustav Lejeune Dirichlet proved the first rigorous pointwise convergence theorem in 1829 for piecewise monotone functions. Bernhard Riemann's Habilitationsschrift (1854) on trigonometric series motivated his definition of the Riemann integral, and Georg Cantor's attempts to characterize sets where Fourier series could fail to converge led him directly to the invention of set theory. The question of pointwise convergence for general $L^2$ functions remained open until Lennart Carleson proved it in 1966, one of the landmark results of 20th-century analysis.",
+    contributorIds: ['person:joseph-fourier', 'person:bernhard-riemann', 'person:georg-cantor'],
+    workIds: ['work:theorie-analytique-de-la-chaleur'],
+    exampleProblems: [
+      'Compute the Fourier series of the sawtooth function $f(x)=x$ on $(-\\pi,\\pi)$ and use it to evaluate $\\sum_{n=1}^\\infty \\frac{(-1)^{n+1}}{n}$.',
+      "Verify Parseval's identity numerically for the Fourier series of $f(x)=x^2$ on $(-\\pi,\\pi)$, using it to sum $\\sum_{n=1}^\\infty 1/n^4$.",
+      'Explain the Gibbs phenomenon by examining the partial sums of the Fourier series of a square wave near its jump discontinuity.',
+    ],
+    applications: [
+      'signal processing and audio/image compression, via the discrete and fast Fourier transforms',
+      'solving the heat, wave, and Laplace equations by separation of variables',
+      'quantum mechanics, where energy eigenstates form a Fourier-like orthogonal basis',
+      'analyzing periodic phenomena in astronomy, acoustics, and electrical engineering',
+    ],
+    researchDirections: [
+      'Carleson-Hunt theorem and its extensions on almost-everywhere convergence of Fourier series',
+      'harmonic analysis on groups, generalizing Fourier series to non-abelian and non-periodic settings',
+      'wavelets and time-frequency analysis as alternatives capturing localized as well as periodic structure',
+    ],
+    textbooks: [
+      {
+        title: 'Fourier Analysis: An Introduction',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: "The first volume of Princeton's celebrated analysis series, motivating Fourier series historically before developing the theory rigorously.",
+      },
+      {
+        title: 'Fourier Series',
+        authors: ['Georgi P. Tolstov'],
+        year: 1962,
+        why: 'A classic, accessible introduction focused specifically on the classical convergence theory of Fourier series.',
+      },
+      {
+        title: 'Trigonometric Series',
+        authors: ['Antoni Zygmund'],
+        edition: '3rd',
+        year: 2002,
+        why: 'The definitive advanced reference on Fourier series, covering convergence theory in exhaustive depth.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fourier series', latex: 'f(x)\\sim \\frac{a_0}{2}+\\sum_{n=1}^{\\infty}\\left(a_n\\cos(nx)+b_n\\sin(nx)\\right)' },
+      { label: 'Fourier cosine coefficients', latex: 'a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} f(x)\\cos(nx)\\,dx' },
+      { label: 'Parseval identity', latex: '\\|f\\|_2^2 = \\frac{|a_0|^2}{2}+\\sum_{n=1}^{\\infty}\\left(|a_n|^2+|b_n|^2\\right)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Fourier series', url: 'https://encyclopediaofmath.org/wiki/Fourier_series', kind: 'encyclopedia' },
+      { label: 'MacTutor: Joseph Fourier', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fourier/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:complex-numbers': {
+    overview:
+      'Complex numbers extend the reals by adjoining a square root of $-1$, and their geometric interpretation as points in a plane transformed them from a suspicious algebraic trick into a fully legitimate and indispensable part of mathematics. Every polynomial equation has a full set of roots once complex numbers are allowed, and the complex plane makes rotation and scaling as simple as multiplication.',
+    formal:
+      'The complex numbers $\\mathbb{C} = \\{x+iy : x,y\\in\\mathbb{R}\\}$ form a field where $i^2=-1$, with addition and multiplication defined by treating $i$ as a formal symbol: $(a+bi)+(c+di)=(a+c)+(b+d)i$ and $(a+bi)(c+di)=(ac-bd)+(ad+bc)i$. Writing $z=x+iy$ in polar form $z=r(\\cos\\theta+i\\sin\\theta)=re^{i\\theta}$ with $r=|z|=\\sqrt{x^2+y^2}$, multiplication becomes $z_1z_2=r_1r_2\\,e^{i(\\theta_1+\\theta_2)}$: multiply moduli, add arguments. The Fundamental Theorem of Algebra states every non-constant polynomial with complex coefficients has a root in $\\mathbb{C}$, so $\\mathbb{C}$ is algebraically closed.',
+    keyIdeas: [
+      'the complex plane (Argand diagram): identifying $x+iy$ with the point $(x,y)$',
+      'polar form and Euler\'s formula $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, turning multiplication into rotation and scaling',
+      'algebraic closure: the Fundamental Theorem of Algebra guarantees every polynomial factors completely over $\\mathbb{C}$',
+      'complex conjugation $\\bar z = x-iy$ and its role in computing $|z|^2=z\\bar z$',
+      'the historical journey from "impossible" numbers, tolerated only for intermediate steps in solving real cubics, to a fully legitimate number system',
+    ],
+    whyItMatters:
+      "Complex numbers were first taken seriously not out of abstract curiosity but necessity: Cardano and Bombelli found that the 16th-century formula for real roots of a cubic sometimes required manipulating square roots of negative numbers along the way, even when the final answer was a perfectly ordinary real number. Only with Gauss's and Argand's geometric interpretation did complex numbers stop being a suspicious bookkeeping device and become the natural home for algebra (via the Fundamental Theorem of Algebra), analysis (holomorphic functions), and physics (quantum mechanics and electrical engineering both use complex numbers essentially, not just as a convenience).",
+    prerequisites: ['algebra:polynomials'],
+    related: ['complex-analysis:holomorphic-functions', 'algebra:fields', 'linear-algebra:vector-spaces'],
+    historicalContext:
+      "Gerolamo Cardano's Ars Magna (1545) first wrote down expressions involving square roots of negative numbers while solving cubic equations, calling them 'as subtle as they are useless.' Rafael Bombelli showed in 1572 how to compute consistently with them, discovering that manipulating these 'impossible' numbers correctly gave genuine real answers. Descartes coined the dismissive term 'imaginary' in 1637. It took until 1799 for Caspar Wessel to publish (in Danish, largely unnoticed) the geometric interpretation of complex numbers as points in a plane; Jean-Robert Argand rediscovered and popularized this geometric picture in 1806, and Carl Friedrich Gauss, who had also arrived at the interpretation independently, gave it his authority and the name 'complex number' in 1831, after which resistance to complex numbers as a legitimate number system largely disappeared.",
+    contributorIds: ['person:carl-friedrich-gauss', 'person:jean-robert-argand'],
+    workIds: [],
+    exampleProblems: [
+      'Express $z=-1+i\\sqrt3$ in polar form and use it to compute $z^6$ via De Moivre\'s formula.',
+      'Use the Fundamental Theorem of Algebra to explain why every real polynomial of odd degree has a real root, while $x^2+1$ has none.',
+      'Solve $x^3=15x+4$ using Cardano\'s formula and show that the intermediate complex numbers cancel to give the real solution $x=4$ (Bombelli\'s example).',
+    ],
+    applications: [
+      'electrical engineering, where impedance and AC circuit analysis are naturally complex-valued',
+      'quantum mechanics, whose wavefunctions and operators are fundamentally complex, not just computationally convenient',
+      'signal processing, via the complex exponential form of Fourier analysis',
+      'control theory and stability analysis, using the location of complex poles and zeros',
+    ],
+    researchDirections: [
+      'hypercomplex number systems (quaternions, octonions) extending complex numbers further, at the cost of commutativity or associativity',
+      'complex dynamics and the iteration of complex functions (Julia and Mandelbrot sets)',
+      'algebraic geometry and number theory over $\\mathbb{C}$ and other algebraically closed fields',
+    ],
+    textbooks: [
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Builds geometric intuition for complex numbers and their arithmetic from first principles, before any calculus is introduced.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The classic, rigorous graduate treatment, starting from the algebraic and topological structure of the complex numbers.',
+      },
+      {
+        title: 'A First Course in Complex Analysis with Applications',
+        authors: ['Dennis Zill', 'Patrick Shanahan'],
+        edition: '3rd',
+        year: 2013,
+        why: 'An accessible undergraduate introduction with a thorough early treatment of complex arithmetic and geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Euler formula', latex: 'e^{i\\theta}=\\cos\\theta+i\\sin\\theta' },
+      { label: 'Polar multiplication', latex: 'z_1 z_2 = r_1 r_2\\, e^{i(\\theta_1+\\theta_2)}' },
+      { label: 'Modulus via conjugate', latex: '|z|^2 = z\\bar z' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Complex number', url: 'https://encyclopediaofmath.org/wiki/Complex_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean-Robert Argand', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Argand/', kind: 'reference' },
+      { label: 'MacTutor: Carl Friedrich Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:holomorphic-functions': {
+    overview:
+      'A holomorphic function is a complex function that is complex-differentiable in a neighborhood of every point, a condition far stronger than real differentiability: it forces the function to be infinitely differentiable and equal to its own Taylor series. Complex analysis is, in large part, the study of the remarkable rigidity this single condition imposes.',
+    formal:
+      'A function $f:U\\to\\mathbb{C}$ on an open set $U\\subseteq\\mathbb{C}$ is holomorphic at $z_0$ if $f\'(z_0)=\\lim_{h\\to 0}\\frac{f(z_0+h)-f(z_0)}{h}$ exists, where $h\\in\\mathbb{C}$ approaches $0$ from every direction. Writing $f=u+iv$ with $z=x+iy$, this is equivalent to $u,v$ satisfying the Cauchy-Riemann equations $\\partial u/\\partial x=\\partial v/\\partial y$ and $\\partial u/\\partial y=-\\partial v/\\partial x$. Every holomorphic function is automatically analytic: it equals its Taylor series $f(z)=\\sum_{n=0}^\\infty a_n(z-z_0)^n$ in a disc around every point of $U$.',
+    keyIdeas: [
+      'the Cauchy-Riemann equations as the precise real-variable translation of complex differentiability',
+      'complex differentiability at every nearby point forces infinite differentiability (unlike the real case)',
+      'holomorphic = analytic: every holomorphic function is locally a convergent power series',
+      'the identity theorem: two holomorphic functions agreeing on a set with a limit point agree everywhere on their common domain',
+      "three equivalent approaches historically due to Cauchy (integral formula), Riemann (Cauchy-Riemann equations, geometric), and Weierstrass (power series)",
+    ],
+    whyItMatters:
+      'Real differentiability is a mild condition — a real function can be differentiable without being twice differentiable, let alone analytic. Complex differentiability is astonishingly stronger: it forces smoothness of every order and equality with a convergent power series, a rigidity with no real analogue. This is why complex analysis is full of theorems with no real-variable counterpart, such as Liouville\'s theorem (a bounded entire function must be constant) and the maximum modulus principle, and why it became indispensable well beyond pure mathematics, in physics and engineering, wherever such rigid, globally-controlled functions are useful.',
+    prerequisites: ['complex-analysis:complex-numbers', 'real-analysis:epsilon-delta-limits'],
+    related: ['complex-analysis:cauchy-integral-theorem', 'complex-analysis:conformal-mapping', 'calculus:taylor-series'],
+    historicalContext:
+      "Augustin-Louis Cauchy developed the theory of functions of a complex variable from the 1810s through the 1840s using contour integration as the foundational tool, proving that a function differentiable on a domain automatically has all the properties later summarized as 'holomorphic.' Bernhard Riemann, in his 1851 doctoral dissertation, took a strikingly different, more geometric route through the Cauchy-Riemann equations and the idea of conformal mapping. Karl Weierstrass, teaching at Berlin from the 1850s, built the theory instead from convergent power series, insisting on total rigor and distrusting geometric intuition. That these three independent approaches — integral, geometric, and power-series — provably describe the exact same class of functions is one of the most celebrated coincidences in mathematics, and each approach remains useful for different purposes today.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:bernhard-riemann', 'person:karl-weierstrass'],
+    workIds: ['work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse'],
+    exampleProblems: [
+      'Verify the Cauchy-Riemann equations for $f(z)=z^2$ by writing $u(x,y)$ and $v(x,y)$ explicitly and checking the partial derivative identities.',
+      "Use Liouville's theorem to prove the Fundamental Theorem of Algebra: a non-constant polynomial cannot be zero-free on all of $\\mathbb{C}$.",
+      'Show that $f(z)=\\bar z$ satisfies neither Cauchy-Riemann equation and is therefore nowhere holomorphic, despite being real-differentiable in each variable.',
+    ],
+    applications: [
+      'fluid dynamics and electrostatics, where holomorphic functions model incompressible, irrotational planar flow and potential fields',
+      'signal processing and control theory, via transfer functions that are holomorphic on regions of the complex plane',
+      'analytic number theory, where holomorphic continuation of functions like the Riemann zeta function encodes deep arithmetic information',
+      'quantum field theory, where analyticity properties of scattering amplitudes encode physical causality',
+    ],
+    researchDirections: [
+      'several complex variables, extending holomorphicity to $\\mathbb{C}^n$ where the theory becomes far more rigid',
+      'complex dynamics: iterating holomorphic maps and the structure of Julia and Fatou sets',
+      'geometric function theory and quasiconformal mappings, weakening holomorphicity in controlled ways',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The classic graduate standard, rigorously developing holomorphic functions from all three classical viewpoints.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: "Part of Princeton's analysis series, motivating the Cauchy-Riemann equations and power series approach with strong intuition.",
+      },
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Gives geometric intuition for why complex differentiability is so much stronger than real differentiability.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy-Riemann equations', latex: '\\frac{\\partial u}{\\partial x}=\\frac{\\partial v}{\\partial y},\\quad \\frac{\\partial u}{\\partial y}=-\\frac{\\partial v}{\\partial x}' },
+      { label: 'Complex derivative', latex: "f'(z_0)=\\lim_{h\\to 0}\\frac{f(z_0+h)-f(z_0)}{h}" },
+      { label: 'Local power series', latex: 'f(z)=\\sum_{n=0}^{\\infty} a_n (z-z_0)^n' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Analytic function', url: 'https://encyclopediaofmath.org/wiki/Analytic_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Karl Weierstrass', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weierstrass/', kind: 'reference' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:cauchy-integral-theorem': {
+    overview:
+      "The Cauchy integral theorem says that the integral of a holomorphic function around any closed loop, within a region where it is holomorphic, is exactly zero. This single fact — startling because it holds regardless of the loop's shape or size — is the foundation from which nearly every other property of holomorphic functions can be derived.",
+    formal:
+      'If $f$ is holomorphic on a simply connected domain $U\\subseteq\\mathbb{C}$ and $\\gamma$ is a closed contour in $U$, then $\\oint_\\gamma f(z)\\,dz = 0$. The Cauchy integral formula sharpens this: for $z_0$ inside $\\gamma$, $f(z_0)=\\frac{1}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{z-z_0}\\,dz$, and differentiating under the integral sign gives derivatives of all orders, $f^{(n)}(z_0)=\\frac{n!}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{(z-z_0)^{n+1}}\\,dz$.',
+    keyIdeas: [
+      'path-independence of contour integrals of holomorphic functions within simply connected domains',
+      'the Cauchy integral formula: the values of $f$ on a curve determine $f$ everywhere inside it',
+      'automatic infinite differentiability of holomorphic functions, obtained by differentiating the integral formula',
+      "Goursat's proof, which derives the theorem without assuming (as Cauchy originally did) that $f'$ is continuous",
+      'the theorem as the single foundational fact from which the residue theorem, Liouville\'s theorem, and the maximum modulus principle all follow',
+    ],
+    whyItMatters:
+      'That a contour integral can vanish identically regardless of the loop\'s size or shape, as long as it stays in a region of holomorphicity, is the source of nearly every powerful feature of complex analysis: it is what lets a holomorphic function\'s values on a boundary curve completely determine its values (and every derivative) inside, and it underlies the residue theorem\'s ability to convert difficult real integrals into simple algebraic sums of residues.',
+    prerequisites: ['complex-analysis:holomorphic-functions', 'calculus:integrals'],
+    related: ['complex-analysis:residues', 'complex-analysis:holomorphic-functions', 'complex-analysis:conformal-mapping'],
+    historicalContext:
+      "Augustin-Louis Cauchy proved an early version of the theorem in 1825, in a memoir on integrals taken between imaginary limits, but his argument assumed that the complex derivative $f'$ was continuous — a fact later shown to be automatic, but not something Cauchy could assume without circularity. Édouard Goursat gave the first fully rigorous proof in 1900 that removed this extra hypothesis, showing the theorem follows from complex differentiability alone; the result is accordingly often called the Cauchy-Goursat theorem. The Cauchy integral formula, an immediate consequence, was likewise developed by Cauchy in the 1830s and became the central computational tool of the emerging field.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:edouard-goursat'],
+    workIds: [],
+    exampleProblems: [
+      'Use the Cauchy integral formula to evaluate $\\oint_{|z|=2} \\frac{e^z}{z-1}\\,dz$.',
+      'Show that $\\oint_{|z|=1} z^n\\,dz = 0$ for every integer $n\\ne -1$, and explain why $n=-1$ is the single exception.',
+      "Use the Cauchy integral formula for derivatives to compute $f''(0)$ for $f(z)=\\frac{1}{1-z}$ via a contour integral, and check it against the Taylor series.",
+    ],
+    applications: [
+      'evaluating difficult definite real integrals by relating them to contour integrals in the complex plane',
+      'proving Liouville\'s theorem and the Fundamental Theorem of Algebra',
+      'stability analysis in control theory, via the argument principle (a consequence of the Cauchy integral theorem)',
+      'analytic continuation of functions such as the Riemann zeta function beyond their original domain of definition',
+    ],
+    researchDirections: [
+      'generalizations to several complex variables and to differential forms on complex manifolds',
+      'the Cauchy-Fantappiè integral formula and its role in higher-dimensional function theory',
+      'numerical contour integration methods for solving differential equations and computing special functions',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: "Presents Goursat's rigorous proof and builds the entire subsequent theory from the Cauchy integral theorem.",
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: 'A clear modern treatment placing the Cauchy integral theorem at the center of the course, with strong geometric motivation.',
+      },
+      {
+        title: 'Complex Variables and Applications',
+        authors: ['James Ward Brown', 'Ruel V. Churchill'],
+        edition: '9th',
+        year: 2013,
+        why: 'A widely used applied introduction, strong on the computational use of the Cauchy integral formula.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy integral theorem', latex: '\\oint_\\gamma f(z)\\,dz = 0' },
+      { label: 'Cauchy integral formula', latex: 'f(z_0)=\\frac{1}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{z-z_0}\\,dz' },
+      { label: 'Derivative formula', latex: 'f^{(n)}(z_0)=\\frac{n!}{2\\pi i}\\oint_\\gamma \\frac{f(z)}{(z-z_0)^{n+1}}\\,dz' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cauchy integral theorem', url: 'https://encyclopediaofmath.org/wiki/Cauchy_integral_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+      { label: 'MacTutor: Édouard Goursat', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Goursat/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:residues': {
+    overview:
+      "The residue of a holomorphic function at an isolated singularity is a single number that captures everything the residue theorem needs to know about that singularity, letting a contour integral be computed as a simple sum of these numbers. This turns many otherwise intractable real integrals into short algebraic calculations.",
+    formal:
+      'Near an isolated singularity $z_0$, $f$ has a Laurent series $f(z)=\\sum_{n=-\\infty}^{\\infty} c_n (z-z_0)^n$, and the residue is the coefficient $\\operatorname{Res}(f,z_0)=c_{-1}$. The residue theorem states that for $f$ holomorphic inside and on a closed contour $\\gamma$ except for finitely many isolated singularities $z_1,\\dots,z_k$ inside, $\\oint_\\gamma f(z)\\,dz = 2\\pi i \\sum_{j=1}^{k} \\operatorname{Res}(f,z_j)$.',
+    keyIdeas: [
+      'the Laurent series, extending Taylor series to allow negative powers around a singularity',
+      'the residue as exactly the coefficient of $(z-z_0)^{-1}$, the only Laurent term with nonzero contour integral',
+      'classifying isolated singularities as removable, poles, or essential based on the Laurent expansion',
+      'the residue theorem as a vast generalization of the Cauchy integral formula to multiple singularities',
+      'converting real integrals (rational functions of trigonometric functions, integrals over the real line) into contour integrals evaluated by residues',
+    ],
+    whyItMatters:
+      "Many real integrals central to physics and engineering — such as $\\int_{-\\infty}^{\\infty}\\frac{dx}{1+x^2}$ or integrals arising from Fourier transforms — have no elementary antiderivative but yield instantly to the residue theorem once reframed as complex contour integrals. This makes residue calculus one of the most practically useful pieces of complex analysis, turning what would be delicate real-variable estimates into short algebraic computations of Laurent coefficients.",
+    prerequisites: ['complex-analysis:cauchy-integral-theorem'],
+    related: ['complex-analysis:cauchy-integral-theorem', 'complex-analysis:holomorphic-functions', 'complex-analysis:conformal-mapping'],
+    historicalContext:
+      "Augustin-Louis Cauchy introduced the concept of a residue and proved the residue theorem in the 1820s as a direct extension of his integral theorem, immediately using it to evaluate definite integrals that had resisted classical methods. Pierre Alphonse Laurent, an army engineer, discovered the Laurent series expansion in 1843 while working on a prize-eligible memoir for the French Academy submitted just after the deadline for a related Cauchy result, meaning his contribution — the natural extension of Taylor series to singular points, and the rigorous basis for defining residues — went comparatively unrecognized in his lifetime.",
+    contributorIds: ['person:augustin-louis-cauchy', 'person:pierre-alphonse-laurent'],
+    workIds: [],
+    exampleProblems: [
+      'Find the Laurent series of $f(z)=\\frac{1}{z(z-1)}$ around $z_0=0$ and identify $\\operatorname{Res}(f,0)$.',
+      'Use the residue theorem to evaluate $\\int_{-\\infty}^{\\infty} \\frac{dx}{1+x^2}$ by closing the contour with a large semicircle in the upper half-plane.',
+      'Classify the singularity of $f(z)=\\sin(1/z)$ at $z=0$ as removable, a pole, or essential, and justify your answer from the Laurent expansion.',
+    ],
+    applications: [
+      'evaluating definite integrals and infinite sums that arise in physics and engineering (e.g. Fourier and Laplace transform inversion)',
+      'the argument principle and Rouché\'s theorem for counting zeros and poles, used in control theory stability analysis',
+      'analytic number theory, where residues of the Riemann zeta function and related functions encode arithmetic information',
+      'quantum field theory, where residues of propagators correspond to particle masses',
+    ],
+    researchDirections: [
+      'residues on Riemann surfaces and complex manifolds, generalized via Jean Leray\'s theory of residue forms',
+      'multidimensional residues in several complex variables',
+      'the interplay between residue calculus and modern analytic number theory (explicit formulas, zero-counting)',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Variables and Applications',
+        authors: ['James Ward Brown', 'Ruel V. Churchill'],
+        edition: '9th',
+        year: 2013,
+        why: 'The standard applied reference for residue calculus techniques and their use in evaluating real integrals.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'Develops Laurent series and the residue theorem with full mathematical rigor.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Elias M. Stein', 'Rami Shakarchi'],
+        year: 2003,
+        why: 'Connects residue calculus directly to applications in number theory and Fourier analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Laurent series', latex: 'f(z)=\\sum_{n=-\\infty}^{\\infty} c_n (z-z_0)^n' },
+      { label: 'Residue theorem', latex: '\\oint_\\gamma f(z)\\,dz = 2\\pi i \\sum_{j=1}^{k} \\operatorname{Res}(f,z_j)' },
+      { label: 'Residue at a simple pole', latex: '\\operatorname{Res}(f,z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Residue of an analytic function', url: 'https://encyclopediaofmath.org/wiki/Residue_of_an_analytic_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Pierre Laurent', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Laurent_Pierre/', kind: 'reference' },
+      { label: 'MacTutor: Augustin-Louis Cauchy', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cauchy/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:conformal-mapping': {
+    overview:
+      'A conformal map is a function that preserves angles locally, and every holomorphic function with nonzero derivative is automatically conformal. This turns complex analysis into a powerful tool for geometry: complicated regions of the plane can be transformed into simple ones (disks, half-planes) while preserving the local shape of small figures, at the cost of only stretching and rotating them uniformly.',
+    formal:
+      "If $f$ is holomorphic at $z_0$ with $f'(z_0)\\ne 0$, then $f$ preserves angles between curves through $z_0$: for curves $\\gamma_1,\\gamma_2$ meeting at $z_0$ with angle $\\alpha$, their images $f(\\gamma_1), f(\\gamma_2)$ meet at $f(z_0)$ with the same angle $\\alpha$. The Riemann mapping theorem states that any simply connected domain $U\\subsetneq\\mathbb{C}$ (other than $\\mathbb{C}$ itself) admits a biholomorphic (bijective holomorphic) map onto the open unit disk $\\mathbb{D}$.",
+    keyIdeas: [
+      'local angle preservation as the defining geometric property, following from $f\'(z_0)\\ne 0$ acting as multiplication by a fixed complex number (rotation + scaling)',
+      'the Riemann mapping theorem: every simply connected proper subdomain of $\\mathbb{C}$ is conformally equivalent to the unit disk',
+      "the Schwarz lemma, constraining holomorphic self-maps of the disk fixing the origin",
+      'Möbius transformations $z\\mapsto \\frac{az+b}{cz+d}$ as the conformal automorphisms of the sphere, disk, and half-plane',
+      'the Schwarz-Christoffel formula, giving an explicit conformal map from the disk or half-plane onto any polygon',
+    ],
+    whyItMatters:
+      "Conformal maps let hard problems on complicated domains (fluid flow around an airfoil, heat distribution in an oddly shaped plate, electrostatic fields near a sharp conductor edge) be transported to the unit disk or upper half-plane, solved there where the answer is often classical, and transported back. The existence of such a map is never in question thanks to the Riemann mapping theorem, one of the deepest existence theorems in classical analysis, guaranteeing this strategy always works for simply connected domains.",
+    prerequisites: ['complex-analysis:holomorphic-functions', 'complex-analysis:cauchy-integral-theorem'],
+    related: ['complex-analysis:holomorphic-functions', 'complex-analysis:riemann-surfaces', 'differential-geometry:riemannian-metrics'],
+    historicalContext:
+      "Bernhard Riemann first stated what is now called the Riemann mapping theorem in his 1851 dissertation, sketching a proof (using Dirichlet's principle) that was later found to have gaps, since Dirichlet's principle itself needed the rigorous justification David Hilbert eventually supplied in 1900. In the meantime, Hermann Amandus Schwarz gave the first fully rigorous proofs of special cases in the 1870s, developed the Schwarz lemma bounding holomorphic self-maps of the disk, and with Elwin Christoffel independently derived the Schwarz-Christoffel formula for explicitly mapping onto polygons, one of the few cases where the abstract existence guaranteed by Riemann's theorem can be made fully explicit.",
+    contributorIds: ['person:bernhard-riemann', 'person:hermann-amandus-schwarz'],
+    workIds: [],
+    exampleProblems: [
+      'Find a Möbius transformation mapping the upper half-plane onto the unit disk, sending $i$ to $0$.',
+      'Use the Schwarz lemma to prove that any holomorphic bijection of the unit disk fixing the origin must be a rotation $z\\mapsto e^{i\\theta}z$.',
+      'Explain, using the Riemann mapping theorem, why no conformal bijection exists between the unit disk and the entire plane $\\mathbb{C}$.',
+    ],
+    applications: [
+      '2D fluid dynamics and aerodynamics, mapping flow around complicated airfoil shapes to flow around a simple circle',
+      'electrostatics and heat conduction, solving Laplace\'s equation on complicated 2D domains by mapping to a disk or half-plane',
+      'map projections in cartography, seeking to preserve local angles (e.g. the Mercator projection)',
+      'complex network and mesh generation algorithms in computer graphics, using discrete conformal mapping',
+    ],
+    researchDirections: [
+      'quasiconformal mappings, systematically relaxing exact angle preservation to bounded distortion',
+      'discrete and computational conformal geometry, used in computer graphics and geometry processing',
+      'conformal field theory in physics, exploiting the infinite-dimensional symmetry of conformal maps in two dimensions',
+    ],
+    textbooks: [
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'The standard rigorous treatment of conformal mapping, the Riemann mapping theorem, and the Schwarz lemma.',
+      },
+      {
+        title: 'Visual Complex Analysis',
+        authors: ['Tristan Needham'],
+        year: 1997,
+        why: 'Builds strong geometric intuition for what conformal maps do, with extensive illustrations of the Riemann mapping theorem in action.',
+      },
+      {
+        title: 'Conformal Mapping',
+        authors: ['Zeev Nehari'],
+        year: 1952,
+        why: 'A classic dedicated text working through conformal mapping techniques, including the Schwarz-Christoffel formula, in depth.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Mobius transformation', latex: 'z \\mapsto \\frac{az+b}{cz+d},\\quad ad-bc\\ne 0' },
+      { label: 'Schwarz lemma bound', latex: 'f:\\mathbb{D}\\to\\mathbb{D} \\text{ holomorphic}, f(0)=0 \\implies |f(z)|\\le |z|' },
+      { label: 'Schwarz-Christoffel map', latex: "f'(z) = C\\prod_{k=1}^{n} (z-x_k)^{-\\alpha_k}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Conformal transformation', url: 'https://encyclopediaofmath.org/wiki/Conformal_transformation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: Hermann Schwarz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Schwarz/', kind: 'reference' },
+    ],
+  },
+  'complex-analysis:riemann-surfaces': {
+    overview:
+      'A Riemann surface is a one-dimensional complex manifold: a space that locally looks like the complex plane and on which holomorphic functions make sense, but which globally can have any topology at all — a sphere, a torus, or a more complicated surface with many holes. They were invented to make multi-valued complex functions, like $\\sqrt{z}$ or $\\log z$, into genuine well-defined single-valued functions.',
+    formal:
+      'A Riemann surface is a connected complex manifold of complex dimension $1$: a Hausdorff topological space with an atlas of charts to open subsets of $\\mathbb{C}$ whose transition maps are holomorphic. The genus $g$ (number of "handles") is the primary topological invariant; compact Riemann surfaces are classified up to homeomorphism entirely by $g$, while the uniformization theorem shows every simply connected Riemann surface is conformally equivalent to the sphere $\\hat{\\mathbb{C}}$, the plane $\\mathbb{C}$, or the disk $\\mathbb{D}$.',
+    keyIdeas: [
+      'gluing together sheets of the complex plane to make a multi-valued function like $\\sqrt{z}$ single-valued on the surface',
+      'genus as the fundamental topological invariant, counting the number of "handles" on a compact Riemann surface',
+      'the uniformization theorem: every simply connected Riemann surface is the sphere, the plane, or the disk',
+      'meromorphic functions and differentials on a Riemann surface, generalizing complex analysis from the plane to any such surface',
+      'the deep link to algebraic geometry: compact Riemann surfaces are exactly the same objects as smooth projective algebraic curves over $\\mathbb{C}$',
+    ],
+    whyItMatters:
+      "Functions like $\\sqrt{z}$ or $\\log z$ are inherently multi-valued on the punctured plane, and treating them as ordinary single-valued functions leads to contradictions and branch-cut bookkeeping. Riemann's insight was to change the domain instead of forcing the function: build a surface on which the function becomes genuinely single-valued and holomorphic everywhere. This idea grew into one of the deepest bridges in mathematics, identifying complex analysis (Riemann surfaces) with algebraic geometry (algebraic curves) and later with number theory (modular curves), making it a unifying object across several major fields.",
+    prerequisites: ['complex-analysis:holomorphic-functions', 'topology:manifolds'],
+    related: ['complex-analysis:conformal-mapping', 'algebraic-geometry:projective-varieties', 'algebraic-geometry:moduli-spaces'],
+    historicalContext:
+      "Bernhard Riemann introduced Riemann surfaces in his revolutionary 1851 doctoral dissertation to give a rigorous geometric foundation to multi-valued complex functions and their branch points, developing the theory further in his 1857 work on abelian functions. The concept remained geometrically intuitive but not fully rigorously defined for over sixty years, until Hermann Weyl's 1913 book Die Idee der Riemannschen Fläche (The Concept of a Riemann Surface) gave the first modern, topologically precise axiomatic definition using the language of manifolds and covering spaces, fixing Riemann's foundational gaps and establishing the treatment used ever since.",
+    contributorIds: ['person:bernhard-riemann', 'person:hermann-weyl'],
+    workIds: ['work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse'],
+    exampleProblems: [
+      'Describe the Riemann surface for $f(z)=\\sqrt{z}$ as two copies of the plane glued along a branch cut, and explain why it makes $\\sqrt{z}$ single-valued.',
+      'Show that the Riemann surface of $\\log z$ requires infinitely many sheets, reflecting that $\\log z$ is infinitely multi-valued.',
+      'Verify that the torus $\\mathbb{C}/\\Lambda$ for a lattice $\\Lambda$ is a compact Riemann surface of genus $1$.',
+    ],
+    applications: [
+      'algebraic geometry, where compact Riemann surfaces correspond exactly to smooth projective algebraic curves',
+      'string theory in physics, where a string\'s worldsheet is modeled as a Riemann surface',
+      'number theory, via modular curves (Riemann surfaces quotienting the upper half-plane by arithmetic groups)',
+      'the theory of elliptic functions and elliptic curves, viewed as genus-1 Riemann surfaces',
+    ],
+    researchDirections: [
+      'moduli spaces of Riemann surfaces, parametrizing all surfaces of a given genus (Teichmüller theory)',
+      'the Weil conjectures and their analogues connecting Riemann surfaces over finite fields to number theory',
+      'higher-dimensional generalizations: complex manifolds and algebraic varieties in several variables',
+    ],
+    textbooks: [
+      {
+        title: 'Algebraic Curves and Riemann Surfaces',
+        authors: ['Rick Miranda'],
+        year: 1995,
+        why: 'A widely used graduate bridge between the complex-analytic and algebraic-geometric perspectives on Riemann surfaces.',
+      },
+      {
+        title: 'Riemann Surfaces',
+        authors: ['Hershel M. Farkas', 'Irwin Kra'],
+        edition: '2nd',
+        year: 1991,
+        why: 'A standard, thorough graduate reference covering the analytic theory in depth.',
+      },
+      {
+        title: 'Complex Analysis',
+        authors: ['Lars Ahlfors'],
+        edition: '3rd',
+        year: 1979,
+        why: 'Includes a classical introduction to Riemann surfaces as a natural extension of one-variable complex analysis.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann-Hurwitz formula', latex: '2g-2 = n(2g_0-2) + \\sum_{p} (e_p-1)' },
+      { label: 'Genus of a torus', latex: '\\mathbb{C}/\\Lambda,\\ g=1' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Riemann surface', url: 'https://en.wikipedia.org/wiki/Riemann_surface', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
+      { label: 'MacTutor: Hermann Weyl', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Weyl/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:normed-spaces': {
+    overview:
+      'A normed space is a vector space equipped with a notion of length, letting the geometric language of distance and convergence be used even in infinite dimensions. This modest-looking definition is the entry point into functional analysis, the branch of mathematics that treats functions themselves as points in a space.',
+    formal:
+      'A norm on a vector space $V$ over $\\mathbb{R}$ or $\\mathbb{C}$ is a function $\\|\\cdot\\|:V\\to[0,\\infty)$ satisfying $\\|v\\|=0 \\iff v=0$, $\\|\\lambda v\\|=|\\lambda|\\,\\|v\\|$, and the triangle inequality $\\|u+v\\|\\le\\|u\\|+\\|v\\|$. The pair $(V,\\|\\cdot\\|)$ is a normed space, and the norm induces a metric $d(u,v)=\\|u-v\\|$, so every normed space is automatically a metric space and hence a topological space.',
+    keyIdeas: [
+      'a norm as an axiomatized notion of length, generalizing the Euclidean norm to arbitrary (often infinite-dimensional) vector spaces',
+      'every norm induces a metric, so normed spaces inherit all metric-space notions: convergence, continuity, completeness',
+      'equivalence of norms in finite dimensions versus genuinely different topologies in infinite dimensions',
+      'examples ranging from $\\mathbb{R}^n$ with the Euclidean norm to sequence spaces $\\ell^p$ and function spaces $C[a,b]$ or $L^p$',
+      'the norm topology as the minimal structure needed to define continuous linear maps between vector spaces',
+    ],
+    whyItMatters:
+      'Working with functions the way one works with vectors — measuring their "size," asking whether a sequence of functions converges, defining continuous transformations between spaces of functions — requires exactly the structure a normed space provides. This single idea, applied to spaces whose "points" are themselves functions or sequences, is what turns classical analysis (limits, continuity, convergence of series) into a subject that can be studied with the geometric intuition of linear algebra, extended to infinite dimensions.',
+    prerequisites: ['linear-algebra:vector-spaces', 'analysis:metric-spaces'],
+    related: ['functional-analysis:banach-spaces', 'functional-analysis:hilbert-spaces', 'linear-algebra:inner-product-spaces'],
+    historicalContext:
+      "The idea of measuring the 'size' of a function goes back to the study of specific function spaces by Vito Volterra, David Hilbert, and Ivar Fredholm on integral equations in the 1900s, and Maurice Fréchet's 1906 thesis introduced the more general framework of metric spaces. Stefan Banach's 1920 doctoral thesis and his 1922 papers isolated the normed space axioms explicitly, in parallel with related work by Hans Hahn and Norbert Wiener, giving the field its modern starting point and its name (the term 'normed space' itself became standard through Banach's systematic 1932 treatise).",
+    contributorIds: ['person:stefan-banach', 'person:maurice-frechet'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Verify that $\\|x\\|_1=\\sum_i |x_i|$, $\\|x\\|_2=\\sqrt{\\sum_i x_i^2}$, and $\\|x\\|_\\infty=\\max_i|x_i|$ are all norms on $\\mathbb{R}^n$, and sketch their unit balls.',
+      'Show that on $\\mathbb{R}^n$ all norms are equivalent (induce the same convergent sequences), but that $\\|f\\|_1=\\int_0^1|f|$ and $\\|f\\|_\\infty=\\sup|f|$ are not equivalent on $C[0,1]$.',
+      'Prove that the norm function $v\\mapsto \\|v\\|$ is always continuous with respect to the topology it induces.',
+    ],
+    applications: [
+      'numerical analysis, where error bounds and convergence of algorithms are stated in terms of norms',
+      'approximation theory, where "best approximation" means minimizing a norm',
+      'machine learning, where $L^1$ and $L^2$ regularization penalize model weights using different norms',
+      'signal processing, comparing signals and approximation errors using function-space norms',
+    ],
+    researchDirections: [
+      'geometry of Banach spaces: convexity, smoothness, and the classification of infinite-dimensional normed spaces',
+      'operator ideals and approximation properties in general normed spaces',
+      'nonlinear functional analysis, extending norm-based methods beyond linear operators',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The standard graduate introduction, building normed and Banach space theory from the ground up.',
+      },
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A widely used, more accessible introduction with strong motivation for the normed-space axioms.',
+      },
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'Develops normed and Banach space theory with an eye toward its use in PDE, a common destination for the theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Norm axioms', latex: '\\|\\lambda v\\|=|\\lambda|\\|v\\|,\\quad \\|u+v\\|\\le\\|u\\|+\\|v\\|' },
+      { label: 'Induced metric', latex: 'd(u,v)=\\|u-v\\|' },
+      { label: 'Sup norm', latex: '\\|f\\|_\\infty = \\sup_{x\\in[a,b]} |f(x)|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Normed space', url: 'https://encyclopediaofmath.org/wiki/Normed_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+      { label: 'MacTutor: Maurice Fréchet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Frechet/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:banach-spaces': {
+    overview:
+      'A Banach space is a normed space that is complete: every Cauchy sequence converges to a limit within the space. Completeness is what makes limiting arguments — the lifeblood of analysis — safe to use, and Banach spaces are the natural infinite-dimensional setting for most of classical and modern analysis.',
+    formal:
+      'A normed space $(V,\\|\\cdot\\|)$ is a Banach space if it is complete with respect to the induced metric: every Cauchy sequence $(v_n)$ (satisfying $\\|v_n-v_m\\|\\to 0$ as $n,m\\to\\infty$) converges to some $v\\in V$. Examples include $\\mathbb{R}^n$ and $\\mathbb{C}^n$ with any norm, the sequence spaces $\\ell^p$ for $1\\le p\\le\\infty$, and the function spaces $C[a,b]$ (sup norm) and $L^p(X,\\mu)$ (by the Riesz-Fischer theorem).',
+    keyIdeas: [
+      'completeness: every Cauchy sequence has a limit within the space, not just "nearby"',
+      'the Banach fixed-point theorem, guaranteeing unique solutions to equations $Tx=x$ for contractions $T$',
+      'three foundational pillars: the Hahn-Banach theorem, the open mapping theorem, and the uniform boundedness principle',
+      'incompleteness as a genuine obstruction: $C[a,b]$ with the $L^1$ norm is not complete, so it is a normed space but not a Banach space',
+      'the dual space $V^*$ of continuous linear functionals, itself always a Banach space',
+    ],
+    whyItMatters:
+      "Without completeness, a sequence of successive approximations might converge to something that does not exist within the space being studied — precisely the failure that plagued early, informal treatments of function spaces. Banach's three foundational theorems (Hahn-Banach, open mapping, uniform boundedness) turn this one completeness axiom into an entire working toolkit, letting existence-and-uniqueness questions for differential and integral equations be answered abstractly, without solving the equation explicitly.",
+    prerequisites: ['functional-analysis:normed-spaces', 'analysis:metric-spaces'],
+    related: ['functional-analysis:normed-spaces', 'functional-analysis:hilbert-spaces', 'functional-analysis:bounded-operators'],
+    historicalContext:
+      "Stefan Banach's 1920 doctoral dissertation at the University of Lwów axiomatized complete normed spaces, unifying earlier special cases studied by David Hilbert, Erhard Schmidt, and Frigyes Riesz. Working with the 'Lwów School' of mathematicians (Hugo Steinhaus, Stanisław Mazur, and others, famously meeting at the Scottish Café to pose problems in what became the Scottish Book), Banach developed the theory into a coherent discipline, publishing the founding treatise Théorie des opérations linéaires in 1932, which coined the term Banach space and proved the Hahn-Banach, open mapping, and uniform boundedness theorems in their modern form.",
+    contributorIds: ['person:stefan-banach', 'person:frigyes-riesz'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Show that $\\ell^\\infty$ (bounded sequences with the sup norm) is a Banach space by verifying that every Cauchy sequence of sequences converges.',
+      'Give an example of a normed space that is not complete, and identify what element a natural Cauchy sequence in it "should" converge to but does not.',
+      'Use the Banach fixed-point theorem to prove existence and uniqueness of a solution to the integral equation $x(t) = 1 + \\lambda\\int_0^t x(s)\\,ds$ for small $|\\lambda|$.',
+    ],
+    applications: [
+      'existence and uniqueness theory for ordinary and partial differential equations via fixed-point arguments',
+      'numerical analysis, where iterative methods are justified by the Banach fixed-point theorem',
+      'optimization and control theory, formulated over Banach spaces of functions or sequences',
+      'quantum mechanics and signal processing, which use particular Banach (and Hilbert) function spaces as their state spaces',
+    ],
+    researchDirections: [
+      'geometry of Banach spaces: reflexivity, uniform convexity, and the structure of infinite-dimensional unit balls',
+      'operator theory on Banach spaces, including semigroups of operators for evolution equations',
+      'nonlinear functional analysis and fixed-point theory beyond the contraction mapping setting',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Proves the Hahn-Banach, open mapping, and uniform boundedness theorems with full rigor and clarity.',
+      },
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'A modern standard graduate text connecting Banach space theory directly to applications in PDE.',
+      },
+      {
+        title: 'A Short Course on Banach Space Theory',
+        authors: ['N. L. Carothers'],
+        year: 2005,
+        why: 'A compact, well-motivated introduction focused specifically on Banach spaces and their geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cauchy sequence condition', latex: '\\|v_n-v_m\\|\\to 0 \\text{ as } n,m\\to\\infty' },
+      { label: 'Banach fixed-point theorem', latex: 'd(Tx,Ty)\\le k\\,d(x,y),\\ k<1 \\implies \\exists! x^*: Tx^*=x^*' },
+      { label: 'Operator norm', latex: '\\|T\\| = \\sup_{\\|x\\|\\le 1} \\|Tx\\|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Banach space', url: 'https://encyclopediaofmath.org/wiki/Banach_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:hilbert-spaces': {
+    overview:
+      'A Hilbert space is a Banach space whose norm comes from an inner product, so it retains not just length but also angle — in particular, orthogonality. This extra structure makes Hilbert spaces the best-behaved infinite-dimensional spaces, and the natural mathematical home for Fourier series, least-squares approximation, and quantum mechanics.',
+    formal:
+      'A Hilbert space is a vector space $H$ with an inner product $\\langle\\cdot,\\cdot\\rangle$ that is complete with respect to the induced norm $\\|v\\|=\\sqrt{\\langle v,v\\rangle}$. Every closed subspace $M\\subseteq H$ has an orthogonal complement with $H=M\\oplus M^\\perp$, and every vector has a well-defined orthogonal projection onto $M$. The Riesz representation theorem states that every continuous linear functional $\\varphi$ on $H$ has the form $\\varphi(x)=\\langle x,y\\rangle$ for a unique $y\\in H$.',
+    keyIdeas: [
+      'the inner product as the source of angle and orthogonality, not just length',
+      'orthogonal projection onto closed subspaces, generalizing least-squares approximation to infinite dimensions',
+      'orthonormal bases and generalized Fourier expansions $x=\\sum_n \\langle x,e_n\\rangle e_n$',
+      'the Riesz representation theorem, identifying a Hilbert space with its own dual',
+      'Hilbert spaces as the unique infinite-dimensional spaces where geometric (Euclidean) intuition remains essentially valid',
+    ],
+    whyItMatters:
+      "Quantum mechanics requires an infinite-dimensional space of states where 'angle' (probability amplitude overlap) makes sense, not just distance — exactly what a Hilbert space provides, which is why von Neumann's axiomatization of Hilbert space theory in 1929-1932 doubled as the first fully rigorous mathematical foundation for quantum mechanics. More broadly, whenever a problem in analysis reduces to finding the closest point in a subspace (least-squares regression, Fourier approximation, signal reconstruction), it is really a Hilbert-space orthogonal projection in disguise.",
+    prerequisites: ['functional-analysis:banach-spaces', 'linear-algebra:inner-product-spaces'],
+    related: ['functional-analysis:banach-spaces', 'functional-analysis:bounded-operators', 'real-analysis:l-p-spaces'],
+    historicalContext:
+      "David Hilbert and his students, especially Erhard Schmidt, developed the specific space now called $\\ell^2$ around 1904-1908 while studying integral equations, and Frigyes Riesz and Ernst Fischer's 1907 completeness theorem for $L^2$ (Riesz-Fischer) showed $\\ell^2$ and $L^2$ to be, in effect, the same object. It took until 1929 for John von Neumann, working to give quantum mechanics a rigorous mathematical foundation, to isolate the abstract axioms of a Hilbert space independent of any specific realization, coining the term 'Hilbert space' in Hilbert's honor even though Hilbert himself had never given the fully abstract definition.",
+    contributorIds: ['person:david-hilbert', 'person:john-von-neumann'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $\\ell^2$, the space of square-summable sequences, is a Hilbert space by verifying the parallelogram law $\\|x+y\\|^2+\\|x-y\\|^2=2\\|x\\|^2+2\\|y\\|^2$.',
+      'Find the orthogonal projection of $f(x)=x^2$ onto the subspace of linear functions in $L^2[-1,1]$.',
+      'Use the Riesz representation theorem to identify the continuous linear functional $\\varphi(f)=\\int_0^1 f(x)\\,dx$ on $L^2[0,1]$ with an explicit element of $L^2[0,1]$.',
+    ],
+    applications: [
+      'quantum mechanics, where physical states are vectors in a Hilbert space and observables are self-adjoint operators on it',
+      'signal processing and Fourier analysis, via orthonormal bases and least-squares approximation',
+      'machine learning, through reproducing kernel Hilbert spaces used in kernel methods and support vector machines',
+      'numerical methods for PDEs, such as the finite element method, formulated as projections onto finite-dimensional Hilbert subspaces',
+    ],
+    researchDirections: [
+      'operator algebras (C*-algebras and von Neumann algebras) built from bounded operators on Hilbert space',
+      'reproducing kernel Hilbert spaces in statistical learning theory',
+      'infinite-dimensional analysis and stochastic processes taking values in a Hilbert space',
+    ],
+    textbooks: [
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A very accessible route into Hilbert space geometry: projections, orthonormal bases, and the Riesz representation theorem.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'The rigorous graduate standard, developing Hilbert space theory as a special, especially well-behaved case of Banach space theory.',
+      },
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'Develops Hilbert space theory with the needs of quantum mechanics and mathematical physics explicitly in view.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Parallelogram law', latex: '\\|x+y\\|^2+\\|x-y\\|^2=2\\|x\\|^2+2\\|y\\|^2' },
+      { label: 'Orthogonal decomposition', latex: 'H = M \\oplus M^{\\perp}' },
+      { label: 'Generalized Fourier expansion', latex: 'x=\\sum_{n} \\langle x,e_n\\rangle e_n' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Hilbert space', url: 'https://en.wikipedia.org/wiki/Hilbert_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:bounded-operators': {
+    overview:
+      'A bounded operator is a linear map between normed spaces that does not stretch vectors by an unbounded amount, a condition that turns out to be exactly equivalent to continuity. Bounded operators are the "linear transformations" of functional analysis, and the space of bounded operators between two Banach spaces is itself a Banach space with its own rich structure.',
+    formal:
+      'A linear operator $T:X\\to Y$ between normed spaces is bounded if there is $C\\ge 0$ with $\\|Tx\\|\\le C\\|x\\|$ for all $x\\in X$; the smallest such $C$ is the operator norm $\\|T\\| = \\sup_{\\|x\\|\\le 1}\\|Tx\\|$. For linear operators, boundedness is exactly equivalent to continuity. The space $B(X,Y)$ of bounded operators from $X$ to $Y$, with this norm, is itself a Banach space whenever $Y$ is; when $Y=\\mathbb{R}$ or $\\mathbb{C}$, $B(X,Y)=X^*$ is the dual space.',
+    keyIdeas: [
+      'boundedness $\\iff$ continuity for linear operators, a purely infinite-dimensional subtlety with no finite-dimensional analogue',
+      'the operator norm, turning the space of bounded operators into a normed (and often Banach) space in its own right',
+      'the dual space $X^*=B(X,\\mathbb{R})$ (or $\\mathbb{C}$) of continuous linear functionals',
+      'the uniform boundedness principle: pointwise-bounded families of operators are uniformly bounded',
+      'compact operators as an important subclass behaving much like finite-rank (matrix) operators',
+    ],
+    whyItMatters:
+      'In infinite dimensions, unlike in $\\mathbb{R}^n$, a linear map can fail to be continuous — differentiation on a space of smooth functions is a classic unbounded (discontinuous) linear operator. Distinguishing bounded from unbounded operators, and developing an entire calculus (operator norms, adjoints, spectra) for the bounded ones, is what lets functional analysis extend the intuitions of matrix theory to infinite-dimensional settings such as quantum mechanics and differential equations, where matrices are replaced by bounded (or, more delicately, unbounded but densely defined) operators.',
+    prerequisites: ['functional-analysis:normed-spaces', 'functional-analysis:banach-spaces'],
+    related: ['functional-analysis:hilbert-spaces', 'functional-analysis:spectral-theory', 'linear-algebra:matrices'],
+    historicalContext:
+      "The systematic study of linear operators on function spaces began with Vito Volterra's and Ivar Fredholm's work on integral equations around 1900, where the 'operator' point of view first crystallized. Frigyes Riesz developed much of the general theory of bounded (and compact) linear operators and linear functionals on $L^p$ and Hilbert spaces in the 1910s, proving the Riesz representation theorem identifying continuous linear functionals with concrete integral or inner-product expressions. Stefan Banach's school then organized operator boundedness, the operator norm, and the resulting Banach space $B(X,Y)$ into the coherent framework presented in Théorie des opérations linéaires (1932).",
+    contributorIds: ['person:frigyes-riesz', 'person:john-von-neumann'],
+    workIds: ['work:theorie-des-operations-lineaires'],
+    exampleProblems: [
+      'Show that the differentiation operator $Df=f\'$ on $C^1[0,1]$ with the sup norm is unbounded by exhibiting a sequence $f_n$ with $\\|f_n\\|=1$ but $\\|Df_n\\|\\to\\infty$.',
+      'Compute the operator norm of the multiplication operator $(Tf)(x)=xf(x)$ on $L^2[0,1]$.',
+      'Use the Riesz representation theorem to show every bounded linear functional on $\\ell^2$ has the form $\\varphi(x)=\\sum_i x_i y_i$ for some $y\\in\\ell^2$.',
+    ],
+    applications: [
+      'quantum mechanics, where observables are represented by (typically unbounded, densely defined) self-adjoint operators, with bounded operators as the well-behaved special case',
+      'signal processing, where filters and transforms are modeled as bounded linear operators on function or sequence spaces',
+      'numerical linear algebra, where discretizations of differential operators are analyzed via operator norm bounds',
+      'control theory, where system stability is analyzed through the norms of relevant linear operators',
+    ],
+    researchDirections: [
+      'operator algebras (C*-algebras, von Neumann algebras) built from bounded operators on Hilbert space',
+      'unbounded operator theory (self-adjoint extensions, domains) needed for quantum mechanics and PDE',
+      'compact and Fredholm operator theory, and index theory relating analysis to topology',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Develops bounded operator theory, the operator norm, and dual spaces with full generality and rigor.',
+      },
+      {
+        title: 'Introductory Functional Analysis with Applications',
+        authors: ['Erwin Kreyszig'],
+        year: 1978,
+        why: 'A gentler introduction to bounded linear operators, with many worked examples on concrete function spaces.',
+      },
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'Carefully distinguishes bounded from unbounded operators with the needs of quantum mechanics in mind.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Boundedness condition', latex: '\\|Tx\\|\\le C\\|x\\| \\quad \\forall x\\in X' },
+      { label: 'Operator norm', latex: '\\|T\\| = \\sup_{\\|x\\|\\le 1} \\|Tx\\|' },
+      { label: 'Submultiplicativity', latex: '\\|ST\\| \\le \\|S\\|\\,\\|T\\|' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bounded operator', url: 'https://encyclopediaofmath.org/wiki/Bounded_operator', kind: 'encyclopedia' },
+      { label: 'MacTutor: Frigyes Riesz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riesz/', kind: 'reference' },
+      { label: 'MacTutor: Stefan Banach', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Banach/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:spectral-theory': {
+    overview:
+      'Spectral theory generalizes the eigenvalues and eigenvectors of a matrix to operators on infinite-dimensional spaces, where the "spectrum" can be far richer than a finite list of eigenvalues. This generalization is what let functional analysis rigorously underpin quantum mechanics, in which every observable quantity is represented by the spectrum of an operator.',
+    formal:
+      'For a bounded operator $T$ on a Banach space $X$, the spectrum $\\sigma(T)\\subseteq\\mathbb{C}$ consists of all $\\lambda$ for which $T-\\lambda I$ is not invertible; it decomposes into the point spectrum (eigenvalues), continuous spectrum, and residual spectrum. The spectral theorem for a bounded self-adjoint operator $T$ on a Hilbert space states $T=\\int_{\\sigma(T)} \\lambda \\, dE(\\lambda)$ for a projection-valued measure $E$, generalizing the diagonalization $T=\\sum_i \\lambda_i \\langle \\cdot, e_i\\rangle e_i$ of a symmetric matrix.',
+    keyIdeas: [
+      'the spectrum as the infinite-dimensional generalization of the set of eigenvalues of a matrix',
+      'point, continuous, and residual spectrum: phenomena with no finite-dimensional analogue',
+      'the spectral theorem for self-adjoint operators, generalizing the diagonalization of symmetric matrices via a projection-valued measure',
+      'compact operators, whose spectral theory (discrete eigenvalues accumulating only at $0$) most closely resembles the finite-dimensional case',
+      'the resolvent $(T-\\lambda I)^{-1}$ and its analytic dependence on $\\lambda$ away from the spectrum',
+    ],
+    whyItMatters:
+      "In quantum mechanics, the possible outcomes of measuring a physical observable are exactly the points in the spectrum of the corresponding self-adjoint operator, and the spectral theorem is what makes this correspondence mathematically precise — a continuous spectrum corresponds to a continuum of possible measured values (such as position), while discrete spectrum corresponds to quantized values (such as atomic energy levels). Von Neumann's rigorous 1932 development of spectral theory for unbounded self-adjoint operators supplied exactly the mathematics quantum mechanics needed, resolving inconsistencies in Dirac's more informal earlier formulation.",
+    prerequisites: ['functional-analysis:bounded-operators', 'linear-algebra:eigenvalues'],
+    related: ['functional-analysis:bounded-operators', 'functional-analysis:hilbert-spaces', 'linear-algebra:eigenvalues'],
+    historicalContext:
+      "David Hilbert developed the first spectral theory, for symmetric bilinear forms and integral operators, in a series of papers from 1904 to 1910, introducing the term 'spectrum' by analogy with the spectral lines of atomic physics though the physical connection was not yet understood. The subject became urgent with the arrival of quantum mechanics in the mid-1920s, where Werner Heisenberg's and Erwin Schrödinger's formulations needed exactly this operator-theoretic language. John von Neumann supplied the rigorous mathematical foundation in his 1932 book Mathematische Grundlagen der Quantenmechanik, extending spectral theory to the unbounded self-adjoint operators that quantum observables like position and momentum actually require.",
+    contributorIds: ['person:david-hilbert', 'person:john-von-neumann'],
+    workIds: [],
+    exampleProblems: [
+      'Find the spectrum of the multiplication operator $(Tf)(x)=xf(x)$ on $L^2[0,1]$ and explain why it is purely continuous spectrum with no eigenvalues.',
+      'Show that a compact self-adjoint operator on a Hilbert space has eigenvalues accumulating only at $0$.',
+      'Compute the spectrum of the right-shift operator $S(x_1,x_2,\\dots)=(0,x_1,x_2,\\dots)$ on $\\ell^2$ and identify which points are eigenvalues.',
+    ],
+    applications: [
+      'quantum mechanics, where the spectrum of the Hamiltonian operator gives the possible energy levels of a physical system',
+      'vibration analysis in engineering, where eigenvalues of a differential operator correspond to resonant frequencies',
+      'Google\'s PageRank and other spectral graph algorithms, using the spectrum of an operator built from a graph',
+      'stability analysis of linear dynamical systems, via the spectrum of the system\'s generator',
+    ],
+    researchDirections: [
+      'spectral theory of unbounded operators, essential for quantum mechanics and PDE',
+      'random matrix theory and the statistical behavior of eigenvalues of large random operators',
+      'spectral geometry, relating the spectrum of the Laplacian on a manifold to its geometric shape',
+    ],
+    textbooks: [
+      {
+        title: 'Methods of Modern Mathematical Physics I: Functional Analysis',
+        authors: ['Michael Reed', 'Barry Simon'],
+        edition: 'Revised',
+        year: 1980,
+        why: 'The standard rigorous treatment of spectral theory built with quantum mechanics applications constantly in view.',
+      },
+      {
+        title: 'Functional Analysis',
+        authors: ['Walter Rudin'],
+        edition: '2nd',
+        year: 1991,
+        why: 'Proves the spectral theorem for bounded and unbounded self-adjoint operators with complete rigor.',
+      },
+      {
+        title: 'A Course in Functional Analysis',
+        authors: ['John B. Conway'],
+        edition: '2nd',
+        year: 1990,
+        why: 'A widely used graduate text with a particularly clear treatment of spectral theory on Hilbert spaces.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Spectrum definition', latex: '\\sigma(T) = \\{\\lambda\\in\\mathbb{C} : T-\\lambda I \\text{ not invertible}\\}' },
+      { label: 'Spectral theorem (self-adjoint)', latex: 'T = \\int_{\\sigma(T)} \\lambda \\, dE(\\lambda)' },
+      { label: 'Resolvent', latex: 'R(\\lambda) = (T-\\lambda I)^{-1}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Spectral theory', url: 'https://encyclopediaofmath.org/wiki/Spectral_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+      { label: 'MacTutor: John von Neumann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Von_Neumann/', kind: 'reference' },
+    ],
+  },
+  'functional-analysis:distributions': {
+    overview:
+      "Distributions (generalized functions) extend the notion of 'function' to include objects like the Dirac delta, which behaves like an infinitely concentrated point mass, letting operations such as differentiation be performed on functions, like $|x|$ or a step function, that are not classically differentiable everywhere.",
+    formal:
+      'A distribution is a continuous linear functional on the space $\\mathcal{D}$ of smooth, compactly supported test functions. Every locally integrable function $f$ defines a distribution via $\\langle f,\\varphi\\rangle = \\int f(x)\\varphi(x)\\,dx$, and the derivative of a distribution $T$ is defined by duality, $\\langle T\', \\varphi\\rangle = -\\langle T,\\varphi\'\\rangle$, so that every distribution is infinitely differentiable in this generalized sense. The Dirac delta $\\delta_a$ is the distribution $\\langle \\delta_a, \\varphi\\rangle = \\varphi(a)$, not given by any ordinary function.',
+    keyIdeas: [
+      'testing against smooth compactly supported functions as the mechanism that makes differentiation always well-defined',
+      'the Dirac delta as a distribution representing an idealized point mass or impulse, with no classical function representation',
+      'weak (distributional) derivatives, letting non-smooth functions like $|x|$ have a well-defined generalized derivative',
+      'tempered distributions and the Fourier transform, extended to distributions that grow no faster than polynomially',
+      'the link to Sobolev spaces, which measure how many weak derivatives of a function lie in $L^p$',
+    ],
+    whyItMatters:
+      "Physicists had used objects like the Dirac delta function since the 1920s to model point charges and impulses, despite delta having no meaning as an ordinary function (it would need to be zero everywhere except one point, yet integrate to one). Laurent Schwartz's theory of distributions, for which he won the 1950 Fields Medal, made this practice fully rigorous, and the resulting weak-derivative framework became indispensable for modern PDE theory, since it is often far easier to first find a weak (distributional) solution to a differential equation and only later ask whether it happens to be classically smooth.",
+    prerequisites: ['functional-analysis:normed-spaces', 'real-analysis:lebesgue-integration'],
+    related: ['functional-analysis:normed-spaces', 'partial-differential-equations:sobolev-spaces', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Oliver Heaviside and Paul Dirac used delta-function-like objects informally in engineering and quantum mechanics from the 1890s through the 1920s without a rigorous foundation. Sergei Sobolev introduced a precursor notion of weak derivative in the 1930s while studying hyperbolic PDEs, effectively working with a special case of distributions before the general theory existed. Laurent Schwartz unified and completed the theory in his 1945-1950 work, defining distributions as continuous linear functionals on test functions and developing the calculus of weak derivatives and the Fourier transform of tempered distributions, for which he received the Fields Medal in 1950 — the first awarded to a French mathematician.",
+    contributorIds: ['person:laurent-schwartz', 'person:sergei-sobolev'],
+    workIds: [],
+    exampleProblems: [
+      'Compute the distributional derivative of the Heaviside step function $H(x)$ and verify it equals the Dirac delta $\\delta_0$.',
+      'Show that $f(x)=|x|$ has weak derivative $\\operatorname{sgn}(x)$, and that $\\operatorname{sgn}(x)$ in turn has weak derivative $2\\delta_0$.',
+      'Verify that the sequence of functions $f_n(x) = n \\cdot \\mathbf{1}_{[0,1/n]}(x)$ converges to the Dirac delta $\\delta_0$ as a distribution, i.e. $\\int f_n \\varphi \\to \\varphi(0)$ for test functions $\\varphi$.',
+    ],
+    applications: [
+      'signal processing, modeling impulses and using the Dirac delta as the identity for convolution',
+      'PDE theory, via weak solutions and Sobolev spaces built from distributional derivatives',
+      'quantum mechanics and quantum field theory, where the Dirac delta and its derivatives appear throughout',
+      'Green\'s functions in physics and engineering, which are fundamentally distributional solutions to differential equations',
+    ],
+    researchDirections: [
+      'microlocal analysis, refining distribution theory to track the location and direction of singularities',
+      'generalized function algebras (Colombeau algebras), allowing certain nonlinear operations on distributions',
+      'distributions on manifolds and in several variables, needed for modern geometric PDE theory',
+    ],
+    textbooks: [
+      {
+        title: 'Functional Analysis, Sobolev Spaces and Partial Differential Equations',
+        authors: ['Haim Brezis'],
+        year: 2010,
+        why: 'Introduces distributions and weak derivatives as the natural language for modern PDE theory.',
+      },
+      {
+        title: 'Distribution Theory and Transform Analysis',
+        authors: ['A. H. Zemanian'],
+        year: 1965,
+        why: 'A classic, application-oriented introduction to distributions for engineers and applied mathematicians.',
+      },
+      {
+        title: 'The Analysis of Linear Partial Differential Operators I',
+        authors: ['Lars Hörmander'],
+        year: 1983,
+        why: 'The definitive advanced reference, developing distribution theory rigorously before its PDE applications.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Distributional derivative', latex: "\\langle T', \\varphi\\rangle = -\\langle T,\\varphi'\\rangle" },
+      { label: 'Dirac delta action', latex: '\\langle \\delta_a, \\varphi\\rangle = \\varphi(a)' },
+      { label: 'Distribution paired with test function', latex: '\\langle f,\\varphi\\rangle = \\int f(x)\\varphi(x)\\,dx' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Generalized function', url: 'https://encyclopediaofmath.org/wiki/Generalized_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: Laurent Schwartz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Schwartz/', kind: 'reference' },
+      { label: 'MacTutor: Sergei Sobolev', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sobolev/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:ordinary-differential-equations': {
+    overview:
+      'An ordinary differential equation (ODE) relates a function of a single variable to its derivatives, encoding how a quantity changes based on its current state. From Newton\'s laws of motion to population growth and radioactive decay, ODEs are the mathematical language for describing how systems evolve over time.',
+    formal:
+      'An $n$-th order ODE has the general form $F(t, y, y\', y\'\', \\dots, y^{(n)}) = 0$, or in explicit form $y^{(n)} = f(t,y,y\',\\dots,y^{(n-1)})$. A first-order system $y\'=f(t,y)$, $y(t_0)=y_0$ is called an initial value problem. Linear ODEs with constant coefficients, $a_n y^{(n)}+\\cdots+a_1 y\'+a_0 y = g(t)$, can be solved explicitly via the characteristic equation $a_n r^n + \\cdots + a_1 r + a_0 = 0$, whose roots determine the exponential and oscillatory building blocks of the general solution.',
+    keyIdeas: [
+      'order (highest derivative appearing) and linearity as the primary ways to classify an ODE',
+      'the characteristic equation, converting a linear constant-coefficient ODE into an algebraic root-finding problem',
+      'the superposition principle: linear combinations of solutions to a linear homogeneous ODE are themselves solutions',
+      'phase space and qualitative analysis, understanding solution behavior without solving explicitly',
+      'the reduction of any higher-order ODE to an equivalent first-order system',
+    ],
+    whyItMatters:
+      "Newton invented calculus specifically to write down and solve the differential equation of motion, $F=ma$, and ever since, ODEs have been the standard language for any process that evolves according to a rule depending on its current state — planetary orbits, chemical reaction rates, population dynamics, and electrical circuits are all, at heart, ODEs. Even when an ODE cannot be solved in closed form (the generic case), the theory built around it — existence, uniqueness, qualitative behavior, numerical approximation — still yields deep and reliable information about the system it models.",
+    prerequisites: ['calculus:derivatives', 'calculus:integrals'],
+    related: ['differential-equations:existence-and-uniqueness', 'differential-equations:stability', 'dynamical-systems:phase-portraits'],
+    historicalContext:
+      "Isaac Newton and Gottfried Wilhelm Leibniz effectively invented the differential equation alongside calculus itself in the 1660s-1680s, with Newton's Principia (1687) built entirely on solving the differential equations of orbital motion. The Bernoulli family and Leonhard Euler spent the 18th century developing systematic solution techniques (separation of variables, integrating factors, series solutions), and Euler's 1768-1770 Institutiones calculi integralis organized these methods into the first systematic treatment of ODEs as a subject in its own right, including what is now called the Euler method for numerical approximation.",
+    contributorIds: ['person:isaac-newton', 'person:gottfried-wilhelm-leibniz'],
+    workIds: [],
+    exampleProblems: [
+      'Solve the linear ODE $y\'\' - 3y\' + 2y = 0$ by finding its characteristic equation and roots.',
+      'Use separation of variables to solve the logistic growth equation $y\' = ry(1-y/K)$ with $y(0)=y_0$.',
+      'Reduce the second-order ODE $y\'\' + \\omega^2 y = 0$ to an equivalent first-order system in the phase plane $(y,y\')$.',
+    ],
+    applications: [
+      'classical mechanics, where Newton\'s second law $F=ma$ is a second-order ODE for position',
+      'population biology and epidemiology (logistic growth, the SIR model for disease spread)',
+      'electrical circuit analysis, where RLC circuits are governed by linear ODEs',
+      'chemical kinetics, modeling reaction rates as a system of coupled ODEs',
+    ],
+    researchDirections: [
+      'delay differential equations, where the derivative depends on past as well as present values',
+      'stochastic differential equations, adding random noise to the classical ODE framework',
+      'geometric and structure-preserving numerical integration for long-time ODE simulation',
+    ],
+    textbooks: [
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'A geometrically-minded classic emphasizing qualitative understanding over rote solution techniques.',
+      },
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'The most widely used undergraduate textbook, strong on both solution techniques and applications.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Bridges classical ODE solution methods with the modern qualitative and dynamical-systems perspective.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'General nth-order ODE', latex: "F(t, y, y', y'', \\dots, y^{(n)}) = 0" },
+      { label: 'Characteristic equation', latex: 'a_n r^n + \\cdots + a_1 r + a_0 = 0' },
+      { label: 'Exponential growth solution', latex: "y' = ky \\implies y(t) = y_0 e^{kt}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Differential equation, ordinary', url: 'https://encyclopediaofmath.org/wiki/Differential_equation,_ordinary', kind: 'encyclopedia' },
+      { label: 'MacTutor: Isaac Newton', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Newton/', kind: 'reference' },
+      { label: 'MacTutor: Leonhard Euler', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Euler/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:partial-differential-equations': {
+    overview:
+      'A partial differential equation (PDE) relates a function of several variables to its partial derivatives, describing how quantities that vary in both space and time evolve. Heat flow, wave propagation, and fluid motion are all governed by PDEs, making them the central mathematical tool of continuum physics.',
+    formal:
+      'A PDE for $u(x_1,\\dots,x_n)$ has the general form $F(x, u, \\partial u/\\partial x_1, \\dots, \\partial^2 u/\\partial x_i \\partial x_j, \\dots) = 0$. Second-order linear PDEs in two variables, $Au_{xx}+Bu_{xy}+Cu_{yy}+\\cdots=0$, are classified by the sign of the discriminant $B^2-4AC$: elliptic ($<0$, e.g. Laplace\'s equation), parabolic ($=0$, e.g. the heat equation), or hyperbolic ($>0$, e.g. the wave equation), each with qualitatively different behavior. The Cauchy-Kovalevskaya theorem guarantees local existence of an analytic solution to a PDE with analytic data, under a non-characteristic condition on the initial surface.',
+    keyIdeas: [
+      'the elliptic/parabolic/hyperbolic classification, determining whether a PDE behaves like Laplace\'s, the heat, or the wave equation',
+      'the number of independent variables (unlike an ODE) as the source of vastly richer and harder behavior',
+      'characteristics: curves or surfaces along which information propagates or singularities can occur',
+      'well-posedness (Hadamard\'s criteria): existence, uniqueness, and continuous dependence on data',
+      'separation of variables and Fourier methods as classical tools for solving linear PDEs on simple domains',
+    ],
+    whyItMatters:
+      'Almost every fundamental law of continuum physics — how heat diffuses, how waves propagate, how fluids flow, how electromagnetic fields behave — is stated as a PDE, because physical quantities depend on both space and time simultaneously. Unlike ODEs, PDEs can behave in profoundly different ways depending on their type (elliptic equations are smooth and well-behaved; hyperbolic equations propagate sharp signals and discontinuities), which is why the elliptic/parabolic/hyperbolic classification is one of the most consequential ideas in the whole theory.',
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'calculus:vector-calculus'],
+    related: ['differential-equations:boundary-value-problems', 'differential-equations:green-functions', 'real-analysis:fourier-series'],
+    historicalContext:
+      "Jean le Rond d'Alembert derived and solved the one-dimensional wave equation in 1747, giving the first PDE solution in closed form (as a sum of two arbitrary traveling waves), while studying vibrating strings. Joseph Fourier's 1822 treatment of the heat equation via trigonometric series soon followed. Augustin-Louis Cauchy began the general existence theory in the 1840s, completed for equations with analytic coefficients by Sofia Kovalevskaya in her landmark 1874 doctoral dissertation — the first mathematics doctorate awarded to a woman in Europe — which proved what is now called the Cauchy-Kovalevskaya theorem and corrected a gap in Cauchy's own earlier argument.",
+    contributorIds: ['person:jean-le-rond-dalembert', 'person:sofia-kovalevskaya'],
+    workIds: [],
+    exampleProblems: [
+      'Classify the PDE $u_{xx} - 4u_{xy} + 4u_{yy} = 0$ as elliptic, parabolic, or hyperbolic using the discriminant.',
+      "Verify d'Alembert's solution $u(x,t)=f(x-ct)+g(x+ct)$ satisfies the wave equation $u_{tt}=c^2 u_{xx}$ for arbitrary twice-differentiable $f,g$.",
+      'Use separation of variables $u(x,t)=X(x)T(t)$ to reduce the heat equation $u_t = k u_{xx}$ on $[0,L]$ to two ordinary differential equations.',
+    ],
+    applications: [
+      'fluid dynamics (Navier-Stokes equations) and aerodynamics',
+      'electromagnetism, where Maxwell\'s equations are a coupled system of PDEs',
+      'financial mathematics, where the Black-Scholes equation for option pricing is a parabolic PDE',
+      'image processing, using diffusion-type PDEs for denoising and edge detection',
+    ],
+    researchDirections: [
+      'nonlinear PDEs and the existence/regularity theory for equations like Navier-Stokes (a Millennium Prize problem)',
+      'geometric PDEs such as the Ricci flow, used in Perelman\'s proof of the Poincaré conjecture',
+      'numerical methods (finite element, finite difference, spectral methods) for PDEs without closed-form solutions',
+    ],
+    textbooks: [
+      {
+        title: 'Partial Differential Equations',
+        authors: ['Lawrence C. Evans'],
+        edition: '2nd',
+        year: 2010,
+        why: 'The standard modern graduate textbook, covering the elliptic/parabolic/hyperbolic classification and much more with full rigor.',
+      },
+      {
+        title: 'Partial Differential Equations: An Introduction',
+        authors: ['Walter A. Strauss'],
+        edition: '2nd',
+        year: 2007,
+        why: 'A widely used, more accessible introduction emphasizing classical solution techniques and physical motivation.',
+      },
+      {
+        title: 'Applied Partial Differential Equations',
+        authors: ['Richard Haberman'],
+        edition: '5th',
+        year: 2013,
+        why: 'A strongly applications-focused text, popular for engineering and physics-oriented courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'General second-order PDE', latex: 'Au_{xx}+Bu_{xy}+Cu_{yy}+\\text{(lower order)}=0' },
+      { label: "d'Alembert's wave solution", latex: 'u(x,t)=f(x-ct)+g(x+ct)' },
+      { label: 'Heat equation', latex: 'u_t = k\\, u_{xx}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Differential equation, partial', url: 'https://encyclopediaofmath.org/wiki/Differential_equation,_partial', kind: 'encyclopedia' },
+      { label: 'MacTutor: Sofia Kovalevskaya', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kovalevskaya/', kind: 'reference' },
+      { label: 'MacTutor: Jean le Rond d\'Alembert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/DAlembert/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:existence-and-uniqueness': {
+    overview:
+      'Before solving a differential equation, it is worth asking whether a solution exists at all, and if so, whether it is the only one. Existence-and-uniqueness theorems answer both questions in general, guaranteeing that an initial value problem behaves the way intuition expects, without requiring an explicit formula for the solution.',
+    formal:
+      'The Picard-Lindelöf (Cauchy-Lipschitz) theorem: if $f(t,y)$ is continuous and satisfies a Lipschitz condition in $y$, $|f(t,y_1)-f(t,y_2)| \\le L|y_1-y_2|$, then the initial value problem $y\'=f(t,y)$, $y(t_0)=y_0$ has a unique solution on some interval around $t_0$. The proof constructs the solution as the limit of Picard iterates $y_{n+1}(t) = y_0 + \\int_{t_0}^{t} f(s,y_n(s))\\,ds$, which converge by the Banach fixed-point theorem.',
+    keyIdeas: [
+      'the Lipschitz condition as exactly the right amount of regularity to guarantee uniqueness',
+      'Picard iteration: constructing the solution as the limit of successive approximations',
+      'Peano\'s existence theorem, which needs only continuity of $f$ but gives up uniqueness',
+      'finite-time blow-up: even smooth nonlinear ODEs, like $y\'=y^2$, can fail to have solutions for all time',
+      'local versus global existence, and how far a solution can be extended before it breaks down',
+    ],
+    whyItMatters:
+      "Without an existence-and-uniqueness theorem, numerically or analytically 'solving' a differential equation would carry no guarantee that the object being computed is meaningful — there might be no solution at all, or multiple contradictory ones. The Picard-Lindelöf theorem is what turns differential equations from a collection of ad hoc solved examples into a genuine deductive theory: as long as the Lipschitz condition holds, every initial condition determines a solution's entire future (and past) uniquely, a mathematical expression of determinism itself.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'functional-analysis:banach-spaces'],
+    related: ['differential-equations:stability', 'functional-analysis:banach-spaces', 'analysis:metric-spaces'],
+    historicalContext:
+      "Augustin-Louis Cauchy gave the first existence proof for ODEs in the 1820s using what is now called the Cauchy-Euler (polygon) method, though under restrictive smoothness assumptions. Rudolf Lipschitz introduced the condition that now bears his name in 1876, showing continuity of $f$ alone need not guarantee uniqueness but the (weaker than differentiability) Lipschitz condition suffices. Émile Picard developed the method of successive approximations (Picard iteration) in the 1890s, giving a constructive existence proof later streamlined by Ernst Lindelöf in 1894, and the combined result is known as the Picard-Lindelöf or Cauchy-Lipschitz theorem.",
+    contributorIds: ['person:emile-picard', 'person:rudolf-lipschitz'],
+    workIds: [],
+    exampleProblems: [
+      'Show that $f(y)=\\sqrt{|y|}$ is continuous but not Lipschitz at $y=0$, and verify that $y\'=\\sqrt{|y|}$, $y(0)=0$ has more than one solution.',
+      'Compute the first three Picard iterates for $y\'=y$, $y(0)=1$, and verify they converge to $y(t)=e^t$.',
+      'Show that $y\'=y^2$, $y(0)=1$ has the solution $y(t)=1/(1-t)$, which blows up at $t=1$, illustrating finite-time blow-up despite a smooth right-hand side.',
+    ],
+    applications: [
+      'numerical analysis, where existence-and-uniqueness theory justifies that ODE solvers are approximating a well-defined object',
+      'control theory, where uniqueness of trajectories is required for deterministic system behavior',
+      'physics, where determinism (a unique future given the present state) rests on existence-and-uniqueness theorems for the governing equations',
+      'mathematical biology and economics, verifying that a proposed model actually has a well-defined solution before using it',
+    ],
+    researchDirections: [
+      'existence theory for PDEs, vastly harder than the ODE case (e.g. the open Navier-Stokes existence and smoothness problem)',
+      'well-posedness theory for stochastic differential equations',
+      'existence and uniqueness under weaker-than-Lipschitz conditions (Carathéodory conditions, one-sided Lipschitz conditions)',
+    ],
+    textbooks: [
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'Presents the existence-and-uniqueness theorem with strong geometric intuition for why the Lipschitz condition matters.',
+      },
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'Presents the Picard iteration method accessibly, with worked examples of successive approximations.',
+      },
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Philip Hartman'],
+        year: 1964,
+        why: 'The classic advanced graduate reference for rigorous existence, uniqueness, and continuation theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lipschitz condition', latex: '|f(t,y_1)-f(t,y_2)| \\le L|y_1-y_2|' },
+      { label: 'Picard iteration', latex: 'y_{n+1}(t) = y_0 + \\int_{t_0}^{t} f(s,y_n(s))\\,ds' },
+      { label: 'Finite-time blow-up example', latex: "y'=y^2,\\ y(0)=1 \\implies y(t)=\\frac{1}{1-t}" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cauchy-Lipschitz theorem', url: 'https://encyclopediaofmath.org/wiki/Cauchy-Lipschitz_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Émile Picard', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Picard_Emile/', kind: 'reference' },
+      { label: 'MacTutor: Rudolf Lipschitz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lipschitz/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:stability': {
+    overview:
+      "Stability theory asks what happens to solutions of a differential equation under small perturbations: does a slightly disturbed trajectory return to its original path, drift away, or wander off entirely? This question, rather than finding an explicit formula, is often the only realistic way to understand equations too complicated to solve outright.",
+    formal:
+      "An equilibrium $y^*$ of $y'=f(y)$ (with $f(y^*)=0$) is Lyapunov stable if for every $\\varepsilon>0$ there is $\\delta>0$ such that $\\|y(0)-y^*\\|<\\delta$ implies $\\|y(t)-y^*\\|<\\varepsilon$ for all $t\\ge 0$, and asymptotically stable if additionally $y(t)\\to y^*$. Lyapunov's direct (second) method certifies stability without solving the equation: if there is a function $V(y)>0$ (for $y\\ne y^*$) with $\\dot V(y) = \\nabla V(y)\\cdot f(y) \\le 0$ along trajectories, then $y^*$ is stable, and asymptotically stable if the inequality is strict.",
+    keyIdeas: [
+      'Lyapunov stability versus asymptotic stability versus instability, as increasingly strong long-term guarantees',
+      "Lyapunov's direct method: certifying stability using an energy-like function, without ever solving the ODE",
+      'linearization: analyzing stability of a nonlinear equilibrium via the eigenvalues of the Jacobian at that point',
+      'structural stability: whether the qualitative behavior of a system persists under small perturbations of the equations themselves',
+      'the connection between stability and long-term predictability, as opposed to short-term solvability',
+    ],
+    whyItMatters:
+      "Most differential equations arising in practice cannot be solved in closed form, so knowing whether solutions near an equilibrium stay near it, converge to it, or diverge is frequently the only tractable — and often the only practically relevant — question. Lyapunov's second method turned this into a systematic technique: engineers routinely certify that a bridge, an aircraft, or a control system is stable by exhibiting a suitable Lyapunov function, without ever writing down an explicit solution to the underlying differential equation.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:phase-portraits', 'differential-equations:existence-and-uniqueness', 'control-theory:controllability'],
+    historicalContext:
+      "Henri Poincaré's work on celestial mechanics in the 1880s-1890s pioneered the qualitative study of differential equations, asking about the long-term behavior of orbits without solving the underlying equations explicitly. Aleksandr Lyapunov's 1892 doctoral dissertation The General Problem of the Stability of Motion, written independently and roughly contemporaneously with Poincaré's qualitative program, gave stability theory its rigorous modern foundation, including both the linearization ('first') method and the energy-function ('second' or direct) method that remains the standard tool used throughout engineering and applied mathematics today.",
+    contributorIds: ['person:aleksandr-lyapunov', 'person:henri-poincare'],
+    workIds: [],
+    exampleProblems: [
+      'Use Lyapunov\'s direct method with $V(x,y)=x^2+y^2$ to show the origin is asymptotically stable for the system $\\dot x=-x+y^3$, $\\dot y=-y-x^3$.',
+      'Linearize $y\'=\\sin(y)$ at the equilibrium $y=0$ and use the linearization to determine local stability.',
+      'Classify the stability of the equilibrium of $y\'=y(1-y)$ at $y=1$ and at $y=0$ using the sign of $f\'$ at each point.',
+    ],
+    applications: [
+      'control theory and engineering, certifying that feedback-controlled systems (aircraft, robots, power grids) return to equilibrium after disturbances',
+      'ecology, analyzing whether predator-prey and other population models settle to a stable coexistence equilibrium',
+      'chemical engineering, ensuring reactor operating points do not run away under small perturbations',
+      'celestial mechanics, addressing the long-term stability of orbits and planetary systems',
+    ],
+    researchDirections: [
+      'stability of infinite-dimensional systems (PDEs), extending Lyapunov theory beyond finite dimensions',
+      'stochastic stability, incorporating random perturbations into the classical stability framework',
+      'stability and bifurcation theory in dynamical systems, studying how stability changes as parameters vary',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Systems',
+        authors: ['Hassan K. Khalil'],
+        edition: '3rd',
+        year: 2002,
+        why: 'The standard engineering reference for Lyapunov stability theory and its use in control systems.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Develops linearization and stability theory with a strong geometric, dynamical-systems perspective.',
+      },
+      {
+        title: 'Stability Theory of Differential Equations',
+        authors: ['Richard Bellman'],
+        year: 1953,
+        why: 'A classic dedicated treatment of Lyapunov and other stability methods for differential equations.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Lyapunov stability condition', latex: '\\|y(0)-y^*\\|<\\delta \\implies \\|y(t)-y^*\\|<\\varepsilon\\ \\forall t\\ge 0' },
+      { label: "Lyapunov function derivative", latex: '\\dot V(y) = \\nabla V(y)\\cdot f(y) \\le 0' },
+      { label: 'Linearization', latex: "y'=f(y) \\approx Df(y^*)(y-y^*) \\text{ near } y^*" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Lyapunov stability theory', url: 'https://encyclopediaofmath.org/wiki/Lyapunov_stability_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Aleksandr Lyapunov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lyapunov/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:boundary-value-problems': {
+    overview:
+      'A boundary value problem specifies conditions at two or more separate points rather than all at one starting time, as in the initial value problems typical of mechanics — for instance, fixing the temperature at both ends of a rod rather than at a single initial moment. This shift changes the mathematics substantially: solutions may fail to exist or fail to be unique in ways initial value problems never do.',
+    formal:
+      'A two-point boundary value problem for a second-order ODE has the form $y\'\'=f(x,y,y\')$ on $[a,b]$ with conditions such as $y(a)=\\alpha$, $y(b)=\\beta$. A Sturm-Liouville problem is the eigenvalue boundary value problem $-\\big(p(x)y\'\\big)\' + q(x)y = \\lambda w(x) y$ on $[a,b]$ with separated boundary conditions; its eigenvalues $\\lambda_1<\\lambda_2<\\cdots$ are real, simple, and tend to infinity, and the corresponding eigenfunctions form a complete orthogonal basis (with respect to the weight $w$) for the relevant function space.',
+    keyIdeas: [
+      'boundary conditions imposed at multiple points, unlike the single initial point of an initial value problem',
+      'existence and uniqueness can fail or hold non-generically, unlike the well-behaved initial value case',
+      'Sturm-Liouville theory: a general eigenvalue framework producing orthogonal eigenfunction expansions',
+      'the eigenfunctions of a Sturm-Liouville problem generalize the sines and cosines of ordinary Fourier series',
+      "the Sturm oscillation and comparison theorems, controlling how many times eigenfunctions vanish",
+    ],
+    whyItMatters:
+      "Steady-state physical problems — the equilibrium temperature distribution in a rod with fixed end temperatures, the shape of a vibrating string pinned at both ends — are naturally boundary value problems, not initial value problems, and behave differently: a boundary value problem can have no solution, exactly one, or infinitely many, depending subtly on the boundary data. Sturm-Liouville theory unifies an enormous range of such problems (each choice of $p, q, w$ recovers a different classical special-function theory: Legendre, Bessel, Chebyshev, and more) under one eigenfunction-expansion framework, directly generalizing Fourier series.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['differential-equations:green-functions', 'real-analysis:fourier-series', 'functional-analysis:spectral-theory'],
+    historicalContext:
+      "Charles-François Sturm and Joseph Liouville developed the general theory of second-order linear boundary value problems together in a remarkable series of joint and parallel papers from 1836 to 1837, published in the journal Liouville had just founded. Their work showed that the eigenvalue problems arising from separating variables in the heat and wave equations on general domains — not just the special trigonometric case Fourier had studied — always produce a complete orthogonal system of eigenfunctions, unifying what had previously seemed to be separate special cases (Legendre polynomials, Bessel functions) under a single general theory.",
+    contributorIds: ['person:charles-francois-sturm', 'person:joseph-liouville'],
+    workIds: [],
+    exampleProblems: [
+      'Solve the boundary value problem $y\'\'+y=0$, $y(0)=0$, $y(\\pi)=0$ and show it has infinitely many solutions, unlike a generic initial value problem.',
+      'Find the eigenvalues and eigenfunctions of the Sturm-Liouville problem $-y\'\'=\\lambda y$ on $[0,L]$ with $y(0)=y(L)=0$.',
+      'Verify that eigenfunctions corresponding to distinct eigenvalues of a Sturm-Liouville problem are orthogonal with respect to the weight function $w(x)$.',
+    ],
+    applications: [
+      'separation of variables solutions to the heat, wave, and Laplace equations on bounded domains',
+      'quantum mechanics, where the time-independent Schrödinger equation is a Sturm-Liouville-type eigenvalue problem',
+      'vibration analysis in engineering, computing the natural frequencies and mode shapes of a structure',
+      'special function theory (Legendre, Bessel, Chebyshev, Hermite functions), all arising as Sturm-Liouville eigenfunctions',
+    ],
+    researchDirections: [
+      'singular Sturm-Liouville problems on infinite or semi-infinite intervals, connecting to continuous spectrum',
+      'inverse Sturm-Liouville problems: reconstructing $p,q,w$ from the eigenvalues (Gel\'fand-Levitan theory)',
+      'boundary value problems for PDEs (elliptic boundary value theory) generalizing the ODE case',
+    ],
+    textbooks: [
+      {
+        title: 'Elementary Differential Equations and Boundary Value Problems',
+        authors: ['William E. Boyce', 'Richard C. DiPrima'],
+        edition: '11th',
+        year: 2017,
+        why: 'A widely used undergraduate treatment introducing Sturm-Liouville theory and eigenfunction expansions.',
+      },
+      {
+        title: 'Methods of Mathematical Physics, Vol. I',
+        authors: ['Richard Courant', 'David Hilbert'],
+        year: 1953,
+        why: 'The classic advanced treatment connecting Sturm-Liouville theory to the full range of mathematical physics.',
+      },
+      {
+        title: 'Sturm-Liouville Theory',
+        authors: ['Anton Zettl'],
+        year: 2005,
+        why: 'A modern, comprehensive dedicated monograph on Sturm-Liouville problems, regular and singular.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sturm-Liouville equation', latex: "-\\big(p(x)y'\\big)' + q(x)y = \\lambda w(x) y" },
+      { label: 'Orthogonality of eigenfunctions', latex: '\\int_a^b y_m(x) y_n(x)\\, w(x)\\,dx = 0 \\quad (m\\ne n)' },
+      { label: 'Eigenfunction expansion', latex: 'f(x) = \\sum_{n=1}^{\\infty} c_n y_n(x)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Sturm-Liouville problem', url: 'https://encyclopediaofmath.org/wiki/Sturm-Liouville_problem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Charles-François Sturm', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sturm/', kind: 'reference' },
+      { label: 'MacTutor: Joseph Liouville', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Liouville/', kind: 'reference' },
+    ],
+  },
+  'differential-equations:green-functions': {
+    overview:
+      "A Green's function is the response of a linear differential operator to an idealized point source (a Dirac delta), from which the solution for any source distribution can be built up by integration. This turns solving an entire family of differential equations, one for each possible source, into a single computation done once and for all.",
+    formal:
+      'For a linear differential operator $L$ with homogeneous boundary conditions, the Green\'s function $G(x,s)$ satisfies $L_x G(x,s) = \\delta(x-s)$ subject to those boundary conditions. The solution to the inhomogeneous problem $Ly=f(x)$ with the same boundary conditions is then $y(x) = \\int_a^b G(x,s) f(s)\\,ds$, since $L_x\\!\\int G(x,s)f(s)\\,ds = \\int \\delta(x-s) f(s)\\,ds = f(x)$ by linearity.',
+    keyIdeas: [
+      "the Green's function as the operator's response to an idealized point impulse, from which every other response is built by superposition",
+      "converting a differential equation into an equivalent integral equation, with the Green's function as the integral kernel",
+      'the Green\'s function encodes the boundary conditions directly, so it depends on the domain and boundary data, not just the operator',
+      'symmetry of the Green\'s function ($G(x,s)=G(s,x)$) for self-adjoint operators, reflecting a reciprocity principle',
+      'construction via two solutions of the homogeneous equation satisfying the boundary conditions at each end, matched with a jump in derivative at $x=s$',
+    ],
+    whyItMatters:
+      "Solving a boundary value problem separately for every possible source term would be enormously wasteful; the Green's function computes the operator's response once, to the simplest possible source (a point impulse), and superposition (integration) then assembles the response to any source for free. This idea recurs throughout physics as the 'propagator' or 'impulse response,' and it is the mathematical justification for treating a continuous distribution of causes (charge, force, heat) as a superposition of many point contributions.",
+    prerequisites: ['differential-equations:boundary-value-problems', 'functional-analysis:distributions'],
+    related: ['differential-equations:boundary-value-problems', 'functional-analysis:distributions', 'partial-differential-equations:laplace-equation'],
+    historicalContext:
+      "George Green, a self-taught miller's son with almost no formal mathematical education, introduced the method in his self-published 1828 Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism, using what he called the 'potential function' to solve electrostatics problems — the technique now called the Green's function method. The essay, printed in a run of only 51 copies, went almost entirely unnoticed until William Thomson (Lord Kelvin) rediscovered it in 1845 and arranged for its wider publication, after which the method was rapidly generalized and became standard throughout mathematical physics.",
+    contributorIds: ['person:george-green'],
+    workIds: ['work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism'],
+    exampleProblems: [
+      'Construct the Green\'s function for $-y\'\'=f(x)$ on $[0,1]$ with $y(0)=y(1)=0$, and use it to write the solution as an integral.',
+      'Verify the symmetry $G(x,s)=G(s,x)$ for the Green\'s function found above.',
+      'Use the free-space Green\'s function for the Laplacian in three dimensions, $G(x,y)=\\frac{1}{4\\pi|x-y|}$, to write the solution to Poisson\'s equation $-\\Delta u = f$ on all of $\\mathbb{R}^3$.',
+    ],
+    applications: [
+      'electrostatics and potential theory, where the Green\'s function gives the potential due to a point charge',
+      'quantum field theory, where Green\'s functions (propagators) describe particle propagation between interactions',
+      'structural engineering, computing a beam or plate\'s response to an arbitrary load from its impulse response',
+      'acoustics and wave propagation, modeling the field generated by a point source',
+    ],
+    researchDirections: [
+      "Green's functions for elliptic PDE on general domains, and their boundary behavior",
+      'numerical boundary element methods, which discretize integral equations built from Green\'s functions',
+      'Green\'s functions in quantum many-body theory and condensed matter physics',
+    ],
+    textbooks: [
+      {
+        title: 'Methods of Mathematical Physics, Vol. I',
+        authors: ['Richard Courant', 'David Hilbert'],
+        year: 1953,
+        why: 'A classic thorough treatment of Green\'s functions across ODE and PDE boundary value problems.',
+      },
+      {
+        title: 'Partial Differential Equations',
+        authors: ['Lawrence C. Evans'],
+        edition: '2nd',
+        year: 2010,
+        why: 'Develops Green\'s functions for the Laplace and Poisson equations with modern rigor.',
+      },
+      {
+        title: 'Green\'s Functions and Boundary Value Problems',
+        authors: ['Ivar Stakgold', 'Michael Holst'],
+        edition: '3rd',
+        year: 2011,
+        why: 'A dedicated, comprehensive treatment of Green\'s function methods across mathematical physics.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Green's function defining equation", latex: 'L_x G(x,s) = \\delta(x-s)' },
+      { label: 'Solution via superposition', latex: 'y(x) = \\int_a^b G(x,s) f(s)\\,ds' },
+      { label: 'Free-space Laplacian Green\'s function (3D)', latex: 'G(x,y) = \\frac{1}{4\\pi|x-y|}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Green function', url: 'https://encyclopediaofmath.org/wiki/Green_function', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Green', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Green/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:phase-portraits': {
+    overview:
+      'A phase portrait draws every possible trajectory of a dynamical system in its state space at once, turning an infinite family of solution curves into a single picture. Reading this picture — where trajectories converge, spiral, or diverge — reveals a system\'s long-term qualitative behavior without ever solving its equations explicitly.',
+    formal:
+      'For a system $\\dot x = f(x)$, $x\\in\\mathbb{R}^n$, the phase space is $\\mathbb{R}^n$ itself, and the phase portrait is the collection of all trajectories $\\{x(t) : t\\in\\mathbb{R}\\}$ for every initial condition, oriented by increasing $t$. For a planar linear system $\\dot x = Ax$, the phase portrait\'s qualitative type (node, saddle, center, spiral) is determined entirely by the eigenvalues of $A$: trajectories spiral inward if the eigenvalues have negative real part, outward if positive, and orbit periodically if purely imaginary.',
+    keyIdeas: [
+      'the phase space (or state space) as the set of all possible instantaneous states of a system',
+      'trajectories that never cross (for autonomous systems), by the uniqueness theorem for ODEs',
+      'classifying planar equilibria (node, saddle, center, spiral) directly from the eigenvalues of the linearization',
+      'nullclines and separatrices as the curves organizing the qualitative structure of a phase portrait',
+      'reading long-term behavior (convergence, divergence, oscillation) visually, without an explicit solution formula',
+    ],
+    whyItMatters:
+      "Most differential equations arising in practice have no closed-form solution, so the only realistic way to understand their behavior is qualitatively: where are the equilibria, are they attracting or repelling, do trajectories spiral or oscillate? The phase portrait answers exactly these questions at a glance, which is why Poincaré's insistence on this geometric, qualitative viewpoint — rather than the search for explicit formulas that dominated 18th and 19th century differential equations — became the foundation of the entire modern theory of dynamical systems.",
+    prerequisites: ['differential-equations:ordinary-differential-equations', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:fixed-points', 'differential-equations:stability', 'dynamical-systems:bifurcations'],
+    historicalContext:
+      "Henri Poincaré introduced the qualitative, geometric study of differential equations in a series of papers beginning in 1881, Sur les courbes définies par une équation différentielle, explicitly proposing to understand the totality of a system's trajectories geometrically rather than searching for explicit formulas, which he showed was often impossible even for the three-body problem. This geometric viewpoint, further developed in his three-volume Les méthodes nouvelles de la mécanique céleste (1892-1899), founded the entire subject of qualitative dynamical systems theory that George David Birkhoff and later Stephen Smale would build on in the 20th century.",
+    contributorIds: ['person:henri-poincare'],
+    workIds: ['work:les-methodes-nouvelles-de-la-mecanique-celeste'],
+    exampleProblems: [
+      'Classify the equilibrium at the origin of $\\dot x = -x+y,\\ \\dot y=-x-y$ (node, saddle, center, or spiral) by computing the eigenvalues of the coefficient matrix.',
+      'Sketch the phase portrait of the pendulum equation $\\ddot\\theta+\\sin\\theta=0$ (as a first-order system) and identify its centers and saddle points.',
+      'Find the nullclines of the predator-prey system $\\dot x=x(1-y),\\ \\dot y=y(x-1)$ and use them to sketch the qualitative flow.',
+    ],
+    applications: [
+      'population ecology, visualizing predator-prey and competition dynamics without solving the equations explicitly',
+      'electrical engineering, analyzing nonlinear circuit behavior via phase-plane methods',
+      'mechanical engineering, understanding oscillator and pendulum-like systems geometrically',
+      'neuroscience, modeling neuron firing dynamics (e.g. the FitzHugh-Nagumo phase plane)',
+    ],
+    researchDirections: [
+      'higher-dimensional and infinite-dimensional phase spaces for PDEs and delay equations',
+      'computational and topological methods for automatically classifying phase portraits',
+      'the interplay between phase portrait geometry and bifurcation theory as parameters vary',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The most accessible and widely used introduction, built almost entirely around geometric phase-plane reasoning.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'A rigorous treatment developing the linear classification of phase portraits before nonlinear extensions.',
+      },
+      {
+        title: 'Ordinary Differential Equations',
+        authors: ['Vladimir I. Arnold'],
+        year: 1973,
+        why: 'Presents Poincaré\'s geometric viewpoint on differential equations with exceptional clarity and insight.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Autonomous system', latex: '\\dot x = f(x),\\quad x\\in\\mathbb{R}^n' },
+      { label: 'Linearized classification', latex: '\\dot x = Ax \\implies \\text{type determined by eigenvalues of } A' },
+      { label: 'Trace-determinant classification (planar)', latex: '\\Delta = \\det A,\\ \\tau=\\operatorname{tr} A' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Phase space', url: 'https://encyclopediaofmath.org/wiki/Phase_space', kind: 'encyclopedia' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:fixed-points': {
+    overview:
+      "A fixed point (or equilibrium) is a state of a dynamical system that does not change under the system's own evolution — once there, the system stays there forever. Understanding whether nearby states are drawn toward or repelled from a fixed point is often the single most informative question one can ask about a dynamical system.",
+    formal:
+      'A fixed point of $\\dot x=f(x)$ is a point $x^*$ with $f(x^*)=0$; for a discrete map $x_{n+1}=g(x_n)$, it is a point with $g(x^*)=x^*$. Its stability is governed by linearization: for the continuous case, the eigenvalues of the Jacobian $Df(x^*)$ determine local behavior (stable if all have negative real part, unstable if any has positive real part, by the Hartman-Grobman theorem when $x^*$ is hyperbolic); for the discrete case, $x^*$ is stable if all eigenvalues of $Dg(x^*)$ lie strictly inside the unit circle.',
+    keyIdeas: [
+      'hyperbolic fixed points, where linearization correctly predicts local qualitative behavior (Hartman-Grobman theorem)',
+      'stable, unstable, and saddle-type equilibria, and their invariant stable/unstable manifolds',
+      'fixed points of iterated maps as a discrete-time analogue of equilibria of flows, with the unit circle replacing the imaginary axis',
+      'periodic points as fixed points of an iterated map (a period-$n$ point of $g$ is a fixed point of $g^n$)',
+      'the Poincaré-Birkhoff fixed point theorem, guaranteeing fixed points for certain area-preserving planar maps',
+    ],
+    whyItMatters:
+      "Long-term behavior of a dynamical system is overwhelmingly organized around its fixed points: a population model's equilibrium, an economy's steady state, a mechanical system's rest position. Linearizing at a fixed point turns an intractable nonlinear stability question into a linear algebra eigenvalue computation, and the Hartman-Grobman theorem justifies this shortcut by guaranteeing that, at hyperbolic fixed points, the linear approximation captures the true qualitative picture — one of the most-used theorems in applied dynamical systems.",
+    prerequisites: ['dynamical-systems:phase-portraits', 'linear-algebra:eigenvalues'],
+    related: ['dynamical-systems:phase-portraits', 'dynamical-systems:bifurcations', 'differential-equations:stability'],
+    historicalContext:
+      "Henri Poincaré's qualitative theory placed equilibria and periodic orbits at the center of dynamical systems from the start, and in 1912 he conjectured what became known as 'Poincaré's last geometric theorem,' guaranteeing fixed points for a certain class of area-preserving annulus maps arising from the restricted three-body problem, which he believed but could not prove before his death that year. George David Birkhoff proved the theorem later in 1913, establishing it as a foundational tool and beginning the modern study of fixed points in dynamical systems that would culminate decades later in Stephen Smale's classification results for higher-dimensional systems.",
+    contributorIds: ['person:henri-poincare', 'person:george-david-birkhoff'],
+    workIds: [],
+    exampleProblems: [
+      'Find all fixed points of the logistic map $x_{n+1}=rx_n(1-x_n)$ and determine, using the derivative, for which values of $r$ the nonzero fixed point is stable.',
+      'Classify the fixed point at the origin of $\\dot x = -x^3$ as stable or unstable, and explain why linearization alone (which gives eigenvalue $0$) is inconclusive here.',
+      'Verify the Hartman-Grobman theorem\'s hypothesis (hyperbolicity) fails at the origin for $\\dot x=y,\\ \\dot y=-x$ and explain what goes wrong if you try to use the linearization to conclude stability.',
+    ],
+    applications: [
+      'economics, where market or macroeconomic steady states are fixed points of a dynamic model',
+      'population biology, where carrying capacity is a stable fixed point of a growth model',
+      "control engineering, designing feedback so a system's operating point becomes a stable fixed point",
+      'iterative numerical algorithms, whose convergence is exactly the stability of a fixed point of the iteration map',
+    ],
+    researchDirections: [
+      'the classification and stability theory of fixed points in high-dimensional and infinite-dimensional systems',
+      'index theory and topological methods (Lefschetz fixed-point theorem) for counting fixed points',
+      'fixed points of random and stochastic dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'Introduces fixed-point stability analysis for both flows and maps with exceptional clarity.',
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: 'Proves the Hartman-Grobman theorem and develops fixed-point theory with full mathematical rigor.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'A clear treatment of fixed and periodic points for iterated maps, bridging into chaos theory.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Fixed point condition (flow)', latex: 'f(x^*) = 0' },
+      { label: 'Fixed point condition (map)', latex: 'g(x^*) = x^*' },
+      { label: 'Hyperbolicity condition', latex: '\\operatorname{Re}(\\lambda_i) \\ne 0 \\ \\forall \\text{ eigenvalues } \\lambda_i \\text{ of } Df(x^*)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Fixed point', url: 'https://encyclopediaofmath.org/wiki/Fixed_point', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Birkhoff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Birkhoff/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:bifurcations': {
+    overview:
+      "A bifurcation is a qualitative change in a system's behavior — the birth, death, or merging of equilibria or periodic orbits — that occurs as a parameter crosses a critical threshold. Bifurcation theory catalogs the small number of ways this can happen, turning the study of infinitely many possible parameter changes into a short, well-understood list.",
+    formal:
+      'A family of systems $\\dot x = f(x,\\mu)$ undergoes a bifurcation at $\\mu=\\mu_0$ if the qualitative structure (number or stability of equilibria) changes as $\\mu$ crosses $\\mu_0$. In a saddle-node bifurcation, $\\dot x = \\mu - x^2$, two equilibria collide and annihilate as $\\mu\\to 0^+$. In a pitchfork bifurcation, $\\dot x = \\mu x - x^3$, a single equilibrium splits into three. In a period-doubling bifurcation of a map $x_{n+1}=f(x_n,\\mu)$, a fixed point loses stability as an eigenvalue crosses $-1$, spawning a period-2 orbit.',
+    keyIdeas: [
+      'the classification of local bifurcations (saddle-node, transcritical, pitchfork, Hopf, period-doubling) as the basic vocabulary of qualitative change',
+      'a bifurcation diagram, plotting equilibria (or periodic orbits) against the parameter, as the standard way to visualize the whole family at once',
+      'the period-doubling route to chaos, where successive period-doubling bifurcations accumulate at a finite parameter value',
+      "Feigenbaum's universality: the ratio of successive period-doubling parameter intervals converges to the same constant $\\delta\\approx 4.669$ across a huge class of unrelated systems",
+      'bifurcation theory as the bridge between simple, well-understood dynamics and the onset of complexity or chaos',
+    ],
+    whyItMatters:
+      "Real systems depend on parameters (a population's growth rate, a fluid's Reynolds number, a laser's pump power), and understanding how behavior changes as these parameters are tuned is often more practically important than solving the system at any single parameter value. Mitchell Feigenbaum's 1975 discovery that the period-doubling route to chaos is quantitatively universal — the same constant $\\delta$ governs wildly different physical systems, from dripping faucets to population models — was one of the most startling results in 20th-century mathematical physics, revealing deep hidden structure beneath apparent complexity.",
+    prerequisites: ['dynamical-systems:fixed-points', 'dynamical-systems:phase-portraits'],
+    related: ['dynamical-systems:fixed-points', 'dynamical-systems:chaos', 'differential-equations:stability'],
+    historicalContext:
+      "Henri Poincaré studied what would now be called bifurcations of the equilibrium shapes of self-gravitating rotating fluid masses in the 1880s, identifying points where new families of solutions branch off from known ones. The systematic modern classification of local bifurcations developed through the 20th century via the work of Andronov's Soviet school on nonlinear oscillations. Mitchell Feigenbaum's 1975-1978 discovery, using a programmable calculator at Los Alamos, that the period-doubling cascade of the logistic map $x_{n+1}=rx_n(1-x_n)$ approaches chaos at a universal rate independent of the map's specific form was a landmark unifying bifurcation theory with the then-nascent theory of chaos.",
+    contributorIds: ['person:mitchell-feigenbaum', 'person:henri-poincare'],
+    workIds: [],
+    exampleProblems: [
+      'Find the bifurcation value $\\mu_0$ for the saddle-node bifurcation $\\dot x=\\mu-x^2$ and sketch the bifurcation diagram of equilibria versus $\\mu$.',
+      'Show that $\\dot x = \\mu x - x^3$ undergoes a pitchfork bifurcation at $\\mu=0$, and classify the stability of each branch for $\\mu>0$.',
+      'Numerically iterate the logistic map $x_{n+1}=rx_n(1-x_n)$ for $r=3.2$ and $r=3.5$ to observe the transition from a period-2 to a period-4 cycle.',
+    ],
+    applications: [
+      'laser physics, where the onset of lasing is a bifurcation as pump power crosses a threshold',
+      'fluid dynamics, where the transition from laminar to turbulent flow involves a cascade of bifurcations',
+      'population ecology, where a species\' extinction or coexistence can appear or disappear via a bifurcation as a parameter (harvesting rate, resource level) changes',
+      'neuroscience, modeling the onset of neuron spiking as a bifurcation of the resting state',
+    ],
+    researchDirections: [
+      'global bifurcation theory (homoclinic and heteroclinic bifurcations) beyond the local classification',
+      'bifurcations in infinite-dimensional systems (PDEs) such as pattern formation in reaction-diffusion equations',
+      'bifurcation theory for stochastic and randomly-forced dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The standard accessible reference for the classification of local bifurcations, with Feigenbaum universality covered in depth.',
+      },
+      {
+        title: 'Elements of Applied Bifurcation Theory',
+        authors: ['Yuri A. Kuznetsov'],
+        edition: '3rd',
+        year: 2004,
+        why: 'The definitive rigorous graduate reference on bifurcation theory and its computational analysis.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'Covers the period-doubling route to chaos and Feigenbaum universality with a clear, example-driven approach.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Saddle-node normal form', latex: '\\dot x = \\mu - x^2' },
+      { label: 'Pitchfork normal form', latex: '\\dot x = \\mu x - x^3' },
+      { label: 'Feigenbaum constant', latex: '\\delta = \\lim_{n\\to\\infty} \\frac{\\mu_n-\\mu_{n-1}}{\\mu_{n+1}-\\mu_n} \\approx 4.669' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bifurcation', url: 'https://encyclopediaofmath.org/wiki/Bifurcation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Mitchell Feigenbaum', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Feigenbaum/', kind: 'reference' },
+      { label: 'MacTutor: Henri Poincaré', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poincare/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:chaos': {
+    overview:
+      'Chaos is deterministic, yet practically unpredictable: a system with no randomness anywhere in its equations can still produce trajectories so sensitive to initial conditions that any measurement error, however small, grows to make long-term prediction impossible. This discovery upended the classical assumption that determinism implies predictability.',
+    formal:
+      'A system exhibits sensitive dependence on initial conditions if nearby trajectories separate at an exponential rate, measured by a positive largest Lyapunov exponent $\\lambda>0$: $|\\delta x(t)| \\approx |\\delta x(0)|\\, e^{\\lambda t}$. A chaotic attractor (strange attractor) combines this sensitivity with boundedness and topological transitivity (trajectories eventually visit every region), typically exhibiting a fractal (non-integer) dimension, as in the Lorenz attractor.',
+    keyIdeas: [
+      'sensitive dependence on initial conditions (the "butterfly effect"), quantified by a positive Lyapunov exponent',
+      'determinism without predictability: chaos arises from purely deterministic equations, with no randomness required',
+      'strange attractors, combining bounded, non-repeating trajectories with a fractal geometric structure',
+      'the period-doubling and other routes by which chaos emerges from simpler, non-chaotic dynamics as a parameter varies',
+      'topological transitivity and dense periodic orbits as an equivalent, more mathematical characterization of chaotic behavior',
+    ],
+    whyItMatters:
+      "Before the 1960s, determinism was widely equated with predictability: know the equations and the initial state precisely enough, and the future follows. Edward Lorenz's accidental 1961 discovery — that rounding a printed initial condition to fewer decimal places in his toy weather model produced a wildly different long-term forecast — showed this equation was false for a huge and important class of systems, with consequences for weather forecasting, orbital mechanics, and any field modeling nonlinear feedback, and it launched chaos theory as a major branch of applied mathematics and physics.",
+    prerequisites: ['dynamical-systems:bifurcations', 'differential-equations:stability'],
+    related: ['dynamical-systems:bifurcations', 'dynamical-systems:symbolic-dynamics', 'dynamical-systems:ergodic-theory'],
+    historicalContext:
+      "Henri Poincaré's study of the three-body problem in the 1890s already contained the first mathematical glimpse of chaotic behavior — trajectories so intricately tangled that he wrote their complexity defied illustration — though the modern concept and terminology did not yet exist. Edward Lorenz rediscovered the phenomenon independently and far more vividly in 1961-1963 while running a simplified 12-equation (later reduced to 3-equation) weather model on an early computer, coining the enduring image of the 'butterfly effect' and discovering the strange attractor that now bears his name. Benoit Mandelbrot's development of fractal geometry through the 1970s and 1980s then supplied the right geometric language for describing the intricate, self-similar structure of strange attractors like Lorenz's.",
+    contributorIds: ['person:edward-lorenz', 'person:benoit-mandelbrot'],
+    workIds: ['work:les-methodes-nouvelles-de-la-mecanique-celeste'],
+    exampleProblems: [
+      'Simulate the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z$ for two nearly identical initial conditions and observe how quickly the trajectories diverge.',
+      'Estimate the Lyapunov exponent of the logistic map $x_{n+1}=4x_n(1-x_n)$ numerically by tracking the separation of two nearby orbits.',
+      'Explain why a positive Lyapunov exponent implies that long-term numerical weather prediction faces a fundamental, not merely technological, limit.',
+    ],
+    applications: [
+      'weather and climate forecasting, where the Lorenz equations originated and where chaos bounds predictability to about two weeks',
+      'cryptography, using chaotic maps to generate pseudo-random sequences',
+      'cardiology, studying whether chaotic or non-chaotic heart rhythms indicate healthy versus pathological function',
+      'engineering, avoiding chaotic (unpredictable) regimes in the design of mechanical and electrical oscillators',
+    ],
+    researchDirections: [
+      'quantum chaos, studying the quantum-mechanical signatures of classically chaotic systems',
+      'control of chaos, using small, carefully-timed perturbations to stabilize a chaotic system onto a desired periodic orbit',
+      'high-dimensional and spatiotemporal chaos in extended systems and networks',
+    ],
+    textbooks: [
+      {
+        title: 'Nonlinear Dynamics and Chaos',
+        authors: ['Steven H. Strogatz'],
+        edition: '2nd',
+        year: 2014,
+        why: 'The definitive accessible introduction to chaos, covering the Lorenz system and Lyapunov exponents in depth.',
+      },
+      {
+        title: 'Chaos: Making a New Science',
+        authors: ['James Gleick'],
+        year: 1987,
+        why: 'The classic popular history of chaos theory\'s discovery, useful for the historical and conceptual narrative.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: 'A mathematically rigorous treatment defining chaos precisely via sensitivity, transitivity, and dense periodic points.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Sensitive dependence', latex: '|\\delta x(t)| \\approx |\\delta x(0)|\\, e^{\\lambda t}' },
+      { label: 'Lorenz system', latex: '\\dot x=\\sigma(y-x),\\ \\dot y=x(\\rho-z)-y,\\ \\dot z=xy-\\beta z' },
+      { label: 'Logistic map', latex: 'x_{n+1} = r x_n (1-x_n)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Strange attractor', url: 'https://encyclopediaofmath.org/wiki/Strange_attractor', kind: 'encyclopedia' },
+      { label: 'MacTutor: Edward Lorenz', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lorenz_Edward/', kind: 'reference' },
+      { label: 'MacTutor: Benoit Mandelbrot', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Mandelbrot/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:ergodic-theory': {
+    overview:
+      'Ergodic theory studies when the time average of a quantity along a single trajectory equals its space average over the whole system — that is, when observing one typical trajectory for a long time reveals the same statistics as observing the whole space at one instant. This equivalence, when it holds, is what justifies replacing intractable dynamical questions with tractable statistical ones.',
+    formal:
+      'For a measure-preserving transformation $T$ on a probability space $(X,\\mathcal{B},\\mu)$, Birkhoff\'s ergodic theorem states that for $f\\in L^1(\\mu)$, the time average $\\lim_{n\\to\\infty} \\frac{1}{n}\\sum_{k=0}^{n-1} f(T^k x)$ exists for almost every $x$; if $T$ is ergodic (every invariant set has measure $0$ or $1$), this limit equals the space average $\\int_X f\\,d\\mu$ for almost every $x$.',
+    keyIdeas: [
+      'measure-preserving transformations as the basic objects of ergodic theory, generalizing the flow of a physical system',
+      "Birkhoff's ergodic theorem: time averages along almost every trajectory converge",
+      'ergodicity as the precise condition under which time averages equal the space average',
+      'mixing as a stronger property than ergodicity, capturing the intuitive idea that a system "forgets" its initial state over time',
+      'the ergodic hypothesis in statistical mechanics: whether a physical system\'s long-run behavior samples its entire energy surface',
+    ],
+    whyItMatters:
+      "Statistical mechanics rests on the assumption that a system's time-averaged behavior (what you'd measure by watching one system for a long time) matches its ensemble average (what you'd get averaging over many identical systems at one instant) — an assumption ergodic theory makes precise and identifies exactly when it is justified. Von Neumann's and Birkhoff's rigorous 1931-1932 ergodic theorems settled a question Boltzmann had left unresolved decades earlier, and the resulting framework now underlies not just physics but algorithms (Markov chain Monte Carlo, PageRank) that rely on a single long trajectory revealing global statistical structure.",
+    prerequisites: ['analysis:measure-theory', 'dynamical-systems:phase-portraits'],
+    related: ['probability:markov-chains', 'analysis:measure-theory', 'dynamical-systems:chaos'],
+    historicalContext:
+      "Ludwig Boltzmann's 1870s ergodic hypothesis in statistical mechanics — that a gas's trajectory eventually visits every state consistent with its energy — motivated the subject but was not made mathematically rigorous for over fifty years. John von Neumann proved the mean ergodic theorem (convergence in the $L^2$ norm) in 1931, and George David Birkhoff, hearing of von Neumann's unpublished result, quickly proved the stronger pointwise (almost-everywhere) ergodic theorem and published it first in 1931, leading to a priority dispute between the two. Andrey Kolmogorov and later Yakov Sinai extended the theory substantially in the 1950s-1960s, introducing entropy as an invariant that could distinguish non-isomorphic measure-preserving systems.",
+    contributorIds: ['person:george-david-birkhoff', 'person:andrey-kolmogorov'],
+    workIds: [],
+    exampleProblems: [
+      'Verify that an irrational rotation of the circle, $Tx = x+\\alpha \\mod 1$ with $\\alpha$ irrational, is ergodic with respect to Lebesgue measure.',
+      "Use Birkhoff's ergodic theorem informally to explain why, for an ergodic system, almost every trajectory's long-run time-average position matches the space average.",
+      'Explain why the doubling map $Tx=2x \\mod 1$ is ergodic (in fact mixing) while a rational rotation of the circle is not ergodic.',
+    ],
+    applications: [
+      'statistical mechanics, justifying the equivalence of time averages and ensemble averages for physical systems',
+      'Markov chain Monte Carlo methods in computational statistics and Bayesian inference',
+      "Google's PageRank algorithm, which relies on the ergodic (stationary) behavior of a random walk on the web graph",
+      'number theory, using ergodic theory (e.g. Weyl equidistribution) to study the distribution of sequences modulo 1',
+    ],
+    researchDirections: [
+      'entropy theory and the classification of measure-preserving systems up to isomorphism',
+      'ergodic Ramsey theory, using ergodic-theoretic methods to prove combinatorial results (Furstenberg\'s proof of Szemerédi\'s theorem)',
+      'ergodic theory of infinite-dimensional and non-commutative (quantum) dynamical systems',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Ergodic Theory',
+        authors: ['Peter Walters'],
+        year: 1982,
+        why: 'The standard graduate introduction, developing the ergodic theorems and entropy with full rigor.',
+      },
+      {
+        title: 'Ergodic Theory: With a View Towards Number Theory',
+        authors: ['Manfred Einsiedler', 'Thomas Ward'],
+        year: 2011,
+        why: 'A modern text connecting ergodic theory to concrete number-theoretic applications.',
+      },
+      {
+        title: 'Ergodic Theory and Information',
+        authors: ['Patrick Billingsley'],
+        year: 1965,
+        why: 'A classic treatment linking ergodic theory tightly to information theory and entropy.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Birkhoff's ergodic theorem", latex: '\\lim_{n\\to\\infty} \\frac{1}{n}\\sum_{k=0}^{n-1} f(T^k x) = \\int_X f\\,d\\mu \\ \\text{a.e.}' },
+      { label: 'Measure-preserving condition', latex: '\\mu(T^{-1}A) = \\mu(A) \\ \\forall A\\in\\mathcal{B}' },
+      { label: 'Ergodicity condition', latex: 'T^{-1}A = A \\implies \\mu(A)\\in\\{0,1\\}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ergodic theory', url: 'https://encyclopediaofmath.org/wiki/Ergodic_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: George Birkhoff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Birkhoff/', kind: 'reference' },
+      { label: 'MacTutor: Andrey Kolmogorov', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Kolmogorov/', kind: 'reference' },
+    ],
+  },
+  'dynamical-systems:symbolic-dynamics': {
+    overview:
+      "Symbolic dynamics replaces a complicated continuous dynamical system with an equivalent, purely combinatorial one: an infinite sequence of symbols, and the simple operation of shifting that sequence one place. Remarkably, this trade often loses no information, letting hard questions about chaotic flows be answered by counting and combinatorics instead of analysis.",
+    formal:
+      'The full shift on $N$ symbols is the space $\\Sigma_N$ of bi-infinite sequences $(\\dots,s_{-1},s_0,s_1,\\dots)$ with each $s_i\\in\\{0,\\dots,N-1\\}$, together with the shift map $\\sigma(s)_i = s_{i+1}$. A dynamical system $(X,f)$ is topologically conjugate to a subshift if there is a homeomorphism $h:X\\to \\Sigma$ with $h\\circ f = \\sigma\\circ h$; Smale\'s horseshoe map is conjugate to the full shift on two symbols restricted to the invariant set of points that never leave the horseshoe under iteration.',
+    keyIdeas: [
+      'coding a trajectory as an infinite sequence of symbols recording which region of phase space it visits at each time step',
+      'the shift map as an exactly solvable model for arbitrarily complicated recurrent, chaotic behavior',
+      "Smale's horseshoe map, showing that a simple geometric stretching-and-folding operation is topologically conjugate to the full shift",
+      'topological Markov chains (subshifts of finite type), encoding which symbol sequences are dynamically admissible',
+      'counting periodic orbits and computing topological entropy directly from the combinatorics of admissible sequences',
+    ],
+    whyItMatters:
+      "Continuous dynamical systems can be bewilderingly hard to analyze directly, but Stephen Smale showed that many chaotic systems are topologically conjugate to a shift on symbols, meaning every dynamical question (how many periodic orbits of a given length exist? Is a given itinerary achievable?) becomes an exactly solvable combinatorics problem on sequences. This conjugacy is the rigorous mathematical explanation for why chaotic systems contain a dense set of periodic orbits and countably infinitely many distinct periodic behaviors, despite arising from smooth, low-dimensional equations.",
+    prerequisites: ['dynamical-systems:chaos', 'dynamical-systems:fixed-points'],
+    related: ['dynamical-systems:chaos', 'dynamical-systems:ergodic-theory', 'theoretical-cs:automata-theory'],
+    historicalContext:
+      "Jacques Hadamard used a primitive form of symbolic coding in 1898 to study geodesics on surfaces of negative curvature, and Marston Morse and Gustav Hedlund formalized symbolic dynamics as an independent subject in a foundational 1938 paper. The subject was transformed by Stephen Smale's 1960s discovery of the horseshoe map: struggling to understand the complicated dynamics near a homoclinic point (a phenomenon Poincaré had flagged as bewilderingly complex), Smale constructed an explicit geometric map — stretch, fold, and re-embed a square — and proved it was topologically conjugate to the full shift on two symbols, giving the first rigorous, fully understood model of chaotic dynamics and directly inspiring his Fields Medal-winning classification work in dynamical systems.",
+    contributorIds: ['person:stephen-smale'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the shift map $\\sigma$ on $\\Sigma_2$ has exactly $2^n$ periodic points of period dividing $n$, and use this to compute its topological entropy.',
+      "Describe Smale's horseshoe map geometrically (stretch, fold, intersect with the original square) and explain why iterating it indefinitely produces a Cantor set of surviving points.",
+      'Construct the topological Markov chain (transition matrix) encoding which two-symbol sequences are admissible for a given subshift of finite type.',
+    ],
+    applications: [
+      'information theory, where topological entropy of a symbolic system parallels Shannon entropy of a communication channel',
+      'data compression and coding theory, using subshifts of finite type (constrained coding) in magnetic and optical storage',
+      'theoretical computer science, connecting symbolic dynamics to automata theory and formal language recognition',
+      'celestial mechanics, using symbolic itineraries to catalog complex orbit types in the restricted three-body problem',
+    ],
+    researchDirections: [
+      'higher-dimensional and multidimensional symbolic dynamics (tiling spaces, cellular automata)',
+      'the classification of subshifts of finite type up to conjugacy, using tools from algebra and K-theory',
+      'symbolic dynamics as a computational tool for rigorously verifying chaos in specific physical models',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Symbolic Dynamics and Coding',
+        authors: ['Douglas Lind', 'Brian Marcus'],
+        edition: '2nd',
+        year: 2021,
+        why: 'The standard modern textbook, developing subshifts of finite type and their applications to coding theory.',
+      },
+      {
+        title: 'An Introduction to Chaotic Dynamical Systems',
+        authors: ['Robert L. Devaney'],
+        edition: '2nd',
+        year: 2003,
+        why: "Introduces Smale's horseshoe and symbolic coding accessibly as the rigorous backbone of chaos.",
+      },
+      {
+        title: 'Differential Equations, Dynamical Systems, and an Introduction to Chaos',
+        authors: ['Morris W. Hirsch', 'Stephen Smale', 'Robert L. Devaney'],
+        edition: '3rd',
+        year: 2012,
+        why: "Covers the horseshoe map and its symbolic dynamics from the perspective of one of the theory's founders.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Shift map', latex: '\\sigma(s)_i = s_{i+1}' },
+      { label: 'Topological conjugacy', latex: 'h\\circ f = \\sigma\\circ h' },
+      { label: 'Topological entropy of the full N-shift', latex: 'h_{top}(\\sigma) = \\log N' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Symbolic dynamics', url: 'https://encyclopediaofmath.org/wiki/Symbolic_dynamics', kind: 'encyclopedia' },
+      { label: 'MacTutor: Stephen Smale', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Smale/', kind: 'reference' },
+    ],
+  },
+  'statistics:estimation': {
+    overview:
+      'Estimation is the problem of inferring the value of an unknown quantity — a population mean, a disease rate, a physical constant — from a limited, noisy sample of data. It is the bridge between abstract probability theory and every practical use of data, turning observations into concrete numbers with quantified uncertainty.',
+    formal:
+      'Given data $X_1,\\dots,X_n$ drawn from a distribution with unknown parameter $\\theta$, an estimator $\\hat\\theta = \\hat\\theta(X_1,\\dots,X_n)$ is any function of the data. The maximum likelihood estimator maximizes the likelihood function, $\\hat\\theta_{MLE} = \\arg\\max_\\theta L(\\theta) = \\arg\\max_\\theta \\prod_{i=1}^n f(X_i;\\theta)$. An estimator is unbiased if $\\mathbb{E}[\\hat\\theta]=\\theta$, and the Cramér-Rao bound gives a lower limit on the variance of any unbiased estimator, $\\operatorname{Var}(\\hat\\theta) \\ge 1/I(\\theta)$, where $I(\\theta)$ is the Fisher information.',
+    keyIdeas: [
+      'point estimation versus interval estimation: a single best-guess number versus a range of plausible values',
+      'the maximum likelihood principle: choose the parameter value that makes the observed data most probable',
+      'bias, variance, and the bias-variance tradeoff in comparing candidate estimators',
+      'consistency: an estimator that converges to the true value as sample size grows without bound',
+      'the Cramér-Rao bound and Fisher information as fundamental limits on estimator precision',
+    ],
+    whyItMatters:
+      'Every empirical science ultimately reduces to estimation: a physicist estimating a fundamental constant, an epidemiologist estimating an infection rate, a pollster estimating a vote share, are all doing the same mathematical task with different subject matter. Fisher\'s maximum likelihood framework, developed in the 1910s-1920s, gave the subject a single unifying principle that is both computationally practical and, thanks to the Cramér-Rao bound, provably close to the best any method can achieve — turning what had been an ad hoc collection of estimation tricks into a coherent mathematical theory.',
+    prerequisites: ['probability:random-variables', 'probability:expectation'],
+    related: ['statistics:hypothesis-testing', 'statistics:bayesian-inference', 'probability:law-of-large-numbers'],
+    historicalContext:
+      "Carl Friedrich Gauss and Adrien-Marie Legendre developed the method of least squares around 1795-1805 to estimate orbital parameters from noisy astronomical observations, the first systematic estimation procedure with a rigorous justification (Gauss showed it agreed with maximum likelihood estimation for normally distributed errors). Ronald Fisher, in a series of papers from 1912 to 1925, developed the general theory of maximum likelihood estimation, along with the concepts of sufficiency, efficiency, and Fisher information that let estimators be compared and, in a precise sense, judged optimal — transforming estimation from Gauss's special case into a unified general theory.",
+    contributorIds: ['person:ronald-fisher', 'person:carl-friedrich-gauss'],
+    workIds: [],
+    exampleProblems: [
+      'Derive the maximum likelihood estimator for the mean $\\mu$ of a normal distribution with known variance, given i.i.d. samples $X_1,\\dots,X_n$.',
+      'Show that the sample mean $\\bar X$ is an unbiased estimator of the population mean, and compute its variance in terms of $n$.',
+      'Use the Cramér-Rao bound to determine whether the maximum likelihood estimator for the parameter of an exponential distribution achieves the minimum possible variance.',
+    ],
+    applications: [
+      'astronomy and geodesy, where least squares was first developed to estimate orbits and survey measurements from noisy data',
+      'epidemiology, estimating disease prevalence and transmission rates from sample data',
+      'econometrics, estimating parameters of economic models from observational data',
+      'machine learning, where training many models is literally maximum likelihood or related estimation at scale',
+    ],
+    researchDirections: [
+      'robust estimation, designing estimators that resist distortion from outliers or model misspecification',
+      'high-dimensional estimation, where the number of parameters can exceed the number of observations',
+      'semiparametric and nonparametric estimation, relaxing the assumption of a known parametric family',
+    ],
+    textbooks: [
+      {
+        title: 'Statistical Inference',
+        authors: ['George Casella', 'Roger L. Berger'],
+        edition: '2nd',
+        year: 2002,
+        why: 'The standard graduate text developing maximum likelihood estimation, sufficiency, and the Cramér-Rao bound rigorously.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'A concise, modern, and broad introduction connecting classical estimation theory to statistical learning.',
+      },
+      {
+        title: 'Theoretical Statistics',
+        authors: ['D. R. Cox', 'D. V. Hinkley'],
+        year: 1974,
+        why: 'A classic advanced treatment of the theory underlying estimation and inference, still widely cited.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Maximum likelihood estimator', latex: '\\hat\\theta_{MLE} = \\arg\\max_\\theta \\prod_{i=1}^n f(X_i;\\theta)' },
+      { label: 'Unbiasedness', latex: '\\mathbb{E}[\\hat\\theta] = \\theta' },
+      { label: 'Cramer-Rao bound', latex: '\\operatorname{Var}(\\hat\\theta) \\ge \\frac{1}{I(\\theta)}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Maximum-likelihood method', url: 'https://encyclopediaofmath.org/wiki/Maximum-likelihood_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+      { label: 'MacTutor: Carl Friedrich Gauss', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Gauss/', kind: 'reference' },
+    ],
+  },
+  'statistics:hypothesis-testing': {
+    overview:
+      'Hypothesis testing gives a formal procedure for deciding whether observed data provide enough evidence to reject a specific claim (the null hypothesis) in favor of an alternative, while controlling the rate of false alarms. It is the mathematical machinery behind the phrase "statistically significant" used throughout science.',
+    formal:
+      'A test compares a null hypothesis $H_0$ against an alternative $H_1$ using a test statistic $T(X)$, rejecting $H_0$ when $T(X)$ falls in a rejection region chosen so the significance level (Type I error rate) is $\\alpha = P(\\text{reject } H_0 \\mid H_0 \\text{ true})$. The Neyman-Pearson lemma shows that for testing a simple hypothesis against a simple alternative, the likelihood-ratio test $\\Lambda(X) = L(\\theta_0)/L(\\theta_1)$ is the uniformly most powerful test at any given significance level, minimizing the Type II error rate $\\beta = P(\\text{fail to reject } H_0 \\mid H_1 \\text{ true})$ subject to that constraint.',
+    keyIdeas: [
+      'the null and alternative hypotheses as the two competing claims a test adjudicates between',
+      'Type I error (false positive) and Type II error (false negative), and the significance level $\\alpha$ that bounds the former',
+      'the Neyman-Pearson lemma: the likelihood-ratio test is the most powerful test at a given significance level',
+      'the p-value as the probability, under the null hypothesis, of data at least as extreme as observed',
+      'statistical power, and the sample-size calculations needed to reliably detect a real effect',
+    ],
+    whyItMatters:
+      "Hypothesis testing supplies the formal decision rule behind claims of 'statistical significance' across essentially all of experimental science — a new drug's effect, a physics discovery, an A/B test result — by fixing in advance how often false alarms are tolerated and then optimizing the chance of detecting a real effect. The Neyman-Pearson framework, completed in 1933, replaced Fisher's earlier significance-testing approach with mathematically optimal decision procedures, though the tension between the two philosophies (testing a single hypothesis for evidence versus choosing between two hypotheses with controlled error rates) persists in statistical practice today.",
+    prerequisites: ['probability:random-variables', 'statistics:estimation'],
+    related: ['statistics:estimation', 'statistics:experimental-design', 'probability:central-limit-theorem'],
+    historicalContext:
+      "Ronald Fisher popularized significance testing and the p-value in Statistical Methods for Research Workers (1925), proposing to reject a null hypothesis when the observed data would be sufficiently rare under it. Jerzy Neyman and Egon Pearson, in a series of papers from 1928 to 1933, reformulated the problem as a decision between two explicit hypotheses with controlled long-run error rates, proving the Neyman-Pearson lemma that identifies the most powerful possible test — a formulation Fisher himself disputed throughout his career, and the resulting Fisher/Neyman-Pearson divide over the philosophical interpretation of a hypothesis test remains a live methodological debate in statistics.",
+    contributorIds: ['person:jerzy-neyman', 'person:egon-pearson'],
+    workIds: [],
+    exampleProblems: [
+      "Using the Neyman-Pearson lemma, derive the most powerful test of $H_0: \\mu=0$ against $H_1: \\mu=1$ for a normal distribution with known variance, based on a sample of size $n$.",
+      'Compute the p-value for a one-sample t-test given a sample mean, standard deviation, and sample size, and interpret what the p-value does and does not tell you.',
+      'Explain the difference between Type I and Type II error in the context of a medical screening test, and discuss the tradeoff in choosing a significance level.',
+    ],
+    applications: [
+      'clinical trials, testing whether a new treatment significantly outperforms a placebo or standard treatment',
+      'A/B testing in technology companies, deciding whether a product change significantly affects a metric',
+      'quality control in manufacturing, testing whether a production process meets specifications',
+      'scientific research broadly, providing the standard (if contested) threshold for declaring a result "significant"',
+    ],
+    researchDirections: [
+      'the replication crisis and reform of significance testing practice (e.g. lowering conventional thresholds, pre-registration)',
+      'multiple testing correction, controlling error rates when many hypotheses are tested simultaneously',
+      'Bayesian alternatives and hybrid approaches to classical Neyman-Pearson hypothesis testing',
+    ],
+    textbooks: [
+      {
+        title: 'Testing Statistical Hypotheses',
+        authors: ['E. L. Lehmann', 'Joseph P. Romano'],
+        edition: '3rd',
+        year: 2005,
+        why: 'The definitive graduate-level treatment of the Neyman-Pearson theory of hypothesis testing.',
+      },
+      {
+        title: 'Statistical Inference',
+        authors: ['George Casella', 'Roger L. Berger'],
+        edition: '2nd',
+        year: 2002,
+        why: 'A widely used graduate text with a clear, rigorous development of hypothesis testing theory.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'A concise, accessible introduction connecting classical hypothesis testing to modern statistical practice.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Significance level', latex: '\\alpha = P(\\text{reject } H_0 \\mid H_0 \\text{ true})' },
+      { label: 'Likelihood ratio test statistic', latex: '\\Lambda(X) = L(\\theta_0)/L(\\theta_1)' },
+      { label: 'p-value', latex: 'p = P(T(X) \\text{ at least as extreme as observed} \\mid H_0)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Statistical hypotheses, verification of', url: 'https://encyclopediaofmath.org/wiki/Statistical_hypotheses,_verification_of', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jerzy Neyman', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Neyman/', kind: 'reference' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+    ],
+  },
+  'statistics:regression': {
+    overview:
+      'Regression models how one variable changes on average as another variable changes, fitting a line or curve through noisy data to summarize and predict a relationship. It is the most widely used tool in applied statistics, turning a scatter of points into an interpretable, quantitative trend.',
+    formal:
+      'Simple linear regression models $Y_i = \\beta_0 + \\beta_1 X_i + \\varepsilon_i$, with the ordinary least squares estimator minimizing the sum of squared residuals, $(\\hat\\beta_0,\\hat\\beta_1) = \\arg\\min_{\\beta_0,\\beta_1} \\sum_{i=1}^n (Y_i - \\beta_0 - \\beta_1 X_i)^2$, giving $\\hat\\beta_1 = \\frac{\\sum_i (X_i-\\bar X)(Y_i-\\bar Y)}{\\sum_i (X_i-\\bar X)^2}$. Multiple regression extends this to several predictors, $Y=X\\beta+\\varepsilon$, with the least squares solution $\\hat\\beta = (X^TX)^{-1}X^TY$.',
+    keyIdeas: [
+      'least squares as the criterion selecting the line (or hyperplane) minimizing total squared prediction error',
+      'the correlation coefficient, quantifying the strength and direction of a linear relationship between two variables',
+      '"regression to the mean": extreme values of a noisy variable tend to be followed by less extreme ones on average, not because of any real underlying trend',
+      'residual analysis and diagnostics, checking whether the assumed linear model actually fits the data',
+      'the extension from linear to logistic, polynomial, and other regression models for different response types',
+    ],
+    whyItMatters:
+      'Regression is probably the single most-used statistical technique across the sciences, business, and public policy, because "how does Y change with X" is close to the most common question one can ask of data. Galton\'s discovery of regression to the mean is also a crucial cautionary lesson: apparent trends (a tall parent\'s child being shorter, a sports star\'s slump after an amazing season) can arise purely from random variation reverting toward an average, without any real causal explanation — a subtlety that continues to cause misinterpretation of data outside statistics.',
+    prerequisites: ['probability:random-variables', 'linear-algebra:matrices'],
+    related: ['statistics:estimation', 'statistics:causal-inference', 'machine-learning-theory:generalization-bounds'],
+    historicalContext:
+      "Francis Galton, studying the heights of parents and their adult children in the 1870s-1880s, discovered that children of very tall or very short parents tended to be closer to the average height than their parents were — a phenomenon he named 'regression toward mediocrity' (now regression to the mean) in his 1886 paper and 1889 book Natural Inheritance. Karl Pearson, Galton's student and intellectual heir, put the method on a rigorous mathematical footing in the 1890s, defining the correlation coefficient and developing the least-squares machinery of regression essentially into its modern form, while also founding the broader discipline of mathematical statistics (biometrics) that Galton had only sketched.",
+    contributorIds: ['person:francis-galton', 'person:karl-pearson'],
+    workIds: [],
+    exampleProblems: [
+      'Derive the least squares formula for the slope $\\hat\\beta_1$ of a simple linear regression by minimizing the sum of squared residuals.',
+      "Explain Galton's regression-to-the-mean phenomenon using a simple probabilistic model where an observed value is the sum of a true value and independent noise.",
+      'Compute the correlation coefficient for a small dataset and interpret its sign and magnitude.',
+    ],
+    applications: [
+      'economics and finance, modeling relationships between economic indicators or asset returns',
+      'medicine, quantifying how a risk factor relates to a health outcome while controlling for confounders',
+      'machine learning, where linear and logistic regression remain foundational predictive models',
+      'social science, studying relationships between demographic, economic, or behavioral variables',
+    ],
+    researchDirections: [
+      'high-dimensional regression (LASSO, ridge regression), handling more predictors than observations',
+      'nonparametric and nonlinear regression methods (splines, kernel regression, regression trees)',
+      'causal versus merely predictive interpretation of regression coefficients, connecting to causal inference',
+    ],
+    textbooks: [
+      {
+        title: 'An Introduction to Statistical Learning',
+        authors: ['Gareth James', 'Daniela Witten', 'Trevor Hastie', 'Robert Tibshirani'],
+        edition: '2nd',
+        year: 2021,
+        why: 'A highly accessible modern introduction to regression and its extensions, widely used in applied courses.',
+      },
+      {
+        title: 'Applied Linear Statistical Models',
+        authors: ['Michael H. Kutner', 'Christopher J. Nachtsheim', 'John Neter', 'William Li'],
+        edition: '5th',
+        year: 2004,
+        why: 'A comprehensive, classic applied treatment of linear regression theory and diagnostics.',
+      },
+      {
+        title: 'The Elements of Statistical Learning',
+        authors: ['Trevor Hastie', 'Robert Tibshirani', 'Jerome Friedman'],
+        edition: '2nd',
+        year: 2009,
+        why: 'Places regression within the broader modern framework of statistical learning and regularization.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Simple linear regression model', latex: 'Y_i = \\beta_0 + \\beta_1 X_i + \\varepsilon_i' },
+      { label: 'Least squares slope', latex: '\\hat\\beta_1 = \\frac{\\sum_i (X_i-\\bar X)(Y_i-\\bar Y)}{\\sum_i (X_i-\\bar X)^2}' },
+      { label: 'Multiple regression solution', latex: '\\hat\\beta = (X^TX)^{-1}X^TY' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Regression analysis', url: 'https://encyclopediaofmath.org/wiki/Regression_analysis', kind: 'encyclopedia' },
+      { label: 'MacTutor: Francis Galton', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Galton/', kind: 'reference' },
+      { label: 'MacTutor: Karl Pearson', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Pearson/', kind: 'reference' },
+    ],
+  },
+  'statistics:bayesian-inference': {
+    overview:
+      'Bayesian inference treats unknown parameters as random quantities with their own probability distribution, updating a prior belief into a posterior belief as data arrive. This offers a mathematically direct answer to the everyday question "what should I now believe, given what I\'ve observed?" as opposed to the more indirect guarantees of classical (frequentist) statistics.',
+    formal:
+      'Given a prior distribution $\\pi(\\theta)$ over the unknown parameter and a likelihood $L(\\theta) = f(x\\mid\\theta)$ for observed data $x$, Bayes\' theorem gives the posterior distribution $\\pi(\\theta\\mid x) = \\frac{L(\\theta)\\pi(\\theta)}{\\int L(\\theta\')\\pi(\\theta\')\\,d\\theta\'} \\propto L(\\theta)\\pi(\\theta)$. Point estimates (posterior mean, mode) and interval estimates (credible intervals) are then read directly off this posterior distribution.',
+    keyIdeas: [
+      'the prior distribution, encoding belief about a parameter before seeing data, updated into a posterior after seeing it',
+      'Bayes\' theorem as the single mechanical rule connecting prior, likelihood, and posterior',
+      'credible intervals (a direct probability statement about where the parameter lies) versus classical confidence intervals (a statement about the procedure\'s long-run coverage)',
+      'conjugate priors, chosen so the posterior has the same functional form as the prior, simplifying computation',
+      'Markov chain Monte Carlo methods, making Bayesian inference computationally practical for complex, high-dimensional models',
+    ],
+    whyItMatters:
+      "Bayesian inference answers exactly the question most people intuitively want answered — 'given the data, how likely is each possible value of the parameter?' — whereas classical statistics can only make indirect statements about the long-run behavior of a procedure. For nearly two centuries this directness was outweighed by the difficulty of computing the posterior distribution and philosophical objections to needing a prior at all, but the arrival of practical Markov chain Monte Carlo algorithms in the 1990s made Bayesian methods computationally tractable for realistic, complex models, and they are now standard throughout modern statistics and machine learning.",
+    prerequisites: ['probability:random-variables', 'statistics:estimation'],
+    related: ['statistics:estimation', 'probability:markov-chains', 'machine-learning-theory:generalization-bounds'],
+    historicalContext:
+      "Thomas Bayes derived what is now Bayes' theorem in a manuscript on inverse probability, published posthumously by his friend Richard Price in 1763 as An Essay towards Solving a Problem in the Doctrine of Chances. Pierre-Simon Laplace independently rediscovered and greatly extended the method starting in 1774, applying it to problems from astronomy to demography and using it far more extensively than Bayes himself had. Bayesian methods fell out of favor through the early-to-mid 20th century as Fisher's and the Neyman-Pearson school's frequentist methods came to dominate mathematical statistics, before a substantial revival beginning in the 1990s once Markov chain Monte Carlo computation made complex Bayesian models practically usable.",
+    contributorIds: ['person:thomas-bayes', 'person:pierre-simon-laplace'],
+    workIds: ['work:an-essay-towards-solving-a-problem-in-the-doctrine-of-chances'],
+    exampleProblems: [
+      'Starting from a Beta$(\\alpha,\\beta)$ prior for a coin\'s bias $p$, derive the posterior distribution after observing $k$ heads in $n$ flips, and identify why Beta is a convenient (conjugate) choice.',
+      'Compute a 95% credible interval for a normal mean given a normal prior and normal likelihood, and contrast its interpretation with a classical confidence interval.',
+      'Explain, using Bayes\' theorem, why a positive result on a rare-disease test with 99% accuracy can still be more likely a false positive than a true positive.',
+    ],
+    applications: [
+      'medical diagnosis, updating the probability of a disease given test results and known base rates',
+      'machine learning, via Bayesian neural networks, Gaussian processes, and probabilistic graphical models',
+      'spam filtering, using naive Bayes classifiers to update the probability an email is spam given its words',
+      'A/B testing and sequential decision-making, using Bayesian methods to update beliefs as data accumulate',
+    ],
+    researchDirections: [
+      'scalable Bayesian computation (variational inference, modern MCMC) for very large models and datasets',
+      'nonparametric Bayesian methods (Dirichlet processes, Gaussian processes) that let model complexity grow with data',
+      'the foundations debate between Bayesian and frequentist interpretations of probability and inference',
+    ],
+    textbooks: [
+      {
+        title: 'Bayesian Data Analysis',
+        authors: ['Andrew Gelman', 'John B. Carlin', 'Hal S. Stern', 'David B. Dunson', 'Aki Vehtari', 'Donald B. Rubin'],
+        edition: '3rd',
+        year: 2013,
+        why: 'The standard comprehensive graduate reference for modern applied Bayesian statistics.',
+      },
+      {
+        title: 'Probability Theory: The Logic of Science',
+        authors: ['E. T. Jaynes'],
+        year: 2003,
+        why: 'An influential, opinionated case for the Bayesian interpretation of probability from first principles.',
+      },
+      {
+        title: 'All of Statistics',
+        authors: ['Larry Wasserman'],
+        year: 2004,
+        why: 'Presents Bayesian inference alongside classical methods in a single concise, modern reference.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Bayes' theorem (parameter form)", latex: '\\pi(\\theta\\mid x) \\propto L(\\theta)\\,\\pi(\\theta)' },
+      { label: 'Posterior normalizing constant', latex: 'p(x) = \\int L(\\theta)\\pi(\\theta)\\,d\\theta' },
+      { label: 'Posterior mean estimator', latex: '\\hat\\theta_{Bayes} = \\mathbb{E}[\\theta \\mid x] = \\int \\theta\\, \\pi(\\theta\\mid x)\\,d\\theta' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Bayesian approach', url: 'https://encyclopediaofmath.org/wiki/Bayesian_approach', kind: 'encyclopedia' },
+      { label: 'MacTutor: Thomas Bayes', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bayes/', kind: 'reference' },
+      { label: 'MacTutor: Pierre-Simon Laplace', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Laplace/', kind: 'reference' },
+    ],
+  },
+  'statistics:experimental-design': {
+    overview:
+      "Experimental design is the science of arranging an experiment before any data are collected so that its results will support valid, efficient statistical conclusions. Done well, it turns a fixed, limited amount of experimentation into the maximum possible statistical evidence; done poorly, no amount of clever analysis afterward can rescue a flawed design.",
+    formal:
+      "In a randomized experiment, treatments are assigned to experimental units via a random mechanism, guaranteeing that (in expectation) treatment groups are balanced on both observed and unobserved confounding variables. A basic one-way ANOVA model, $Y_{ij} = \\mu + \\tau_i + \\varepsilon_{ij}$, decomposes total variability into a between-treatments effect $\\tau_i$ and within-treatment noise $\\varepsilon_{ij}$, with an F-test used to assess whether treatment effects $\\tau_i$ differ significantly from zero. Blocking further reduces noise by grouping units into more homogeneous blocks before randomizing within each block.",
+    keyIdeas: [
+      'randomization as the mechanism that, on average, balances both known and unknown confounding factors across treatment groups',
+      'replication, providing enough repeated observations to distinguish a real effect from random noise',
+      'blocking, controlling for a known source of variability by grouping similar units before randomizing',
+      'factorial designs, testing multiple factors simultaneously and their interactions far more efficiently than testing one factor at a time',
+      'the analysis of variance (ANOVA), partitioning observed variability into components attributable to different design factors',
+    ],
+    whyItMatters:
+      "Before Fisher's work at the Rothamsted Experimental Station in the 1920s, agricultural and scientific experiments were typically arranged by intuition, with no way to distinguish a genuine treatment effect from the incidental variation between experimental plots or subjects. Fisher's insight that randomization, replication, and blocking could be combined into a mathematically justified design let statisticians extract valid causal conclusions and honest uncertainty estimates from experiments run with limited resources, and the same logic underlies every modern randomized controlled trial, from medicine to technology A/B testing.",
+    prerequisites: ['statistics:hypothesis-testing', 'statistics:estimation'],
+    related: ['statistics:hypothesis-testing', 'statistics:causal-inference', 'probability:sample-spaces'],
+    historicalContext:
+      "Ronald Fisher, working at the Rothamsted Experimental Station on agricultural field trials starting in 1919, developed randomization, blocking, and the analysis of variance as tools for extracting reliable conclusions from necessarily noisy, resource-limited agricultural experiments, publishing the foundational synthesis in his 1935 book The Design of Experiments. The book's famous 'lady tasting tea' example, in which Fisher designed a rigorous randomized test of a colleague's claim to taste whether milk or tea was poured first, is often cited as the first modern randomized experiment with a formally specified null hypothesis and significance test built directly into the design.",
+    contributorIds: ['person:ronald-fisher'],
+    workIds: ['work:the-design-of-experiments'],
+    exampleProblems: [
+      'Explain why randomly assigning subjects to treatment and control groups controls for confounding variables that the experimenter did not even think to measure.',
+      'Design a randomized block experiment comparing three fertilizers across fields with varying soil quality, and explain why blocking by soil quality improves the design.',
+      'Set up the one-way ANOVA F-test for comparing the means of three treatment groups and describe how the F-statistic is constructed from between- and within-group variability.',
+    ],
+    applications: [
+      'randomized controlled trials in medicine, the gold standard for establishing that a treatment causes an observed outcome',
+      'agricultural field trials, the original motivating application for Fisher\'s design methods',
+      'technology A/B testing, randomizing users to different product variants to measure causal effects on engagement',
+      'manufacturing and industrial experimentation (Taguchi methods), optimizing processes with factorial designs',
+    ],
+    researchDirections: [
+      'adaptive and sequential experimental designs, adjusting treatment assignment as data accumulate',
+      'optimal design theory, choosing designs that maximize statistical information for a given experimental budget',
+      'design of experiments for complex modern settings such as online platforms and multi-armed bandit problems',
+    ],
+    textbooks: [
+      {
+        title: 'Design and Analysis of Experiments',
+        authors: ['Douglas C. Montgomery'],
+        edition: '10th',
+        year: 2019,
+        why: 'The standard, widely used applied textbook covering randomization, blocking, factorial designs, and ANOVA.',
+      },
+      {
+        title: 'Statistics for Experimenters',
+        authors: ['George E. P. Box', 'J. Stuart Hunter', 'William G. Hunter'],
+        edition: '2nd',
+        year: 2005,
+        why: 'A classic, practically oriented treatment connecting experimental design directly to real scientific and industrial problems.',
+      },
+      {
+        title: 'The Design of Experiments',
+        authors: ['Ronald A. Fisher'],
+        edition: '8th',
+        year: 1966,
+        why: "Fisher's own foundational text, including the famous 'lady tasting tea' example, still worth reading in the original.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'One-way ANOVA model', latex: 'Y_{ij} = \\mu + \\tau_i + \\varepsilon_{ij}' },
+      { label: 'F-statistic', latex: 'F = \\frac{\\text{Mean Square Between}}{\\text{Mean Square Within}}' },
+      { label: 'Randomization principle', latex: '\\mathbb{E}[\\text{confounder} \\mid \\text{treatment group}] = \\mathbb{E}[\\text{confounder}]' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Design of experiments', url: 'https://encyclopediaofmath.org/wiki/Design_of_experiments', kind: 'encyclopedia' },
+      { label: 'MacTutor: R. A. Fisher', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fisher/', kind: 'reference' },
+    ],
+  },
+  'statistics:causal-inference': {
+    overview:
+      'Causal inference formalizes the difference between correlation and causation, providing mathematical tools to determine when a statistical association reflects a genuine causal effect and to estimate the size of that effect, even from observational data where a controlled experiment is impossible or unethical.',
+    formal:
+      "In the potential outcomes framework, each unit $i$ has two potential outcomes, $Y_i(1)$ under treatment and $Y_i(0)$ under control, and the individual causal effect is $Y_i(1)-Y_i(0)$ — the 'fundamental problem of causal inference' being that only one of these is ever observed for each unit. The average treatment effect $\\mathbb{E}[Y(1)-Y(0)]$ can be estimated from observational data under the ignorability assumption $\\{Y(0),Y(1)\\} \\perp T \\mid X$, adjusting for confounders $X$. Equivalently, Pearl's structural framework represents causal assumptions as a directed acyclic graph and defines the causal effect via an intervention operator $do(T=t)$, distinct from ordinary conditioning $P(Y\\mid T=t)$.",
+    keyIdeas: [
+      'the fundamental problem of causal inference: for any unit, only one potential outcome is ever observed, never the counterfactual',
+      'confounding: a variable affecting both treatment and outcome, which can create a spurious association mistaken for causation',
+      'randomization as the gold-standard solution, since it makes treatment assignment independent of all potential outcomes',
+      "Pearl's do-calculus, distinguishing the causal query $P(Y \\mid do(T=t))$ from the merely observational $P(Y\\mid T=t)$",
+      'identification strategies for observational data (instrumental variables, regression discontinuity, difference-in-differences) when randomization is not possible',
+    ],
+    whyItMatters:
+      '"Correlation does not imply causation" is a truism, but causal inference supplies the actual mathematics needed to determine when it does, letting researchers estimate causal effects credibly from real-world, non-experimental data — whether tobacco causes cancer, whether a policy reduces poverty, whether a drug improves outcomes — in situations where running a randomized trial is impossible, unethical, or has already happened only observationally. The convergence of two once-separate schools of thought, Rubin\'s potential outcomes framework from statistics and Pearl\'s graphical structural framework from computer science and philosophy, by the 2000s gave the field a shared, rigorous mathematical foundation.',
+    prerequisites: ['statistics:regression', 'probability:random-variables'],
+    related: ['statistics:regression', 'statistics:experimental-design', 'probability:markov-chains'],
+    historicalContext:
+      "Jerzy Neyman introduced the potential outcomes notation in 1923 for randomized experiments, but the framework lay dormant for decades until Donald Rubin generalized it to observational studies in a series of papers beginning in 1974, formalizing the ignorability assumption needed to estimate causal effects without randomization — now often called the Rubin causal model. Independently, Judea Pearl developed a graphical and structural approach beginning in the late 1980s, introducing causal directed acyclic graphs and the do-calculus in his 2000 book Causality, for which he received the 2011 Turing Award; by the 2000s, researchers including Pearl, Rubin, and James Robins had shown the potential-outcomes and graphical frameworks to be largely equivalent, unifying causal inference into a single coherent theory.",
+    contributorIds: ['person:judea-pearl', 'person:donald-rubin'],
+    workIds: [],
+    exampleProblems: [
+      'Explain the "fundamental problem of causal inference" using a concrete example, and describe why randomization solves the problem in expectation even though it never reveals an individual\'s counterfactual outcome.',
+      'Draw a simple causal DAG with a confounder affecting both treatment and outcome, and identify which variable(s) must be adjusted for to estimate the causal effect correctly.',
+      'Give an example where two variables are strongly correlated but neither causes the other, due to a common confounding cause.',
+    ],
+    applications: [
+      'epidemiology and public health, estimating the causal effect of exposures (smoking, pollution) on disease from observational data',
+      'economics (the "credibility revolution"), using instrumental variables and natural experiments to estimate causal effects of policies',
+      'technology, using causal inference to understand the true impact of product features beyond simple correlation',
+      'social science, disentangling causal effects of interventions (education, policy) from selection and confounding',
+    ],
+    researchDirections: [
+      'causal machine learning, integrating causal inference with high-dimensional predictive models',
+      'causal discovery, algorithmically learning causal graph structure from observational data alone',
+      'mediation analysis, decomposing a causal effect into direct and indirect (mediated) pathways',
+    ],
+    textbooks: [
+      {
+        title: 'Causal Inference: What If',
+        authors: ['Miguel A. Hernán', 'James M. Robins'],
+        year: 2020,
+        why: 'A rigorous, freely available modern text unifying the potential outcomes and structural approaches to causal inference.',
+      },
+      {
+        title: 'Causality: Models, Reasoning, and Inference',
+        authors: ['Judea Pearl'],
+        edition: '2nd',
+        year: 2009,
+        why: "Pearl's own foundational text on causal graphs, the do-calculus, and structural causal models.",
+      },
+      {
+        title: 'Causal Inference for Statistics, Social, and Biomedical Sciences',
+        authors: ['Guido W. Imbens', 'Donald B. Rubin'],
+        year: 2015,
+        why: 'The definitive treatment of the potential outcomes (Rubin causal model) approach, by one of its principal architects.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Individual causal effect', latex: '\\tau_i = Y_i(1) - Y_i(0)' },
+      { label: 'Average treatment effect', latex: '\\text{ATE} = \\mathbb{E}[Y(1)] - \\mathbb{E}[Y(0)]' },
+      { label: "Pearl's causal effect via intervention", latex: 'P(Y \\mid do(T=t)) \\ne P(Y\\mid T=t) \\text{ in general}' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Causal inference', url: 'https://en.wikipedia.org/wiki/Causal_inference', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Judea Pearl', url: 'https://en.wikipedia.org/wiki/Judea_Pearl', kind: 'reference' },
+      { label: 'Wikipedia: Donald Rubin', url: 'https://en.wikipedia.org/wiki/Donald_Rubin', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -5701,22 +10152,62 @@ const personRows = [
   ['Ernst Zermelo', '1871-1953', 'Germany', 'set-theory', 'the first axiomatization of set theory and the well-ordering theorem'],
   ['Abraham Fraenkel', '1891-1965', 'Germany/Israel', 'set-theory', 'the axiom of replacement completing ZFC'],
   ['Paul Cohen', '1934-2007', 'USA', 'set-theory', 'the forcing method and the independence of the continuum hypothesis'],
+  ['Ludwig Sylow', '1832-1918', 'Norway', 'abstract-algebra', 'the Sylow theorems on subgroups of finite groups'],
+  ['Emil Artin', '1898-1962', 'Austria/USA', 'abstract-algebra', 'Artinian rings, Artin-Schreier theory, and the automorphism-group formulation of Galois theory'],
+  ['Henri Cartan', '1904-2008', 'France', 'abstract-algebra', 'homological algebra and the Cartan-Eilenberg framework'],
+  ['Wolfgang Krull', '1899-1971', 'Germany', 'commutative-algebra', 'localization, Krull dimension, and the principal ideal theorem'],
+  ['Emanuel Lasker', '1868-1941', 'Germany', 'commutative-algebra', 'primary decomposition of ideals'],
+  ['Irvin Cohen', '1917-1955', 'USA', 'commutative-algebra', 'the unmixedness theorem for power series rings'],
+  ['Francis Macaulay', '1862-1937', 'United Kingdom', 'commutative-algebra', 'the unmixedness theorem for polynomial rings'],
+  ['Jean Leray', '1906-1998', 'France', 'algebraic-geometry', 'the invention of sheaves and the Leray spectral sequence'],
+  ['David Mumford', '1937-', 'USA', 'algebraic-geometry', 'Geometric Invariant Theory and moduli of curves'],
+  ['Janos Bolyai', '1802-1860', 'Hungary', 'geometry', 'the independent discovery of hyperbolic geometry'],
+  ['Jean-Victor Poncelet', '1788-1867', 'France', 'geometry', 'the systematic revival of projective geometry'],
+  ['Hermann Minkowski', '1864-1909', 'Germany', 'geometry', 'the geometry of numbers and convex bodies'],
+  ['Elie Cartan', '1869-1951', 'France', 'differential-geometry', 'moving frames, connections, and curvature'],
+  ['Charles Ehresmann', '1905-1979', 'France', 'differential-geometry', 'the modern definition of fiber bundles and connections'],
+  ['Joseph Fourier', '1768-1830', 'France', 'real-analysis', 'Fourier series and the mathematical theory of heat'],
+  ['Giuseppe Vitali', '1875-1932', 'Italy', 'real-analysis', 'the Vitali covering lemma and non-measurable sets'],
+  ['Frigyes Riesz', '1880-1956', 'Hungary', 'real-analysis', 'the Riesz-Fischer theorem and the foundations of $L^p$ space theory'],
+  ['Jean-Robert Argand', '1768-1822', 'Switzerland/France', 'complex-analysis', 'the geometric representation of complex numbers as points in a plane'],
+  ['Edouard Goursat', '1858-1936', 'France', 'complex-analysis', 'the rigorous proof of the Cauchy integral theorem without assuming continuous derivatives'],
+  ['Pierre Alphonse Laurent', '1813-1854', 'France', 'complex-analysis', 'the Laurent series expansion around singularities'],
+  ['Hermann Amandus Schwarz', '1843-1921', 'Germany', 'complex-analysis', 'the Schwarz lemma and Schwarz-Christoffel conformal mapping'],
+  ['Laurent Schwartz', '1915-2002', 'France', 'functional-analysis', 'the rigorous theory of distributions (generalized functions)'],
+  ['Sergei Sobolev', '1908-1989', 'Soviet Union', 'functional-analysis', 'Sobolev spaces and generalized (weak) derivatives'],
+  ['Charles-Francois Sturm', '1803-1855', 'Switzerland/France', 'differential-equations', 'Sturm-Liouville theory and the theory of oscillation'],
+  ['Joseph Liouville', '1809-1882', 'France', 'differential-equations', 'Sturm-Liouville theory and the discovery of transcendental numbers'],
+  ['George Green', '1793-1841', 'England', 'differential-equations', "Green's functions and the mathematical theory of potentials"],
+  ['Rudolf Lipschitz', '1832-1903', 'Germany', 'differential-equations', 'the Lipschitz condition guaranteeing unique solutions to differential equations'],
+  ['Emile Picard', '1856-1941', 'France', 'differential-equations', 'the Picard-Lindelof existence theorem via successive approximations'],
+  ['Aleksandr Lyapunov', '1857-1918', 'Russia', 'differential-equations', 'the modern mathematical theory of the stability of motion'],
+  ['George David Birkhoff', '1884-1944', 'USA', 'dynamical-systems', "the ergodic theorem and proof of Poincare's last geometric theorem"],
+  ['Stephen Smale', '1930-', 'USA', 'dynamical-systems', 'the horseshoe map and the classification of higher-dimensional dynamical systems'],
+  ['Edward Lorenz', '1917-2008', 'USA', 'dynamical-systems', 'the Lorenz attractor and the discovery of deterministic chaos'],
+  ['Thomas Bayes', '1701-1761', 'England', 'statistics', "Bayes' theorem and inverse probability"],
+  ['Francis Galton', '1822-1911', 'England', 'statistics', 'regression to the mean and correlation'],
+  ['Karl Pearson', '1857-1936', 'England', 'statistics', 'the correlation coefficient, chi-squared test, and founding mathematical statistics'],
+  ['Judea Pearl', '1936-', 'Israel/USA', 'statistics', 'causal diagrams and the structural theory of causal inference'],
+  ['Donald Rubin', '1943-', 'USA', 'statistics', 'the potential outcomes framework for causal inference'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
 // topic id(s) a person is associated with, once that topic has been
 // researched. Keyed by person id (person:<slug-of-name>).
 const personTopicOverrides: Record<string, string[]> = {
-  'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
-  'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
+  'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits', 'differential-equations:ordinary-differential-equations'],
+  'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives', 'differential-equations:ordinary-differential-equations'],
   'person:brook-taylor': ['calculus:taylor-series'],
-  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness'],
-  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity'],
+  'person:bernard-bolzano': ['calculus:limits', 'analysis:continuity', 'topology:connectedness', 'real-analysis:real-numbers'],
+  'person:karl-weierstrass': ['calculus:limits', 'analysis:sequences-and-series', 'analysis:continuity', 'real-analysis:epsilon-delta-limits', 'complex-analysis:holomorphic-functions'],
   'person:george-gabriel-stokes': ['calculus:vector-calculus'],
   'person:augustin-louis-cauchy': [
     'calculus:limits',
     'calculus:integrals',
     'complex-analysis:cauchy-integral-theorem',
+    'complex-analysis:holomorphic-functions',
+    'complex-analysis:residues',
+    'differential-equations:existence-and-uniqueness',
     'linear-algebra:determinants',
     'linear-algebra:eigenvalues',
     'linear-algebra:inner-product-spaces',
@@ -5727,12 +10218,13 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:arthur-cayley': ['linear-algebra:matrices', 'algebra:groups'],
   'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
   'person:hermann-grassmann': ['linear-algebra:vector-spaces'],
-  'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
+  'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition', 'geometry:non-euclidean-geometry'],
   'person:camille-jordan': [
     'linear-algebra:singular-value-decomposition',
     'linear-algebra:eigenvalues',
     'algebra:groups',
     'topology:connectedness',
+    'abstract-algebra:group-theory',
   ],
   'person:giuseppe-peano': ['logic:predicate-logic', 'linear-algebra:vector-spaces'],
   'person:joseph-louis-lagrange': ['calculus-of-variations:functionals', 'linear-algebra:eigenvalues', 'analysis:differentiation'],
@@ -5746,13 +10238,32 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:rings',
     'algebra:modules',
     'number-theory:algebraic-number-theory',
+    'commutative-algebra:ideals',
+    'commutative-algebra:noetherian-rings',
+    'algebraic-geometry:affine-varieties',
+    'geometry:euclidean-geometry',
+    'geometry:incidence-geometry',
+    'functional-analysis:hilbert-spaces',
+    'functional-analysis:spectral-theory',
   ],
-  'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
+  'person:john-von-neumann': [
+    'game-theory:normal-form-games',
+    'linear-algebra:inner-product-spaces',
+    'functional-analysis:hilbert-spaces',
+    'functional-analysis:bounded-operators',
+    'functional-analysis:spectral-theory',
+  ],
   'person:bernhard-riemann': [
     'analysis:sequences-and-series',
     'analysis:integration',
     'differential-geometry:riemannian-metrics',
+    'differential-geometry:geodesics',
     'topology:manifolds',
+    'algebraic-geometry:projective-varieties',
+    'algebraic-geometry:moduli-spaces',
+    'complex-analysis:holomorphic-functions',
+    'complex-analysis:conformal-mapping',
+    'complex-analysis:riemann-surfaces',
   ],
   'person:georg-cantor': [
     'set-theory:naive-set-theory',
@@ -5761,39 +10272,109 @@ const personTopicOverrides: Record<string, string[]> = {
     'set-theory:continuum-hypothesis',
     'analysis:metric-spaces',
     'topology:point-set-topology',
+    'real-analysis:real-numbers',
   ],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
-  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
+  'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology', 'functional-analysis:normed-spaces'],
   'person:emile-borel': ['analysis:measure-theory', 'topology:compactness'],
-  'person:henri-lebesgue': ['analysis:measure-theory', 'topology:compactness'],
+  'person:henri-lebesgue': [
+    'analysis:measure-theory',
+    'topology:compactness',
+    'real-analysis:lebesgue-integration',
+    'real-analysis:differentiation-theorems',
+  ],
+  'person:joseph-fourier': ['real-analysis:fourier-series'],
+  'person:giuseppe-vitali': ['real-analysis:differentiation-theorems'],
+  'person:frigyes-riesz': ['real-analysis:l-p-spaces', 'functional-analysis:banach-spaces', 'functional-analysis:bounded-operators'],
+  'person:jean-robert-argand': ['complex-analysis:complex-numbers'],
+  'person:edouard-goursat': ['complex-analysis:cauchy-integral-theorem'],
+  'person:pierre-alphonse-laurent': ['complex-analysis:residues'],
+  'person:hermann-amandus-schwarz': ['complex-analysis:conformal-mapping'],
+  'person:stefan-banach': ['functional-analysis:normed-spaces', 'functional-analysis:banach-spaces'],
+  'person:laurent-schwartz': ['functional-analysis:distributions'],
+  'person:sergei-sobolev': ['functional-analysis:distributions'],
+  'person:sofia-kovalevskaya': ['differential-equations:partial-differential-equations'],
+  'person:jean-le-rond-dalembert': ['differential-equations:partial-differential-equations'],
+  'person:charles-francois-sturm': ['differential-equations:boundary-value-problems'],
+  'person:joseph-liouville': ['differential-equations:boundary-value-problems'],
+  'person:george-green': ['differential-equations:green-functions'],
+  'person:rudolf-lipschitz': ['differential-equations:existence-and-uniqueness'],
+  'person:emile-picard': ['differential-equations:existence-and-uniqueness'],
+  'person:aleksandr-lyapunov': ['differential-equations:stability'],
+  'person:george-david-birkhoff': ['dynamical-systems:ergodic-theory', 'dynamical-systems:fixed-points'],
+  'person:stephen-smale': ['dynamical-systems:symbolic-dynamics'],
+  'person:edward-lorenz': ['dynamical-systems:chaos'],
+  'person:benoit-mandelbrot': ['dynamical-systems:chaos'],
+  'person:mitchell-feigenbaum': ['dynamical-systems:bifurcations'],
   'person:andrey-kolmogorov': [
     'probability:sample-spaces',
     'analysis:measure-theory',
     'probability:random-variables',
     'probability:law-of-large-numbers',
     'probability:markov-chains',
+    'dynamical-systems:ergodic-theory',
   ],
   'person:evariste-galois': ['abstract-algebra:galois-theory', 'algebra:polynomials', 'algebra:fields', 'algebra:groups'],
-  'person:emmy-noether': ['abstract-algebra:group-theory', 'algebra:rings', 'algebra:modules', 'topology:homology'],
+  'person:emmy-noether': [
+    'abstract-algebra:group-theory',
+    'abstract-algebra:ring-theory',
+    'abstract-algebra:representation-theory',
+    'algebra:rings',
+    'algebra:modules',
+    'topology:homology',
+    'commutative-algebra:noetherian-rings',
+    'commutative-algebra:primary-decomposition',
+    'algebraic-geometry:affine-varieties',
+  ],
   'person:richard-dedekind': [
     'set-theory:naive-set-theory',
     'algebra:rings',
     'algebra:modules',
     'number-theory:algebraic-number-theory',
+    'commutative-algebra:ideals',
+    'real-analysis:real-numbers',
   ],
-  'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
-  'person:ernst-steinitz': ['algebra:fields'],
-  'person:ferdinand-georg-frobenius': ['algebra:representations'],
+  'person:hermann-weyl': [
+    'mathematical-physics:classical-mechanics',
+    'algebra:representations',
+    'differential-geometry:tangent-spaces',
+    'complex-analysis:riemann-surfaces',
+  ],
+  'person:hassler-whitney': [
+    'differential-geometry:smooth-manifolds',
+    'differential-geometry:tangent-spaces',
+    'differential-geometry:fiber-bundles',
+  ],
+  'person:elie-cartan': ['differential-geometry:curvature'],
+  'person:charles-ehresmann': ['differential-geometry:fiber-bundles'],
+  'person:ernst-steinitz': ['algebra:fields', 'abstract-algebra:field-theory'],
+  'person:ferdinand-georg-frobenius': ['algebra:representations', 'abstract-algebra:representation-theory'],
   'person:blaise-pascal': ['probability:sample-spaces'],
   'person:christiaan-huygens': ['probability:sample-spaces', 'probability:expectation'],
   'person:jacob-bernoulli': ['probability:law-of-large-numbers'],
-  'person:pierre-simon-laplace': ['probability:central-limit-theorem'],
+  'person:pierre-simon-laplace': ['probability:central-limit-theorem', 'statistics:bayesian-inference'],
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
+  'person:ronald-fisher': ['statistics:estimation', 'statistics:experimental-design'],
+  'person:jerzy-neyman': ['statistics:hypothesis-testing'],
+  'person:egon-pearson': ['statistics:hypothesis-testing'],
+  'person:thomas-bayes': ['statistics:bayesian-inference'],
+  'person:francis-galton': ['statistics:regression'],
+  'person:karl-pearson': ['statistics:regression'],
+  'person:judea-pearl': ['statistics:causal-inference'],
+  'person:donald-rubin': ['statistics:causal-inference'],
   'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
-  'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
+  'person:henri-poincare': [
+    'topology:homotopy',
+    'topology:homology',
+    'topology:manifolds',
+    'differential-equations:stability',
+    'dynamical-systems:phase-portraits',
+    'dynamical-systems:fixed-points',
+    'dynamical-systems:bifurcations',
+  ],
   'person:l-e-j-brouwer': [
     'foundations:constructive-mathematics',
     'foundations:foundational-programs',
@@ -5803,7 +10384,14 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:grigori-perelman': ['topology:manifolds'],
   'person:euclid': ['geometry:euclidean-geometry', 'number-theory:prime-numbers', 'foundations:axiomatic-method'],
   'person:nikolai-lobachevsky': ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method'],
-  'person:carl-friedrich-gauss': ['number-theory:prime-numbers', 'number-theory:modular-arithmetic'],
+  'person:carl-friedrich-gauss': [
+    'number-theory:prime-numbers',
+    'number-theory:modular-arithmetic',
+    'differential-geometry:curvature',
+    'differential-geometry:geodesics',
+    'complex-analysis:complex-numbers',
+    'statistics:estimation',
+  ],
   'person:pierre-de-fermat': ['number-theory:modular-arithmetic', 'number-theory:diophantine-equations'],
   'person:leonhard-euler': ['number-theory:modular-arithmetic', 'number-theory:analytic-number-theory'],
   'person:diophantus': ['number-theory:diophantine-equations'],
@@ -5839,9 +10427,36 @@ const personTopicOverrides: Record<string, string[]> = {
     'category-theory:limits-and-colimits',
     'category-theory:monoidal-categories',
   ],
-  'person:samuel-eilenberg': ['category-theory:categories-and-functors', 'category-theory:natural-transformations'],
+  'person:samuel-eilenberg': [
+    'category-theory:categories-and-functors',
+    'category-theory:natural-transformations',
+    'abstract-algebra:homological-algebra',
+  ],
   'person:william-lawvere': ['category-theory:topos-theory'],
-  'person:alexander-grothendieck': ['algebraic-geometry:affine-varieties', 'category-theory:topos-theory'],
+  'person:alexander-grothendieck': [
+    'algebraic-geometry:schemes',
+    'algebraic-geometry:cohomology',
+    'category-theory:topos-theory',
+  ],
+  'person:jean-pierre-serre': [
+    'number-theory:prime-numbers',
+    'algebraic-geometry:schemes',
+    'algebraic-geometry:cohomology',
+  ],
+  'person:ludwig-sylow': ['abstract-algebra:group-theory'],
+  'person:emil-artin': ['abstract-algebra:ring-theory', 'abstract-algebra:field-theory', 'abstract-algebra:galois-theory'],
+  'person:henri-cartan': ['abstract-algebra:homological-algebra', 'algebraic-geometry:sheaves'],
+  'person:wolfgang-krull': ['commutative-algebra:localization', 'commutative-algebra:dimension-theory'],
+  'person:emanuel-lasker': ['commutative-algebra:primary-decomposition'],
+  'person:irvin-cohen': ['commutative-algebra:cohen-macaulay-rings'],
+  'person:francis-macaulay': ['commutative-algebra:cohen-macaulay-rings'],
+  'person:jean-leray': ['algebraic-geometry:sheaves'],
+  'person:david-mumford': ['algebraic-geometry:moduli-spaces'],
+  'person:janos-bolyai': ['geometry:non-euclidean-geometry'],
+  'person:jean-victor-poncelet': ['geometry:projective-geometry'],
+  'person:hermann-minkowski': ['geometry:convex-geometry', 'geometry:discrete-geometry'],
+  'person:felix-klein': ['geometry:projective-geometry'],
+  'person:paul-erdos': ['combinatorics:permutations', 'geometry:incidence-geometry'],
 };
 
 export const people: Person[] = personRows.map(
@@ -5954,12 +10569,28 @@ const workRows = [
   ['Naive Set Theory', 'Paul Halmos', 1960, 'set-theory', 'A concise set theory introduction.'],
   ['Model Theory', 'C. C. Chang and H. J. Keisler', 1973, 'logic', 'A standard model theory reference.'],
   ['Introduction to Lie Algebras and Representation Theory', 'James Humphreys', 1972, 'lie-theory', 'A compact Lie theory reference.'],
+  ['Theorie analytique de la chaleur', 'Joseph Fourier', 1822, 'real-analysis', 'Introduced Fourier series to solve the heat equation, launching harmonic analysis.'],
+  ['Lecons sur lintegration et la recherche des fonctions primitives', 'Henri Lebesgue', 1904, 'real-analysis', 'The first systematic treatment of the Lebesgue integral and modern measure-based integration.'],
+  ['Grundlagen fur eine allgemeine Theorie der Functionen einer veranderlichen complexen Grosse', 'Bernhard Riemann', 1851, 'complex-analysis', 'Riemanns doctoral dissertation, which introduced Riemann surfaces and the geometric approach to complex function theory.'],
+  ['Theorie des operations lineaires', 'Stefan Banach', 1932, 'functional-analysis', 'The founding systematic treatise of functional analysis, naming and characterizing Banach spaces.'],
+  ['An Essay on the Application of Mathematical Analysis to the Theories of Electricity and Magnetism', 'George Green', 1828, 'differential-equations', "Introduced the potential function and Green's theorem, and implicitly the Green's function method for solving boundary value problems."],
+  ['Les methodes nouvelles de la mecanique celeste', 'Henri Poincare', 1892, 'dynamical-systems', 'Founded the qualitative theory of dynamical systems and contains the first mathematical description of chaotic behavior.'],
+  ['An Essay towards Solving a Problem in the Doctrine of Chances', 'Thomas Bayes', 1763, 'statistics', "Published posthumously, it contains what became known as Bayes' theorem, the basis of Bayesian inference."],
+  ['The Design of Experiments', 'Ronald Fisher', 1935, 'statistics', 'Introduced randomization, replication, and blocking as the foundations of modern experimental design.'],
 ] as const;
 
 // Same idea as personTopicOverrides: replaces the default "field's first
 // topic" placement with the topic(s) a work actually belongs to.
 const workTopicOverrides: Record<string, string[]> = {
   'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'analysis:sequences-and-series', 'analysis:continuity'],
+  'work:theorie-analytique-de-la-chaleur': ['real-analysis:fourier-series'],
+  'work:lecons-sur-lintegration-et-la-recherche-des-fonctions-primitives': ['real-analysis:lebesgue-integration'],
+  'work:grundlagen-fur-eine-allgemeine-theorie-der-functionen-einer-veranderlichen-complexen-grosse': ['complex-analysis:riemann-surfaces'],
+  'work:theorie-des-operations-lineaires': ['functional-analysis:banach-spaces'],
+  'work:an-essay-on-the-application-of-mathematical-analysis-to-the-theories-of-electricity-and-magnetism': ['differential-equations:green-functions'],
+  'work:les-methodes-nouvelles-de-la-mecanique-celeste': ['dynamical-systems:chaos'],
+  'work:an-essay-towards-solving-a-problem-in-the-doctrine-of-chances': ['statistics:bayesian-inference'],
+  'work:the-design-of-experiments': ['statistics:experimental-design'],
   'work:introductio-in-analysin-infinitorum': [
     'calculus:taylor-series',
     'analysis:sequences-and-series',
@@ -5979,9 +10610,10 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:ars-conjectandi': ['probability:law-of-large-numbers'],
   'work:algebraic-topology': ['topology:homotopy', 'topology:homology'],
   'work:uber-die-hypothesen-welche-der-geometrie-zu-grunde-liegen': [
-    'differential-geometry:smooth-manifolds',
+    'differential-geometry:riemannian-metrics',
     'topology:manifolds',
   ],
+  'work:morse-theory': ['differential-geometry:geodesics'],
   'work:disquisitiones-arithmeticae': [
     'number-theory:prime-numbers',
     'number-theory:modular-arithmetic',
@@ -6002,6 +10634,10 @@ const workTopicOverrides: Record<string, string[]> = {
     'category-theory:limits-and-colimits',
     'category-theory:monoidal-categories',
   ],
+  'work:homological-algebra': ['abstract-algebra:homological-algebra'],
+  'work:ega': ['algebraic-geometry:schemes'],
+  'work:sga': ['algebraic-geometry:cohomology'],
+  'work:grundlagen-der-geometrie': ['foundations:axiomatic-method', 'geometry:incidence-geometry'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

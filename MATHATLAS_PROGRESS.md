@@ -29,17 +29,17 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] logic
 - [x] set-theory
 - [x] category-theory
-- [ ] abstract-algebra
-- [ ] commutative-algebra
-- [ ] algebraic-geometry
-- [ ] geometry
-- [ ] differential-geometry
-- [ ] real-analysis
-- [ ] complex-analysis
-- [ ] functional-analysis
-- [ ] differential-equations
-- [ ] dynamical-systems
-- [ ] statistics
+- [x] abstract-algebra
+- [x] commutative-algebra
+- [x] algebraic-geometry
+- [x] geometry
+- [x] differential-geometry
+- [x] real-analysis
+- [x] complex-analysis
+- [x] functional-analysis
+- [x] differential-equations
+- [x] dynamical-systems
+- [x] statistics
 - [ ] discrete-math
 - [ ] combinatorics
 - [ ] graph-theory
