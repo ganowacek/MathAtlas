@@ -5852,6 +5852,397 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
     ],
   },
+  'commutative-algebra:ideals': {
+    overview:
+      'An ideal is a special subset of a ring that behaves like a "multiple of a number," absorbing multiplication by any ring element. Ideals are exactly the objects whose quotients make sense, generalizing modular arithmetic and unique factorization to arbitrary commutative rings.',
+    formal:
+      'An ideal $I$ of a commutative ring $R$ is an additive subgroup with $rI\\subseteq I$ for all $r\\in R$. $I$ is prime if $R/I$ is an integral domain, and maximal if $R/I$ is a field. Every maximal ideal is prime, and in a Noetherian ring every ideal contains a product of finitely many prime ideals. The set of prime ideals of $R$, with the Zariski topology, forms the spectrum $\\text{Spec}(R)$, the geometric object underlying $R$ in modern algebraic geometry.',
+    keyIdeas: [
+      'ideals as the kernels of ring homomorphisms, generalizing normal subgroups',
+      'prime ideals (quotient is a domain) versus maximal ideals (quotient is a field)',
+      'the correspondence theorem: ideals of $R/I$ correspond to ideals of $R$ containing $I$',
+      'the spectrum $\\text{Spec}(R)$: prime ideals as the "points" of a ring, viewed geometrically',
+      'ideals as the mechanism restoring unique factorization where elements fail to factor uniquely',
+    ],
+    whyItMatters:
+      "Reinterpreting a ring's prime ideals as \"points\" of a geometric space, its spectrum, is the single idea that lets algebraic geometry and commutative algebra become two languages for the same subject, so a ring-theoretic fact about ideals translates directly into a geometric fact about the corresponding variety or scheme.",
+    prerequisites: [],
+    related: ['algebra:rings', 'algebraic-geometry:affine-varieties', 'commutative-algebra:noetherian-rings'],
+    historicalContext:
+      "Richard Dedekind introduced ideals in the 1870s specifically to repair unique factorization in rings of algebraic integers, and David Hilbert's Nullstellensatz (1893) established the precise dictionary between ideals of a polynomial ring and algebraic varieties, the seed of modern algebraic geometry. Emmy Noether's 1921 paper Idealtheorie in Ringbereichen then reformulated ideal theory abstractly for general Noetherian commutative rings, and Alexander Grothendieck's 1960s work on schemes completed the geometric reinterpretation by defining $\\text{Spec}(R)$ as a fully general geometric object attached to any commutative ring.",
+    contributorIds: ['person:richard-dedekind', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the ideal $(x)$ is prime but not maximal in $\\mathbb{Z}[x]$, by identifying the quotient ring.',
+      'Prove that every maximal ideal is prime, using the correspondence between ideals and quotient rings.',
+      'Describe $\\text{Spec}(\\mathbb{Z})$ as a topological space: what are its points, and which are closed?',
+    ],
+    applications: [
+      'algebraic geometry, where ideals of polynomial rings correspond to algebraic varieties via the Nullstellensatz',
+      'algebraic number theory, where prime ideals generalize prime numbers in rings of integers',
+      'Gröbner basis computation in computer algebra, giving an algorithmic handle on ideals in polynomial rings',
+    ],
+    researchDirections: [
+      'the theory of schemes, generalizing $\\text{Spec}(R)$ to glue together geometric spaces from rings',
+      'tropical geometry and its combinatorial reinterpretation of ideal-theoretic data',
+      'computational commutative algebra and Gröbner basis algorithms for large polynomial systems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'The classic, famously concise standard text that essentially every algebraic geometer and commutative algebraist learns from.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'A standard graduate reference offering more detail and generality than Atiyah-Macdonald.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'A comprehensive modern text explicitly connecting ideal theory to its geometric meaning throughout.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Ideal absorption property', latex: 'r \\in R,\\ x \\in I \\implies rx \\in I' },
+      { label: 'Prime ideal criterion', latex: 'ab \\in \\mathfrak{p} \\implies a \\in \\mathfrak{p} \\text{ or } b \\in \\mathfrak{p}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Maximal ideal', url: 'https://encyclopediaofmath.org/wiki/Maximal_ideal', kind: 'encyclopedia' },
+      { label: 'MacTutor: Richard Dedekind', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Dedekind/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:noetherian-rings': {
+    overview:
+      'A Noetherian ring is one in which every ideal is finitely generated — equivalently, every ascending chain of ideals eventually stabilizes — a single finiteness condition that turns out to be exactly what is needed to make ideal theory, dimension theory, and much of algebraic geometry work smoothly.',
+    formal:
+      "A ring $R$ is Noetherian if it satisfies the ascending chain condition on ideals: every chain $I_1\\subseteq I_2\\subseteq\\cdots$ stabilizes, equivalently every ideal is finitely generated. Hilbert's Basis Theorem: if $R$ is Noetherian, then $R[x]$ is also Noetherian, so $F[x_1,\\ldots,x_n]$ is Noetherian for any field $F$. Every Noetherian ring is a Lasker ring: every ideal decomposes as a finite intersection of primary ideals.",
+    keyIdeas: [
+      'the ascending chain condition as equivalent to finite generation of every ideal',
+      "Hilbert's Basis Theorem: polynomial rings over Noetherian rings are Noetherian",
+      'the Lasker-Noether theorem: primary decomposition holds in every Noetherian ring',
+      'Noetherian induction as a proof technique exploiting the chain condition',
+      "Noetherian rings as the natural setting for algebraic geometry's coordinate rings",
+    ],
+    whyItMatters:
+      "Without the Noetherian condition, an ideal could require infinitely many generators and computations could genuinely never terminate. Hilbert's Basis Theorem guarantees that the coordinate rings of algebraic varieties are always Noetherian, which is precisely why classical and modern algebraic geometry can rely on finiteness throughout.",
+    prerequisites: ['commutative-algebra:ideals'],
+    related: ['commutative-algebra:primary-decomposition', 'commutative-algebra:dimension-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      "David Hilbert proved his Basis Theorem in 1888 while studying invariant theory, showing, to some contemporaries' initial dismay since the proof was non-constructive, that rings of invariants are always finitely generated. Emmy Noether's 1921 paper Idealtheorie in Ringbereichen isolated the ascending chain condition as the essential abstract hypothesis behind Hilbert's finiteness results, and proved the general primary decomposition theorem for what are now called Noetherian rings in her honor, building on Emanuel Lasker's earlier 1905 special case for polynomial rings.",
+    contributorIds: ['person:emmy-noether', 'person:david-hilbert'],
+    workIds: [],
+    exampleProblems: [
+      'Prove Hilbert\'s Basis Theorem: if $R$ is Noetherian, then $R[x]$ is Noetherian.',
+      'Give an example of a non-Noetherian ring, and exhibit an infinite strictly ascending chain of ideals in it.',
+      'Show that a ring is Noetherian if and only if every nonempty collection of ideals has a maximal element.',
+    ],
+    applications: [
+      'algebraic geometry, where coordinate rings of varieties are Noetherian, guaranteeing finiteness of defining equations',
+      'Gröbner basis algorithms, which terminate precisely because polynomial rings are Noetherian',
+      "invariant theory, where Hilbert's original finiteness theorem guarantees finitely many generating invariants",
+    ],
+    researchDirections: [
+      "non-Noetherian commutative algebra and its use in valuation theory and arithmetic geometry",
+      "the study of Noetherian rings of infinite Krull dimension (Nagata's examples)",
+      'computational aspects of Noetherian induction in computer algebra systems',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise proof of Hilbert\'s Basis Theorem and the basic theory of Noetherian rings.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops Noetherian ring theory in full generality with an eye toward its use in algebraic geometry.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Connects the finiteness of Noetherian rings directly to computational and geometric applications.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Ascending chain condition', latex: 'I_1 \\subseteq I_2 \\subseteq \\cdots \\implies \\exists N:\\ I_n = I_N\\ \\forall n \\ge N' },
+      { label: "Hilbert's Basis Theorem", latex: 'R \\text{ Noetherian} \\implies R[x] \\text{ Noetherian}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Hilbert theorem', url: 'https://encyclopediaofmath.org/wiki/Hilbert_theorem', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:localization': {
+    overview:
+      'Localization formally "inverts" a chosen set of ring elements, letting mathematicians zoom in on the local behavior of a ring near a prime ideal in exactly the way a fraction like 1/2 only makes sense once division is allowed. It is the algebraic tool that makes "looking at one point at a time" precise.',
+    formal:
+      'For a multiplicative set $S\\subseteq R$ (closed under products, containing 1), the localization $S^{-1}R$ consists of formal fractions $r/s$ with the usual arithmetic, characterized by the universal property that it is the initial ring in which every element of $S$ becomes invertible. Localizing at the complement of a prime ideal $\\mathfrak{p}$, written $R_\\mathfrak{p}$, produces a local ring with a unique maximal ideal, letting properties of $R$ be checked one prime at a time.',
+    keyIdeas: [
+      'localization as formally inverting a multiplicative set of ring elements',
+      'the universal property characterizing $S^{-1}R$ uniquely',
+      'local rings, obtained by localizing at a prime, having a unique maximal ideal',
+      'exactness of localization: it preserves exact sequences, making it a very well-behaved operation',
+      'local-to-global principles: many properties of a ring can be checked one prime at a time',
+    ],
+    whyItMatters:
+      'Localization is what lets algebraists and geometers study a ring "near one point," analogous to how a physicist might study a system near one location without worrying about the whole space, and this local-to-global philosophy is one of the most productive organizing principles in modern algebra and geometry.',
+    prerequisites: ['commutative-algebra:noetherian-rings'],
+    related: ['commutative-algebra:dimension-theory', 'algebraic-geometry:schemes', 'number-theory:algebraic-number-theory'],
+    historicalContext:
+      "The idea of forming a field of fractions goes back implicitly to constructing the rationals from the integers, but the general ring-theoretic localization construction was developed in the 1920s-30s, particularly by Wolfgang Krull, as part of his broader program to build ideal theory and dimension theory for general commutative rings. Localization became indispensable once Oscar Zariski and later Jean-Pierre Serre and Alexander Grothendieck built algebraic geometry directly on commutative rings in the 1940s-60s, since the local ring at a point of a variety captures exactly its local geometric behavior.",
+    contributorIds: ['person:wolfgang-krull'],
+    workIds: [],
+    exampleProblems: [
+      'Construct the localization of $\\mathbb{Z}$ at the prime $(p)$, and identify its unique maximal ideal.',
+      'Show that localization is an exact functor by verifying it preserves a short exact sequence of modules.',
+      'Explain why a ring is an integral domain if and only if $0$ is a prime ideal, and describe its localization at $0$.',
+    ],
+    applications: [
+      'algebraic geometry, where the local ring at a point of a variety encodes its local behavior (smoothness, singularities)',
+      'algebraic number theory, where localizing at a prime produces local-global principles',
+      'commutative algebra\'s local-to-global techniques for verifying ring-theoretic properties',
+    ],
+    researchDirections: [
+      'completions of local rings and their role in deformation theory',
+      'the interaction between localization and homological invariants (local cohomology)',
+      'rigid and adic geometry, extending localization ideas to non-archimedean settings',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise treatment of localization and its universal property.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops local rings and localization in the depth needed for serious commutative algebra.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Connects localization explicitly to its geometric meaning at points of a variety.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Localization', latex: 'S^{-1}R = \\{r/s : r \\in R,\\ s \\in S\\}' },
+      { label: 'Local ring at a prime', latex: 'R_{\\mathfrak{p}} = (R\\setminus\\mathfrak{p})^{-1}R' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Localization in a commutative algebra', url: 'https://encyclopediaofmath.org/wiki/Localization_in_a_commutative_algebra', kind: 'encyclopedia' },
+      { label: 'MacTutor: Wolfgang Krull', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Krull/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:primary-decomposition': {
+    overview:
+      'Primary decomposition generalizes the factorization of an integer into prime powers to ideals in any Noetherian ring, expressing every ideal as a finite intersection of "primary" ideals, each concentrated around a single prime, even when the ring itself lacks unique factorization of elements.',
+    formal:
+      'An ideal $Q$ is primary if $Q\\neq R$ and $xy\\in Q$ implies $x\\in Q$ or $y^n\\in Q$ for some $n$; the radical of a primary ideal is always prime. The Lasker-Noether theorem states that every ideal $I$ in a Noetherian ring can be written as a finite intersection $I=Q_1\\cap\\cdots\\cap Q_k$ of primary ideals; while the decomposition is not unique in general, the associated primes are uniquely determined by $I$ when the decomposition is irredundant.',
+    keyIdeas: [
+      'primary ideals as the correct generalization of prime-power factorization to ideals',
+      'the Lasker-Noether theorem: every ideal in a Noetherian ring is a finite intersection of primary ideals',
+      'associated primes as the well-defined invariants of a primary decomposition, even when the decomposition itself is not unique',
+      'embedded versus isolated (minimal) associated primes',
+      "primary decomposition's geometric meaning: decomposing a variety into its irreducible components, with multiplicity",
+    ],
+    whyItMatters:
+      'Primary decomposition is the precise algebraic tool underlying the geometric fact that a variety defined by several equations typically breaks up into several irreducible pieces, some possibly with multiplicity, and this decomposition is exactly how algebraic geometers make sense of "the zero set of these equations" when it is not itself irreducible.',
+    prerequisites: ['commutative-algebra:noetherian-rings'],
+    related: ['commutative-algebra:ideals', 'commutative-algebra:dimension-theory', 'algebraic-geometry:affine-varieties'],
+    historicalContext:
+      'Emanuel Lasker, better known as world chess champion from 1894 to 1921, proved the first version of primary decomposition for polynomial rings in his 1905 paper Zur Theorie der Moduln und Ideale, motivated by questions in invariant theory. Francis Macaulay\'s 1916 book The Algebraic Theory of Modular Systems developed the theory further for polynomial ideals, and Emmy Noether\'s 1921 paper Idealtheorie in Ringbereichen generalized primary decomposition to arbitrary Noetherian rings using only the ascending chain condition.',
+    contributorIds: ['person:emmy-noether', 'person:emanuel-lasker'],
+    workIds: [],
+    exampleProblems: [
+      'Find a primary decomposition of the ideal $(x^2,xy)$ in $F[x,y]$, and identify its associated primes.',
+      'Explain why a primary decomposition need not be unique, using a specific example with an embedded prime.',
+      'Show that the radical of a primary ideal is always prime.',
+    ],
+    applications: [
+      'algebraic geometry, where primary decomposition of a defining ideal identifies the irreducible components of a variety',
+      'computer algebra systems, which compute primary decompositions algorithmically via Gröbner bases',
+      "algebraic number theory's factorization of ideals, a special case where primary decomposition reduces to ordinary prime factorization",
+    ],
+    researchDirections: [
+      'algorithmic and computational primary decomposition for large polynomial ideals',
+      'connections between primary decomposition and local cohomology',
+      'generalizations of primary decomposition to non-Noetherian and non-commutative settings',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise proof of the Lasker-Noether theorem and the theory of associated primes.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Develops primary decomposition with a constant eye toward its geometric interpretation.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Treats primary decomposition rigorously alongside the broader theory of Noetherian rings.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Primary ideal', latex: 'xy \\in Q \\implies x \\in Q \\text{ or } y^n \\in Q \\text{ for some } n' },
+      { label: 'Lasker-Noether decomposition', latex: 'I = Q_1 \\cap \\cdots \\cap Q_k' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Primary decomposition', url: 'https://en.wikipedia.org/wiki/Primary_decomposition', kind: 'encyclopedia' },
+      { label: 'MacTutor: Emanuel Lasker', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Lasker/', kind: 'reference' },
+      { label: 'MacTutor: Emmy Noether', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Noether_Emmy/', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:dimension-theory': {
+    overview:
+      'Krull dimension measures the "size" of a commutative ring geometrically, by counting the longest possible chain of strictly increasing prime ideals — a purely algebraic definition that, remarkably, recovers exactly the familiar geometric dimension when applied to the coordinate ring of a variety.',
+    formal:
+      'The Krull dimension of a ring $R$ is the supremum of lengths $n$ of chains of prime ideals $\\mathfrak{p}_0\\subsetneq\\mathfrak{p}_1\\subsetneq\\cdots\\subsetneq\\mathfrak{p}_n$. Krull\'s Principal Ideal Theorem states that in a Noetherian ring, every minimal prime over a principal ideal $(f)$ has height at most 1, and more generally, every minimal prime over an ideal generated by $n$ elements has height at most $n$. For a finitely generated algebra over a field, the Krull dimension equals the transcendence degree of its fraction field.',
+    keyIdeas: [
+      'Krull dimension: the length of the longest chain of strictly increasing prime ideals',
+      "Krull's Principal Ideal Theorem (Hauptidealsatz) bounding the height of primes over few generators",
+      'the agreement of Krull dimension with transcendence degree and geometric dimension for varieties',
+      'regular local rings as the algebraic analogue of smooth points',
+      'height and coheight of a prime ideal as local dimension invariants',
+    ],
+    whyItMatters:
+      'Krull dimension is the algebraic definition that makes "dimension" meaningful for rings with no obvious geometric picture at all, and its exact agreement with geometric notions of dimension when a geometric picture does exist is powerful evidence that commutative algebra has found the right abstract generalization of a concept that originated purely visually.',
+    prerequisites: ['commutative-algebra:localization'],
+    related: ['commutative-algebra:cohen-macaulay-rings', 'algebraic-geometry:affine-varieties', 'abstract-algebra:field-theory'],
+    historicalContext:
+      "Wolfgang Krull developed dimension theory for general commutative Noetherian rings through the 1920s-30s, proving the Principal Ideal Theorem in 1928, from which the finiteness of Krull dimension for Noetherian local rings follows, as part of his program to extend ideal theory beyond algebraic number rings and polynomial rings. Oscar Zariski and later Claude Chevalley and Jean-Pierre Serre in the 1940s-50s connected Krull's algebraic dimension theory rigorously to the classical, geometric notion of dimension for algebraic varieties.",
+    contributorIds: ['person:wolfgang-krull'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the Krull dimension of a field is 0, and the Krull dimension of $\\mathbb{Z}$ is 1, by exhibiting maximal chains of prime ideals.',
+      'Use Krull\'s Principal Ideal Theorem to explain why a single equation in $n$-space "should" cut out an $(n-1)$-dimensional variety.',
+      'Compute the Krull dimension of $F[x,y]/(y-x^2)$ and relate it to the transcendence degree of its fraction field.',
+    ],
+    applications: [
+      'algebraic geometry, where the Krull dimension of a coordinate ring matches the geometric dimension of the corresponding variety',
+      'the study of regular versus singular points of a variety via regular local rings',
+      'computational algebraic geometry, where dimension computations guide algorithm complexity',
+    ],
+    researchDirections: [
+      "the dimension theory of non-Noetherian and infinite-dimensional rings (Nagata's pathological examples)",
+      'connections between Krull dimension and homological (global) dimension of a ring',
+      'dimension theory in mixed-characteristic and arithmetic settings, relevant to modern arithmetic geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the standard concise treatment of Krull dimension and the principal ideal theorem.',
+      },
+      {
+        title: 'Commutative Ring Theory',
+        authors: ['Hideyuki Matsumura'],
+        year: 1989,
+        why: 'Develops dimension theory in full generality, including regular local rings.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Ties Krull dimension explicitly to geometric dimension throughout.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Krull dimension', latex: '\\dim(R) = \\sup\\{n : \\mathfrak{p}_0 \\subsetneq \\cdots \\subsetneq \\mathfrak{p}_n\\}' },
+      { label: "Krull's Principal Ideal Theorem", latex: '\\text{ht}(\\mathfrak{p}) \\le n \\quad (\\mathfrak{p} \\text{ minimal over an } n\\text{-generated ideal})' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Krull dimension', url: 'https://en.wikipedia.org/wiki/Krull_dimension', kind: 'encyclopedia' },
+      { label: 'MacTutor: Wolfgang Krull', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Krull/', kind: 'reference' },
+      { label: 'MacTutor: search for Zariski', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Zariski', kind: 'reference' },
+    ],
+  },
+  'commutative-algebra:cohen-macaulay-rings': {
+    overview:
+      'A Cohen-Macaulay ring is one where the algebraic notion of "depth" — measuring how many independent equations can be successively imposed without collapsing everything — matches the geometric notion of dimension exactly, a condition that characterizes precisely the well-behaved, unmixed varieties that avoid a host of pathologies.',
+    formal:
+      'For a commutative Noetherian local ring $(R,\\mathfrak{m})$, the depth of $R$ is the length of the longest regular sequence in $\\mathfrak{m}$; always $\\text{depth}(R)\\le\\dim(R)$. $R$ is Cohen-Macaulay if $\\text{depth}(R)=\\dim(R)$. Every regular local ring is Cohen-Macaulay, and Cohen-Macaulay rings satisfy the unmixedness theorem: every associated prime of an ideal generated by a full system of parameters has the expected dimension.',
+    keyIdeas: [
+      'depth as the length of the longest regular sequence, always at most the Krull dimension',
+      'Cohen-Macaulay rings as exactly those where depth equals dimension',
+      'the unmixedness theorem: Cohen-Macaulay rings have no unexpected embedded or excess components',
+      'regular local rings (smooth points) as a special case of Cohen-Macaulay rings',
+      'Cohen-Macaulay rings as the right generality for many results in intersection theory and duality',
+    ],
+    whyItMatters:
+      'The Cohen-Macaulay condition is exactly the right hypothesis under which a long list of otherwise fragile results in commutative algebra and algebraic geometry — dimension formulas for intersections, duality theorems, Bézout-style counting — hold without exception, which is why "Cohen-Macaulay" functions as a general-purpose certificate of good behavior.',
+    prerequisites: ['commutative-algebra:dimension-theory'],
+    related: ['abstract-algebra:homological-algebra', 'algebraic-geometry:cohomology', 'combinatorics:extremal-combinatorics'],
+    historicalContext:
+      'Francis Macaulay proved the unmixedness theorem for ideals in polynomial rings in his 1916 book The Algebraic Theory of Modular Systems, and Irvin Cohen extended the unmixedness theorem to formal power series rings in 1946. Jean-Pierre Serre and others in the 1950s-60s recognized that the depth-equals-dimension condition underlying both results was the right general notion, coining the term "Cohen-Macaulay ring," and the condition subsequently proved indispensable in intersection theory, local duality, and the theory of Gorenstein rings, a further refinement studied extensively afterward.',
+    contributorIds: ['person:francis-macaulay', 'person:irvin-cohen'],
+    workIds: [],
+    exampleProblems: [
+      'Show that a regular local ring is Cohen-Macaulay, using the fact that a regular system of parameters is automatically a regular sequence.',
+      'Give an example of a Noetherian local ring that is not Cohen-Macaulay, and identify why depth falls short of dimension.',
+      'Explain the unmixedness theorem\'s geometric meaning for a variety defined by a system of parameters.',
+    ],
+    applications: [
+      'intersection theory in algebraic geometry, where Cohen-Macaulay hypotheses guarantee expected-dimension intersections',
+      'local duality and canonical modules, central to modern algebraic geometry and commutative algebra',
+      'combinatorial commutative algebra, where Cohen-Macaulay simplicial complexes connect to shellability and face-ring theory',
+    ],
+    researchDirections: [
+      'combinatorial characterizations of Cohen-Macaulay simplicial complexes (Stanley-Reisner theory)',
+      'Cohen-Macaulay and Gorenstein properties of rings of invariants under group actions',
+      'the interaction of the Cohen-Macaulay property with singularities in birational geometry',
+    ],
+    textbooks: [
+      {
+        title: 'Cohen-Macaulay Rings',
+        authors: ['Winfried Bruns', 'Jürgen Herzog'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The standard dedicated monograph, covering the theory from foundations through combinatorial applications.',
+      },
+      {
+        title: 'Introduction to Commutative Algebra',
+        authors: ['M. F. Atiyah', 'I. G. Macdonald'],
+        year: 1969,
+        why: 'Gives the basic notions of depth and regular sequences needed before tackling Bruns-Herzog.',
+      },
+      {
+        title: 'Commutative Algebra with a View Toward Algebraic Geometry',
+        authors: ['David Eisenbud'],
+        year: 1995,
+        why: 'Develops the Cohen-Macaulay property with extensive geometric motivation and examples.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Depth-dimension inequality', latex: '\\text{depth}(R) \\le \\dim(R)' },
+      { label: 'Cohen-Macaulay condition', latex: '\\text{depth}(R) = \\dim(R)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cohen-Macaulay ring', url: 'https://encyclopediaofmath.org/wiki/Cohen-Macaulay_ring', kind: 'encyclopedia' },
+      { label: 'MacTutor: Francis Macaulay', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Macaulay/', kind: 'reference' },
+      { label: 'Wikipedia: Irvin Cohen', url: 'https://en.wikipedia.org/wiki/Irvin_Cohen', kind: 'encyclopedia' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -6102,6 +6493,10 @@ const personRows = [
   ['Ludwig Sylow', '1832-1918', 'Norway', 'abstract-algebra', 'the Sylow theorems on subgroups of finite groups'],
   ['Emil Artin', '1898-1962', 'Austria/USA', 'abstract-algebra', 'Artinian rings, Artin-Schreier theory, and the automorphism-group formulation of Galois theory'],
   ['Henri Cartan', '1904-2008', 'France', 'abstract-algebra', 'homological algebra and the Cartan-Eilenberg framework'],
+  ['Wolfgang Krull', '1899-1971', 'Germany', 'commutative-algebra', 'localization, Krull dimension, and the principal ideal theorem'],
+  ['Emanuel Lasker', '1868-1941', 'Germany', 'commutative-algebra', 'primary decomposition of ideals'],
+  ['Irvin Cohen', '1917-1955', 'USA', 'commutative-algebra', 'the unmixedness theorem for power series rings'],
+  ['Francis Macaulay', '1862-1937', 'United Kingdom', 'commutative-algebra', 'the unmixedness theorem for polynomial rings'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -6148,6 +6543,8 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:rings',
     'algebra:modules',
     'number-theory:algebraic-number-theory',
+    'commutative-algebra:ideals',
+    'commutative-algebra:noetherian-rings',
   ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
   'person:bernhard-riemann': [
@@ -6184,12 +6581,15 @@ const personTopicOverrides: Record<string, string[]> = {
     'algebra:rings',
     'algebra:modules',
     'topology:homology',
+    'commutative-algebra:noetherian-rings',
+    'commutative-algebra:primary-decomposition',
   ],
   'person:richard-dedekind': [
     'set-theory:naive-set-theory',
     'algebra:rings',
     'algebra:modules',
     'number-theory:algebraic-number-theory',
+    'commutative-algebra:ideals',
   ],
   'person:hermann-weyl': ['mathematical-physics:classical-mechanics', 'algebra:representations'],
   'person:ernst-steinitz': ['algebra:fields', 'abstract-algebra:field-theory'],
@@ -6258,6 +6658,10 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:ludwig-sylow': ['abstract-algebra:group-theory'],
   'person:emil-artin': ['abstract-algebra:ring-theory', 'abstract-algebra:field-theory', 'abstract-algebra:galois-theory'],
   'person:henri-cartan': ['abstract-algebra:homological-algebra'],
+  'person:wolfgang-krull': ['commutative-algebra:localization', 'commutative-algebra:dimension-theory'],
+  'person:emanuel-lasker': ['commutative-algebra:primary-decomposition'],
+  'person:irvin-cohen': ['commutative-algebra:cohen-macaulay-rings'],
+  'person:francis-macaulay': ['commutative-algebra:cohen-macaulay-rings'],
 };
 
 export const people: Person[] = personRows.map(

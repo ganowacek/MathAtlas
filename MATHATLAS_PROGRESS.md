@@ -30,7 +30,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] set-theory
 - [x] category-theory
 - [x] abstract-algebra
-- [ ] commutative-algebra
+- [x] commutative-algebra
 - [ ] algebraic-geometry
 - [ ] geometry
 - [ ] differential-geometry
