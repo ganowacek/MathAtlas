@@ -32,7 +32,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 - [x] abstract-algebra
 - [x] commutative-algebra
 - [x] algebraic-geometry
-- [ ] geometry
+- [x] geometry
 - [ ] differential-geometry
 - [ ] real-analysis
 - [ ] complex-analysis

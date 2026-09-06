@@ -6635,6 +6635,404 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: Bernhard Riemann', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/', kind: 'reference' },
     ],
   },
+  'geometry:euclidean-geometry': {
+    overview:
+      "Euclidean geometry is the geometry of flat space governed by Euclid's axioms, especially the parallel postulate, and it remained the unquestioned model of physical space for over two thousand years before 19th-century mathematicians discovered equally consistent alternatives.",
+    formal:
+      "Euclid's Elements builds plane and solid geometry from five postulates, most famously the parallel postulate: through a point not on a line, there is exactly one line parallel to it. David Hilbert's Grundlagen der Geometrie (1899) gave a complete, rigorous axiomatization using 20 axioms in five groups (incidence, order, congruence, parallels, continuity), proving the resulting system is consistent, relative to the real numbers, and categorical: any two models of the axioms are isomorphic.",
+    keyIdeas: [
+      "the parallel postulate and its historically central, uniquely troublesome role among Euclid's axioms",
+      "Hilbert's complete re-axiomatization, filling logical gaps in Euclid's original treatment",
+      'congruence, similarity, and the classical construction problems (compass and straightedge)',
+      'the real Euclidean plane and space as the essentially unique model satisfying the full axiom system',
+      'isometries (rotations, reflections, translations) as the symmetries preserving Euclidean structure',
+    ],
+    whyItMatters:
+      "Euclidean geometry was, for two thousand years, mathematics's flagship example of certain knowledge derived by pure reason from self-evident axioms, and the eventual discovery that its parallel postulate is logically independent — that equally consistent geometries exist without it — was one of the most conceptually revolutionary discoveries in the history of thought, redefining what an axiom even means.",
+    prerequisites: [],
+    related: ['geometry:non-euclidean-geometry', 'foundations:axiomatic-method', 'geometry:projective-geometry'],
+    historicalContext:
+      "Euclid's Elements (c. 300 BCE) systematized centuries of prior Greek geometry (Thales, Pythagoras, Eudoxus) into a single deductive structure from five postulates. For two millennia, mathematicians tried and failed to prove the parallel postulate from the other four, until Gauss, Bolyai, and Lobachevsky independently realized in the 1820s-30s that denying it produces an equally consistent geometry. David Hilbert's Grundlagen der Geometrie (1899) then closed the remaining logical gaps in Euclid's original axioms, which relied on unstated assumptions about betweenness and continuity, giving Euclidean geometry, for the first time, a fully rigorous foundation.",
+    contributorIds: ['person:euclid', 'person:david-hilbert'],
+    workIds: ['work:elements'],
+    exampleProblems: [
+      'Using only compass and straightedge, construct a regular hexagon inscribed in a given circle.',
+      'Explain why "the sum of angles in a triangle is 180 degrees" depends logically on the parallel postulate.',
+      "Describe one axiom Hilbert added that Euclid's original system implicitly assumed without stating.",
+    ],
+    applications: [
+      'architecture, engineering, and design, where Euclidean measurements and constructions remain the practical standard',
+      'computer graphics and CAD software, built on Euclidean transformations and distances',
+      'physics at everyday, non-relativistic scales, where space is modeled as Euclidean to excellent approximation',
+    ],
+    researchDirections: [
+      'computational and algorithmic Euclidean geometry for graphics and robotics',
+      'the automated and formalized verification of classical Euclidean theorems in proof assistants',
+      "generalized and synthetic axiomatic geometries building on Hilbert's methodology",
+    ],
+    textbooks: [
+      {
+        title: 'Introduction to Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '2nd',
+        year: 1969,
+        why: 'A classic, wide-ranging text covering classical Euclidean geometry with exceptional clarity and breadth.',
+      },
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: "The standard text for seeing Euclid's axioms rebuilt rigorously and contrasted with their non-Euclidean alternatives.",
+      },
+      {
+        title: 'Euclid\'s Elements',
+        authors: ['Euclid', 'trans. Thomas L. Heath'],
+        edition: 'Green Lion Press',
+        year: 2002,
+        why: "Heath's classic annotated translation, still the standard way to read Euclid's original axiomatic method directly.",
+      },
+    ],
+    keyFormulas: [
+      { label: 'Parallel postulate (Playfair form)', latex: '\\text{through } P \\notin \\ell,\\ \\exists! \\text{ line parallel to } \\ell' },
+      { label: 'Pythagorean theorem', latex: 'a^2+b^2=c^2' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Euclidean geometry', url: 'https://encyclopediaofmath.org/wiki/Euclidean_geometry', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Hilbert system of axioms', url: 'https://encyclopediaofmath.org/wiki/Hilbert_system_of_axioms', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Euclid', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Euclid', kind: 'reference' },
+    ],
+  },
+  'geometry:non-euclidean-geometry': {
+    overview:
+      "Non-Euclidean geometries replace Euclid's parallel postulate with an alternative — either no parallels exist (elliptic/spherical geometry) or infinitely many do (hyperbolic geometry) — producing internally consistent geometric systems that describe curved rather than flat space.",
+    formal:
+      'In hyperbolic geometry, through a point not on a line there are infinitely many parallels, and the angle sum of a triangle is always less than $\\pi$, with the defect $\\pi-(\\alpha+\\beta+\\gamma)$ proportional to the triangle\'s area. In elliptic geometry, no parallels exist through an external point, and the angle sum exceeds $\\pi$. Eugenio Beltrami (1868) and later Henri Poincaré gave concrete models (the Klein disk, the Poincaré disk and half-plane) realizing hyperbolic geometry inside ordinary Euclidean space, proving it is exactly as consistent as Euclidean geometry itself.',
+    keyIdeas: [
+      "replacing Euclid's parallel postulate: zero parallels (elliptic) versus infinitely many (hyperbolic)",
+      'the angle-defect/excess of a triangle as a direct measure of curvature',
+      'models of hyperbolic geometry (Klein, Poincaré disk, upper half-plane) realized inside Euclidean space',
+      'constant negative curvature (hyperbolic) versus constant positive curvature (elliptic/spherical)',
+      'the relative consistency proof: non-Euclidean geometry is consistent if and only if Euclidean geometry is',
+    ],
+    whyItMatters:
+      "The discovery of non-Euclidean geometry proved that Euclid's parallel postulate is not a self-evident truth but a genuine, independent choice, definitively resolving a two-thousand-year-old open question and revealing that mathematical axioms describe possible structures rather than uniquely dictated truths about the physical world — a lesson vindicated dramatically when Einstein's general relativity described actual physical spacetime as curved.",
+    prerequisites: ['geometry:euclidean-geometry'],
+    related: ['differential-geometry:riemannian-metrics', 'differential-geometry:curvature', 'topology:manifolds'],
+    historicalContext:
+      "Carl Friedrich Gauss privately developed non-Euclidean geometry as early as the 1810s-20s but, fearing controversy, never published his findings. Nikolai Lobachevsky publicly presented his 'imaginary geometry' in 1826, published 1829-30, and János Bolyai independently discovered the same hyperbolic geometry, publishing it as an appendix to his father's book in 1832; Gauss's private correspondence later confirmed he had anticipated both. Eugenio Beltrami's 1868 paper gave the first concrete model proving hyperbolic geometry's consistency relative to Euclidean geometry, and Bernhard Riemann's 1854 lecture generalized the whole framework to arbitrary curved spaces, of which elliptic geometry is a special case.",
+    contributorIds: ['person:nikolai-lobachevsky', 'person:janos-bolyai', 'person:eugenio-beltrami'],
+    workIds: [],
+    exampleProblems: [
+      'Show that the angle sum of a triangle in the Poincaré disk model is always less than $\\pi$, using a specific example.',
+      'Explain why "similar but non-congruent triangles" cannot exist in hyperbolic geometry, unlike in Euclidean geometry.',
+      'Describe how the Beltrami-Klein model represents hyperbolic lines as straight Euclidean chords of a disk.',
+    ],
+    applications: [
+      'general relativity, where spacetime is modeled as a pseudo-Riemannian manifold that is locally non-Euclidean',
+      'hyperbolic embeddings for modeling complex networks and hierarchical data in machine learning',
+      "art and design, such as M.C. Escher's hyperbolic tessellations",
+    ],
+    researchDirections: [
+      'geometric group theory, studying groups via hyperbolic and other non-Euclidean geometric actions',
+      "hyperbolic 3-manifolds and their classification, following Thurston's geometrization program",
+      'hyperbolic embeddings for hierarchical and network data in machine learning',
+    ],
+    textbooks: [
+      {
+        title: 'Euclidean and Non-Euclidean Geometries',
+        authors: ['Marvin Jay Greenberg'],
+        edition: '4th',
+        year: 2007,
+        why: 'The standard text moving carefully from the axioms through to the classical non-Euclidean models.',
+      },
+      {
+        title: 'Non-Euclidean Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '6th',
+        year: 1998,
+        why: 'A classic dedicated treatment covering both hyperbolic and elliptic geometry in depth.',
+      },
+      {
+        title: 'Hyperbolic Geometry',
+        authors: ['James W. Anderson'],
+        edition: '2nd',
+        year: 2005,
+        why: 'A modern, accessible introduction focused specifically on hyperbolic geometry and its models.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Hyperbolic angle defect', latex: '\\text{Area} \\propto \\pi - (\\alpha+\\beta+\\gamma)' },
+      { label: 'Elliptic angle excess', latex: '\\alpha+\\beta+\\gamma > \\pi' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Non-Euclidean geometries', url: 'https://encyclopediaofmath.org/wiki/Non-Euclidean_geometries', kind: 'encyclopedia' },
+      { label: 'MacTutor: János Bolyai', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Bolyai/', kind: 'reference' },
+      { label: 'MacTutor: search for Lobachevsky', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Lobachevsky', kind: 'reference' },
+    ],
+  },
+  'geometry:projective-geometry': {
+    overview:
+      'Projective geometry studies properties that survive under projection — what stays true when a scene is viewed in perspective from a different vantage point — by treating points at infinity on the same footing as ordinary points, so that "parallel" disappears and only incidence remains fundamental.',
+    formal:
+      "The real projective plane $\\mathbb{RP}^2$ consists of lines through the origin in $\\mathbb{R}^3$; two distinct points determine a unique line, and, unlike the Euclidean plane, any two distinct lines meet in a unique point. Desargues's theorem: two triangles are perspective from a point if and only if they are perspective from a line. The principle of duality states that swapping 'point' and 'line' in any true statement of projective geometry produces another true statement.",
+    keyIdeas: [
+      'projective space as ordinary space plus points and a line/hyperplane "at infinity"',
+      'incidence as the sole fundamental relation, with no notion of parallel, length, or angle',
+      'the principle of duality between points and lines',
+      "Desargues's and Pappus's theorems as the classical foundational results",
+      'cross-ratio as the fundamental invariant of projective transformations',
+    ],
+    whyItMatters:
+      "Projective geometry's decision to treat points at infinity as ordinary points removes case distinctions, parallel versus intersecting lines, that clutter Euclidean geometry, and Felix Klein's Erlangen program (1872) later revealed projective geometry as the most general classical geometry, from which Euclidean, affine, and non-Euclidean geometries can all be recovered as the geometry of specific subgroups of projective transformations.",
+    prerequisites: ['geometry:non-euclidean-geometry'],
+    related: ['algebraic-geometry:projective-varieties', 'linear-algebra:vector-spaces', 'geometry:incidence-geometry'],
+    historicalContext:
+      "Girard Desargues developed the foundational ideas of projective geometry in a 1639 treatise on conic sections, introducing points and lines at infinity, though his idiosyncratic terminology meant the work was largely ignored for two centuries. Jean-Victor Poncelet revived and systematically developed the subject in his Traité des propriétés projectives des figures (1822), written partly while a prisoner of war in Russia, establishing the principle of duality and projective invariants as central organizing ideas. Felix Klein's 1872 Erlangen program then placed projective geometry at the top of a hierarchy of geometries, classified by which transformation group's invariants each studies.",
+    contributorIds: ['person:jean-victor-poncelet', 'person:felix-klein'],
+    workIds: [],
+    exampleProblems: [
+      "Verify Desargues's theorem for a specific pair of perspective triangles in the plane.",
+      "State the principle of duality and use it to derive the dual of Pappus's theorem.",
+      'Compute the cross-ratio of four collinear points and verify it is preserved under a specific projective transformation.',
+    ],
+    applications: [
+      'computer vision and photogrammetry, where projective transformations model how a camera maps 3D scenes to 2D images',
+      'computer graphics, using projective transformations for perspective rendering',
+      'coding theory, using projective spaces over finite fields to construct error-correcting codes',
+    ],
+    researchDirections: [
+      'finite projective geometries and their combinatorial structure, connecting to design theory and coding theory',
+      'the classification of projective varieties in algebraic geometry, generalizing classical projective geometry',
+      'computer vision\'s ongoing use of projective geometry for 3D reconstruction from multiple images',
+    ],
+    textbooks: [
+      {
+        title: 'Projective Geometry',
+        authors: ['H. S. M. Coxeter'],
+        edition: '2nd',
+        year: 1974,
+        why: 'The classic, widely used introduction to synthetic projective geometry.',
+      },
+      {
+        title: 'Perspectives on Projective Geometry',
+        authors: ['Jürgen Richter-Gebert'],
+        year: 2011,
+        why: 'A modern, richly illustrated treatment connecting classical results to computational and algebraic viewpoints.',
+      },
+      {
+        title: 'Foundations of Projective Geometry',
+        authors: ['Robin Hartshorne'],
+        year: 1967,
+        why: 'A classic axiomatic treatment linking projective geometry directly to the foundations of geometry.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Cross-ratio', latex: '(A,B;C,D) = \\frac{AC \\cdot BD}{AD \\cdot BC}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Projective space', url: 'https://encyclopediaofmath.org/wiki/Projective_space', kind: 'encyclopedia' },
+      { label: 'Encyclopedia of Mathematics: Collineation', url: 'https://encyclopediaofmath.org/wiki/Collineation', kind: 'encyclopedia' },
+      { label: 'MacTutor: Jean-Victor Poncelet', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Poncelet/', kind: 'reference' },
+    ],
+  },
+  'geometry:convex-geometry': {
+    overview:
+      'Convex geometry studies convex sets — those containing the entire line segment between any two of their points — a simple-sounding condition that turns out to control an enormous range of behavior in geometry, optimization, and analysis, from the shape of soap bubbles to the feasible regions of linear programs.',
+    formal:
+      'A set $K\\subseteq\\mathbb{R}^n$ is convex if $tx+(1-t)y\\in K$ for all $x,y\\in K$ and $t\\in[0,1]$. Every convex body is the intersection of its supporting half-spaces, and the Brunn-Minkowski inequality relates the volume of a Minkowski sum $A+B=\\{a+b:a\\in A,b\\in B\\}$ to the volumes of $A$ and $B$: $\\text{vol}(A+B)^{1/n}\\ge\\text{vol}(A)^{1/n}+\\text{vol}(B)^{1/n}$. Minkowski\'s lattice point theorem states that a symmetric convex body of volume greater than $2^n$ in $\\mathbb{R}^n$ must contain a nonzero point of the integer lattice.',
+    keyIdeas: [
+      'convexity: containing the full segment between any two points',
+      'supporting hyperplanes and the representation of convex bodies as intersections of half-spaces',
+      'the Brunn-Minkowski inequality relating volumes of Minkowski sums',
+      "Minkowski's lattice point theorem, launching the geometry of numbers",
+      'convex duality and polarity, exchanging a convex body for a dual description via supporting hyperplanes',
+    ],
+    whyItMatters:
+      "Convexity is the single geometric property that makes optimization tractable — a convex function has no misleading local minima to get trapped in — which is why convex geometry sits directly underneath linear and convex programming, and Minkowski's convex-geometric methods in the geometry of numbers gave number theory a genuinely new, visual set of tools for proving results that had previously required only algebraic techniques.",
+    prerequisites: ['geometry:projective-geometry'],
+    related: ['optimization:convex-optimization', 'number-theory:algebraic-number-theory', 'geometry:discrete-geometry'],
+    historicalContext:
+      "Hermann Minkowski founded the systematic theory of convex bodies in his Geometrie der Zahlen (1896), proving his eponymous lattice point theorem and using convex-geometric arguments to derive new results in algebraic number theory, launching the field he called the geometry of numbers. Minkowski's work on convex bodies and volumes, developed further in the posthumously published Theorie der konvexen Körper, established supporting hyperplanes, mixed volumes, and the Brunn-Minkowski inequality, building on Hermann Brunn's 1887 special case, as the field's central tools.",
+    contributorIds: ['person:hermann-minkowski'],
+    workIds: [],
+    exampleProblems: [
+      'Prove that the intersection of any collection of convex sets is convex.',
+      "Use Minkowski's lattice point theorem to show that a symmetric convex region of area greater than 4 in the plane contains a nonzero integer lattice point.",
+      'Verify the Brunn-Minkowski inequality for two specific intervals on the real line.',
+    ],
+    applications: [
+      'linear and convex optimization, where feasible regions and objective functions rely fundamentally on convexity',
+      "the geometry of numbers, using convex bodies to prove results in algebraic number theory (Minkowski's bound on class numbers)",
+      'computer graphics and computational geometry, using convex hulls for collision detection and shape approximation',
+    ],
+    researchDirections: [
+      'high-dimensional convex geometry and concentration of measure phenomena',
+      'algorithmic convex geometry, including volume computation and sampling from high-dimensional convex bodies',
+      'connections between convex geometry and information theory via entropy and volume inequalities',
+    ],
+    textbooks: [
+      {
+        title: 'Convex Bodies: The Brunn-Minkowski Theory',
+        authors: ['Rolf Schneider'],
+        edition: '2nd',
+        year: 2013,
+        why: 'The standard advanced reference on the theory of convex bodies and their volume inequalities.',
+      },
+      {
+        title: 'A Course in Convexity',
+        authors: ['Alexander Barvinok'],
+        year: 2002,
+        why: 'An accessible, well-regarded graduate introduction connecting convex geometry to optimization.',
+      },
+      {
+        title: 'Convex Analysis',
+        authors: ['R. Tyrrell Rockafellar'],
+        year: 1970,
+        why: 'The classic foundational text on convex functions and sets, bridging geometry and optimization.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Convexity condition', latex: 'tx + (1-t)y \\in K \\quad \\forall x,y \\in K,\\ t \\in [0,1]' },
+      { label: 'Brunn-Minkowski inequality', latex: '\\text{vol}(A+B)^{1/n} \\ge \\text{vol}(A)^{1/n} + \\text{vol}(B)^{1/n}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Convex set', url: 'https://encyclopediaofmath.org/wiki/Convex_set', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hermann Minkowski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Minkowski/', kind: 'reference' },
+      { label: 'Wikipedia: Convex geometry', url: 'https://en.wikipedia.org/wiki/Convex_geometry', kind: 'encyclopedia' },
+    ],
+  },
+  'geometry:discrete-geometry': {
+    overview:
+      'Discrete geometry studies combinatorial questions about finite or discrete configurations of geometric objects — points, lines, circles, polytopes — such as how densely circles can be packed, or how a polytope\'s faces fit together, blending geometric intuition with combinatorial counting.',
+    formal:
+      "The Kepler conjecture, proved by Thomas Hales (1998, formally verified 2014), states that no packing of equal spheres in three-dimensional space exceeds the density of the face-centered cubic packing, $\\pi/\\sqrt{18}\\approx 0.7405$. Euler's polyhedron formula $V-E+F=2$ relates the vertices, edges, and faces of any convex polyhedron. Helly's theorem: if every $d+1$ of a finite collection of convex sets in $\\mathbb{R}^d$ have a common point, then all of them do.",
+    keyIdeas: [
+      'packing and covering problems: how densely can objects be arranged without overlap',
+      "Euler's formula V - E + F = 2 relating vertices, edges, and faces of polyhedra and planar graphs",
+      "Helly's theorem and its combinatorial cousins",
+      'combinatorics of polytopes: face counting, the upper bound theorem, and duality',
+      'the extremal, "how many/how few" style of question characteristic of discrete geometry',
+    ],
+    whyItMatters:
+      'Discrete geometry answers exactly the kind of question a physicist, chemist, or engineer actually needs — how should spheres be packed to store the most cargo, or atoms in a crystal — and the surprising difficulty of even stating such questions rigorously, let alone proving optimal packings (the Kepler conjecture took nearly 400 years to resolve), shows how much genuine mathematical depth hides in apparently simple physical arrangements.',
+    prerequisites: ['geometry:convex-geometry'],
+    related: ['combinatorics:extremal-combinatorics', 'geometry:incidence-geometry', 'graph-theory:planar-graphs'],
+    historicalContext:
+      'Johannes Kepler conjectured in 1611 that the familiar cannonball/orange-stacking arrangement gives the densest possible sphere packing, a claim that resisted proof for nearly four centuries. Leonhard Euler discovered his polyhedron formula around 1750, launching the systematic combinatorial study of polyhedra. The 20th century saw discrete geometry mature into a distinct field through the work of László Fejes Tóth on packing and covering from the 1940s onward, and Thomas Hales finally proved the Kepler conjecture in 1998 using an extensive computer-assisted case analysis, formally verified by the Flyspeck project in 2014.',
+    contributorIds: ['person:hermann-minkowski'],
+    workIds: [],
+    exampleProblems: [
+      "Verify Euler's formula V - E + F = 2 for a cube and for a tetrahedron.",
+      "Use Helly's theorem to show that if every three of several convex sets in the plane share a common point, then all of them do.",
+      'Explain, in outline, why proving the Kepler conjecture was so difficult despite the packing itself being familiar and easy to describe.',
+    ],
+    applications: [
+      'materials science and chemistry, where sphere packing models crystal structures',
+      'coding theory, where sphere packings in high-dimensional space correspond to error-correcting codes',
+      'computational geometry algorithms for mesh generation, collision detection, and geographic information systems',
+    ],
+    researchDirections: [
+      'high-dimensional sphere packing, following the recent resolutions of the packing problem in dimensions 8 and 24 by Maryna Viazovska',
+      'the combinatorics of polytopes in high dimensions and their face lattices',
+      'algorithmic and computational aspects of packing, covering, and arrangement problems',
+    ],
+    textbooks: [
+      {
+        title: 'Lectures on Discrete Geometry',
+        authors: ['Jiří Matoušek'],
+        year: 2002,
+        why: 'The standard modern graduate text, covering the full range of discrete geometry topics with a computational flavor.',
+      },
+      {
+        title: 'Combinatorial Geometry',
+        authors: ['János Pach', 'Pankaj K. Agarwal'],
+        year: 1995,
+        why: 'A widely cited text connecting discrete geometry to combinatorics and computational applications.',
+      },
+      {
+        title: 'Convex and Discrete Geometry',
+        authors: ['Peter M. Gruber'],
+        year: 2007,
+        why: 'A comprehensive reference bridging convex and discrete geometry in one volume.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Euler's polyhedron formula", latex: 'V - E + F = 2' },
+      { label: 'Kepler conjecture (density bound)', latex: '\\delta \\le \\frac{\\pi}{\\sqrt{18}} \\approx 0.7405' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Discrete geometry', url: 'https://en.wikipedia.org/wiki/Discrete_geometry', kind: 'encyclopedia' },
+      { label: 'MacTutor: Hermann Minkowski', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Minkowski/', kind: 'reference' },
+      { label: 'MacTutor: search for Kepler', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Kepler', kind: 'reference' },
+    ],
+  },
+  'geometry:incidence-geometry': {
+    overview:
+      'Incidence geometry strips geometry down to its barest bones — points, lines, and a relation of "lying on" between them — and asks purely combinatorial questions, most famously how many times a large collection of points and lines can possibly touch each other, questions that turn out to have surprisingly sharp and useful answers.',
+    formal:
+      'An incidence structure is a set of points $P$, a set of lines $L$, and an incidence relation $I\\subseteq P\\times L$. The Szemerédi-Trotter theorem bounds the maximum number of incidences between $n$ points and $m$ lines in the plane: $I(P,L)=O(n^{2/3}m^{2/3}+n+m)$, tight up to the constant. A finite projective plane of order $q$ has $q^2+q+1$ points and $q^2+q+1$ lines, each line containing exactly $q+1$ points and each point lying on exactly $q+1$ lines.',
+    keyIdeas: [
+      'incidence structures: points, lines, and a bare "lies on" relation, stripped of metric information',
+      'the Szemerédi-Trotter theorem as the sharp bound on point-line incidences',
+      'finite projective planes as combinatorial incidence structures, existing for every prime power order',
+      'the polynomial method as a modern technique for proving incidence bounds',
+      "incidence geometry's deep connections to combinatorics, additive number theory, and computer science",
+    ],
+    whyItMatters:
+      "The Szemerédi-Trotter incidence theorem looks like a narrow, technical combinatorial fact, but it is a genuinely load-bearing tool across mathematics, powering results in additive combinatorics (sum-product estimates), theoretical computer science (range searching lower bounds), and the study of distinct distances between points, all via essentially the same underlying counting argument.",
+    prerequisites: ['geometry:discrete-geometry'],
+    related: ['combinatorics:extremal-combinatorics', 'graph-theory:spectral-graph-theory', 'probabilistic-method:expander-graphs'],
+    historicalContext:
+      'Paul Erdős posed foundational extremal questions about point-line and point-distance configurations starting in the 1940s, including the famous distinct distances problem. Endre Szemerédi and William Trotter proved their eponymous incidence bound in 1983, and László Székely gave a strikingly short and influential proof via the crossing number inequality for graphs in 1997. Larry Guth and Nets Katz then introduced the polynomial method into incidence geometry in 2010, using algebraic geometry techniques to nearly resolve Erdős\'s distinct distances conjecture, opening an entirely new toolkit for the field.',
+    contributorIds: ['person:paul-erdos', 'person:david-hilbert'],
+    workIds: ['work:grundlagen-der-geometrie'],
+    exampleProblems: [
+      'Show that $n$ points and $n$ lines in the plane can achieve close to the Szemerédi-Trotter bound, using a grid configuration.',
+      'Verify that a finite projective plane of order 2, the Fano plane, has exactly 7 points and 7 lines.',
+      'Explain, in outline, how the Szemerédi-Trotter theorem can be used to bound the number of triangles formed by $n$ lines.',
+    ],
+    applications: [
+      'theoretical computer science, where incidence bounds underlie lower bounds for range searching and computational geometry data structures',
+      'additive combinatorics, where incidence geometry techniques prove sum-product estimates',
+      'coding and design theory, where finite projective planes construct combinatorial designs and codes',
+    ],
+    researchDirections: [
+      "the polynomial method's continuing applications to incidence geometry and related extremal problems",
+      'higher-dimensional and complex/finite-field analogues of the Szemerédi-Trotter theorem',
+      "the still not fully resolved distinct distances problem and related Erdős-style combinatorial geometry questions",
+    ],
+    textbooks: [
+      {
+        title: 'Combinatorial Geometry',
+        authors: ['János Pach', 'Pankaj K. Agarwal'],
+        year: 1995,
+        why: 'A widely cited standard text with a thorough treatment of incidence bounds and their applications.',
+      },
+      {
+        title: 'Lectures on Discrete Geometry',
+        authors: ['Jiří Matoušek'],
+        year: 2002,
+        why: 'Includes a clear, self-contained treatment of the Szemerédi-Trotter theorem and its proof via crossing numbers.',
+      },
+      {
+        title: 'Projective Geometries over Finite Fields',
+        authors: ['James Hirschfeld'],
+        edition: '2nd',
+        year: 1998,
+        why: 'The standard reference for finite projective planes and their combinatorial incidence structure.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Szemerédi-Trotter theorem', latex: 'I(P,L) = O(n^{2/3}m^{2/3} + n + m)' },
+      { label: 'Finite projective plane parameters', latex: '|P| = |L| = q^2+q+1' },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Incidence (geometry)', url: 'https://en.wikipedia.org/wiki/Incidence_(geometry)', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Erdős', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Erdos', kind: 'reference' },
+      { label: 'MacTutor: David Hilbert', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hilbert/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -6891,6 +7289,9 @@ const personRows = [
   ['Francis Macaulay', '1862-1937', 'United Kingdom', 'commutative-algebra', 'the unmixedness theorem for polynomial rings'],
   ['Jean Leray', '1906-1998', 'France', 'algebraic-geometry', 'the invention of sheaves and the Leray spectral sequence'],
   ['David Mumford', '1937-', 'USA', 'algebraic-geometry', 'Geometric Invariant Theory and moduli of curves'],
+  ['Janos Bolyai', '1802-1860', 'Hungary', 'geometry', 'the independent discovery of hyperbolic geometry'],
+  ['Jean-Victor Poncelet', '1788-1867', 'France', 'geometry', 'the systematic revival of projective geometry'],
+  ['Hermann Minkowski', '1864-1909', 'Germany', 'geometry', 'the geometry of numbers and convex bodies'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -6917,7 +7318,7 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:arthur-cayley': ['linear-algebra:matrices', 'algebra:groups'],
   'person:james-joseph-sylvester': ['linear-algebra:matrices', 'linear-algebra:singular-value-decomposition'],
   'person:hermann-grassmann': ['linear-algebra:vector-spaces'],
-  'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition'],
+  'person:eugenio-beltrami': ['linear-algebra:singular-value-decomposition', 'geometry:non-euclidean-geometry'],
   'person:camille-jordan': [
     'linear-algebra:singular-value-decomposition',
     'linear-algebra:eigenvalues',
@@ -6940,6 +7341,8 @@ const personTopicOverrides: Record<string, string[]> = {
     'commutative-algebra:ideals',
     'commutative-algebra:noetherian-rings',
     'algebraic-geometry:affine-varieties',
+    'geometry:euclidean-geometry',
+    'geometry:incidence-geometry',
   ],
   'person:john-von-neumann': ['game-theory:normal-form-games', 'linear-algebra:inner-product-spaces'],
   'person:bernhard-riemann': [
@@ -7071,6 +7474,11 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:francis-macaulay': ['commutative-algebra:cohen-macaulay-rings'],
   'person:jean-leray': ['algebraic-geometry:sheaves'],
   'person:david-mumford': ['algebraic-geometry:moduli-spaces'],
+  'person:janos-bolyai': ['geometry:non-euclidean-geometry'],
+  'person:jean-victor-poncelet': ['geometry:projective-geometry'],
+  'person:hermann-minkowski': ['geometry:convex-geometry', 'geometry:discrete-geometry'],
+  'person:felix-klein': ['geometry:projective-geometry'],
+  'person:paul-erdos': ['combinatorics:permutations', 'geometry:incidence-geometry'],
 };
 
 export const people: Person[] = personRows.map(
@@ -7234,6 +7642,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:homological-algebra': ['abstract-algebra:homological-algebra'],
   'work:ega': ['algebraic-geometry:schemes'],
   'work:sga': ['algebraic-geometry:cohomology'],
+  'work:grundlagen-der-geometrie': ['foundations:axiomatic-method', 'geometry:incidence-geometry'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
