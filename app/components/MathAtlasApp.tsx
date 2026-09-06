@@ -1,11 +1,14 @@
 'use client';
 
-import { ArrowLeft, ArrowUpRight, BookOpen, Bookmark, ChevronRight, Clock3, Compass, Grid2X2, Layers3, Menu, Network, Pause, Play, RotateCcw, Route, Search, Shuffle, SlidersHorizontal, Users, X, ZoomIn, ZoomOut } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, BookOpen, Bookmark, ChevronRight, Clock3, Compass, Grid2X2, Layers3, Menu, Moon, Network, Pause, Play, RotateCcw, Route, Search, Shuffle, SlidersHorizontal, Sun, Users, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import MathWorlds, { type WorldCommands, type WorldSelection } from '@/app/components/MathWorlds';
 import { dimensions, dimensionForField } from '@/app/data/dimensions';
 import { applications, atlasStats, eras, people, regions, relationships, topics, works, type AtlasMode, type AtlasTag, type Difficulty, type RelationshipType, type Topic } from '@/app/data/atlas';
 import { filterTopics, findLearningPath, getEra, getPerson, getRegion, getTopic, getWork, relationshipLabels, relatedEdgesFor, searchAtlas, validateAtlasData, type AtlasFilters, type AtlasRecordKind } from '@/app/lib/atlas-utils';
+import { useTheme } from '@/app/lib/use-theme';
+import { KatexBlock, MathText } from '@/app/lib/math-text';
+import 'katex/dist/katex.min.css';
 
 type Selection = { kind: AtlasRecordKind | 'region'; id: string };
 type WebMCPDocument = Document & { modelContext?: { registerTool: (tool: { name: string; description: string; inputSchema: object; annotations?: { readOnlyHint?: boolean }; execute: (input: unknown) => unknown }, options?: { signal?: AbortSignal }) => void | Promise<void> } };
@@ -69,6 +72,7 @@ export default function MathAtlasApp() {
   const [filters, setFilters] = useState<AtlasFilters>({ fieldId: 'all', difficulty: 'all', eraId: 'all', tag: 'all', relationshipTypes: ['prerequisite', 'related-to', 'applied-in'] });
   const commands = useRef<WorldCommands | null>(null);
   const { bookmarks, toggleBookmark } = useLocalBookmarks();
+  const { theme, toggleTheme } = useTheme();
   const dimension = dimensions.find(d => d.id === dimensionId);
   const currentField = getRegion(filters.fieldId);
   const learningPath = useMemo(() => findLearningPath(goalTopicId), [goalTopicId]);
@@ -151,7 +155,10 @@ export default function MathAtlasApp() {
         {query && <button aria-label="Clear search" onClick={() => setQuery('')}><X size={15} /></button>}
         {query && <div className="search-results">{results.length ? results.map(result => <button key={result.id} onClick={() => selectRecord({ kind: result.kind, id: result.id })}><span>{result.title}</span><small>{result.kind} · {result.subtitle}</small></button>) : <p>No matching entries.</p>}</div>}
       </div>
-      <div className="mobile-explorer-toggle"><IconButton title={explorerOpen ? 'Close explorer' : 'Open explorer'} onClick={() => setExplorerOpen(!explorerOpen)}><Menu size={20} /></IconButton></div>
+      <div className="header-actions">
+        <IconButton title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} onClick={toggleTheme}>{theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}</IconButton>
+        <div className="mobile-explorer-toggle"><IconButton title={explorerOpen ? 'Close explorer' : 'Open explorer'} onClick={() => setExplorerOpen(!explorerOpen)}><Menu size={20} /></IconButton></div>
+      </div>
     </header>
 
     <aside className={`dimension-explorer ${explorerOpen ? 'is-open' : ''}`}>
@@ -203,7 +210,7 @@ export default function MathAtlasApp() {
         : <><span className="section-label">THE COLLECTION</span><h1>Mathematical dimensions</h1><p>10 dimensions · 47 fields · 282 topics</p></>}
     </div>
 
-    <MathWorlds dimensionId={dimensionId} fieldId={filters.fieldId} spread={spread} rotating={rotating} wireframe={wireframe} visibleIds={visibleIds} selectedId={selection.id} pathIds={pathSet} relationships={activeRelations} onSelect={onWorldSelect} commands={commands} />
+    <MathWorlds dimensionId={dimensionId} fieldId={filters.fieldId} spread={spread} rotating={rotating} wireframe={wireframe} dark={theme === 'dark'} visibleIds={visibleIds} selectedId={selection.id} pathIds={pathSet} relationships={activeRelations} onSelect={onWorldSelect} commands={commands} />
 
     <div className="scene-toolbar" aria-label="3D view controls">
       <IconButton title="Zoom in" onClick={() => commands.current?.zoom(1.2)}><ZoomIn size={18} /></IconButton>
@@ -234,7 +241,7 @@ export default function MathAtlasApp() {
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-md border border-[#dce3df] bg-[#edf1ef] px-2 py-1 text-xs font-semibold">
+    <span className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-2 py-1 text-xs font-semibold">
       {children}
     </span>
   );
@@ -242,8 +249,8 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-t-2 border-[#dce3df]/35 pt-3">
-      <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.08em] text-[#6c7874]">{title}</h3>
+    <section className="border-t-2 border-[var(--border-soft)] pt-3">
+      <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.08em] text-[var(--text-secondary)]">{title}</h3>
       {children}
     </section>
   );
@@ -299,11 +306,11 @@ function DetailPanel({
     <>
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#76817e]">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
             {shortKind(selection.kind)}
           </p>
           <h2 className="text-2xl font-semibold leading-none">{title}</h2>
-          <p className="mt-1 text-sm font-bold text-[#6c7874]">{subtitle}</p>
+          <p className="mt-1 text-sm font-bold text-[var(--text-secondary)]">{subtitle}</p>
         </div>
         {topic ? (
           <IconButton
@@ -323,19 +330,31 @@ function DetailPanel({
               {topic.tags.map((tag) => <Chip key={tag}>{tag}</Chip>)}
               <Chip>{getEra(topic.eraId)?.name}</Chip>
             </div>
-            <p className="text-base font-semibold leading-relaxed">{topic.overview}</p>
+            <p className="text-base font-semibold leading-relaxed"><MathText text={topic.overview} /></p>
             <Section title="Formal formulation">
-              <p className="rounded-md border border-[#dce3df] bg-[#f4f7f5] p-3 font-mono text-sm leading-relaxed ">
-                {topic.formal}
+              <p className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] p-3 text-sm leading-relaxed">
+                <MathText text={topic.formal} />
               </p>
             </Section>
+            {topic.keyFormulas.length > 0 ? (
+              <Section title="Key formulas">
+                <div className="grid gap-2">
+                  {topic.keyFormulas.map((formula) => (
+                    <div key={formula.label} className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] p-3">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-secondary)]">{formula.label}</p>
+                      <KatexBlock latex={formula.latex} className="block overflow-x-auto text-sm" />
+                    </div>
+                  ))}
+                </div>
+              </Section>
+            ) : null}
             <Section title="Key ideas">
               <ul className="grid gap-2">
                 {topic.keyIdeas.map((idea) => <li key={idea} className="font-semibold">- {idea}</li>)}
               </ul>
             </Section>
             <Section title="Why it matters">
-              <p className="font-semibold leading-relaxed">{topic.whyItMatters}</p>
+              <p className="font-semibold leading-relaxed"><MathText text={topic.whyItMatters} /></p>
             </Section>
             <Section title="Prerequisites and related topics">
               <div className="flex flex-wrap gap-2">
@@ -346,7 +365,7 @@ function DetailPanel({
                       type="button"
                       key={id}
                       onClick={() => selectRecord({ kind: 'topic', id })}
-                      className="rounded-md border border-[#dce3df] bg-[#e5efea] px-2 py-1 text-xs font-semibold"
+                      className="rounded-md border border-[var(--border)] bg-[var(--surface-selected)] px-2 py-1 text-xs font-semibold"
                     >
                       {related.name}
                     </button>
@@ -375,10 +394,10 @@ function DetailPanel({
                       type="button"
                       key={id}
                       onClick={() => selectRecord({ kind: 'person', id })}
-                      className="rounded-md border border-[#dce3df] bg-white/80 p-2 text-left font-semibold"
+                      className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2 text-left font-semibold"
                     >
                       {contributor.name}
-                      <span className="block text-xs font-bold text-[#6c7874]">{contributor.majorContributions[0]}</span>
+                      <span className="block text-xs font-bold text-[var(--text-secondary)]">{contributor.majorContributions[0]}</span>
                     </button>
                   ) : null;
                 })}
@@ -393,10 +412,10 @@ function DetailPanel({
                       type="button"
                       key={id}
                       onClick={() => selectRecord({ kind: 'work', id })}
-                      className="rounded-md border border-[#dce3df] bg-white/80 p-2 text-left font-semibold"
+                      className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2 text-left font-semibold"
                     >
                       {item.title}
-                      <span className="block text-xs font-bold text-[#6c7874]">{item.year} - {item.authors.join(', ')}</span>
+                      <span className="block text-xs font-bold text-[var(--text-secondary)]">{item.year} - {item.authors.join(', ')}</span>
                     </button>
                   ) : null;
                 })}
@@ -422,6 +441,27 @@ function DetailPanel({
                 ))}
               </div>
             </Section>
+            {topic.textbooks.length > 0 ? (
+              <Section title="Recommended textbooks">
+                <div className="grid gap-2">
+                  {topic.textbooks.map((book) => (
+                    <div key={book.title} className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2">
+                      <p className="font-semibold">
+                        {book.title}
+                        {book.edition ? <span className="font-normal text-[var(--text-secondary)]"> ({book.edition} ed.)</span> : null}
+                      </p>
+                      <p className="text-xs font-bold text-[var(--text-secondary)]">{book.authors.join(', ')} - {book.year}</p>
+                      <p className="mt-1 text-xs leading-relaxed">{book.why}</p>
+                      {book.url ? (
+                        <a href={book.url} target="_blank" className="mt-1 inline-block text-xs font-semibold underline decoration-2 underline-offset-4">
+                          More info
+                        </a>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </Section>
+            ) : null}
             <Section title="Visible relationships">
               <div className="grid gap-2">
                 {relatedEdgesFor(topic.id).slice(0, 10).map((rel) => {
@@ -431,10 +471,10 @@ function DetailPanel({
                       type="button"
                       key={rel.id}
                       onClick={() => selectRecord({ kind: 'topic', id: other.id })}
-                      className="rounded-md border border-[#dce3df] bg-[#edf1ef] p-2 text-left text-sm font-semibold"
+                      className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] p-2 text-left text-sm font-semibold"
                     >
                       {relationshipLabels[rel.type]}: {other.name}
-                      <span className="block text-xs font-bold text-[#6c7874]">{rel.label}</span>
+                      <span className="block text-xs font-bold text-[var(--text-secondary)]">{rel.label}</span>
                     </button>
                   ) : null;
                 })}
@@ -453,10 +493,10 @@ function DetailPanel({
                     type="button"
                     key={item.id}
                     onClick={() => selectRecord({ kind: 'topic', id: item.id })}
-                    className="rounded-md border border-[#dce3df] bg-white/80 p-2 text-left font-semibold"
+                    className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2 text-left font-semibold"
                   >
                     {item.name}
-                    <span className="block text-xs font-bold text-[#6c7874]">{item.difficulty}</span>
+                    <span className="block text-xs font-bold text-[var(--text-secondary)]">{item.difficulty}</span>
                   </button>
                 ))}
               </div>
@@ -473,7 +513,7 @@ function DetailPanel({
               <div className="flex flex-wrap gap-2">
                 {person.associatedTopicIds.map((id) => {
                   const item = getTopic(id);
-                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[#dce3df] bg-[#e5efea] px-2 py-1 text-xs font-semibold">{item.name}</button> : null;
+                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[var(--border)] bg-[var(--surface-selected)] px-2 py-1 text-xs font-semibold">{item.name}</button> : null;
                 })}
               </div>
             </Section>
@@ -490,13 +530,13 @@ function DetailPanel({
           <>
             <p className="text-base font-semibold leading-relaxed">{work.whyItMattered}</p>
             <Section title="Citation">
-              <p className="rounded-md border border-[#dce3df] bg-[#f4f7f5] p-3 font-mono text-sm ">{work.citation}</p>
+              <p className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] p-3 font-mono text-sm ">{work.citation}</p>
             </Section>
             <Section title="Associated topics">
               <div className="flex flex-wrap gap-2">
                 {work.associatedTopicIds.map((id) => {
                   const item = getTopic(id);
-                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[#dce3df] bg-[#e5efea] px-2 py-1 text-xs font-semibold">{item.name}</button> : null;
+                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[var(--border)] bg-[var(--surface-selected)] px-2 py-1 text-xs font-semibold">{item.name}</button> : null;
                 })}
               </div>
             </Section>
@@ -513,7 +553,7 @@ function DetailPanel({
             <Section title="Regions connected to this era">
               <div className="grid gap-2">
                 {regions.filter((item) => item.eraId === era.id).map((item) => (
-                  <button key={item.id} type="button" onClick={() => selectRecord({ kind: 'region', id: item.id })} className="rounded-md border border-[#dce3df] bg-white/80 p-2 text-left font-semibold">{item.name}</button>
+                  <button key={item.id} type="button" onClick={() => selectRecord({ kind: 'region', id: item.id })} className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2 text-left font-semibold">{item.name}</button>
                 ))}
               </div>
             </Section>
@@ -527,7 +567,7 @@ function DetailPanel({
               <div className="grid gap-2">
                 {application.topicIds.map((id) => {
                   const item = getTopic(id);
-                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[#dce3df] bg-white/80 p-2 text-left font-semibold">{item.name}</button> : null;
+                  return item ? <button key={id} type="button" onClick={() => selectRecord({ kind: 'topic', id })} className="rounded-md border border-[var(--border)] bg-[rgba(var(--surface-rgb),0.8)] p-2 text-left font-semibold">{item.name}</button> : null;
                 })}
               </div>
             </Section>
@@ -537,10 +577,10 @@ function DetailPanel({
         <Section title="Navigation trail">
           <div className="flex flex-wrap gap-2">
             {history.length ? history.map((item, index) => (
-              <button key={`${item.id}-${index}`} type="button" onClick={() => selectRecord(item)} className="rounded-md border border-[#dce3df] bg-[#edf1ef] px-2 py-1 text-xs font-semibold">
+              <button key={`${item.id}-${index}`} type="button" onClick={() => selectRecord(item)} className="rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-2 py-1 text-xs font-semibold">
                 {shortKind(item.kind)}: {item.id.split(':').pop()?.replaceAll('-', ' ')}
               </button>
-            )) : <span className="text-sm font-bold text-[#6c7874]">Select entries to build a trail.</span>}
+            )) : <span className="text-sm font-bold text-[var(--text-secondary)]">Select entries to build a trail.</span>}
           </div>
         </Section>
 

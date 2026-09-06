@@ -12,6 +12,7 @@ type Props = {
   spread: number;
   rotating: boolean;
   wireframe: boolean;
+  dark: boolean;
   visibleIds: Set<string>;
   selectedId?: string;
   pathIds: Set<string>;
@@ -187,7 +188,7 @@ export default function MathWorlds(props: Props) {
           if (a?.object.visible && b?.object.visible) points.push(a.target, b.target);
         });
         if (points.length) {
-          lines = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: '#819694', transparent: true, opacity: 0.4 }));
+          lines = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: state.dark ? '#9fd6c8' : '#819694', transparent: true, opacity: state.dark ? 0.55 : 0.4 }));
           root.add(lines);
         }
         invalidate();

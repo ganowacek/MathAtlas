@@ -60,6 +60,8 @@ export type Topic = {
   applications: string[];
   researchDirections: string[];
   externalRefs: ExternalRef[];
+  textbooks: Textbook[];
+  keyFormulas: KeyFormula[];
 };
 
 export type Person = {
@@ -116,6 +118,20 @@ export type ExternalRef = {
   label: string;
   url: string;
   kind: 'doi' | 'arxiv' | 'archive' | 'encyclopedia' | 'reference' | 'todo';
+};
+
+export type Textbook = {
+  title: string;
+  authors: string[];
+  edition?: string;
+  year: number;
+  why: string;
+  url?: string;
+};
+
+export type KeyFormula = {
+  label: string;
+  latex: string;
 };
 
 type RegionSeed = Omit<Region, 'doodle'> & {
@@ -942,10 +958,428 @@ const difficultyCycle: Difficulty[] = [
 const doodles = ['sum', 'spiral', 'grid', 'curve', 'nodes', 'wave', 'cube', 'tree'];
 
 const topicExtras: Record<string, Partial<Topic>> = {
-  'calculus:derivatives': {
+  'calculus:limits': {
+    overview:
+      'A limit describes how the values of a function or sequence behave as the input gets arbitrarily close to some point (or infinity), without necessarily ever reaching it. It is the concept that makes the rest of calculus rigorous: continuity, the derivative, the integral, and the convergence of infinite series are all defined as limits.',
     formal:
-      'For a function f, the derivative at a is the limit lim_{h->0} (f(a+h)-f(a))/h when that limit exists.',
-    keyIdeas: ['rate of change', 'linear approximation', 'chain rule', 'optimization'],
+      'For a function $f$ defined near $a$ (though not necessarily at $a$), $\\lim_{x\\to a} f(x) = L$ means: for every $\\varepsilon>0$ there exists $\\delta>0$ such that whenever $0<|x-a|<\\delta$, we have $|f(x)-L|<\\varepsilon$. The analogous definition for a sequence $(a_n)$ converging to $L$ replaces the condition on $x$ with: for every $\\varepsilon>0$ there exists $N\\in\\mathbb{N}$ such that $n>N$ implies $|a_n-L|<\\varepsilon$.',
+    keyIdeas: [
+      'epsilon-delta rigor replacing informal talk of "infinitely small" quantities',
+      'one-sided limits, limits at infinity, and infinite limits',
+      'limit laws for sums, products, quotients, and composition',
+      'the precise link between limits and continuity',
+    ],
+    whyItMatters:
+      'Limits let mathematicians replace vague 17th-century talk of infinitesimals with a checkable, quantifier-based criterion. Every later definition in analysis — continuity, the derivative as a limit of difference quotients, the integral as a limit of Riemann sums, and the convergence of a series — is stated in terms of limits, so getting this one definition exactly right is what separates classical calculus from rigorous analysis.',
+    prerequisites: [],
+    related: ['calculus:derivatives', 'calculus:integrals', 'real-analysis:epsilon-delta-limits'],
+    historicalContext:
+      "Newton and Leibniz's original calculus (1660s-1680s) relied on infinitesimals and fluxions: quantities treated as nonzero yet smaller than any real number, a notion the philosopher George Berkeley mocked in The Analyst (1734) as the 'ghosts of departed quantities.' Bernard Bolzano (1817) and Augustin-Louis Cauchy (Cours d'Analyse, 1821) began replacing infinitesimal talk with limit language; Cauchy introduced the symbols epsilon and delta but never pinned down delta as a function of epsilon. Karl Weierstrass's Berlin lectures from 1861 onward fixed the epsilon-delta formulation used today, completing what historians call the arithmetization of analysis.",
+    contributorIds: [
+      'person:isaac-newton',
+      'person:gottfried-wilhelm-leibniz',
+      'person:bernard-bolzano',
+      'person:augustin-louis-cauchy',
+      'person:karl-weierstrass',
+    ],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Using the epsilon-delta definition, prove that $\\lim_{x\\to 2}(3x-1)=5$.',
+      'Show that $\\lim_{x\\to 0}\\sin(1/x)$ does not exist, but $\\lim_{x\\to 0} x\\sin(1/x)=0$.',
+      'Explain why $\\lim_{x\\to a} f(x)$ can exist even when $f(a)$ is undefined, and give an example.',
+    ],
+    applications: [
+      'error bounds for numerical algorithms',
+      'the rigorous foundation of continuity and differentiability',
+      'asymptotic analysis of algorithm running time',
+    ],
+    researchDirections: [
+      'nonstandard analysis and hyperreal formalizations of infinitesimals (Abraham Robinson)',
+      'limits in more general topological structures via nets and filters',
+      'machine-checked, formally verified epsilon-delta proofs in proof assistants',
+    ],
+    textbooks: [
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'Builds single-variable calculus from the epsilon-delta definition of limit with full proofs throughout; widely regarded as the standard for a rigorous first course.',
+      },
+      {
+        title: 'Calculus',
+        authors: ['Tom M. Apostol'],
+        edition: '2nd',
+        year: 1967,
+        why: "Develops limits axiomatically alongside linear algebra and set theory; used in MIT's and Caltech's more rigorous introductory sequences.",
+      },
+      {
+        title: 'Understanding Analysis',
+        authors: ['Stephen Abbott'],
+        edition: '2nd',
+        year: 2015,
+        why: 'A widely recommended bridge text that motivates the epsilon-delta definition historically (via the failures of naive limit reasoning) before formalizing it.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Epsilon-delta limit of a function', latex: '\\forall \\varepsilon>0\\,\\exists \\delta>0:\\ 0<|x-a|<\\delta \\implies |f(x)-L|<\\varepsilon' },
+      { label: 'Limit of a sequence', latex: '\\forall \\varepsilon>0\\,\\exists N\\in\\mathbb{N}:\\ n>N \\implies |a_n-L|<\\varepsilon' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Limit', url: 'https://encyclopediaofmath.org/wiki/Limit', kind: 'encyclopedia' },
+      { label: 'MacTutor: The rise of calculus', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/', kind: 'reference' },
+      { label: 'Wikipedia: Limit of a function', url: 'https://en.wikipedia.org/wiki/Limit_of_a_function', kind: 'encyclopedia' },
+    ],
+  },
+  'calculus:derivatives': {
+    overview:
+      "The derivative of a function measures its instantaneous rate of change — equivalently, the slope of the tangent line to its graph at a point — and is defined as the limit of average rates of change (difference quotients) as the interval over which they're measured shrinks to zero.",
+    formal:
+      "For $f:\\mathbb{R}\\to\\mathbb{R}$, the derivative at $a$ is $f'(a)=\\lim_{h\\to 0}\\dfrac{f(a+h)-f(a)}{h}$, when this limit exists. Equivalently, $f$ is differentiable at $a$ with derivative $m$ if $f(a+h)=f(a)+mh+o(h)$ as $h\\to 0$ — the function is well approximated near $a$ by its tangent line.",
+    keyIdeas: [
+      'instantaneous rate of change and the slope of the tangent line',
+      'differentiability as local linear approximation',
+      'differentiability implies continuity, but not conversely (e.g. $|x|$ at $0$)',
+      'the product, quotient, and chain rules',
+      'derivatives as the basic tool for optimization',
+    ],
+    whyItMatters:
+      "The derivative is the mathematical language for 'rate of change,' which is why it appears the moment a quantity varies: velocity as the derivative of position, marginal cost in economics, or the slope of a loss function in machine learning. It also converts optimization (finding the best value of something) into algebra: setting $f'(x)=0$ and solving.",
+    prerequisites: ['calculus:limits'],
+    related: ['calculus:integrals', 'calculus:taylor-series', 'calculus:multivariable-calculus'],
+    historicalContext:
+      "Newton's fluxions (rates of flow, described in De Methodis Serierum et Fluxionum, written 1671) and Leibniz's differential notation $dy/dx$ (1684) both captured the derivative independently, sparking a bitter priority dispute between England and the continent. Leibniz's notation ultimately won wider adoption because it generalizes cleanly to higher derivatives and the chain rule, while the rigorous limit-based definition used today came a century and a half later from Cauchy and Weierstrass.",
+    contributorIds: ['person:isaac-newton', 'person:gottfried-wilhelm-leibniz', 'person:augustin-louis-cauchy'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Use the limit definition of the derivative to compute $f\'(x)$ for $f(x)=x^2$.',
+      'Give an example of a function that is continuous everywhere but differentiable nowhere (the Weierstrass function).',
+      'Derive the product rule $(fg)\'=f\'g+fg\'$ directly from the limit definition of the derivative.',
+    ],
+    applications: [
+      'optimization: locating maxima and minima via critical points',
+      'physics: velocity and acceleration as the first and second derivatives of position',
+      "related-rates problems in engineering",
+      "Newton's method for numerically finding roots of equations",
+    ],
+    researchDirections: [
+      'generalized derivatives for non-smooth or fractal functions (the Weierstrass function, fractional calculus)',
+      'automatic differentiation as the computational backbone of machine learning',
+      'weak derivatives of distributions underlying modern PDE theory',
+    ],
+    textbooks: [
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'Derives every differentiation rule from the epsilon-delta definition, including a full treatment of the derivative as a best linear approximation.',
+      },
+      {
+        title: 'Calculus: Early Transcendentals',
+        authors: ['James Stewart'],
+        edition: '9th',
+        year: 2020,
+        why: 'The most widely adopted introductory calculus textbook in North America, with extensive computational practice on differentiation rules and applied optimization/related-rates problems.',
+      },
+      {
+        title: 'Introduction to Calculus and Analysis, Vol. I',
+        authors: ['Richard Courant', 'Fritz John'],
+        edition: '1989 reprint',
+        year: 1965,
+        why: 'A classic that blends computational fluency with genuine rigor and historical motivation, long used as a bridge between engineering-style and pure calculus courses.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Difference-quotient definition', latex: "f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}" },
+      { label: 'Power rule', latex: '\\frac{d}{dx}x^n = n x^{n-1}' },
+      { label: 'Product rule', latex: "(fg)'=f'g+fg'" },
+      { label: 'Chain rule', latex: "(f\\circ g)'(x)=f'(g(x))\\,g'(x)" },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Derivative', url: 'https://encyclopediaofmath.org/wiki/Derivative', kind: 'encyclopedia' },
+      { label: 'MacTutor: The rise of calculus', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/', kind: 'reference' },
+      { label: 'Wikipedia: Derivative', url: 'https://en.wikipedia.org/wiki/Derivative', kind: 'encyclopedia' },
+    ],
+  },
+  'calculus:integrals': {
+    overview:
+      'The integral formalizes accumulation and area: the definite integral of a function over an interval is the signed area between its graph and the horizontal axis, computed as a limit of Riemann sums. The Fundamental Theorem of Calculus shows that integration and differentiation are inverse operations, unifying what had been two separate ancient problems (finding areas and finding tangents).',
+    formal:
+      'The definite integral $\\int_a^b f(x)\\,dx$ is the limit of Riemann sums $\\sum_{i=1}^n f(x_i^*)\\,\\Delta x_i$ as the mesh of a partition of $[a,b]$ goes to $0$. The Fundamental Theorem of Calculus states that if $F\'=f$ on $[a,b]$ then $\\int_a^b f(x)\\,dx=F(b)-F(a)$, and conversely that $\\frac{d}{dx}\\int_a^x f(t)\\,dt=f(x)$ at every point where $f$ is continuous.',
+    keyIdeas: [
+      'Riemann sums and area under a curve',
+      'the Fundamental Theorem of Calculus linking derivatives and integrals',
+      'indefinite integrals (antiderivatives) versus definite integrals',
+      'integration techniques: substitution, integration by parts, partial fractions',
+    ],
+    whyItMatters:
+      'Integration is how continuous accumulation is computed exactly rather than approximated: total distance from velocity, total work from force, total probability from a density function. The Fundamental Theorem of Calculus is one of the most consequential theorems in mathematics because it turns integration, an inherently limiting/summing process, into an algebraic problem of finding antiderivatives.',
+    prerequisites: ['calculus:limits', 'calculus:derivatives'],
+    related: ['calculus:derivatives', 'differential-equations:ordinary-differential-equations', 'real-analysis:lebesgue-integration'],
+    historicalContext:
+      "Ancient antecedents go back to Eudoxus's method of exhaustion and Archimedes's quadrature of the parabola; Bonaventura Cavalieri's method of indivisibles (1635) and Fermat's area calculations set the stage in the 17th century. Newton and Leibniz's decisive insight, reached independently around 1665-1675, was that integration (area) and differentiation (tangents) are inverse processes — the Fundamental Theorem of Calculus. Riemann's 1854 habilitation lecture gave the first rigorous sum-based definition of the definite integral, later generalized by Lebesgue in 1902 to a measure-theoretic integral that handles far more functions.",
+    contributorIds: ['person:isaac-newton', 'person:gottfried-wilhelm-leibniz', 'person:augustin-louis-cauchy', 'person:bernhard-riemann'],
+    workIds: ['work:cours-danalyse'],
+    exampleProblems: [
+      'Use Riemann sums directly from the definition to compute $\\int_0^1 x^2\\,dx$.',
+      'Evaluate $\\int x e^x\\,dx$ using integration by parts.',
+      'Explain why the Dirichlet function (1 on rationals, 0 on irrationals) is Lebesgue integrable but not Riemann integrable.',
+    ],
+    applications: [
+      'computing areas, volumes, and arc length',
+      'work and center-of-mass problems in physics and engineering',
+      'probability: integrating a density function to get a probability',
+      'numerical integration (quadrature) in scientific computing',
+    ],
+    researchDirections: [
+      'Lebesgue and Henstock-Kurzweil integration theory for pathological functions',
+      'high-dimensional numerical quadrature (Monte Carlo and quasi-Monte Carlo methods)',
+      "stochastic integration (Ito calculus) underlying modern probability and mathematical finance",
+    ],
+    textbooks: [
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: 'Proves the Fundamental Theorem of Calculus rigorously from Riemann sums rather than asserting it, which most computational calculus texts skip.',
+      },
+      {
+        title: 'Calculus: Early Transcendentals',
+        authors: ['James Stewart'],
+        edition: '9th',
+        year: 2020,
+        why: 'The standard source for integration technique practice (substitution, parts, partial fractions, improper integrals) used in most North American courses.',
+      },
+      {
+        title: 'Introduction to Calculus and Analysis, Vol. I',
+        authors: ['Richard Courant', 'Fritz John'],
+        edition: '1989 reprint',
+        year: 1965,
+        why: 'Presents the Riemann integral with the same rigor Courant himself championed, alongside strong physical motivation for why integration matters.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Riemann sum definition', latex: '\\int_a^b f(x)\\,dx=\\lim_{\\|P\\|\\to 0}\\sum_{i=1}^n f(x_i^*)\\,\\Delta x_i' },
+      { label: 'Fundamental Theorem of Calculus (evaluation form)', latex: '\\int_a^b f\'(x)\\,dx=f(b)-f(a)' },
+      { label: 'Fundamental Theorem of Calculus (differentiation form)', latex: '\\frac{d}{dx}\\int_a^x f(t)\\,dt=f(x)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Integral', url: 'https://encyclopediaofmath.org/wiki/Integral', kind: 'encyclopedia' },
+      { label: 'MacTutor: The rise of calculus', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/', kind: 'reference' },
+      { label: 'Wikipedia: Fundamental theorem of calculus', url: 'https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus', kind: 'encyclopedia' },
+    ],
+  },
+  'calculus:taylor-series': {
+    overview:
+      'A Taylor series approximates a function near a point by an infinite polynomial built from its derivatives at that point. It lets a transcendental function like $\\sin x$ or $e^x$ be studied, computed, and bounded using nothing but polynomial algebra.',
+    formal:
+      'If $f$ is infinitely differentiable near $x_0$, its Taylor series is $\\sum_{n=0}^{\\infty}\\dfrac{f^{(n)}(x_0)}{n!}(x-x_0)^n$. Taylor\'s theorem with remainder states $f(x)=\\sum_{k=0}^{N}\\dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_N(x)$, where the Lagrange form of the remainder is $R_N(x)=\\dfrac{f^{(N+1)}(\\xi)}{(N+1)!}(x-x_0)^{N+1}$ for some $\\xi$ strictly between $x_0$ and $x$. Crucially, infinite differentiability alone does not guarantee the series converges to $f$: the function $f(x)=e^{-1/x^2}$ (with $f(0)=0$) is smooth everywhere, but its Taylor series at $x_0=0$ is identically zero.',
+    keyIdeas: [
+      'local polynomial approximation of a function',
+      "Taylor's theorem and the Lagrange remainder as an explicit error bound",
+      'radius and interval of convergence of a power series',
+      'the Maclaurin series as the special case $x_0=0$',
+      'analytic functions (equal to their own Taylor series) versus merely smooth ones',
+    ],
+    whyItMatters:
+      "Taylor series let you replace a complicated function locally with a polynomial you can add, differentiate, and integrate term by term — this is literally how calculators and computers evaluate $\\sin$, $\\cos$, and $e^x$. They are also the bridge from real calculus into complex analysis, where being equal to a convergent Taylor series (being 'analytic') turns out to be equivalent to being complex-differentiable even once, an extraordinarily strong structural fact with no real-variable analogue.",
+    prerequisites: ['calculus:derivatives'],
+    related: ['calculus:integrals', 'analysis:sequences-and-series', 'complex-analysis:holomorphic-functions'],
+    historicalContext:
+      "Brook Taylor published the general series in Methodus Incrementorum Directa et Inversa (1715), building on special cases already known to James Gregory and Isaac Newton. Colin Maclaurin popularized the $x_0=0$ case in his Treatise of Fluxions (1742), which is why that special case still carries his name rather than Taylor's. The subtlety that infinite differentiability doesn't imply convergence to the function — illustrated by examples studied by Cauchy in the 1820s — wasn't fully appreciated until 19th-century analysis demanded rigorous convergence proofs rather than formal manipulation of series.",
+    contributorIds: ['person:brook-taylor', 'person:leonhard-euler'],
+    workIds: ['work:introductio-in-analysin-infinitorum'],
+    exampleProblems: [
+      'Compute the Maclaurin series for $e^x$, $\\sin x$, and $\\cos x$, and use them to verify Euler\'s formula $e^{ix}=\\cos x+i\\sin x$ term by term.',
+      'Find the radius of convergence of the Taylor series of $f(x)=\\dfrac{1}{1+x^2}$ about $x_0=0$, and explain why it is finite even though $f$ is smooth on all of $\\mathbb{R}$.',
+      'Use the Lagrange remainder to bound the error in approximating $\\sin(0.1)$ by its degree-3 Taylor polynomial.',
+    ],
+    applications: [
+      'numerical approximation of transcendental functions in software and calculators',
+      'error analysis and asymptotic expansions in applied mathematics',
+      'linearization in physics and engineering (e.g. the small-angle approximation $\\sin\\theta\\approx\\theta$)',
+      'generating functions in combinatorics, which are formal Taylor series in disguise',
+    ],
+    researchDirections: [
+      'divergent and asymptotic series methods (Borel summation)',
+      'multivariate Taylor and Fréchet expansions in infinite-dimensional spaces',
+      'formal power series and generating-function methods in enumerative combinatorics',
+    ],
+    textbooks: [
+      {
+        title: 'Calculus',
+        authors: ['Michael Spivak'],
+        edition: '4th',
+        year: 2008,
+        why: "Gives a full, careful proof of Taylor's theorem with remainder and discusses convergence issues that most calculus texts gloss over.",
+      },
+      {
+        title: 'Calculus',
+        authors: ['Tom M. Apostol'],
+        edition: '2nd',
+        year: 1967,
+        why: "Treats Taylor's theorem via both the Lagrange and integral forms of the remainder with full proofs, alongside power series convergence tests.",
+      },
+      {
+        title: 'Introduction to Calculus and Analysis, Vol. I',
+        authors: ['Richard Courant', 'Fritz John'],
+        edition: '1989 reprint',
+        year: 1965,
+        why: 'Pairs the Taylor expansion with strong geometric and physical intuition for why polynomial approximation works.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Taylor series', latex: 'f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n' },
+      { label: 'Lagrange remainder', latex: 'R_N(x)=\\frac{f^{(N+1)}(\\xi)}{(N+1)!}(x-x_0)^{N+1}' },
+      { label: 'Maclaurin series of $e^x$', latex: 'e^x=\\sum_{n=0}^{\\infty}\\frac{x^n}{n!}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Taylor series', url: 'https://encyclopediaofmath.org/wiki/Taylor_series', kind: 'encyclopedia' },
+      { label: 'MacTutor: The rise of calculus', url: 'https://mathshistory.st-andrews.ac.uk/HistTopics/The_rise_of_calculus/', kind: 'reference' },
+      { label: 'Wikipedia: Taylor series', url: 'https://en.wikipedia.org/wiki/Taylor_series', kind: 'encyclopedia' },
+    ],
+  },
+  'calculus:multivariable-calculus': {
+    overview:
+      'Multivariable calculus extends limits, derivatives, and integrals to functions of several variables: partial derivatives measure change along each coordinate direction, the gradient packages them into a vector pointing toward steepest ascent, and multiple integrals compute volumes and higher-dimensional accumulation.',
+    formal:
+      'For $f:\\mathbb{R}^n\\to\\mathbb{R}$, $f$ is (Fréchet) differentiable at $\\mathbf{a}$ if there is a linear map, represented by the gradient $\\nabla f(\\mathbf{a})$, with $f(\\mathbf{a}+\\mathbf{h})=f(\\mathbf{a})+\\nabla f(\\mathbf{a})\\cdot\\mathbf{h}+o(\\|\\mathbf{h}\\|)$ as $\\mathbf{h}\\to 0$. The mere existence of all partial derivatives does not imply differentiability, but continuity of the partial derivatives near $\\mathbf{a}$ does (the $C^1$ criterion). For constrained optimization, the method of Lagrange multipliers says that at an extremum of $f$ subject to $g(\\mathbf{x})=0$, $\\nabla f(\\mathbf{x})=\\lambda\\,\\nabla g(\\mathbf{x})$ for some scalar $\\lambda$.',
+    keyIdeas: [
+      'partial derivatives and the gradient vector',
+      'the total derivative as the best linear approximation to a multivariable function',
+      'the Jacobian matrix and the multivariable chain rule',
+      'multiple integrals and change of variables via the Jacobian determinant',
+      'Lagrange multipliers for optimization under constraints',
+    ],
+    whyItMatters:
+      'Almost all of physics, engineering, economics, and modern machine learning is phrased in terms of functions of several variables, and gradient-based optimization — following $-\\nabla f$ downhill — is the direct descendant of multivariable calculus that underlies training neural networks.',
+    prerequisites: ['calculus:derivatives', 'calculus:integrals', 'linear-algebra:vector-spaces'],
+    related: ['calculus:vector-calculus', 'differential-geometry:tangent-spaces', 'optimization:gradient-descent'],
+    historicalContext:
+      "Euler and Lagrange developed partial differentiation and multivariable calculus through the 18th century while formalizing mechanics; Lagrange's Mécanique Analytique (1788) introduced the method of Lagrange multipliers for constrained extrema. Carl Jacobi's work on determinants built from partial derivatives — the Jacobian, from the 1830s-40s — made rigorous change of variables in multiple integrals, and it now carries his name.",
+    contributorIds: ['person:leonhard-euler', 'person:joseph-louis-lagrange'],
+    workIds: [],
+    exampleProblems: [
+      'Find and classify the critical points of $f(x,y)=x^3-3xy^2$ using the second-derivative (Hessian) test.',
+      'Use Lagrange multipliers to find the extrema of $f(x,y)=xy$ subject to the constraint $x^2+y^2=1$.',
+      'Evaluate $\\iint_D e^{-(x^2+y^2)}\\,dA$ over the plane by converting to polar coordinates.',
+    ],
+    applications: [
+      'gradient descent and backpropagation in machine learning',
+      'constrained utility and profit maximization in economics',
+      'partial derivatives of thermodynamic state functions',
+      'surface normals and shading via gradients in computer graphics',
+    ],
+    researchDirections: [
+      'differentiability and optimization theory in infinite-dimensional (Banach and Hilbert) spaces',
+      'automatic differentiation for large-scale, high-dimensional machine learning models',
+      'optimal transport and multivariate change-of-variables formulas in probability',
+    ],
+    textbooks: [
+      {
+        title: 'Vector Calculus',
+        authors: ['Jerrold E. Marsden', 'Anthony Tromba'],
+        edition: '6th',
+        year: 2012,
+        why: 'The standard university text for multivariable and vector calculus, balancing rigorous statements (inverse and implicit function theorems) with extensively worked applications.',
+      },
+      {
+        title: 'Calculus: Early Transcendentals',
+        authors: ['James Stewart'],
+        edition: '9th',
+        year: 2020,
+        why: 'Its later chapters are the most common introduction to partial derivatives, multiple integrals, and Lagrange multipliers in US undergraduate courses.',
+      },
+      {
+        title: 'Vector Calculus',
+        authors: ['Susan Jane Colley'],
+        edition: '4th',
+        year: 2011,
+        why: 'A frequently recommended alternative with a clean, example-driven treatment of the gradient, Lagrange multipliers, and multiple integrals.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Total (Fréchet) derivative', latex: 'f(\\mathbf{a}+\\mathbf{h})=f(\\mathbf{a})+\\nabla f(\\mathbf{a})\\cdot\\mathbf{h}+o(\\|\\mathbf{h}\\|)' },
+      { label: 'Lagrange multiplier condition', latex: '\\nabla f(\\mathbf{x})=\\lambda\\,\\nabla g(\\mathbf{x})' },
+      { label: 'Change of variables (Jacobian)', latex: "\\iint_{D} f\\,dA=\\iint_{D'} f(\\mathbf{x}(u,v))\\,\\left|\\det\\frac{\\partial(x,y)}{\\partial(u,v)}\\right|\\,du\\,dv" },
+    ],
+    externalRefs: [
+      { label: 'Wikipedia: Multivariable calculus', url: 'https://en.wikipedia.org/wiki/Multivariable_calculus', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Lagrange multiplier', url: 'https://en.wikipedia.org/wiki/Lagrange_multiplier', kind: 'encyclopedia' },
+      { label: 'MacTutor: search for Lagrange', url: 'https://mathshistory.st-andrews.ac.uk/Search/?query=Lagrange', kind: 'reference' },
+    ],
+  },
+  'calculus:vector-calculus': {
+    overview:
+      "Vector calculus studies vector fields — assignments of a vector to every point in space — through the gradient, divergence, and curl, and through line and surface integrals. Its central results, Green's theorem, Stokes' theorem, and the divergence theorem, are all higher-dimensional versions of the Fundamental Theorem of Calculus.",
+    formal:
+      'For a vector field $\\mathbf{F}=(F_1,F_2,F_3)$, the divergence is $\\nabla\\cdot\\mathbf{F}=\\frac{\\partial F_1}{\\partial x}+\\frac{\\partial F_2}{\\partial y}+\\frac{\\partial F_3}{\\partial z}$ and the curl is $\\nabla\\times\\mathbf{F}$. Green\'s theorem relates a line integral around a plane curve $C$ to a double integral over the region $D$ it encloses: $\\oint_C(P\\,dx+Q\\,dy)=\\iint_D\\left(\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}\\right)dA$. Stokes\' theorem relates the surface integral of $\\nabla\\times\\mathbf{F}$ over a surface $S$ to the line integral of $\\mathbf{F}$ around its boundary curve, and the divergence theorem relates the flux of $\\mathbf{F}$ through a closed surface to the volume integral of $\\nabla\\cdot\\mathbf{F}$ inside it. All three are special cases of the general Stokes\' theorem for differential forms, $\\int_M d\\omega=\\int_{\\partial M}\\omega$.',
+    keyIdeas: [
+      'the gradient, divergence, and curl operators',
+      'line integrals and surface integrals',
+      "Green's, Stokes', and the divergence theorem as instances of one underlying theorem",
+      'conservative vector fields and path independence',
+      'connections to fluid flow and electromagnetism',
+    ],
+    whyItMatters:
+      "Maxwell's equations of electromagnetism and the Navier-Stokes equations of fluid dynamics are written natively in the language of divergence and curl. The unifying generalized Stokes' theorem — that integrating a derivative over a region equals integrating the original quantity over its boundary — is one of the central organizing facts of modern differential geometry and mathematical physics.",
+    prerequisites: ['calculus:multivariable-calculus'],
+    related: ['differential-geometry:smooth-manifolds', 'mathematical-physics:classical-mechanics', 'partial-differential-equations:heat-equation'],
+    historicalContext:
+      "George Green stated what is now called Green's theorem in a self-published 1828 essay on electricity and magnetism that went largely unnoticed for years. The divergence theorem was proved in special cases by Gauss (1813) and more generally by Mikhail Ostrogradsky (1826-1831). The result now called Stokes' theorem was first stated by Lord Kelvin in an 1850 letter to George Gabriel Stokes, who then set it as a prize examination question at Cambridge in 1854 — the theorem kept Stokes' name even though he did not discover it. Élie Cartan's theory of differential forms in the early 20th century revealed all three classical theorems as one single statement.",
+    contributorIds: ['person:george-gabriel-stokes', 'person:carl-friedrich-gauss'],
+    workIds: [],
+    exampleProblems: [
+      "Verify Green's theorem for $\\mathbf{F}=(-y,x)$ on the unit disk by computing both sides directly.",
+      'Use the divergence theorem to compute the flux of $\\mathbf{F}=(x,y,z)$ through the unit sphere.',
+      'Show that a vector field on a simply connected domain is conservative if and only if $\\nabla\\times\\mathbf{F}=\\mathbf{0}$.',
+    ],
+    applications: [
+      "electromagnetism, where Maxwell's equations are stated in terms of divergence and curl",
+      'fluid dynamics: mass and momentum conservation, and the Navier-Stokes equations',
+      'computer graphics and geometry processing (flux and flow visualization)',
+      'geophysics: modeling gravitational and magnetic fields',
+    ],
+    researchDirections: [
+      "the generalized Stokes' theorem for differential forms on manifolds",
+      'discrete exterior calculus for numerical PDE solvers and computer graphics',
+      'de Rham cohomology as the topological obstruction to solving $\\nabla\\times\\mathbf{F}=\\mathbf{G}$ globally',
+    ],
+    textbooks: [
+      {
+        title: 'Vector Calculus',
+        authors: ['Jerrold E. Marsden', 'Anthony Tromba'],
+        edition: '6th',
+        year: 2012,
+        why: "Covers Green's, Stokes', and the divergence theorem with full proofs, and is the most commonly assigned dedicated vector calculus text at the undergraduate level.",
+      },
+      {
+        title: 'Div, Grad, Curl, and All That: An Informal Text on Vector Calculus',
+        authors: ['H. M. Schey'],
+        edition: '4th',
+        year: 2005,
+        why: 'An informal, physically motivated treatment built entirely around electromagnetism; one of the most consistently recommended books for building genuine intuition for the vector operators.',
+      },
+      {
+        title: 'Vector Calculus',
+        authors: ['Susan Jane Colley'],
+        edition: '4th',
+        year: 2011,
+        why: 'A clear, rigorous alternative that covers the same integral theorems at a slightly gentler pace than Marsden and Tromba.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Green's theorem", latex: '\\oint_C(P\\,dx+Q\\,dy)=\\iint_D\\left(\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}\\right)dA' },
+      { label: "Stokes' theorem", latex: '\\iint_S(\\nabla\\times\\mathbf{F})\\cdot d\\mathbf{S}=\\oint_{\\partial S}\\mathbf{F}\\cdot d\\mathbf{r}' },
+      { label: 'Divergence theorem', latex: '\\iiint_V(\\nabla\\cdot\\mathbf{F})\\,dV=\\iint_{\\partial V}\\mathbf{F}\\cdot d\\mathbf{S}' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Stokes formula', url: 'https://encyclopediaofmath.org/wiki/Stokes_formula', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Vector calculus', url: 'https://en.wikipedia.org/wiki/Vector_calculus', kind: 'encyclopedia' },
+      { label: 'Wikipedia: Divergence theorem', url: 'https://en.wikipedia.org/wiki/Divergence_theorem', kind: 'encyclopedia' },
+    ],
   },
   'linear-algebra:eigenvalues': {
     formal:
@@ -1070,6 +1504,8 @@ const makeTopic = (field: RegionSeed, name: string, index: number): Topic => {
       `Connections from ${name.toLowerCase()} to high-dimensional data or modern modeling`,
     ],
     externalRefs: topicUrl(name),
+    textbooks: [],
+    keyFormulas: [],
     ...topicExtras[id],
   };
 
@@ -1110,17 +1546,21 @@ const personRows = [
   ['Gottfried Wilhelm Leibniz', '1646-1716', 'Germany', 'calculus', 'calculus notation and symbolic logic'],
   ['Jacob Bernoulli', '1655-1705', 'Switzerland', 'probability', 'law of large numbers'],
   ['Johann Bernoulli', '1667-1748', 'Switzerland', 'calculus-of-variations', 'calculus of variations and differential equations'],
+  ['Brook Taylor', '1685-1731', 'England', 'calculus', 'Taylor series and finite differences'],
   ['Leonhard Euler', '1707-1783', 'Switzerland/Russia', 'analysis', 'analysis, graph theory, number theory, and notation'],
   ['Jean le Rond dAlembert', '1717-1783', 'France', 'partial-differential-equations', 'wave equation and mechanics'],
   ['Joseph-Louis Lagrange', '1736-1813', 'Italy/France', 'calculus-of-variations', 'analytical mechanics and variational methods'],
   ['Pierre-Simon Laplace', '1749-1827', 'France', 'probability', 'probability and celestial mechanics'],
   ['Sophie Germain', '1776-1831', 'France', 'number-theory', 'number theory and elasticity'],
   ['Carl Friedrich Gauss', '1777-1855', 'Germany', 'number-theory', 'number theory, geometry, statistics, and algebra'],
+  ['Bernard Bolzano', '1781-1848', 'Bohemia', 'real-analysis', 'early rigorous limit concepts and the intermediate value theorem'],
   ['Augustin-Louis Cauchy', '1789-1857', 'France', 'complex-analysis', 'rigor in analysis and complex functions'],
   ['Nikolai Lobachevsky', '1792-1856', 'Russia', 'geometry', 'non-Euclidean geometry'],
   ['Niels Henrik Abel', '1802-1829', 'Norway', 'abstract-algebra', 'elliptic functions and unsolvability of quintics'],
   ['Evariste Galois', '1811-1832', 'France', 'abstract-algebra', 'Galois theory'],
   ['George Boole', '1815-1864', 'England', 'logic', 'Boolean algebra'],
+  ['Karl Weierstrass', '1815-1897', 'Germany', 'real-analysis', 'the modern epsilon-delta definition of limit and rigorous analysis'],
+  ['George Gabriel Stokes', '1819-1903', 'Ireland/England', 'calculus', "Stokes' theorem and mathematical physics"],
   ['Arthur Cayley', '1821-1895', 'England', 'linear-algebra', 'matrices and abstract groups'],
   ['Bernhard Riemann', '1826-1866', 'Germany', 'differential-geometry', 'Riemann surfaces and geometry'],
   ['Richard Dedekind', '1831-1916', 'Germany', 'set-theory', 'real numbers and ideals'],
@@ -1198,19 +1638,33 @@ const personRows = [
   ['Richard Karp', '1935-', 'USA', 'theoretical-cs', 'NP-completeness and algorithms'],
 ] as const;
 
+// Overrides the naive "field's first topic" default below with the actual
+// topic id(s) a person is associated with, once that topic has been
+// researched. Keyed by person id (person:<slug-of-name>).
+const personTopicOverrides: Record<string, string[]> = {
+  'person:isaac-newton': ['calculus:derivatives', 'calculus:integrals', 'calculus:limits'],
+  'person:gottfried-wilhelm-leibniz': ['calculus:integrals', 'calculus:derivatives'],
+  'person:brook-taylor': ['calculus:taylor-series'],
+  'person:bernard-bolzano': ['calculus:limits'],
+  'person:karl-weierstrass': ['calculus:limits'],
+  'person:george-gabriel-stokes': ['calculus:vector-calculus'],
+  'person:augustin-louis-cauchy': ['calculus:limits', 'calculus:integrals', 'complex-analysis:cauchy-integral-theorem'],
+};
+
 export const people: Person[] = personRows.map(
   ([name, lifespan, region, fieldId, contribution]) => {
     const field = regionSeeds.find((item) => item.id === fieldId) ?? regionSeeds[0];
+    const id = `person:${slugify(name)}`;
     const firstTopic = `${field.id}:${slugify(field.topics[0])}`;
 
     return {
-      id: `person:${slugify(name)}`,
+      id,
       name,
       lifespan,
       region,
       fieldIds: [field.id],
       majorContributions: [contribution],
-      associatedTopicIds: [firstTopic],
+      associatedTopicIds: personTopicOverrides[id] ?? [firstTopic],
       notableWorkIds: [],
       historicalContext: `${name} is placed near ${field.name} because of work on ${contribution}.`,
       refs: [
@@ -1307,16 +1761,24 @@ const workRows = [
   ['Introduction to Lie Algebras and Representation Theory', 'James Humphreys', 1972, 'lie-theory', 'A compact Lie theory reference.'],
 ] as const;
 
+// Same idea as personTopicOverrides: replaces the default "field's first
+// topic" placement with the topic(s) a work actually belongs to.
+const workTopicOverrides: Record<string, string[]> = {
+  'work:cours-danalyse': ['calculus:limits', 'real-analysis:epsilon-delta-limits'],
+  'work:introductio-in-analysin-infinitorum': ['calculus:taylor-series', 'analysis:sequences-and-series'],
+};
+
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {
   const field = regionSeeds.find((item) => item.id === fieldId) ?? regionSeeds[0];
+  const id = `work:${slugify(title)}`;
   return {
-    id: `work:${slugify(title)}`,
+    id,
     title,
     authors: authors.split(' and '),
     year,
     fieldId: field.id,
     whyItMattered: why,
-    associatedTopicIds: [`${field.id}:${slugify(field.topics[0])}`],
+    associatedTopicIds: workTopicOverrides[id] ?? [`${field.id}:${slugify(field.topics[0])}`],
     citation: `${authors}. ${title}. ${year}.`,
     link: `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(title)}`,
   };
@@ -1377,16 +1839,25 @@ const appByTopic = new Map(
   applications.flatMap((app) => app.topicIds.map((topicId) => [topicId, app.name] as const)),
 );
 
+// Topics with real, researched contributorIds/workIds/applications (set via
+// topicExtras) keep them; this only fills in the generic defaults for
+// topics that haven't been researched yet.
 topics.forEach((topic) => {
-  const peopleForField = people.filter((person) => person.fieldIds.includes(topic.fieldId));
-  const worksForField = works.filter((work) => work.fieldId === topic.fieldId);
-  topic.contributorIds = peopleForField.slice(0, 4).map((person) => person.id);
-  topic.workIds = worksForField.slice(0, 3).map((work) => work.id);
-  topic.applications = appByTopic.has(topic.id)
-    ? [appByTopic.get(topic.id) as string]
-    : topic.tags.includes('applied') || topic.tags.includes('computational')
-      ? ['modeling', 'simulation', 'data analysis']
-      : ['theory building', 'proof methods', 'mathematical language'];
+  if (topic.contributorIds.length === 0) {
+    const peopleForField = people.filter((person) => person.fieldIds.includes(topic.fieldId));
+    topic.contributorIds = peopleForField.slice(0, 4).map((person) => person.id);
+  }
+  if (topic.workIds.length === 0) {
+    const worksForField = works.filter((work) => work.fieldId === topic.fieldId);
+    topic.workIds = worksForField.slice(0, 3).map((work) => work.id);
+  }
+  if (topic.applications.length === 0) {
+    topic.applications = appByTopic.has(topic.id)
+      ? [appByTopic.get(topic.id) as string]
+      : topic.tags.includes('applied') || topic.tags.includes('computational')
+        ? ['modeling', 'simulation', 'data analysis']
+        : ['theory building', 'proof methods', 'mathematical language'];
+  }
 });
 
 people.forEach((person) => {
@@ -1441,6 +1912,10 @@ const crossLinks: Array<[string, string, RelationshipType, string]> = [
   ['theoretical-cs:p-versus-np', 'cryptography:post-quantum-cryptography', 'historically-influenced', 'Hardness assumptions shape cryptography.'],
   ['proof-assistants:lean', 'foundations:proof-theory', 'applied-in', 'Proof theory becomes checked code.'],
   ['set-theory:ordinals', 'logic:incompleteness-theorems', 'related-to', 'Ordinal analysis measures proof strength.'],
+  ['calculus:limits', 'real-analysis:epsilon-delta-limits', 'generalized-by', 'Real analysis makes the epsilon-delta definition fully rigorous and general.'],
+  ['calculus:taylor-series', 'complex-analysis:holomorphic-functions', 'related-to', 'Functions equal to their Taylor series become holomorphic in the complex setting.'],
+  ['calculus:multivariable-calculus', 'optimization:gradient-descent', 'applied-in', 'Gradients drive iterative optimization.'],
+  ['calculus:vector-calculus', 'partial-differential-equations:heat-equation', 'applied-in', 'Divergence and curl formulate continuum PDE.'],
 ];
 
 export const relationships: Relationship[] = [
