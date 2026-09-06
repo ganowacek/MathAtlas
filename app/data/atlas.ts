@@ -1800,11 +1800,6 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: James Joseph Sylvester', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Sylvester/', kind: 'reference' },
     ],
   },
-  'set-theory:forcing': {
-    formal:
-      'Forcing extends a model of set theory by adding a generic filter over a partially ordered set while controlling truth in the extension.',
-    keyIdeas: ['generic extensions', 'independence proofs', 'partial orders', 'Boolean-valued models'],
-  },
   'cryptography:zero-knowledge-proofs': {
     formal:
       'A zero-knowledge proof lets a prover convince a verifier that a statement is true without revealing information beyond its truth.',
@@ -4666,6 +4661,402 @@ const topicExtras: Record<string, Partial<Topic>> = {
       { label: 'MacTutor: L. E. J. Brouwer', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Brouwer/', kind: 'reference' },
     ],
   },
+  'set-theory:naive-set-theory': {
+    overview:
+      'Naive set theory studies sets — collections of objects — using intuitive, informal reasoning about membership, union, and intersection, without the full apparatus of a formal axiom system. It is both the everyday working language of nearly all of mathematics and, in its unrestricted form, a theory containing genuine logical paradoxes.',
+    formal:
+      'A set is informally any collection of objects, and $x\\in A$ denotes that $x$ is a member of $A$. Two sets are equal iff they have the same elements (extensionality). Naive comprehension asserts that for any property $\\phi$, there is a set $\\{x:\\phi(x)\\}$ of all objects satisfying $\\phi$ — an assumption Russell\'s paradox shows is inconsistent: taking $\\phi(x)$ to be "$x\\notin x$" produces a set $R=\\{x:x\\notin x\\}$ for which $R\\in R \\iff R\\notin R$, a contradiction.',
+    keyIdeas: [
+      'sets as collections of objects, and membership as the basic relation',
+      'basic set operations: union, intersection, complement, power set, Cartesian product',
+      "Russell's paradox and the failure of unrestricted comprehension",
+      'the distinction between "naive" (informal) and "axiomatic" (formal, restricted) set theory',
+      'sets as the near-universal building material of modern mathematical objects',
+    ],
+    whyItMatters:
+      'Naive set theory is how the overwhelming majority of working mathematicians actually think and talk about sets day to day — the full ZFC axioms are rarely invoked explicitly — and understanding exactly where naive reasoning breaks down, in Russell\'s paradox, is what motivated the careful, restricted comprehension principles of axiomatic set theory.',
+    prerequisites: [],
+    related: ['set-theory:zermelo-fraenkel-axioms', 'foundations:foundational-programs', 'discrete-math:boolean-algebra'],
+    historicalContext:
+      "Georg Cantor developed set theory from the 1870s onward while studying trigonometric series and the sizes of infinite sets, introducing basic set operations and cardinality informally. Gottlob Frege attempted to found arithmetic on an unrestricted comprehension principle in his Grundgesetze der Arithmetik (1893, 1903), and Bertrand Russell's 1901 discovery of the paradox bearing his name — communicated to Frege just as the second volume of his Grundgesetze went to press — showed this naive approach was inconsistent. Paul Halmos's textbook Naive Set Theory (1960) later popularized the term itself, presenting an informal but careful treatment, deliberately avoiding heavy formal logic, that remains a standard first exposure to the subject.",
+    contributorIds: ['person:georg-cantor', 'person:bertrand-russell'],
+    workIds: ['work:naive-set-theory'],
+    exampleProblems: [
+      "State Russell's paradox precisely and explain why it shows unrestricted comprehension is inconsistent.",
+      "Use Cantor's diagonal argument to prove that the power set of a set always has strictly greater cardinality than the set itself.",
+      'Verify the distributive law $A\\cap(B\\cup C)=(A\\cap B)\\cup(A\\cap C)$ using only the definitions of union and intersection.',
+    ],
+    applications: [
+      'the everyday informal set-theoretic language used across essentially every branch of mathematics',
+      'the basic combinatorial and Boolean reasoning underlying database theory and computer science',
+      "the intuitive scaffolding on which axiomatic set theory's more careful restrictions are explained",
+    ],
+    researchDirections: [
+      'alternative and paraconsistent set theories that tolerate or restrict paradoxes differently than ZFC does',
+      'type-theoretic and category-theoretic alternatives to set-based foundations',
+      "the philosophy of mathematical practice, examining how 'naive' the working mathematician's actual use of sets really is",
+    ],
+    textbooks: [
+      {
+        title: 'Naive Set Theory',
+        authors: ['Paul R. Halmos'],
+        year: 1960,
+        why: 'The classic, famously terse and elegant text that gave the field its informal name and remains a standard first exposure.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentle, careful bridge from naive to axiomatic set theory, widely used in undergraduate courses.',
+      },
+      {
+        title: 'Introduction to Set Theory',
+        authors: ['Karel Hrbacek', 'Thomas Jech'],
+        edition: '3rd',
+        year: 1999,
+        why: 'A widely assigned text that develops naive intuitions before formalizing them axiomatically.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Russell's paradox", latex: 'R = \\{x : x \\notin x\\} \\implies R \\in R \\iff R \\notin R' },
+      { label: 'Distributive law', latex: 'A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Set theory', url: 'https://encyclopediaofmath.org/wiki/Set_theory', kind: 'encyclopedia' },
+      { label: 'MacTutor: Bertrand Russell', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Russell/', kind: 'reference' },
+      { label: 'Wikipedia: Naive set theory', url: 'https://en.wikipedia.org/wiki/Naive_set_theory', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:zermelo-fraenkel-axioms': {
+    overview:
+      'The Zermelo-Fraenkel axioms are the standard formal rules governing what counts as a legitimate set, carefully restricting the naive comprehension principle that led to Russell\'s paradox while remaining rich enough to construct essentially all of ordinary mathematics.',
+    formal:
+      'ZFC consists of axioms including Extensionality, Pairing, Union, Power Set, Infinity (there exists an inductive set), Foundation (no set contains itself, directly or via an infinite descending membership chain), Replacement (the image of a set under a definable function is a set), and Choice (every family of nonempty sets has a choice function). Separation, a restricted form of comprehension, allows forming $\\{x\\in A:\\phi(x)\\}$ for any set $A$ and formula $\\phi$, but not $\\{x:\\phi(x)\\}$ unrestricted — precisely what blocks Russell\'s paradox.',
+    keyIdeas: [
+      'restricted (Separation/Replacement) comprehension in place of naive unrestricted comprehension',
+      'the cumulative hierarchy: sets built up in stages indexed by ordinals, $V_0, V_1, \\ldots, V_\\omega, \\ldots$',
+      "the Axiom of Choice and its many equivalent forms (well-ordering, Zorn's lemma)",
+      'the Axiom of Foundation, ruling out sets that are members of themselves',
+      'ZFC as the de facto standard foundation for essentially all of modern mathematics',
+    ],
+    whyItMatters:
+      'ZFC gives a single, precise, and — as far as anyone has ever found — consistent rulebook for what counts as a set, strong enough that every ordinary mathematical object (numbers, functions, spaces, groups) can be built from it, which is why "is this provable in ZFC?" functions as mathematics\'s default standard of rigor.',
+    prerequisites: ['set-theory:naive-set-theory'],
+    related: ['foundations:foundational-programs', 'set-theory:cardinals', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "Ernst Zermelo published the first axiomatization of set theory in 1908, explicitly designed to block Russell's paradox and other contradictions while still supporting Cantor's theory of transfinite numbers and his own 1904 well-ordering proof, which relied on the Axiom of Choice. Zermelo's original axioms lacked the strength to prove certain sets exist that mathematicians needed; Abraham Fraenkel (1922) and independently Thoralf Skolem (1922) proposed the Axiom of Replacement to repair this, and Zermelo added Foundation in 1930, giving the system its modern ZFC form. The axioms became the near-universal standard foundation by the 1960s.",
+    contributorIds: ['person:ernst-zermelo', 'person:abraham-fraenkel'],
+    workIds: [],
+    exampleProblems: [
+      "Show how the ordered pair $(a,b)$ can be defined purely set-theoretically as $\\{\\{a\\},\\{a,b\\}\\}$ (Kuratowski's definition), and verify $(a,b)=(c,d)$ iff $a=c$ and $b=d$.",
+      'Explain why the Axiom of Replacement is needed to prove that $\\{\\aleph_0, \\aleph_1, \\aleph_2, \\ldots\\}$, indexed over all natural numbers, is a set.',
+      "State Zorn's Lemma and explain, informally, why it is equivalent to the Axiom of Choice.",
+    ],
+    applications: [
+      'providing the formal foundation in which essentially all published mathematics can, in principle, be formalized',
+      'proof assistants, which must choose a precise foundational system (often a ZFC-like set theory or a type theory)',
+      'independence and consistency results in mathematical logic, always stated relative to a specific axiom system like ZFC',
+    ],
+    researchDirections: [
+      "large cardinal axioms, extending ZFC with hypotheses about very large infinities to settle questions ZFC itself cannot decide",
+      'alternative set theories (New Foundations, ZF without choice) and their relative consistency',
+      'the search for new, well-motivated axioms to resolve questions independent of ZFC, such as the continuum hypothesis',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The standard comprehensive graduate reference, covering the axioms through forcing and large cardinals.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A widely used modern graduate text, praised for its clear exposition of the axioms and their consequences.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentler, careful introduction to the ZFC axioms suitable before tackling Jech or Kunen.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Axiom of Extensionality', latex: '\\forall z\\,(z\\in x \\leftrightarrow z\\in y) \\implies x=y' },
+      { label: 'Axiom of Choice', latex: '\\forall \\mathcal{F}\\ (\\emptyset\\notin\\mathcal{F}) \\implies \\exists f:\\mathcal{F}\\to\\bigcup\\mathcal{F},\\ f(A)\\in A' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: ZFC', url: 'https://encyclopediaofmath.org/wiki/ZFC', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Zermelo', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Zermelo/', kind: 'reference' },
+      { label: 'MacTutor: Abraham Fraenkel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Fraenkel/', kind: 'reference' },
+    ],
+  },
+  'set-theory:cardinals': {
+    overview:
+      'A cardinal number measures the "size" of a set in a way that extends naturally to infinite sets, and Cantor\'s discovery that some infinities are strictly larger than others — that there is no bijection between the natural numbers and the real numbers — was one of the most startling and consequential discoveries in the history of mathematics.',
+    formal:
+      "Two sets $A,B$ have the same cardinality, $|A|=|B|$, if there is a bijection between them. Cantor's theorem: for any set $A$, $|A|<|\\mathcal{P}(A)|$, so there is an infinite hierarchy of ever-larger infinite cardinals $\\aleph_0<\\aleph_1<\\aleph_2<\\cdots$. Cardinal arithmetic extends addition, multiplication, and exponentiation to infinite cardinals but behaves very differently from finite arithmetic: for infinite cardinals $\\kappa,\\lambda$ with at least one infinite, $\\kappa+\\lambda=\\kappa\\cdot\\lambda=\\max(\\kappa,\\lambda)$.",
+    keyIdeas: [
+      'cardinality via bijection: two sets are the "same size" iff a bijection exists between them',
+      "Cantor's theorem: the power set of any set is strictly larger than the set itself",
+      "the countable/uncountable distinction, and the uncountability of the real numbers via Cantor's diagonal argument",
+      'the aleph hierarchy of infinite cardinals, indexed by the ordinals',
+      "cardinal arithmetic's striking departure from finite arithmetic",
+    ],
+    whyItMatters:
+      "Cantor's discovery that infinite sets come in genuinely different sizes — that infinity is not a single undifferentiated concept but an entire hierarchy — transformed set theory from a tool for organizing collections into a subject with its own deep structure and open problems, chief among them the continuum hypothesis about exactly where the cardinality of the real numbers sits in the aleph hierarchy.",
+    prerequisites: ['set-theory:zermelo-fraenkel-axioms'],
+    related: ['set-theory:ordinals', 'set-theory:continuum-hypothesis', 'foundations:recursion-theory'],
+    historicalContext:
+      "Georg Cantor proved in 1874 that the real numbers are uncountable, not in bijection with the naturals, and in 1891 gave the elegant diagonal argument now used to prove this and the more general Cantor's theorem. Cantor introduced the aleph notation for infinite cardinals and developed cardinal arithmetic through the 1880s-90s, facing significant resistance from contemporaries including Leopold Kronecker, who rejected the entire notion of completed infinities. Felix Hausdorff's early 20th-century work systematized cardinal and ordinal arithmetic into the form used today, including the generalized continuum hypothesis's role in simplifying cardinal exponentiation.",
+    contributorIds: ['person:georg-cantor', 'person:felix-hausdorff'],
+    workIds: ['work:beitrage-zur-begrundung-der-transfiniten-mengenlehre'],
+    exampleProblems: [
+      'Prove that the set of rational numbers is countable by exhibiting an explicit bijection with the natural numbers.',
+      "Use Cantor's diagonal argument to prove that the real numbers are uncountable.",
+      'Show that $|\\mathbb{R}|=|\\mathbb{R}^2|$ by constructing an explicit bijection, or using the cardinal arithmetic identity $\\mathfrak{c}\\cdot\\mathfrak{c}=\\mathfrak{c}$.',
+    ],
+    applications: [
+      'computability theory, where the countability of programs but uncountability of functions immediately implies uncomputable functions exist',
+      'measure theory, where cardinality distinctions underlie the existence of non-measurable sets',
+      "computer science's distinction between countable data (integers, finite programs) and uncountable spaces (real-valued signals)",
+    ],
+    researchDirections: [
+      'large cardinal axioms positing cardinals with special reflection or combinatorial properties, calibrating the strength of set-theoretic statements',
+      'cardinal characteristics of the continuum, studying cardinals strictly between $\\aleph_0$ and the continuum',
+      'the study of cardinal arithmetic under various additional axioms, such as the failure of CH',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'Gives the definitive modern treatment of cardinal arithmetic, including large cardinals and cardinal characteristics.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A clear, widely used graduate development of cardinal numbers and their arithmetic.',
+      },
+      {
+        title: 'Naive Set Theory',
+        authors: ['Paul R. Halmos'],
+        year: 1960,
+        why: 'The classic gentle introduction to cardinality and Cantor\'s theorem before the full axiomatic machinery.',
+      },
+    ],
+    keyFormulas: [
+      { label: "Cantor's theorem", latex: '|A| < |\\mathcal{P}(A)|' },
+      { label: 'Infinite cardinal arithmetic', latex: '\\kappa + \\lambda = \\kappa \\cdot \\lambda = \\max(\\kappa,\\lambda) \\quad (\\kappa \\text{ or } \\lambda \\text{ infinite})' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Cardinal number', url: 'https://encyclopediaofmath.org/wiki/Cardinal_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Felix Hausdorff', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Hausdorff/', kind: 'reference' },
+      { label: 'Wikipedia: Cardinal number', url: 'https://en.wikipedia.org/wiki/Cardinal_number', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:ordinals': {
+    overview:
+      'An ordinal number extends the idea of "position in a sequence" into the infinite, giving a precise way to count past every natural number and organize transfinite induction and recursion — proof and definition techniques that reach far beyond finite mathematics.',
+    formal:
+      'An ordinal is, in the von Neumann definition, a transitive set well-ordered by membership; the first infinite ordinal is $\\omega=\\{0,1,2,\\ldots\\}$, followed by $\\omega+1,\\omega+2,\\ldots,\\omega\\cdot 2,\\ldots,\\omega^2,\\ldots,\\omega^\\omega,\\ldots$. Every well-ordered set is order-isomorphic to a unique ordinal. Transfinite induction generalizes ordinary induction: to prove a property holds for all ordinals, it suffices to prove it for $0$, show it passes from $\\alpha$ to $\\alpha+1$, and show it holds at every limit ordinal given it holds for all smaller ordinals.',
+    keyIdeas: [
+      'ordinals as canonical representatives of well-ordered sets',
+      'successor ordinals versus limit ordinals',
+      'ordinal arithmetic (addition, multiplication, exponentiation), which is not commutative',
+      'transfinite induction and recursion as generalizations of ordinary induction past $\\omega$',
+      'the distinction between ordinal and cardinal numbers, which coincide for finite numbers but diverge sharply for infinite ones',
+    ],
+    whyItMatters:
+      "Transfinite induction and recursion, made rigorous by the theory of ordinals, are indispensable proof techniques throughout set theory, topology, and logic — Zermelo's well-ordering theorem shows, using the Axiom of Choice, that every set, including the real numbers, can in principle be well-ordered and hence indexed by ordinals, even though no explicit well-ordering of the reals can ever be written down.",
+    prerequisites: ['set-theory:cardinals'],
+    related: ['foundations:proof-theory', 'foundations:recursion-theory', 'set-theory:continuum-hypothesis'],
+    historicalContext:
+      "Georg Cantor introduced ordinal numbers in 1883 while extending his work on the convergence of trigonometric series, needing to iterate a 'derived set' operation transfinitely many times. Cantor developed ordinal arithmetic and the basic theory of well-ordering through the 1880s-90s, and Ernst Zermelo's 1904 proof of the well-ordering theorem tied ordinals inextricably to the foundational debates over the Axiom of Choice that shaped early 20th-century set theory. John von Neumann's 1923 definition of ordinals as specific transitive sets, rather than abstract order types, gave the now-standard set-theoretic construction.",
+    contributorIds: ['person:georg-cantor', 'person:ernst-zermelo'],
+    workIds: [],
+    exampleProblems: [
+      'List the first several ordinals after $\\omega$ (namely $\\omega, \\omega+1, \\ldots, \\omega\\cdot 2, \\ldots, \\omega^2$) and explain the difference between a successor and a limit ordinal.',
+      'Use transfinite induction to prove that every ordinal is a set of smaller ordinals.',
+      'Explain why ordinal addition is not commutative by showing $1+\\omega \\neq \\omega+1$.',
+    ],
+    applications: [
+      'transfinite recursion used to define ordinal-indexed hierarchies throughout set theory, such as the cumulative hierarchy $V_\\alpha$',
+      'ordinal analysis in proof theory, measuring the strength of formal theories by the ordinals needed to prove their consistency',
+      'well-founded recursion in computer science and programming language semantics, a finite analogue of transfinite recursion',
+    ],
+    researchDirections: [
+      'ordinal analysis of increasingly strong theories in proof theory',
+      'large countable ordinals and their notations, relevant to computability and proof-theoretic strength',
+      'the combinatorics of large ordinals and cardinals in advanced set theory',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The standard reference for ordinal arithmetic and transfinite recursion at the graduate level.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A clear, widely used treatment of ordinals as the backbone of the cumulative hierarchy.',
+      },
+      {
+        title: 'Elements of Set Theory',
+        authors: ['Herbert B. Enderton'],
+        year: 1977,
+        why: 'A gentler introduction to ordinal numbers and transfinite induction for a first course.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Von Neumann ordinal', latex: '\\alpha = \\{\\beta : \\beta < \\alpha\\}' },
+      { label: 'Ordinal non-commutativity', latex: '1 + \\omega = \\omega \\neq \\omega + 1' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Ordinal number', url: 'https://encyclopediaofmath.org/wiki/Ordinal_number', kind: 'encyclopedia' },
+      { label: 'MacTutor: Ernst Zermelo', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Zermelo/', kind: 'reference' },
+      { label: 'Wikipedia: Ordinal number', url: 'https://en.wikipedia.org/wiki/Ordinal_number', kind: 'encyclopedia' },
+    ],
+  },
+  'set-theory:continuum-hypothesis': {
+    overview:
+      'The continuum hypothesis asks whether there is a set whose size is strictly between that of the natural numbers and that of the real numbers. Its resolution — that the question is formally undecidable from the standard axioms of set theory — revealed fundamental limits on what any fixed axiom system can settle.',
+    formal:
+      "The Continuum Hypothesis (CH) states $2^{\\aleph_0}=\\aleph_1$, i.e. there is no set with cardinality strictly between that of $\\mathbb{N}$ and that of $\\mathbb{R}$. Kurt Gödel (1938-40) showed CH cannot be disproved from ZFC, since it holds in the constructible universe $L$, and Paul Cohen (1963) showed CH cannot be proved from ZFC either, using forcing to build a model where it fails. CH is thus independent of ZFC: both ZFC + CH and ZFC + $\\neg$CH are consistent, assuming ZFC itself is.",
+    keyIdeas: [
+      'the continuum hypothesis as a precise question about where $|\\mathbb{R}|$ sits in the aleph hierarchy',
+      "Gödel's constructible universe L, showing CH cannot be disproved from ZFC",
+      "Cohen's forcing technique, showing CH cannot be proved from ZFC either",
+      'independence: a well-posed mathematical question with no answer derivable from the standard axioms',
+      'the ongoing search for new axioms, such as large cardinals or forcing axioms, that might settle CH in a well-motivated way',
+    ],
+    whyItMatters:
+      'The continuum hypothesis was the first of Hilbert\'s 23 famous problems (1900), and its resolution — proving the question itself is undecidable in ZFC — is one of the most philosophically striking results in mathematics, showing that even a question as basic as how many real numbers there are, relative to other infinities, can fall permanently outside what a fixed, reasonable axiom system can decide.',
+    prerequisites: ['set-theory:ordinals'],
+    related: ['set-theory:forcing', 'foundations:foundational-programs', 'logic:incompleteness-theorems'],
+    historicalContext:
+      "Georg Cantor conjectured the continuum hypothesis in 1878 shortly after developing cardinal arithmetic, and spent years unsuccessfully trying to prove it. David Hilbert placed it first on his 1900 list of 23 open problems, cementing its status as a central foundational question. Kurt Gödel proved in 1938-40 that CH is consistent with ZFC by constructing the constructible universe $L$, a minimal model of set theory in which CH holds, and Paul Cohen completed the independence result in 1963 by inventing the forcing technique to construct models of ZFC in which CH fails — work for which Cohen received the Fields Medal in 1966, one of only a few ever awarded for work in logic.",
+    contributorIds: ['person:georg-cantor', 'person:kurt-godel', 'person:paul-cohen'],
+    workIds: [],
+    exampleProblems: [
+      'State the continuum hypothesis precisely, and explain what it would mean for it to be false.',
+      'Explain what it means for CH to be "independent" of ZFC, and why this differs from CH simply being unknown.',
+      "Describe, at a high level, the difference in strategy between Gödel's consistency proof via $L$ and Cohen's independence proof via forcing.",
+    ],
+    applications: [
+      "illustrating the general phenomenon of independence in mathematics, now known to affect many other natural questions (e.g. Whitehead's problem in group theory)",
+      'motivating the search for new set-theoretic axioms with well-understood consequences',
+      'a standard touchstone in the philosophy of mathematics for discussions of mathematical realism versus formalism',
+    ],
+    researchDirections: [
+      "forcing axioms (Martin's Axiom, the Proper Forcing Axiom) and their potential to settle CH-adjacent questions in a principled way",
+      'the search for "true" axioms beyond ZFC, via inner model theory or large cardinals, that might resolve CH',
+      'cardinal characteristics of the continuum, studying cardinals that can consistently sit strictly between $\\aleph_0$ and $2^{\\aleph_0}$',
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory and the Continuum Hypothesis',
+        authors: ['Paul J. Cohen'],
+        year: 1966,
+        why: 'The primary, classic source, written by the mathematician who proved the independence result, still in print via Dover.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'Gives the modern, complete treatment of both Gödel\'s and Cohen\'s results within the broader theory.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'A widely used graduate text with a particularly clear presentation of the independence of CH.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Continuum Hypothesis', latex: '2^{\\aleph_0} = \\aleph_1' },
+      { label: 'Generalized Continuum Hypothesis', latex: '2^{\\aleph_\\alpha} = \\aleph_{\\alpha+1} \\ \\text{for all ordinals } \\alpha' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Continuum hypothesis', url: 'https://encyclopediaofmath.org/wiki/Continuum_hypothesis', kind: 'encyclopedia' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+      { label: 'MacTutor: Paul Cohen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cohen/', kind: 'reference' },
+    ],
+  },
+  'set-theory:forcing': {
+    overview:
+      'Forcing is a technique for building new models of set theory from old ones by adjoining a carefully chosen "generic" object, giving mathematicians precise control over which statements hold in the resulting model. It is the primary tool for proving that a mathematical statement cannot be proved, or disproved, from the standard axioms.',
+    formal:
+      'Given a model $M$ of ZFC and a partially ordered set $\\mathbb{P}\\in M$ of "conditions," a filter $G\\subseteq\\mathbb{P}$ is generic over $M$ if it meets every dense subset of $\\mathbb{P}$ that lies in $M$. The forcing extension $M[G]$ is a new model of ZFC containing $M$ and $G$, and the forcing relation $p\\Vdash\\varphi$ determines exactly which statements $\\varphi$ will hold in $M[G]$, computed purely from combinatorial facts about $\\mathbb{P}$ inside $M$, without ever constructing $M[G]$ directly.',
+    keyIdeas: [
+      'building new models of set theory by adjoining a generic filter to an old one',
+      'partial orders as "forcing notions" encoding partial information about the object being added',
+      'the forcing relation, letting truth in the extension be computed inside the ground model',
+      'genericity as meeting every dense set, guaranteeing the added object avoids every "bad" property definable in the ground model',
+      'forcing as the primary technique for proving independence results in set theory',
+    ],
+    whyItMatters:
+      "Forcing gave mathematicians a completely general, flexible method for proving independence results: rather than needing a bespoke argument for each new undecidable statement, forcing provides a systematic recipe — choose a forcing notion engineered to make the desired statement true or false in the extension, and the machinery guarantees the extension really is a model of ZFC.",
+    prerequisites: ['set-theory:continuum-hypothesis'],
+    related: ['foundations:model-theory', 'logic:incompleteness-theorems', 'category-theory:topos-theory'],
+    historicalContext:
+      "Paul Cohen invented forcing in 1963 specifically to prove the independence of the continuum hypothesis and the independence of the Axiom of Choice from ZF, resolving Hilbert's first problem and immediately becoming the dominant technique in set theory. The method was rapidly reformulated in more algebraic terms via Boolean-valued models by Dana Scott and Robert Solovay shortly afterward, making it more tractable for many set theorists, and Cohen's original method has since been extended into elaborate iterated and proper forcing techniques, developed by Solovay, Saharon Shelah, and others, capable of proving the independence of hundreds of set-theoretic statements.",
+    contributorIds: ['person:paul-cohen', 'person:kurt-godel'],
+    workIds: [],
+    exampleProblems: [
+      'Explain, at a conceptual level, what it means for a filter $G$ to be generic over a model $M$, and why genericity guarantees $G$ is not already in $M$.',
+      'Describe, in outline, how Cohen forcing (adding a single generic real number) can be used to make the continuum hypothesis false in the extension.',
+      'Explain why the forcing relation being definable inside the ground model $M$ is what makes forcing a rigorous technique rather than a heuristic.',
+    ],
+    applications: [
+      'proving the independence of essentially every major open question in set theory not resolved by ZFC',
+      'constructing models with tailored properties for testing conjectures in set-theoretic topology and measure theory',
+      'category-theoretic generalizations of forcing (sheaf-theoretic and topos-theoretic models) connecting set theory to logic and topology',
+    ],
+    researchDirections: [
+      'iterated and proper forcing techniques for controlling infinitely many forcing steps without collapsing cardinals',
+      "inner model theory, seeking canonical models generalizing Gödel's L for theories with large cardinals",
+      "forcing axioms (Martin's Axiom, PFA, Martin's Maximum) that settle many independent statements at once in a principled way",
+    ],
+    textbooks: [
+      {
+        title: 'Set Theory',
+        authors: ['Kenneth Kunen'],
+        year: 2011,
+        why: 'Widely regarded as having the clearest modern introduction to forcing for graduate students.',
+      },
+      {
+        title: 'Set Theory',
+        authors: ['Thomas Jech'],
+        edition: '3rd',
+        year: 2003,
+        why: 'The comprehensive reference covering forcing through to iterated forcing and large cardinals.',
+      },
+      {
+        title: "A Beginner's Guide to Forcing",
+        authors: ['Timothy Y. Chow'],
+        year: 2009,
+        why: 'A well-regarded informal survey that bridges the intuition and the technical machinery of forcing.',
+      },
+    ],
+    keyFormulas: [
+      { label: 'Forcing relation', latex: 'p \\Vdash \\varphi' },
+      { label: 'Generic extension', latex: 'M[G] \\supseteq M,\\quad G \\text{ generic over } M' },
+    ],
+    externalRefs: [
+      { label: 'Encyclopedia of Mathematics: Forcing method', url: 'https://encyclopediaofmath.org/wiki/Forcing_method', kind: 'encyclopedia' },
+      { label: 'MacTutor: Paul Cohen', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Cohen/', kind: 'reference' },
+      { label: 'MacTutor: Kurt Gödel', url: 'https://mathshistory.st-andrews.ac.uk/Biographies/Godel/', kind: 'reference' },
+    ],
+  },
 };
 
 const topicUrl = (topicName: string): ExternalRef[] => [
@@ -4910,6 +5301,9 @@ const personRows = [
   ['Arend Heyting', '1898-1980', 'Netherlands', 'logic', 'the formal axiomatization of intuitionistic logic'],
   ['C. I. Lewis', '1883-1964', 'USA', 'logic', 'the first modern systems of modal logic'],
   ['Saul Kripke', '1940-2022', 'USA', 'logic', 'possible-worlds semantics for modal logic'],
+  ['Ernst Zermelo', '1871-1953', 'Germany', 'set-theory', 'the first axiomatization of set theory and the well-ordering theorem'],
+  ['Abraham Fraenkel', '1891-1965', 'Germany/Israel', 'set-theory', 'the axiom of replacement completing ZFC'],
+  ['Paul Cohen', '1934-2007', 'USA', 'set-theory', 'the forcing method and the independence of the continuum hypothesis'],
 ] as const;
 
 // Overrides the naive "field's first topic" default below with the actual
@@ -4963,7 +5357,14 @@ const personTopicOverrides: Record<string, string[]> = {
     'differential-geometry:riemannian-metrics',
     'topology:manifolds',
   ],
-  'person:georg-cantor': ['set-theory:naive-set-theory', 'analysis:metric-spaces', 'topology:point-set-topology'],
+  'person:georg-cantor': [
+    'set-theory:naive-set-theory',
+    'set-theory:cardinals',
+    'set-theory:ordinals',
+    'set-theory:continuum-hypothesis',
+    'analysis:metric-spaces',
+    'topology:point-set-topology',
+  ],
   'person:michel-rolle': ['analysis:differentiation'],
   'person:thomas-joannes-stieltjes': ['analysis:integration'],
   'person:maurice-frechet': ['analysis:metric-spaces', 'analysis:continuity', 'topology:point-set-topology'],
@@ -4994,7 +5395,7 @@ const personTopicOverrides: Record<string, string[]> = {
   'person:pafnuty-chebyshev': ['probability:random-variables', 'probability:expectation'],
   'person:abraham-de-moivre': ['probability:central-limit-theorem'],
   'person:andrei-markov': ['probability:markov-chains'],
-  'person:felix-hausdorff': ['topology:point-set-topology'],
+  'person:felix-hausdorff': ['topology:point-set-topology', 'set-theory:cardinals'],
   'person:henri-poincare': ['topology:homotopy', 'topology:homology', 'topology:manifolds'],
   'person:l-e-j-brouwer': [
     'foundations:constructive-mathematics',
@@ -5017,18 +5418,23 @@ const personTopicOverrides: Record<string, string[]> = {
     'logic:incompleteness-theorems',
     'foundations:proof-theory',
     'foundations:model-theory',
+    'set-theory:continuum-hypothesis',
+    'set-theory:forcing',
   ],
   'person:alan-turing': ['computation:algorithms', 'foundations:recursion-theory'],
   'person:alonzo-church': ['computation:lambda-calculus', 'foundations:recursion-theory'],
   'person:stephen-kleene': ['foundations:recursion-theory'],
   'person:gerhard-gentzen': ['foundations:proof-theory', 'logic:incompleteness-theorems'],
   'person:alfred-tarski': ['foundations:model-theory'],
-  'person:bertrand-russell': ['foundations:foundational-programs'],
+  'person:bertrand-russell': ['foundations:foundational-programs', 'set-theory:naive-set-theory'],
   'person:errett-bishop': ['foundations:constructive-mathematics'],
   'person:gottlob-frege': ['logic:propositional-logic', 'logic:predicate-logic'],
   'person:arend-heyting': ['logic:intuitionistic-logic'],
   'person:c-i-lewis': ['logic:modal-logic'],
   'person:saul-kripke': ['logic:modal-logic'],
+  'person:ernst-zermelo': ['set-theory:zermelo-fraenkel-axioms', 'set-theory:ordinals'],
+  'person:abraham-fraenkel': ['set-theory:zermelo-fraenkel-axioms'],
+  'person:paul-cohen': ['set-theory:continuum-hypothesis', 'set-theory:forcing'],
 };
 
 export const people: Person[] = personRows.map(
@@ -5181,6 +5587,7 @@ const workTopicOverrides: Record<string, string[]> = {
   'work:uber-formal-unentscheidbare-satze': ['logic:incompleteness-theorems'],
   'work:on-computable-numbers': ['computation:computability', 'foundations:recursion-theory'],
   'work:model-theory': ['foundations:model-theory'],
+  'work:beitrage-zur-begrundung-der-transfiniten-mengenlehre': ['set-theory:cardinals'],
 };
 
 export const works: Work[] = workRows.map(([title, authors, year, fieldId, why]) => {

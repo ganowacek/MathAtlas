@@ -27,7 +27,7 @@ Next: work through the remaining 40 fields in any reasonable order.
 
 - [x] foundations
 - [x] logic
-- [ ] set-theory
+- [x] set-theory
 - [ ] category-theory
 - [ ] abstract-algebra
 - [ ] commutative-algebra
